@@ -9,7 +9,7 @@
 import GameplayKit
 import SpriteKit
 
-class LifeScene: SKScene, SKPhysicsContactDelegate {
+class LifeScene: SKScene {
 
     private var cameraNode: SKCameraNode = SKCameraNode()
 
@@ -17,14 +17,10 @@ class LifeScene: SKScene, SKPhysicsContactDelegate {
         size.width = frame.size.width * 2
         size.height = frame.size.height * 2
         backgroundColor = SKColor.white
-
-        physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
-//        physicsBody?.categoryBitMask = CollisionTypes.edge.rawValue
-        physicsBody?.friction = 0
     }
 
     override func didMove(to _: SKView) {
-        physicsWorld.contactDelegate = self
+
     }
 
     override func update(_ currentTime: TimeInterval) {

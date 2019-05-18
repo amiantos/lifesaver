@@ -19,12 +19,10 @@ class ViewController: NSViewController {
 
         let scene = LifeScene(size: view.bounds.size)
 
-        // Present the scene
         let skView = view as? SKView
         skView?.presentScene(scene)
 
         skView?.ignoresSiblingOrder = true
-
         skView?.showsDrawCount = true
         skView?.showsFPS = true
         skView?.showsNodeCount = true
