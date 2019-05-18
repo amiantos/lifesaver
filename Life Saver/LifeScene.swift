@@ -94,7 +94,7 @@ class LifeScene: SKScene {
 
     override func update(_ currentTime: TimeInterval) {
         if lastUpdate == 0 { lastUpdate = currentTime }
-        if currentTime - lastUpdate >= 0 {
+        if currentTime - lastUpdate >= 1 {
             var dyingNodes: [SquareNodeData] = []
             var livingNodes: [SquareNodeData] = []
             for nodeData in squareData {
@@ -102,15 +102,17 @@ class LifeScene: SKScene {
 
                 // Get neighbors...
                 let livingNeighbors = squareData.filter {
-                    (($0.x == (nodeData.x + 1) && $0.y == (nodeData.y + 1))
-                    || ($0.x == (nodeData.x - 1) && $0.y == (nodeData.y - 1))
-                    || ($0.x == (nodeData.x + 1) && $0.y == (nodeData.y - 1))
-                    || ($0.x == (nodeData.x - 1) && $0.y == (nodeData.y + 1))
-                    || ($0.x == (nodeData.x) && $0.y == (nodeData.y + 1))
-                    || ($0.x == (nodeData.x) && $0.y == (nodeData.y - 1))
-                    || ($0.x == (nodeData.x - 1) && $0.y == (nodeData.y))
-                    || ($0.x == (nodeData.x + 1) && $0.y == (nodeData.y)))
-                    && $0.alive
+                    let delta = (abs(nodeData.x - $0.x), abs(nodeData.y - $0.y))
+                    switch (delta) {
+                    case (1,1), (1,0), (0,1):
+                        if $0.alive {
+                            return true
+                        } else {
+                            return false
+                        }
+                    default:
+                        return false
+                    }
                 }
 
                 if nodeData.alive {
@@ -118,10 +120,6 @@ class LifeScene: SKScene {
                         dyingNodes.append(nodeData)
                     }
                 } else if livingNeighbors.count == 3 {
-                    livingNodes.append(nodeData)
-                }  else if GKRandomSource.sharedRandom().nextInt(upperBound: 1000) == 0 {
-                    livingNodes.append(nodeData)
-                } else if livingNodes.count < 10 && dyingNodes.count > squareData.count / 2 {
                     livingNodes.append(nodeData)
                 }
 
