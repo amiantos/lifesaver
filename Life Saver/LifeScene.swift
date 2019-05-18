@@ -15,10 +15,6 @@ extension SKColor {
     static let aliveColor2 = SKColor(red: 172/255.0, green: 48/255.0, blue: 17/255.0, alpha: 1.00)
     static let aliveColor3 = SKColor(red: 6/255.0, green: 66/255.0, blue: 110/255.0, alpha: 1.00)
 
-    static let deadColor0 = SKColor(red: 128/255.0, green: 73/255.0, blue: 14/255.0, alpha: 1.00)
-    static let deadColor1 = SKColor(red: 79/255.0, green: 45/255.0, blue: 6/255.0, alpha: 1.00)
-    static let deadColor2 = SKColor(red: 39/255.0, green: 23/255.0, blue: 3/255.0, alpha: 1.00)
-    static let deadColor3 = SKColor(red: 14/255.0, green: 8/255.0, blue: 0/255.0, alpha: 1.00)
 }
 
 class SquareNodeData {
@@ -158,7 +154,7 @@ class LifeScene: SKScene {
 
             }
 
-            while CGFloat(livingNodes.count) < (CGFloat(squareData.count) * 0.05) {
+            while CGFloat(livingNodes.count) < (CGFloat(squareData.count) * 0.08) {
                 let nodeNumber = GKRandomSource.sharedRandom().nextInt(upperBound: dyingNodes.count)
                 let node = dyingNodes[nodeNumber]
                 node.aliveColor = aliveColors.randomElement()!
