@@ -9,6 +9,10 @@
 import GameplayKit
 import SpriteKit
 
+extension SKColor {
+    static let aliveColor = SKColor(red: 173/255.0, green: 98/255.0, blue: 22/255.0, alpha: 1.00)
+}
+
 class SquareNodeData {
     let x: Int
     let y: Int
@@ -66,7 +70,7 @@ class LifeScene: SKScene {
             let livingChoices = [true, false]
             let newSquareData = SquareNodeData(x: nextXValue, y: nextYValue, node: newSquare, alive: livingChoices.randomElement()!)
             if newSquareData.alive {
-                newSquare.fillColor = SKColor(red: 173/255.0, green: 98/255.0, blue: 22/255.0, alpha: 1.00)
+                newSquare.fillColor = .aliveColor
             }
             squareData.append(newSquareData)
 //            labelNode.text = "(\(newSquareData.x), \(newSquareData.y))"
@@ -95,25 +99,6 @@ class LifeScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         if lastUpdate == 0 { lastUpdate = currentTime }
         if currentTime - lastUpdate >= 0.5 {
-            let colors: [SKColor] = [
-                SKColor(red: 173/255.0, green: 98/255.0, blue: 22/255.0, alpha: 1.00),
-                SKColor(red: 172/255.0, green: 48/255.0, blue: 17/255.0, alpha: 1.00),
-                SKColor(red: 174/255.0, green: 129/255.0, blue: 0/255.0, alpha: 1.00),
-                SKColor(red: 80/255.0, green: 22/255.0, blue: 0/255.0, alpha: 1.00),
-                SKColor(red: 80/255.0, green: 58/255.0, blue: 7/255.0, alpha: 1.00),
-                SKColor(red: 79/255.0, green: 45/255.0, blue: 6/255.0, alpha: 1.00),
-                SKColor(red: 128/255.0, green: 95/255.0, blue: 17/255.0, alpha: 1.00),
-                SKColor(red: 129/255.0, green: 35/255.0, blue: 0/255.0, alpha: 1.00),
-                SKColor(red: 128/255.0, green: 73/255.0, blue: 14/255.0, alpha: 1.00),
-            ]
-
-//            for _ in 0..<squareNodes.count / 10 {
-//                let node = squareNodes.randomElement()!
-//                let color = colors.randomElement() ?? .black
-//                node.fillColor = color
-////                node.strokeColor = color
-//            }
-
             for nodeData in squareData {
                 print("Current Node: (\(nodeData.x), \(nodeData.y))")
 
@@ -131,9 +116,7 @@ class LifeScene: SKScene {
                 }
 
                 if nodeData.alive {
-                    if livingNeighbors.count > 3 {
-                        nodeData.alive = false
-                    } else if livingNeighbors.count < 2 {
+                    if livingNeighbors.count > 3 || livingNeighbors.count < 2 {
                         nodeData.alive = false
                     }
                 } else if livingNeighbors.count == 3 {
@@ -141,9 +124,11 @@ class LifeScene: SKScene {
                 }
 
                 if nodeData.alive {
-                    nodeData.node.fillColor = SKColor(red: 173/255.0, green: 98/255.0, blue: 22/255.0, alpha: 1.00)
+                    nodeData.node.fillColor = .aliveColor
+                    nodeData.node.strokeColor = .aliveColor
                 } else {
                     nodeData.node.fillColor = .black
+                    nodeData.node.strokeColor = .black
                 }
             }
 
