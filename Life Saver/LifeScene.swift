@@ -45,10 +45,12 @@ class LifeScene: SKScene {
     private var lastUpdate: TimeInterval = 0
 
     private var squareData: [SquareNodeData] = []
+    private var aliveSquareData: [SquareNodeData] = []
+    private var deadSquareData: [SquareNodeData] = []
 
     private var aliveColors: [SKColor] = [.aliveColor, .aliveColor1, .aliveColor2, .aliveColor3]
 
-    private var updateTime: TimeInterval = 5
+    private var updateTime: TimeInterval = 1
 
     override func sceneDidLoad() {
         size.width = frame.size.width * 2
@@ -60,8 +62,8 @@ class LifeScene: SKScene {
         camera = cameraNode
 
         // Try drawing some squares...
-        let lengthSquares: CGFloat = 25
-        let heightSquares: CGFloat = 25
+        let lengthSquares: CGFloat = 15
+        let heightSquares: CGFloat = 15
         let totalSquares: CGFloat = lengthSquares * heightSquares
         let squareWidth: CGFloat = size.width / lengthSquares
         let squareHeight: CGFloat = size.height / heightSquares
@@ -95,6 +97,10 @@ class LifeScene: SKScene {
                 colorAction.timingMode = .easeInEaseOut
                 newSquareData.node.run(fadeAction)
                 newSquareData.node.run(colorAction)
+
+                aliveSquareData.append(newSquareData)
+            } else {
+                deadSquareData.append(newSquareData)
             }
             squareData.append(newSquareData)
 
@@ -127,15 +133,11 @@ class LifeScene: SKScene {
             var livingNodes: [SquareNodeData] = []
             for nodeData in squareData {
                 // Get neighbors...
-                let livingNeighbors = squareData.filter {
+                let livingNeighbors = aliveSquareData.filter {
                     let delta = (abs(nodeData.x - $0.x), abs(nodeData.y - $0.y))
                     switch (delta) {
                     case (1,1), (1,0), (0,1):
-                        if $0.alive {
-                            return true
-                        } else {
-                            return false
-                        }
+                        return true
                     default:
                         return false
                     }
@@ -144,10 +146,14 @@ class LifeScene: SKScene {
                 if nodeData.alive {
                     if livingNeighbors.count > 3 || livingNeighbors.count < 2 {
                         dyingNodes.append(nodeData)
+                    } else {
+                        livingNodes.append(nodeData)
                     }
                 } else if livingNeighbors.count == 3 {
                     nodeData.aliveColor = livingNeighbors.randomElement()!.node.fillColor
                     livingNodes.append(nodeData)
+                } else {
+                    dyingNodes.append(nodeData)
                 }
 
             }
@@ -155,6 +161,7 @@ class LifeScene: SKScene {
             while CGFloat(livingNodes.count) < (CGFloat(squareData.count) * 0.05) {
                 let nodeNumber = GKRandomSource.sharedRandom().nextInt(upperBound: dyingNodes.count)
                 let node = dyingNodes[nodeNumber]
+                node.aliveColor = aliveColors.randomElement()!
                 livingNodes.append(node)
                 dyingNodes.remove(at: nodeNumber)
             }
@@ -181,6 +188,9 @@ class LifeScene: SKScene {
                     $0.node.run(fadeAction)
                 }
             }
+
+            aliveSquareData = livingNodes
+            deadSquareData = dyingNodes
 
             lastUpdate = currentTime
         }
