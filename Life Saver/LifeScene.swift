@@ -94,7 +94,7 @@ class LifeScene: SKScene {
 
     override func update(_ currentTime: TimeInterval) {
         if lastUpdate == 0 { lastUpdate = currentTime }
-        if currentTime - lastUpdate >= 0.5 {
+        if currentTime - lastUpdate >= 0 {
             var dyingNodes: [SquareNodeData] = []
             var livingNodes: [SquareNodeData] = []
             for nodeData in squareData {
@@ -118,6 +118,10 @@ class LifeScene: SKScene {
                         dyingNodes.append(nodeData)
                     }
                 } else if livingNeighbors.count == 3 {
+                    livingNodes.append(nodeData)
+                }  else if GKRandomSource.sharedRandom().nextInt(upperBound: 1000) == 0 {
+                    livingNodes.append(nodeData)
+                } else if livingNodes.count < 10 && dyingNodes.count > squareData.count / 2 {
                     livingNodes.append(nodeData)
                 }
 
