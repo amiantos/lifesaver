@@ -45,8 +45,8 @@ class LifeScene: SKScene {
         camera = cameraNode
 
         // Try drawing some squares...
-        let lengthSquares: CGFloat = 10
-        let heightSquares: CGFloat = 10
+        let lengthSquares: CGFloat = 20
+        let heightSquares: CGFloat = 20
         let totalSquares: CGFloat = lengthSquares * heightSquares
         let squareWidth: CGFloat = size.width / lengthSquares
         let squareHeight: CGFloat = size.height / heightSquares
@@ -59,21 +59,17 @@ class LifeScene: SKScene {
         while createdSquares < totalSquares {
             let newSquare = SKShapeNode(rect: CGRect(x: 0, y: 0, width: squareWidth, height: squareHeight))
             newSquare.fillColor = .black
-//            newSquare.strokeColor = .black
+            newSquare.strokeColor = .black
             addChild(newSquare)
             newSquare.position = CGPoint(x: nextXPosition, y: nextYPosition)
-//            let labelNode = SKLabelNode(text: "\(Int(createdSquares))")
-//            labelNode.fontColor = .white
-//            newSquare.addChild(labelNode)
-//            labelNode.position = CGPoint(x: squareWidth / 2, y: squareHeight / 2)
 
             let livingChoices = [true, false]
             let newSquareData = SquareNodeData(x: nextXValue, y: nextYValue, node: newSquare, alive: livingChoices.randomElement()!)
             if newSquareData.alive {
                 newSquare.fillColor = .aliveColor
+                newSquare.strokeColor = .aliveColor
             }
             squareData.append(newSquareData)
-//            labelNode.text = "(\(newSquareData.x), \(newSquareData.y))"
 
             createdSquares += 1
             squareNodes.append(newSquare)
@@ -99,6 +95,8 @@ class LifeScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         if lastUpdate == 0 { lastUpdate = currentTime }
         if currentTime - lastUpdate >= 0.5 {
+            var dyingNodes: [SquareNodeData] = []
+            var livingNodes: [SquareNodeData] = []
             for nodeData in squareData {
                 print("Current Node: (\(nodeData.x), \(nodeData.y))")
 
@@ -117,19 +115,22 @@ class LifeScene: SKScene {
 
                 if nodeData.alive {
                     if livingNeighbors.count > 3 || livingNeighbors.count < 2 {
-                        nodeData.alive = false
+                        dyingNodes.append(nodeData)
                     }
                 } else if livingNeighbors.count == 3 {
-                    nodeData.alive = true
+                    livingNodes.append(nodeData)
                 }
 
-                if nodeData.alive {
-                    nodeData.node.fillColor = .aliveColor
-                    nodeData.node.strokeColor = .aliveColor
-                } else {
-                    nodeData.node.fillColor = .black
-                    nodeData.node.strokeColor = .black
-                }
+            }
+            livingNodes.forEach {
+                $0.node.fillColor = .aliveColor
+                $0.node.strokeColor = .aliveColor
+                $0.alive = true
+            }
+            dyingNodes.forEach {
+                $0.node.fillColor = .black
+                $0.node.strokeColor = .black
+                $0.alive = false
             }
 
             lastUpdate = currentTime
