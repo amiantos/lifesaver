@@ -48,6 +48,8 @@ class LifeScene: SKScene {
 
     private var aliveColors: [SKColor] = [.aliveColor, .aliveColor1, .aliveColor2, .aliveColor3]
 
+    private var updateTime: TimeInterval = 10
+
     override func sceneDidLoad() {
         size.width = frame.size.width * 2
         size.height = frame.size.height * 2
@@ -115,7 +117,7 @@ class LifeScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         if lastUpdate == 0 { lastUpdate = currentTime }
 
-        if currentTime - lastUpdate >= 1 {
+        if currentTime - lastUpdate >= updateTime {
             var dyingNodes: [SquareNodeData] = []
             var livingNodes: [SquareNodeData] = []
             for nodeData in squareData {
@@ -156,8 +158,10 @@ class LifeScene: SKScene {
                 if !$0.alive {
                     $0.node.removeAllActions()
                     $0.alive = true
-                    let fadeAction = SKAction.fadeAlpha(to: 1, duration: 1)
-                    let colorAction = shapeColorChangeAction(from: $0.node.fillColor, to: $0.aliveColor, withDuration: 1)
+                    let fadeAction = SKAction.fadeAlpha(to: 1, duration: updateTime)
+                    let colorAction = shapeColorChangeAction(from: $0.node.fillColor, to: $0.aliveColor, withDuration: updateTime)
+                    fadeAction.timingMode = .easeInEaseOut
+                    colorAction.timingMode = .easeInEaseOut
                     $0.node.run(fadeAction)
                     $0.node.run(colorAction)
                 }
@@ -167,7 +171,8 @@ class LifeScene: SKScene {
                 if $0.alive {
                     $0.node.removeAllActions()
                     $0.alive = false
-                    let fadeAction = SKAction.fadeAlpha(to: 0.2, duration: 10)
+                    let fadeAction = SKAction.fadeAlpha(to: 0.2, duration: updateTime * 5)
+                    fadeAction.timingMode = .easeInEaseOut
                     $0.node.run(fadeAction)
                 }
             }
