@@ -8,25 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88A72290553400AE066A /* AppDelegate.swift */; };
-		B4FD88AA2290553400AE066A /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88A92290553400AE066A /* GameScene.sks */; };
-		B4FD88AC2290553400AE066A /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88AB2290553400AE066A /* Actions.sks */; };
-		B4FD88AE2290553400AE066A /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88AD2290553400AE066A /* GameScene.swift */; };
 		B4FD88B02290553400AE066A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88AF2290553400AE066A /* ViewController.swift */; };
 		B4FD88B22290553600AE066A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
 		B4FD88B52290553600AE066A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B32290553600AE066A /* Main.storyboard */; };
+		B4FD88BE229055FB00AE066A /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B4FD88A42290553400AE066A /* Life Saver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Life Saver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FD88A72290553400AE066A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B4FD88A92290553400AE066A /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		B4FD88AB2290553400AE066A /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
-		B4FD88AD2290553400AE066A /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		B4FD88AF2290553400AE066A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B4FD88B12290553600AE066A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B4FD88B42290553600AE066A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B4FD88B62290553600AE066A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4FD88B72290553600AE066A /* Life_Saver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Life_Saver.entitlements; sourceTree = "<group>"; };
+		B4FD88BD229055FB00AE066A /* LifeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,14 +56,12 @@
 			isa = PBXGroup;
 			children = (
 				B4FD88A72290553400AE066A /* AppDelegate.swift */,
-				B4FD88A92290553400AE066A /* GameScene.sks */,
-				B4FD88AB2290553400AE066A /* Actions.sks */,
-				B4FD88AD2290553400AE066A /* GameScene.swift */,
 				B4FD88AF2290553400AE066A /* ViewController.swift */,
 				B4FD88B12290553600AE066A /* Assets.xcassets */,
 				B4FD88B32290553600AE066A /* Main.storyboard */,
 				B4FD88B62290553600AE066A /* Info.plist */,
 				B4FD88B72290553600AE066A /* Life_Saver.entitlements */,
+				B4FD88BD229055FB00AE066A /* LifeScene.swift */,
 			);
 			path = "Life Saver";
 			sourceTree = "<group>";
@@ -130,9 +124,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4FD88AA2290553400AE066A /* GameScene.sks in Resources */,
 				B4FD88B22290553600AE066A /* Assets.xcassets in Resources */,
-				B4FD88AC2290553400AE066A /* Actions.sks in Resources */,
 				B4FD88B52290553600AE066A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,8 +136,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4FD88BE229055FB00AE066A /* LifeScene.swift in Sources */,
 				B4FD88B02290553400AE066A /* ViewController.swift in Sources */,
-				B4FD88AE2290553400AE066A /* GameScene.swift in Sources */,
 				B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
