@@ -48,7 +48,7 @@ class LifeScene: SKScene {
 
     private var aliveColors: [SKColor] = [.aliveColor, .aliveColor1, .aliveColor2, .aliveColor3]
 
-    private var updateTime: TimeInterval = 10
+    private var updateTime: TimeInterval = 5
 
     override func sceneDidLoad() {
         size.width = frame.size.width * 2
@@ -89,7 +89,12 @@ class LifeScene: SKScene {
                 aliveColor: aliveColor
             )
             if newSquareData.alive {
-                newSquare.fillColor = newSquareData.aliveColor
+                let fadeAction = SKAction.fadeAlpha(to: 1, duration: updateTime)
+                let colorAction = shapeColorChangeAction(from: .black, to: newSquareData.aliveColor, withDuration: updateTime)
+                fadeAction.timingMode = .easeInEaseOut
+                colorAction.timingMode = .easeInEaseOut
+                newSquareData.node.run(fadeAction)
+                newSquareData.node.run(colorAction)
             }
             squareData.append(newSquareData)
 
