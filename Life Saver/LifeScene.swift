@@ -11,6 +11,10 @@ import SpriteKit
 
 extension SKColor {
     static let aliveColor = SKColor(red: 173/255.0, green: 98/255.0, blue: 22/255.0, alpha: 1.00)
+    static let deadColor0 = SKColor(red: 128/255.0, green: 73/255.0, blue: 14/255.0, alpha: 1.00)
+    static let deadColor1 = SKColor(red: 79/255.0, green: 45/255.0, blue: 6/255.0, alpha: 1.00)
+    static let deadColor2 = SKColor(red: 39/255.0, green: 23/255.0, blue: 3/255.0, alpha: 1.00)
+    static let deadColor3 = SKColor(red: 14/255.0, green: 8/255.0, blue: 0/255.0, alpha: 1.00)
 }
 
 class SquareNodeData {
@@ -18,6 +22,7 @@ class SquareNodeData {
     let y: Int
     let node: SKShapeNode
     var alive: Bool
+    var timeInState: Int = 0
 
     init(x: Int, y: Int, node: SKShapeNode, alive: Bool) {
         self.x = x
@@ -94,7 +99,7 @@ class LifeScene: SKScene {
 
     override func update(_ currentTime: TimeInterval) {
         if lastUpdate == 0 { lastUpdate = currentTime }
-        if currentTime - lastUpdate >= 1 {
+        if currentTime - lastUpdate >= 0 {
             var dyingNodes: [SquareNodeData] = []
             var livingNodes: [SquareNodeData] = []
             for nodeData in squareData {
@@ -121,18 +126,53 @@ class LifeScene: SKScene {
                     }
                 } else if livingNeighbors.count == 3 {
                     livingNodes.append(nodeData)
+                } else {
+                    dyingNodes.append(nodeData)
                 }
 
             }
+
+            while livingNodes.count < 10 {
+                let nodeNumber = GKRandomSource.sharedRandom().nextInt(upperBound: dyingNodes.count)
+                let node = dyingNodes[nodeNumber]
+                livingNodes.append(node)
+                dyingNodes.remove(at: nodeNumber)
+            }
+
             livingNodes.forEach {
+                if $0.alive {
+                    $0.timeInState += 1
+                } else {
+                    $0.timeInState = 0
+                }
+
+                $0.alive = true
+
                 $0.node.fillColor = .aliveColor
                 $0.node.strokeColor = .aliveColor
-                $0.alive = true
             }
+
             dyingNodes.forEach {
-                $0.node.fillColor = .black
-                $0.node.strokeColor = .black
+                if !$0.alive {
+                    $0.timeInState += 1
+                } else {
+                    $0.timeInState = 0
+                }
+
                 $0.alive = false
+
+                var color: SKColor = .deadColor3
+                switch $0.timeInState {
+                case 0:
+                    color = .deadColor0
+                case 1:
+                    color = .deadColor1
+                default:
+                    color = .deadColor3
+                }
+
+                $0.node.fillColor = color
+                $0.node.strokeColor = color
             }
 
             lastUpdate = currentTime
