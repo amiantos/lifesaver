@@ -12,6 +12,9 @@
 		B4FD88B22290553600AE066A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
 		B4FD88B52290553600AE066A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B32290553600AE066A /* Main.storyboard */; };
 		B4FD88BE229055FB00AE066A /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
+		B4FD88D02290BA2400AE066A /* LifeScreenSaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88CF2290BA2400AE066A /* LifeScreenSaverView.swift */; };
+		B4FD88D22290BAA300AE066A /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88D12290BAA300AE066A /* GameView.swift */; };
+		B4FD88D32290BAB700AE066A /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,10 +26,21 @@
 		B4FD88B62290553600AE066A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4FD88B72290553600AE066A /* Life_Saver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Life_Saver.entitlements; sourceTree = "<group>"; };
 		B4FD88BD229055FB00AE066A /* LifeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeScene.swift; sourceTree = "<group>"; };
+		B4FD88C42290B9DB00AE066A /* Life Saver Screensaver.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Life Saver Screensaver.saver"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4FD88CA2290B9DB00AE066A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4FD88CF2290BA2400AE066A /* LifeScreenSaverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeScreenSaverView.swift; sourceTree = "<group>"; };
+		B4FD88D12290BAA300AE066A /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		B4FD88A12290553400AE066A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4FD88C12290B9DB00AE066A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -40,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				B4FD88A62290553400AE066A /* Life Saver */,
+				B4FD88C52290B9DB00AE066A /* Life Saver Screensaver */,
 				B4FD88A52290553400AE066A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				B4FD88A42290553400AE066A /* Life Saver.app */,
+				B4FD88C42290B9DB00AE066A /* Life Saver Screensaver.saver */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -66,7 +82,27 @@
 			path = "Life Saver";
 			sourceTree = "<group>";
 		};
+		B4FD88C52290B9DB00AE066A /* Life Saver Screensaver */ = {
+			isa = PBXGroup;
+			children = (
+				B4FD88CA2290B9DB00AE066A /* Info.plist */,
+				B4FD88CF2290BA2400AE066A /* LifeScreenSaverView.swift */,
+				B4FD88D12290BAA300AE066A /* GameView.swift */,
+			);
+			path = "Life Saver Screensaver";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		B4FD88BF2290B9DB00AE066A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		B4FD88A32290553400AE066A /* Life Saver */ = {
@@ -86,6 +122,24 @@
 			productReference = B4FD88A42290553400AE066A /* Life Saver.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B4FD88C32290B9DB00AE066A /* Life Saver Screensaver */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B4FD88CB2290B9DB00AE066A /* Build configuration list for PBXNativeTarget "Life Saver Screensaver" */;
+			buildPhases = (
+				B4FD88BF2290B9DB00AE066A /* Headers */,
+				B4FD88C02290B9DB00AE066A /* Sources */,
+				B4FD88C12290B9DB00AE066A /* Frameworks */,
+				B4FD88C22290B9DB00AE066A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Life Saver Screensaver";
+			productName = "Life Saver Screensaver";
+			productReference = B4FD88C42290B9DB00AE066A /* Life Saver Screensaver.saver */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -98,6 +152,10 @@
 				TargetAttributes = {
 					B4FD88A32290553400AE066A = {
 						CreatedOnToolsVersion = 10.2.1;
+					};
+					B4FD88C32290B9DB00AE066A = {
+						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -115,6 +173,7 @@
 			projectRoot = "";
 			targets = (
 				B4FD88A32290553400AE066A /* Life Saver */,
+				B4FD88C32290B9DB00AE066A /* Life Saver Screensaver */,
 			);
 		};
 /* End PBXProject section */
@@ -129,6 +188,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B4FD88C22290B9DB00AE066A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -139,6 +205,16 @@
 				B4FD88BE229055FB00AE066A /* LifeScene.swift in Sources */,
 				B4FD88B02290553400AE066A /* ViewController.swift in Sources */,
 				B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4FD88C02290B9DB00AE066A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4FD88D32290BAB700AE066A /* LifeScene.swift in Sources */,
+				B4FD88D22290BAA300AE066A /* GameView.swift in Sources */,
+				B4FD88D02290BA2400AE066A /* LifeScreenSaverView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,6 +385,49 @@
 			};
 			name = Release;
 		};
+		B4FD88CC2290B9DB00AE066A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
+				INFOPLIST_FILE = "Life Saver Screensaver/Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "net.amiantos.Life-Saver-Screensaver";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = saver;
+			};
+			name = Debug;
+		};
+		B4FD88CD2290B9DB00AE066A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
+				INFOPLIST_FILE = "Life Saver Screensaver/Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "net.amiantos.Life-Saver-Screensaver";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = saver;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -326,6 +445,15 @@
 			buildConfigurations = (
 				B4FD88BB2290553600AE066A /* Debug */,
 				B4FD88BC2290553600AE066A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B4FD88CB2290B9DB00AE066A /* Build configuration list for PBXNativeTarget "Life Saver Screensaver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4FD88CC2290B9DB00AE066A /* Debug */,
+				B4FD88CD2290B9DB00AE066A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
