@@ -74,6 +74,7 @@ class LifeScene: SKScene {
             newSquare.fillColor = .black
             newSquare.lineWidth = 0
             addChild(newSquare)
+            newSquare.zPosition = 0
             newSquare.position = CGPoint(x: nextXPosition, y: nextYPosition)
 
             let livingChoices = [true, false]
@@ -112,9 +113,9 @@ class LifeScene: SKScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
-        super.update(currentTime)
         if lastUpdate == 0 { lastUpdate = currentTime }
-        if currentTime - lastUpdate >= 0 {
+
+        if currentTime - lastUpdate >= 1 {
             var dyingNodes: [SquareNodeData] = []
             var livingNodes: [SquareNodeData] = []
             for nodeData in squareData {
@@ -152,27 +153,56 @@ class LifeScene: SKScene {
             }
 
             livingNodes.forEach {
-                if $0.alive {
-                    $0.timeInState += 1
-                } else {
-                    $0.timeInState = 0
+                if !$0.alive {
                     $0.node.removeAllActions()
+                    $0.alive = true
+                    let fadeAction = SKAction.fadeAlpha(to: 1, duration: 1)
+                    let colorAction = shapeColorChangeAction(from: $0.node.fillColor, to: $0.aliveColor, withDuration: 1)
+                    $0.node.run(fadeAction)
+                    $0.node.run(colorAction)
                 }
-
-                $0.alive = true
-                $0.node.fillColor = $0.aliveColor
-                $0.node.strokeColor = $0.aliveColor
-                $0.node.alpha = 1
             }
 
             dyingNodes.forEach {
-                $0.alive = false
-                let fadeAction = SKAction.fadeAlpha(to: 0.2, duration: 10)
-                $0.node.run(fadeAction)
+                if $0.alive {
+                    $0.node.removeAllActions()
+                    $0.alive = false
+                    let fadeAction = SKAction.fadeAlpha(to: 0.2, duration: 10)
+                    $0.node.run(fadeAction)
+                }
             }
 
             lastUpdate = currentTime
         }
     }
 
+    func shapeColorChangeAction(from fromColor: SKColor, to toColor: SKColor, withDuration duration: TimeInterval) -> SKAction {
+
+        func components(for color: SKColor) -> [CGFloat] {
+            var comp = color.cgColor.components!
+            // converts [white, alpha] to [red, green, blue, alpha]
+            if comp.count < 4 {
+                comp.insert(comp[0], at: 0)
+                comp.insert(comp[0], at: 0)
+            }
+            return comp
+        }
+        func lerp(a: CGFloat, b: CGFloat, fraction: CGFloat) -> CGFloat {
+            return (b-a) * fraction + a
+        }
+
+        let fromComp = components(for: fromColor)
+        let toComp = components(for: toColor)
+        let durationCGFloat = CGFloat(duration)
+        return SKAction.customAction(withDuration: duration, actionBlock: { (node, elapsedTime) -> Void in
+            let fraction = elapsedTime / durationCGFloat
+            let transColor = SKColor(red: lerp(a: fromComp[0], b: toComp[0], fraction: fraction),
+                                     green: lerp(a: fromComp[1], b: toComp[1], fraction: fraction),
+                                     blue: lerp(a: fromComp[2], b: toComp[2], fraction: fraction),
+                                     alpha: lerp(a: fromComp[3], b: toComp[3], fraction: fraction))
+            (node as! SKShapeNode).fillColor = transColor
+        })
+    }
+
 }
+
