@@ -58,8 +58,8 @@ class LifeScene: SKScene {
         camera = cameraNode
 
         // Try drawing some squares...
-        let lengthSquares: CGFloat = 16
-        let heightSquares: CGFloat = 9
+        let lengthSquares: CGFloat = 32
+        let heightSquares: CGFloat = 18
         let totalSquares: CGFloat = lengthSquares * heightSquares
         let squareWidth: CGFloat = size.width / lengthSquares
         let squareHeight: CGFloat = size.height / heightSquares

@@ -25,7 +25,7 @@ class GameViewController: UIViewController {
 
         skView = view as? SKView
         skView?.ignoresSiblingOrder = true
-        skView?.showsFPS = true
+        skView?.showsFPS = false
         skView!.presentScene(scene)
     }
 
