@@ -142,6 +142,8 @@ class LifeScene: SKScene {
                 if nodeData.alive {
                     if livingNeighbors.count > 3 || livingNeighbors.count < 2 {
                         dyingNodes.append(nodeData)
+                    } else if nodeData.timeInState > 20 {
+                        dyingNodes.append(nodeData)
                     } else {
                         livingNodes.append(nodeData)
                     }
@@ -164,6 +166,7 @@ class LifeScene: SKScene {
 
             livingNodes.forEach {
                 if !$0.alive {
+                    $0.timeInState = 0
                     $0.node.removeAllActions()
                     $0.alive = true
                     let fadeAction = SKAction.fadeAlpha(to: 1, duration: updateTime)
@@ -172,16 +175,21 @@ class LifeScene: SKScene {
                     colorAction.timingMode = .easeInEaseOut
                     $0.node.run(fadeAction)
                     $0.node.run(colorAction)
+                } else {
+                    $0.timeInState += 1
                 }
             }
 
             dyingNodes.forEach {
                 if $0.alive {
+                    $0.timeInState = 0
                     $0.node.removeAllActions()
                     $0.alive = false
                     let fadeAction = SKAction.fadeAlpha(to: 0.2, duration: updateTime * 5)
                     fadeAction.timingMode = .easeInEaseOut
                     $0.node.run(fadeAction)
+                } else {
+                    $0.timeInState += 1
                 }
             }
 
