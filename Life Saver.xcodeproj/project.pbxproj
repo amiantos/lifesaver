@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B49221622291F59D00D5DEA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49221612291F59D00D5DEA4 /* AppDelegate.swift */; };
+		B492216A2291F59D00D5DEA4 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49221692291F59D00D5DEA4 /* GameViewController.swift */; };
+		B49221742291F6AA00D5DEA4 /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
 		B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88A72290553400AE066A /* AppDelegate.swift */; };
 		B4FD88B02290553400AE066A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88AF2290553400AE066A /* ViewController.swift */; };
 		B4FD88B22290553600AE066A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
@@ -18,6 +21,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B492215F2291F59C00D5DEA4 /* Life Saver tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Life Saver tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B49221612291F59D00D5DEA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B49221692291F59D00D5DEA4 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		B49221702291F5A000D5DEA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4FD88A42290553400AE066A /* Life Saver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Life Saver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FD88A72290553400AE066A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4FD88AF2290553400AE066A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -33,6 +40,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B492215C2291F59C00D5DEA4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B4FD88A12290553400AE066A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -50,11 +64,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B49221602291F59D00D5DEA4 /* Life Saver tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				B49221612291F59D00D5DEA4 /* AppDelegate.swift */,
+				B49221692291F59D00D5DEA4 /* GameViewController.swift */,
+				B49221702291F5A000D5DEA4 /* Info.plist */,
+			);
+			path = "Life Saver tvOS";
+			sourceTree = "<group>";
+		};
 		B4FD889B2290553400AE066A = {
 			isa = PBXGroup;
 			children = (
 				B4FD88A62290553400AE066A /* Life Saver */,
 				B4FD88C52290B9DB00AE066A /* Life Saver Screensaver */,
+				B49221602291F59D00D5DEA4 /* Life Saver tvOS */,
 				B4FD88A52290553400AE066A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,6 +89,7 @@
 			children = (
 				B4FD88A42290553400AE066A /* Life Saver.app */,
 				B4FD88C42290B9DB00AE066A /* Life Saver Screensaver.saver */,
+				B492215F2291F59C00D5DEA4 /* Life Saver tvOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -105,6 +131,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		B492215E2291F59C00D5DEA4 /* Life Saver tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B49221732291F5A000D5DEA4 /* Build configuration list for PBXNativeTarget "Life Saver tvOS" */;
+			buildPhases = (
+				B492215B2291F59C00D5DEA4 /* Sources */,
+				B492215C2291F59C00D5DEA4 /* Frameworks */,
+				B492215D2291F59C00D5DEA4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Life Saver tvOS";
+			productName = "Life Saver tvOS";
+			productReference = B492215F2291F59C00D5DEA4 /* Life Saver tvOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 		B4FD88A32290553400AE066A /* Life Saver */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B4FD88BA2290553600AE066A /* Build configuration list for PBXNativeTarget "Life Saver" */;
@@ -150,6 +193,9 @@
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Brad Root";
 				TargetAttributes = {
+					B492215E2291F59C00D5DEA4 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
 					B4FD88A32290553400AE066A = {
 						CreatedOnToolsVersion = 10.2.1;
 					};
@@ -174,11 +220,19 @@
 			targets = (
 				B4FD88A32290553400AE066A /* Life Saver */,
 				B4FD88C32290B9DB00AE066A /* Life Saver Screensaver */,
+				B492215E2291F59C00D5DEA4 /* Life Saver tvOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B492215D2291F59C00D5DEA4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B4FD88A22290553400AE066A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -198,6 +252,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B492215B2291F59C00D5DEA4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B49221742291F6AA00D5DEA4 /* LifeScene.swift in Sources */,
+				B492216A2291F59D00D5DEA4 /* GameViewController.swift in Sources */,
+				B49221622291F59D00D5DEA4 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B4FD88A02290553400AE066A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -232,6 +296,51 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		B49221712291F5A000D5DEA4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
+				INFOPLIST_FILE = "Life Saver tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "net.amiantos.Life-Saver";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 12.2;
+			};
+			name = Debug;
+		};
+		B49221722291F5A000D5DEA4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
+				INFOPLIST_FILE = "Life Saver tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "net.amiantos.Life-Saver";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 12.2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		B4FD88B82290553600AE066A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -431,6 +540,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B49221732291F5A000D5DEA4 /* Build configuration list for PBXNativeTarget "Life Saver tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B49221712291F5A000D5DEA4 /* Debug */,
+				B49221722291F5A000D5DEA4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B4FD889F2290553400AE066A /* Build configuration list for PBXProject "Life Saver" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
