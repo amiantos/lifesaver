@@ -6,18 +6,17 @@
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
 
-import UIKit
-import SpriteKit
 import GameplayKit
+import SpriteKit
+import UIKit
 
 class GameViewController: UIViewController {
-
     var scene: LifeScene?
     var skView: SKView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         UIApplication.shared.isIdleTimerDisabled = true
         view = SKView(frame: UIScreen.main.bounds)
         scene = LifeScene(size: view.bounds.size)
@@ -28,5 +27,4 @@ class GameViewController: UIViewController {
         skView?.showsFPS = false
         skView!.presentScene(scene)
     }
-
 }

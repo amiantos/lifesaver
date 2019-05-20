@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4480C7092294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
+		4480C70A2294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
+		4480C70B2294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
+		44A547AD22936C6A0020EC8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
 		B49221622291F59D00D5DEA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49221612291F59D00D5DEA4 /* AppDelegate.swift */; };
 		B492216A2291F59D00D5DEA4 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49221692291F59D00D5DEA4 /* GameViewController.swift */; };
 		B49221742291F6AA00D5DEA4 /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
@@ -21,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4480C7082294B05200CC2EDC /* FileGrabber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileGrabber.swift; sourceTree = "<group>"; };
 		B492215F2291F59C00D5DEA4 /* Life Saver tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Life Saver tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B49221612291F59D00D5DEA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B49221692291F59D00D5DEA4 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -104,6 +109,7 @@
 				B4FD88B62290553600AE066A /* Info.plist */,
 				B4FD88B72290553600AE066A /* Life_Saver.entitlements */,
 				B4FD88BD229055FB00AE066A /* LifeScene.swift */,
+				4480C7082294B05200CC2EDC /* FileGrabber.swift */,
 			);
 			path = "Life Saver";
 			sourceTree = "<group>";
@@ -230,6 +236,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44A547AD22936C6A0020EC8E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B49221742291F6AA00D5DEA4 /* LifeScene.swift in Sources */,
+				4480C70B2294B05200CC2EDC /* FileGrabber.swift in Sources */,
 				B492216A2291F59D00D5DEA4 /* GameViewController.swift in Sources */,
 				B49221622291F59D00D5DEA4 /* AppDelegate.swift in Sources */,
 			);
@@ -267,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4FD88BE229055FB00AE066A /* LifeScene.swift in Sources */,
+				4480C7092294B05200CC2EDC /* FileGrabber.swift in Sources */,
 				B4FD88B02290553400AE066A /* ViewController.swift in Sources */,
 				B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */,
 			);
@@ -277,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4FD88D32290BAB700AE066A /* LifeScene.swift in Sources */,
+				4480C70A2294B05200CC2EDC /* FileGrabber.swift in Sources */,
 				B4FD88D22290BAA300AE066A /* GameView.swift in Sources */,
 				B4FD88D02290BA2400AE066A /* LifeScreenSaverView.swift in Sources */,
 			);

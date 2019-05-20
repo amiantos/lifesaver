@@ -9,35 +9,43 @@
 import GameplayKit
 import SpriteKit
 
-extension SKColor {
-    static let aliveColor = SKColor(red: 173/255.0, green: 98/255.0, blue: 22/255.0, alpha: 1.00)
-    static let aliveColor1 = SKColor(red: 174/255.0, green: 129/255.0, blue: 0/255.0, alpha: 1.00)
-    static let aliveColor2 = SKColor(red: 172/255.0, green: 48/255.0, blue: 17/255.0, alpha: 1.00)
-    static let aliveColor3 = SKColor(red: 6/255.0, green: 66/255.0, blue: 110/255.0, alpha: 1.00)
+func randomCGFloat(min: CGFloat, max: CGFloat) -> CGFloat {
+    return CGFloat(Float.random(in: Float(min) ... Float(max)))
+}
 
+extension SKColor {
+    static let aliveColor = SKColor(red: 173 / 255.0, green: 98 / 255.0, blue: 22 / 255.0, alpha: 1.00)
+    static let aliveColor1 = SKColor(red: 174 / 255.0, green: 129 / 255.0, blue: 0 / 255.0, alpha: 1.00)
+    static let aliveColor2 = SKColor(red: 172 / 255.0, green: 48 / 255.0, blue: 17 / 255.0, alpha: 1.00)
+    static let aliveColor3 = SKColor(red: 6 / 255.0, green: 66 / 255.0, blue: 110 / 255.0, alpha: 1.00)
 }
 
 class SquareNodeData {
     let x: Int
     let y: Int
-    let node: SKShapeNode
-    var alive: Bool
+    let node: SKSpriteNode
+    let label: SKLabelNode
+    var alive: Bool {
+        didSet {
+            label.text = "(\(x), \(y))\n\(alive ? "Alive" : "Dead")"
+        }
+    }
+
     var timeInState: Int = 0
     var aliveColor: SKColor
 
-    init(x: Int, y: Int, node: SKShapeNode, alive: Bool, aliveColor: SKColor) {
+    init(x: Int, y: Int, node: SKSpriteNode, label: SKLabelNode, alive: Bool, aliveColor: SKColor) {
         self.x = x
         self.y = y
         self.node = node
+        self.label = label
         self.alive = alive
         self.aliveColor = aliveColor
     }
 }
 
 class LifeScene: SKScene {
-
     private var cameraNode: SKCameraNode = SKCameraNode()
-    private var squareNodes: [SKShapeNode] = []
     private var lastUpdate: TimeInterval = 0
 
     private var squareData: [SquareNodeData] = []
@@ -52,14 +60,11 @@ class LifeScene: SKScene {
         size.width = frame.size.width * 2
         size.height = frame.size.height * 2
         backgroundColor = SKColor.black
-
-        cameraNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
-        addChild(cameraNode)
-        camera = cameraNode
+        scaleMode = .fill
 
         // Try drawing some squares...
-        let lengthSquares: CGFloat = 32
-        let heightSquares: CGFloat = 18
+        let lengthSquares: CGFloat = 7
+        let heightSquares: CGFloat = 7
         let totalSquares: CGFloat = lengthSquares * heightSquares
         let squareWidth: CGFloat = size.width / lengthSquares
         let squareHeight: CGFloat = size.height / heightSquares
@@ -70,38 +75,39 @@ class LifeScene: SKScene {
         var nextXPosition: CGFloat = 0
         var nextYPosition: CGFloat = 0
         while createdSquares < totalSquares {
-            let newSquare = SKShapeNode(rect: CGRect(x: 0, y: 0, width: squareWidth, height: squareHeight))
-            newSquare.fillColor = .black
-            newSquare.lineWidth = 0
+            let newSquare = SKSpriteNode(
+                texture: FileGrabber.shared.getSKTexture(named: "square"),
+                size: CGSize(width: squareWidth, height: squareHeight)
+            )
+            newSquare.setScale(1)
+            newSquare.anchorPoint = CGPoint(x: 0, y: 0)
+            newSquare.color = .black
+            newSquare.colorBlendFactor = 1
             addChild(newSquare)
             newSquare.zPosition = 0
             newSquare.position = CGPoint(x: nextXPosition, y: nextYPosition)
 
-            let livingChoices = [true, false]
+            let newLabel = SKLabelNode(text: "(\(nextXValue), \(nextYValue))\nDead")
+            newLabel.fontColor = .white
+            newLabel.numberOfLines = 2
+            addChild(newLabel)
+            newLabel.zPosition = 1
+            newLabel.position = CGPoint(x: newSquare.position.x + (newSquare.size.width / 2), y: newSquare.position.y + (newSquare.size.height / 3))
+            newLabel.isHidden = true
+
             let aliveColor = aliveColors.randomElement()!
             let newSquareData = SquareNodeData(
                 x: nextXValue,
                 y: nextYValue,
                 node: newSquare,
-                alive: livingChoices.randomElement()!,
+                label: newLabel,
+                alive: false,
                 aliveColor: aliveColor
             )
-            if newSquareData.alive {
-                let fadeAction = SKAction.fadeAlpha(to: 1, duration: updateTime)
-                let colorAction = shapeColorChangeAction(from: .black, to: newSquareData.aliveColor, withDuration: updateTime)
-                fadeAction.timingMode = .easeInEaseOut
-                colorAction.timingMode = .easeInEaseOut
-                newSquareData.node.run(fadeAction)
-                newSquareData.node.run(colorAction)
-
-                aliveSquareData.append(newSquareData)
-            } else {
-                deadSquareData.append(newSquareData)
-            }
+            deadSquareData.append(newSquareData)
             squareData.append(newSquareData)
 
             createdSquares += 1
-            squareNodes.append(newSquare)
 
             if nextXValue == Int(lengthSquares) - 1 {
                 nextXValue = 0
@@ -112,27 +118,40 @@ class LifeScene: SKScene {
                 nextXValue += 1
                 nextXPosition += squareWidth
             }
-
         }
-
     }
 
-    override func didMove(to _: SKView) {
+    override func didMove(to _: SKView) {}
 
+    func applyBlur() {
+        shouldEnableEffects = true
+        shouldCenterFilter = true
+
+        let blur = CIFilter(name: "CIGaussianBlur")
+        blur?.setDefaults()
+        blur?.setValue(150, forKey: "inputRadius")
+        shouldRasterize = true
+
+        filter = blur
     }
 
     override func update(_ currentTime: TimeInterval) {
-        if lastUpdate == 0 { lastUpdate = currentTime }
+        if lastUpdate == 0 {
+            lastUpdate = currentTime
+//            applyBlur()
+        }
 
         if currentTime - lastUpdate >= updateTime {
+            lastUpdate = currentTime
+
             var dyingNodes: [SquareNodeData] = []
             var livingNodes: [SquareNodeData] = []
             for nodeData in squareData {
                 // Get neighbors...
                 let livingNeighbors = aliveSquareData.filter {
                     let delta = (abs(nodeData.x - $0.x), abs(nodeData.y - $0.y))
-                    switch (delta) {
-                    case (1,1), (1,0), (0,1):
+                    switch delta {
+                    case (1, 1), (1, 0), (0, 1):
                         return true
                     default:
                         return false
@@ -148,12 +167,11 @@ class LifeScene: SKScene {
                         livingNodes.append(nodeData)
                     }
                 } else if livingNeighbors.count == 3 {
-                    nodeData.aliveColor = livingNeighbors.randomElement()!.node.fillColor
+                    nodeData.aliveColor = livingNeighbors.randomElement()!.node.color
                     livingNodes.append(nodeData)
                 } else {
                     dyingNodes.append(nodeData)
                 }
-
             }
 
             while CGFloat(livingNodes.count) < (CGFloat(squareData.count) * 0.08) {
@@ -169,8 +187,9 @@ class LifeScene: SKScene {
                     $0.timeInState = 0
                     $0.node.removeAllActions()
                     $0.alive = true
-                    let fadeAction = SKAction.fadeAlpha(to: 1, duration: updateTime)
-                    let colorAction = shapeColorChangeAction(from: $0.node.fillColor, to: $0.aliveColor, withDuration: updateTime)
+                    let randomDuration = TimeInterval(randomCGFloat(min: 0.5, max: CGFloat(updateTime)))
+                    let fadeAction = SKAction.fadeAlpha(to: 1, duration: randomDuration)
+                    let colorAction = SKAction.colorize(with: $0.aliveColor, colorBlendFactor: 1, duration: randomDuration)
                     fadeAction.timingMode = .easeInEaseOut
                     colorAction.timingMode = .easeInEaseOut
                     $0.node.run(fadeAction)
@@ -196,37 +215,6 @@ class LifeScene: SKScene {
             aliveSquareData = livingNodes
             deadSquareData = dyingNodes
 
-            lastUpdate = currentTime
         }
     }
-
-    func shapeColorChangeAction(from fromColor: SKColor, to toColor: SKColor, withDuration duration: TimeInterval) -> SKAction {
-
-        func components(for color: SKColor) -> [CGFloat] {
-            var comp = color.cgColor.components!
-            // converts [white, alpha] to [red, green, blue, alpha]
-            if comp.count < 4 {
-                comp.insert(comp[0], at: 0)
-                comp.insert(comp[0], at: 0)
-            }
-            return comp
-        }
-        func lerp(a: CGFloat, b: CGFloat, fraction: CGFloat) -> CGFloat {
-            return (b-a) * fraction + a
-        }
-
-        let fromComp = components(for: fromColor)
-        let toComp = components(for: toColor)
-        let durationCGFloat = CGFloat(duration)
-        return SKAction.customAction(withDuration: duration, actionBlock: { (node, elapsedTime) -> Void in
-            let fraction = elapsedTime / durationCGFloat
-            let transColor = SKColor(red: lerp(a: fromComp[0], b: toComp[0], fraction: fraction),
-                                     green: lerp(a: fromComp[1], b: toComp[1], fraction: fraction),
-                                     blue: lerp(a: fromComp[2], b: toComp[2], fraction: fraction),
-                                     alpha: lerp(a: fromComp[3], b: toComp[3], fraction: fraction))
-            (node as! SKShapeNode).fillColor = transColor
-        })
-    }
-
 }
-

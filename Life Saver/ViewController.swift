@@ -7,25 +7,23 @@
 //
 
 import Cocoa
-import SpriteKit
 import GameplayKit
+import SpriteKit
 
 class ViewController: NSViewController {
-
     @IBOutlet var skView: SKView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let scene = LifeScene(size: view.bounds.size)
+        let scene = LifeScene(size: view.frame.size)
 
         let skView = view as? SKView
         skView?.presentScene(scene)
 
         skView?.ignoresSiblingOrder = true
-        skView?.showsDrawCount = true
-        skView?.showsFPS = true
-        skView?.showsNodeCount = true
+//        skView?.showsDrawCount = true
+//        skView?.showsFPS = true
+//        skView?.showsNodeCount = true
     }
 }
-
