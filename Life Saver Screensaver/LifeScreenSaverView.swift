@@ -6,12 +6,14 @@
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
 
-import Cocoa
+import Foundation
 import ScreenSaver
 import SpriteKit
 
 class LifeScreenSaverView: ScreenSaverView {
     var spriteView: GameView?
+
+    lazy var sheetController: ConfigureSheetController = ConfigureSheetController()
 
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
@@ -29,8 +31,17 @@ class LifeScreenSaverView: ScreenSaverView {
         }
     }
 
+    override var hasConfigureSheet: Bool {
+        return true
+    }
+
+    override var configureSheet: NSWindow? {
+        return sheetController.window
+    }
+
     override func startAnimation() {
         if spriteView == nil {
+            let manager = LifeSaverManager()
             let spriteView = GameView(frame: frame)
             spriteView.ignoresSiblingOrder = true
             spriteView.showsFPS = false
@@ -38,8 +49,20 @@ class LifeScreenSaverView: ScreenSaverView {
             let scene = LifeScene(size: frame.size)
             self.spriteView = spriteView
             addSubview(spriteView)
+
+            scene.appearanceMode = manager.appearanceMode
+            scene.squareSize = manager.squareSize
+            scene.animationSpeed = manager.animationSpeed
+            scene.blurAmount = manager.blurAmount
+            scene.aliveColors = [manager.color1, manager.color2, manager.color3]
+
             spriteView.presentScene(scene)
         }
         super.startAnimation()
+    }
+
+    override func stopAnimation() {
+        super.stopAnimation()
+        spriteView = nil
     }
 }

@@ -13,13 +13,6 @@ func randomCGFloat(min: CGFloat, max: CGFloat) -> CGFloat {
     return CGFloat(Float.random(in: Float(min) ... Float(max)))
 }
 
-extension SKColor {
-    static let aliveColor = SKColor(red: 173 / 255.0, green: 98 / 255.0, blue: 22 / 255.0, alpha: 1.00)
-    static let aliveColor1 = SKColor(red: 174 / 255.0, green: 129 / 255.0, blue: 0 / 255.0, alpha: 1.00)
-    static let aliveColor2 = SKColor(red: 172 / 255.0, green: 48 / 255.0, blue: 17 / 255.0, alpha: 1.00)
-    static let aliveColor3 = SKColor(red: 6 / 255.0, green: 66 / 255.0, blue: 110 / 255.0, alpha: 1.00)
-}
-
 class SquareNodeData {
     let x: Int
     let y: Int
@@ -52,19 +45,59 @@ class LifeScene: SKScene {
     private var aliveSquareData: [SquareNodeData] = []
     private var deadSquareData: [SquareNodeData] = []
 
-    private var aliveColors: [SKColor] = [.aliveColor, .aliveColor1, .aliveColor2, .aliveColor3]
+    var aliveColors: [SKColor] = [SKColor.defaultColor1, SKColor.defaultColor2, SKColor.defaultColor3]
+
+    var appearanceColor: SKColor = .black
+    var appearanceMode: Appearance = .dark {
+        didSet {
+            switch self.appearanceMode {
+            case .dark:
+                self.appearanceColor = .black
+            case .light:
+                self.appearanceColor = .white
+            }
+        }
+    }
 
     private var updateTime: TimeInterval = 1
+    var animationSpeed: AnimationSpeed = .normal {
+        didSet {
+            switch self.animationSpeed {
+            case .fast:
+                self.updateTime = 0.5
+            case .normal:
+                self.updateTime = 2
+            case .slow:
+                self.updateTime = 5
+            }
+        }
+    }
+    var squareSize: SquareSize = .medium
+    var blurAmount: BlurAmount = .none
 
     override func sceneDidLoad() {
         size.width = frame.size.width * 2
         size.height = frame.size.height * 2
-        backgroundColor = SKColor.black
+    }
+
+    override func didMove(to _: SKView) {
+        backgroundColor = appearanceColor
         scaleMode = .fill
 
         // Try drawing some squares...
-        let lengthSquares: CGFloat = 7
-        let heightSquares: CGFloat = 7
+        var lengthSquares: CGFloat = 16
+        var heightSquares: CGFloat = 9
+        switch squareSize {
+        case .large:
+            lengthSquares = 7
+            heightSquares = 4
+        case .small:
+            lengthSquares = 32
+            heightSquares = 18
+        default:
+            break
+        }
+
         let totalSquares: CGFloat = lengthSquares * heightSquares
         let squareWidth: CGFloat = size.width / lengthSquares
         let squareHeight: CGFloat = size.height / heightSquares
@@ -81,7 +114,7 @@ class LifeScene: SKScene {
             )
             newSquare.setScale(1)
             newSquare.anchorPoint = CGPoint(x: 0, y: 0)
-            newSquare.color = .black
+            newSquare.color = appearanceColor
             newSquare.colorBlendFactor = 1
             addChild(newSquare)
             newSquare.zPosition = 0
@@ -101,10 +134,15 @@ class LifeScene: SKScene {
                 y: nextYValue,
                 node: newSquare,
                 label: newLabel,
-                alive: false,
+                alive: randomCGFloat(min: 0, max: 1) >= 0.5 ? true : false,
                 aliveColor: aliveColor
             )
-            deadSquareData.append(newSquareData)
+            if newSquareData.alive {
+                aliveSquareData.append(newSquareData)
+                newSquare.color = aliveColor
+            } else {
+                deadSquareData.append(newSquareData)
+            }
             squareData.append(newSquareData)
 
             createdSquares += 1
@@ -121,15 +159,21 @@ class LifeScene: SKScene {
         }
     }
 
-    override func didMove(to _: SKView) {}
-
     func applyBlur() {
+
         shouldEnableEffects = true
         shouldCenterFilter = true
 
         let blur = CIFilter(name: "CIGaussianBlur")
         blur?.setDefaults()
-        blur?.setValue(150, forKey: "inputRadius")
+        switch blurAmount {
+        case .some:
+            blur?.setValue(50, forKey: "inputRadius")
+        case .heavy:
+            blur?.setValue(150, forKey: "inputRadius")
+        default:
+            break
+        }
         shouldRasterize = true
 
         filter = blur
@@ -138,7 +182,10 @@ class LifeScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         if lastUpdate == 0 {
             lastUpdate = currentTime
-//            applyBlur()
+
+            if blurAmount != .none {
+                applyBlur()
+            }
         }
 
         if currentTime - lastUpdate >= updateTime {
@@ -204,7 +251,7 @@ class LifeScene: SKScene {
                     $0.timeInState = 0
                     $0.node.removeAllActions()
                     $0.alive = false
-                    let fadeAction = SKAction.fadeAlpha(to: 0.2, duration: updateTime * 5)
+                    let fadeAction = SKAction.fadeAlpha(to: 0.1, duration: updateTime * 5)
                     fadeAction.timingMode = .easeInEaseOut
                     $0.node.run(fadeAction)
                 } else {
@@ -214,7 +261,6 @@ class LifeScene: SKScene {
 
             aliveSquareData = livingNodes
             deadSquareData = dyingNodes
-
         }
     }
 }
