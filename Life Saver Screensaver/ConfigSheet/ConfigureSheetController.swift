@@ -34,7 +34,7 @@ extension LifeSettings {
     static let defaultsSimulation = LifeSettings(appearanceMode: .dark, squareSize: .small, blurAmount: .none, animationSpeed: .fast, color1: nil, color2: nil, color3: nil)
     static let colorsDefaults = LifeSettings(appearanceMode: nil, squareSize: nil, blurAmount: nil, animationSpeed: nil, color1: SKColor.defaultColor1, color2: SKColor.defaultColor2, color3: SKColor.defaultColor3)
     static let colorsDusk = LifeSettings(appearanceMode: nil, squareSize: nil, blurAmount: nil, animationSpeed: nil, color1: SKColor(red: 103/255.0, green: 22/255.0, blue: 169/255.0, alpha: 1.00), color2: SKColor(red: 13/255.0, green: 17/255.0, blue: 108/255.0, alpha: 1.00), color3: SKColor(red: 12/255.0, green: 67/255.0, blue: 108/255.0, alpha: 1.00))
-    static let colorsSwampGirl = LifeSettings(appearanceMode: nil, squareSize: nil, blurAmount: nil, animationSpeed: nil, color1: SKColor(red: 25/255.0, green: 170/255.0, blue: 32/255.0, alpha: 1.00), color2: SKColor(red: 8/255.0, green: 16/255.0, blue: 107/255.0, alpha: 1.00), color3: SKColor(red: 168/255.0, green: 31/255.0, blue: 164/255.0, alpha: 1.00))
+    static let colorsSwampGirl = LifeSettings(appearanceMode: nil, squareSize: nil, blurAmount: nil, animationSpeed: nil, color1: SKColor(red: 173/255.0, green: 255/255.0, blue: 14/255.0, alpha: 1.00), color2: SKColor(red: 174/255.0, green: 129/255.0, blue: 255/255.0, alpha: 1.00), color3: SKColor(red: 6/255.0, green: 66/255.0, blue: 110/255.0, alpha: 1.00))
 }
 
 class ConfigureSheetController: NSObject {
