@@ -1,5 +1,5 @@
 //
-//  LifeSaverManager.swift
+//  LifeManager.swift
 //  Life Saver
 //
 //  Created by Brad Root on 5/21/19.
@@ -10,7 +10,7 @@ import Foundation
 import ScreenSaver
 import SpriteKit
 
-final class LifeSaverManager {
+final class LifeManager {
     private(set) var appearanceMode: Appearance
     private(set) var squareSize: SquareSize
     private(set) var animationSpeed: AnimationSpeed
@@ -18,30 +18,28 @@ final class LifeSaverManager {
     private(set) var color2: SKColor
     private(set) var color3: SKColor
 
-    // MARK: Init
-
     init() {
-        appearanceMode = Database.standard.appearanceMode
-        squareSize = Database.standard.squareSize
-        animationSpeed = Database.standard.animationSpeed
-        color1 = Database.standard.getColor(.color1)
-        color2 = Database.standard.getColor(.color2)
-        color3 = Database.standard.getColor(.color3)
+        appearanceMode = LifeDatabase.standard.appearanceMode
+        squareSize = LifeDatabase.standard.squareSize
+        animationSpeed = LifeDatabase.standard.animationSpeed
+        color1 = LifeDatabase.standard.getColor(.color1)
+        color2 = LifeDatabase.standard.getColor(.color2)
+        color3 = LifeDatabase.standard.getColor(.color3)
     }
 
     func setAppearanceMode(_ appearanceMode: Appearance) {
         self.appearanceMode = appearanceMode
-        Database.standard.set(appearanceMode: appearanceMode)
+        LifeDatabase.standard.set(appearanceMode: appearanceMode)
     }
 
     func setSquareSize(_ squareSize: SquareSize) {
         self.squareSize = squareSize
-        Database.standard.set(squareSize: squareSize)
+        LifeDatabase.standard.set(squareSize: squareSize)
     }
 
     func setAnimationSpeed(_ animationSpeed: AnimationSpeed) {
         self.animationSpeed = animationSpeed
-        Database.standard.set(animationSpeed: animationSpeed)
+        LifeDatabase.standard.set(animationSpeed: animationSpeed)
     }
 
     func setColor(_ color: SKColor, for colors: Colors) {
@@ -53,6 +51,6 @@ final class LifeSaverManager {
         case .color3:
             color3 = color
         }
-        Database.standard.set(color, for: colors)
+        LifeDatabase.standard.set(color, for: colors)
     }
 }

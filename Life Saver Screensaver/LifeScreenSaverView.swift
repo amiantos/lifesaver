@@ -10,8 +10,8 @@ import Foundation
 import ScreenSaver
 import SpriteKit
 
-class LifeScreenSaverView: ScreenSaverView {
-    var spriteView: GameView?
+final class LifeScreenSaverView: ScreenSaverView {
+    var spriteView: SKView?
 
     lazy var sheetController: ConfigureSheetController = ConfigureSheetController()
 
@@ -41,8 +41,8 @@ class LifeScreenSaverView: ScreenSaverView {
 
     override func startAnimation() {
         if spriteView == nil {
-            let manager = LifeSaverManager()
-            let spriteView = GameView(frame: frame)
+            let manager = LifeManager()
+            let spriteView = SKView(frame: frame)
             spriteView.ignoresSiblingOrder = true
             spriteView.showsFPS = false
             spriteView.showsNodeCount = false

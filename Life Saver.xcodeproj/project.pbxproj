@@ -7,24 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4437905B2295DCF700AC3AFF /* thumbnail.png in Resources */ = {isa = PBXBuildFile; fileRef = 443790592295DCF700AC3AFF /* thumbnail.png */; };
-		4437905C2295DCF700AC3AFF /* thumbnail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4437905A2295DCF700AC3AFF /* thumbnail@2x.png */; };
+		4415351E229733C20061434F /* LifeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415351D229733C20061434F /* LifeSettings.swift */; };
+		4415351F22973A330061434F /* LifeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415351D229733C20061434F /* LifeSettings.swift */; };
+		4415352022973A530061434F /* URLType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4437905F22961BA200AC3AFF /* URLType.swift */; };
+		4415352222974E220061434F /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415352122974E220061434F /* LifeNode.swift */; };
+		4415352322974E220061434F /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415352122974E220061434F /* LifeNode.swift */; };
+		4415352422974E220061434F /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415352122974E220061434F /* LifeNode.swift */; };
 		4437906022961BA200AC3AFF /* URLType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4437905F22961BA200AC3AFF /* URLType.swift */; };
 		4437906122961D3B00AC3AFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
 		4480C7092294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
 		4480C70A2294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
 		4480C70B2294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
-		4480C70E2294B4C800CC2EDC /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C70D2294B4C800CC2EDC /* Database.swift */; };
-		4480C70F2294B4C800CC2EDC /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C70D2294B4C800CC2EDC /* Database.swift */; };
-		4480C7102294B4C800CC2EDC /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C70D2294B4C800CC2EDC /* Database.swift */; };
-		4480C7122294B53D00CC2EDC /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7112294B53D00CC2EDC /* Enumerations.swift */; };
-		4480C7132294B53D00CC2EDC /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7112294B53D00CC2EDC /* Enumerations.swift */; };
-		4480C7142294B53D00CC2EDC /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7112294B53D00CC2EDC /* Enumerations.swift */; };
-		4480C7162294B60800CC2EDC /* LifeSaverManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7152294B60800CC2EDC /* LifeSaverManager.swift */; };
-		4480C7172294B60800CC2EDC /* LifeSaverManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7152294B60800CC2EDC /* LifeSaverManager.swift */; };
-		4480C7362294BAB300CC2EDC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7352294BAB300CC2EDC /* Extensions.swift */; };
-		4480C7372294BAB300CC2EDC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7352294BAB300CC2EDC /* Extensions.swift */; };
-		4480C7382294BAB300CC2EDC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7352294BAB300CC2EDC /* Extensions.swift */; };
+		4480C70E2294B4C800CC2EDC /* LifeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */; };
+		4480C70F2294B4C800CC2EDC /* LifeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */; };
+		4480C7162294B60800CC2EDC /* LifeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7152294B60800CC2EDC /* LifeManager.swift */; };
+		4480C7172294B60800CC2EDC /* LifeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7152294B60800CC2EDC /* LifeManager.swift */; };
 		4480C7412294CFB800CC2EDC /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */; };
 		4480C7432294CFF400CC2EDC /* ConfigureSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */; };
 		44A547AD22936C6A0020EC8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
@@ -33,26 +30,22 @@
 		B49221742291F6AA00D5DEA4 /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
 		B49221752294E5C500D5DEA4 /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */; };
 		B49221762294E71A00D5DEA4 /* ConfigureSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */; };
-		B4C5CA532296315F00F2BD05 /* URLType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4437905F22961BA200AC3AFF /* URLType.swift */; };
 		B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88A72290553400AE066A /* AppDelegate.swift */; };
 		B4FD88B02290553400AE066A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88AF2290553400AE066A /* ViewController.swift */; };
 		B4FD88B22290553600AE066A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
 		B4FD88B52290553600AE066A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B32290553600AE066A /* Main.storyboard */; };
 		B4FD88BE229055FB00AE066A /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
 		B4FD88D02290BA2400AE066A /* LifeScreenSaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88CF2290BA2400AE066A /* LifeScreenSaverView.swift */; };
-		B4FD88D22290BAA300AE066A /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88D12290BAA300AE066A /* GameView.swift */; };
 		B4FD88D32290BAB700AE066A /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		443790592295DCF700AC3AFF /* thumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnail.png; sourceTree = "<group>"; };
-		4437905A2295DCF700AC3AFF /* thumbnail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbnail@2x.png"; sourceTree = "<group>"; };
+		4415351D229733C20061434F /* LifeSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeSettings.swift; sourceTree = "<group>"; };
+		4415352122974E220061434F /* LifeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeNode.swift; sourceTree = "<group>"; };
 		4437905F22961BA200AC3AFF /* URLType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLType.swift; sourceTree = "<group>"; };
 		4480C7082294B05200CC2EDC /* FileGrabber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileGrabber.swift; sourceTree = "<group>"; };
-		4480C70D2294B4C800CC2EDC /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
-		4480C7112294B53D00CC2EDC /* Enumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enumerations.swift; sourceTree = "<group>"; };
-		4480C7152294B60800CC2EDC /* LifeSaverManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeSaverManager.swift; sourceTree = "<group>"; };
-		4480C7352294BAB300CC2EDC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeDatabase.swift; sourceTree = "<group>"; };
+		4480C7152294B60800CC2EDC /* LifeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeManager.swift; sourceTree = "<group>"; };
 		4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigureSheet.xib; sourceTree = "<group>"; };
 		4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureSheetController.swift; sourceTree = "<group>"; };
 		B492215F2291F59C00D5DEA4 /* Life Saver tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Life Saver tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,7 +63,6 @@
 		B4FD88C42290B9DB00AE066A /* Life Saver Screensaver.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Life Saver Screensaver.saver"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FD88CA2290B9DB00AE066A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4FD88CF2290BA2400AE066A /* LifeScreenSaverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeScreenSaverView.swift; sourceTree = "<group>"; };
-		B4FD88D12290BAA300AE066A /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,23 +90,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4437905D2296036A00AC3AFF /* ConfigSheet */ = {
+		4415352522974E320061434F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */,
-				4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */,
+				4480C7082294B05200CC2EDC /* FileGrabber.swift */,
+				4437905F22961BA200AC3AFF /* URLType.swift */,
 			);
-			path = ConfigSheet;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
-		4437905E2296038E00AC3AFF /* Assets */ = {
+		4437905D2296036A00AC3AFF /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				B4FD88D12290BAA300AE066A /* GameView.swift */,
-				443790592295DCF700AC3AFF /* thumbnail.png */,
-				4437905A2295DCF700AC3AFF /* thumbnail@2x.png */,
+				4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */,
+				4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */,
 			);
-			path = Assets;
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 		4480C70C2294B1B300CC2EDC /* Life Saver macOS */ = {
@@ -142,7 +133,7 @@
 		B4FD889B2290553400AE066A = {
 			isa = PBXGroup;
 			children = (
-				B4FD88A62290553400AE066A /* Life Saver */,
+				B4FD88A62290553400AE066A /* Life Saver Shared */,
 				B4FD88C52290B9DB00AE066A /* Life Saver Screensaver */,
 				4480C70C2294B1B300CC2EDC /* Life Saver macOS */,
 				B49221602291F59D00D5DEA4 /* Life Saver tvOS */,
@@ -160,28 +151,26 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B4FD88A62290553400AE066A /* Life Saver */ = {
+		B4FD88A62290553400AE066A /* Life Saver Shared */ = {
 			isa = PBXGroup;
 			children = (
 				B4FD88B12290553600AE066A /* Assets.xcassets */,
 				B4FD88BD229055FB00AE066A /* LifeScene.swift */,
-				4480C7082294B05200CC2EDC /* FileGrabber.swift */,
-				4480C7112294B53D00CC2EDC /* Enumerations.swift */,
-				4480C7352294BAB300CC2EDC /* Extensions.swift */,
+				4415352122974E220061434F /* LifeNode.swift */,
+				4415351D229733C20061434F /* LifeSettings.swift */,
+				4415352522974E320061434F /* Utilities */,
 			);
-			path = "Life Saver";
+			path = "Life Saver Shared";
 			sourceTree = "<group>";
 		};
 		B4FD88C52290B9DB00AE066A /* Life Saver Screensaver */ = {
 			isa = PBXGroup;
 			children = (
-				4437905E2296038E00AC3AFF /* Assets */,
-				4437905D2296036A00AC3AFF /* ConfigSheet */,
+				4437905D2296036A00AC3AFF /* Configuration */,
 				B4FD88CF2290BA2400AE066A /* LifeScreenSaverView.swift */,
-				4480C7152294B60800CC2EDC /* LifeSaverManager.swift */,
-				4480C70D2294B4C800CC2EDC /* Database.swift */,
+				4480C7152294B60800CC2EDC /* LifeManager.swift */,
+				4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */,
 				B4FD88CA2290B9DB00AE066A /* Info.plist */,
-				4437905F22961BA200AC3AFF /* URLType.swift */,
 			);
 			path = "Life Saver Screensaver";
 			sourceTree = "<group>";
@@ -316,10 +305,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4437905B2295DCF700AC3AFF /* thumbnail.png in Resources */,
 				4480C7412294CFB800CC2EDC /* ConfigureSheet.xib in Resources */,
 				4437906122961D3B00AC3AFF /* Assets.xcassets in Resources */,
-				4437905C2295DCF700AC3AFF /* thumbnail@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,12 +318,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B49221742291F6AA00D5DEA4 /* LifeScene.swift in Sources */,
+				4415352422974E220061434F /* LifeNode.swift in Sources */,
 				4480C70B2294B05200CC2EDC /* FileGrabber.swift in Sources */,
 				B492216A2291F59D00D5DEA4 /* GameViewController.swift in Sources */,
-				4480C7102294B4C800CC2EDC /* Database.swift in Sources */,
 				B49221622291F59D00D5DEA4 /* AppDelegate.swift in Sources */,
-				4480C7142294B53D00CC2EDC /* Enumerations.swift in Sources */,
-				4480C7382294BAB300CC2EDC /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,16 +329,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4415351F22973A330061434F /* LifeSettings.swift in Sources */,
 				B4FD88BE229055FB00AE066A /* LifeScene.swift in Sources */,
-				4480C7362294BAB300CC2EDC /* Extensions.swift in Sources */,
+				4415352222974E220061434F /* LifeNode.swift in Sources */,
 				4480C7092294B05200CC2EDC /* FileGrabber.swift in Sources */,
 				B4FD88B02290553400AE066A /* ViewController.swift in Sources */,
-				4480C70E2294B4C800CC2EDC /* Database.swift in Sources */,
-				B4C5CA532296315F00F2BD05 /* URLType.swift in Sources */,
+				4480C70E2294B4C800CC2EDC /* LifeDatabase.swift in Sources */,
 				B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */,
-				4480C7162294B60800CC2EDC /* LifeSaverManager.swift in Sources */,
+				4415352022973A530061434F /* URLType.swift in Sources */,
+				4480C7162294B60800CC2EDC /* LifeManager.swift in Sources */,
 				B49221762294E71A00D5DEA4 /* ConfigureSheetController.swift in Sources */,
-				4480C7122294B53D00CC2EDC /* Enumerations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,15 +347,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4FD88D32290BAB700AE066A /* LifeScene.swift in Sources */,
-				4480C7372294BAB300CC2EDC /* Extensions.swift in Sources */,
+				4415352322974E220061434F /* LifeNode.swift in Sources */,
 				4480C70A2294B05200CC2EDC /* FileGrabber.swift in Sources */,
-				B4FD88D22290BAA300AE066A /* GameView.swift in Sources */,
-				4480C70F2294B4C800CC2EDC /* Database.swift in Sources */,
+				4480C70F2294B4C800CC2EDC /* LifeDatabase.swift in Sources */,
+				4415351E229733C20061434F /* LifeSettings.swift in Sources */,
 				4437906022961BA200AC3AFF /* URLType.swift in Sources */,
 				B4FD88D02290BA2400AE066A /* LifeScreenSaverView.swift in Sources */,
-				4480C7172294B60800CC2EDC /* LifeSaverManager.swift in Sources */,
+				4480C7172294B60800CC2EDC /* LifeManager.swift in Sources */,
 				4480C7432294CFF400CC2EDC /* ConfigureSheetController.swift in Sources */,
-				4480C7132294B53D00CC2EDC /* Enumerations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

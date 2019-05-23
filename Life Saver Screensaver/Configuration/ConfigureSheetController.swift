@@ -9,58 +9,82 @@
 import Cocoa
 import SpriteKit
 
-struct LifeSettings {
-    let appearanceMode: Appearance?
-    let squareSize: SquareSize?
-    let animationSpeed: AnimationSpeed?
-    let color1: SKColor?
-    let color2: SKColor?
-    let color3: SKColor?
-}
+final class ConfigureSheetController: NSObject {
+    private let manager = LifeManager()
 
-enum LifePresets: String, CaseIterable {
-    case defaults = "Settings: Default"
-    case defaultsAbstract = "Settings: Abstract"
-    case defaultsSimulation = "Settings: Simulation"
-    case colorsDefaults = "Colors: Santa Fe"
-    case colorsDusk = "Colors: Dusk"
-    case colorsSwampGirl = "Colors: Swamp Girl"
-}
+    // MARK: - Presets
 
-extension LifeSettings {
-    static let defaults = LifeSettings(appearanceMode: .dark, squareSize: .medium, animationSpeed: .normal, color1: nil, color2: nil, color3: nil)
-    static let defaultsAbstract = LifeSettings(appearanceMode: .dark, squareSize: .large, animationSpeed: .slow, color1: nil, color2: nil, color3: nil)
-    static let defaultsSimulation = LifeSettings(appearanceMode: .dark, squareSize: .small, animationSpeed: .fast, color1: nil, color2: nil, color3: nil)
-    static let colorsDefaults = LifeSettings(appearanceMode: nil, squareSize: nil, animationSpeed: nil, color1: SKColor.defaultColor1, color2: SKColor.defaultColor2, color3: SKColor.defaultColor3)
-    static let colorsDusk = LifeSettings(appearanceMode: nil, squareSize: nil, animationSpeed: nil, color1: SKColor(red: 103/255.0, green: 22/255.0, blue: 169/255.0, alpha: 1.00), color2: SKColor(red: 13/255.0, green: 17/255.0, blue: 108/255.0, alpha: 1.00), color3: SKColor(red: 12/255.0, green: 67/255.0, blue: 108/255.0, alpha: 1.00))
-    static let colorsSwampGirl = LifeSettings(appearanceMode: nil, squareSize: nil, animationSpeed: nil, color1: SKColor(red: 173/255.0, green: 255/255.0, blue: 14/255.0, alpha: 1.00), color2: SKColor(red: 174/255.0, green: 129/255.0, blue: 255/255.0, alpha: 1.00), color3: SKColor(red: 6/255.0, green: 66/255.0, blue: 110/255.0, alpha: 1.00))
-}
+    fileprivate let presets: [LifeSettings] = [
+        LifeSettings(
+            title: "Settings: Default",
+            appearanceMode: .dark,
+            squareSize: .medium,
+            animationSpeed: .normal,
+            color1: nil,
+            color2: nil,
+            color3: nil
+        ),
+        LifeSettings(
+            title: "Settings: Abstract",
+            appearanceMode: .dark,
+            squareSize: .large,
+            animationSpeed: .slow,
+            color1: nil,
+            color2: nil,
+            color3: nil
+        ),
+        LifeSettings(
+            title: "Settings: Simulation",
+            appearanceMode: .dark,
+            squareSize: .small,
+            animationSpeed: .fast,
+            color1: nil,
+            color2: nil,
+            color3: nil
+        ),
+        LifeSettings(
+            title: "Colors: Santa Fe",
+            appearanceMode: nil,
+            squareSize: nil,
+            animationSpeed: nil,
+            color1: SKColor.defaultColor1,
+            color2: SKColor.defaultColor2,
+            color3: SKColor.defaultColor3
+        ),
+        LifeSettings(
+            title: "Colors: Dusk",
+            appearanceMode: nil,
+            squareSize: nil,
+            animationSpeed: nil,
+            color1: SKColor(red: 103 / 255.0, green: 22 / 255.0, blue: 169 / 255.0, alpha: 1.00),
+            color2: SKColor(red: 13 / 255.0, green: 17 / 255.0, blue: 108 / 255.0, alpha: 1.00),
+            color3: SKColor(red: 12 / 255.0, green: 67 / 255.0, blue: 108 / 255.0, alpha: 1.00)
+        ),
+        LifeSettings(
+            title: "Colors: Swamp Girl",
+            appearanceMode: nil,
+            squareSize: nil,
+            animationSpeed: nil,
+            color1: SKColor(red: 173 / 255.0, green: 255 / 255.0, blue: 14 / 255.0, alpha: 1.00),
+            color2: SKColor(red: 174 / 255.0, green: 129 / 255.0, blue: 255 / 255.0, alpha: 1.00),
+            color3: SKColor(red: 6 / 255.0, green: 66 / 255.0, blue: 110 / 255.0, alpha: 1.00)
+        ),
+    ]
 
-class ConfigureSheetController: NSObject {
+    // MARK: - Config Actions and Outlets
+
     @IBOutlet var window: NSWindow?
-
-    private let manager = LifeSaverManager()
 
     @IBOutlet var presetsButton: NSPopUpButton!
     @IBAction func presetsAction(_ sender: NSPopUpButton) {
         guard let title = sender.titleOfSelectedItem else { return }
-        guard let preset = LifePresets(rawValue: title) else { return }
-        switch preset {
-        case .defaults:
-            setupFields(with: LifeSettings.defaults)
-        case .defaultsAbstract:
-            setupFields(with: LifeSettings.defaultsAbstract)
-        case .defaultsSimulation:
-            setupFields(with: LifeSettings.defaultsSimulation)
-        case .colorsDefaults:
-            setupFields(with: LifeSettings.colorsDefaults)
-        case .colorsDusk:
-            setupFields(with: LifeSettings.colorsDusk)
-        case .colorsSwampGirl:
-            setupFields(with: LifeSettings.colorsSwampGirl)
+        let soughtPreset = presets.filter { $0.title == title }.first
+        if let preset = soughtPreset {
+            setupFields(with: preset)
         }
     }
 
+    @IBOutlet var appearanceControl: NSSegmentedControl!
     @IBAction func appearanceAction(_ sender: NSSegmentedControl) {
         switch sender.selectedSegment {
         case 1:
@@ -70,8 +94,7 @@ class ConfigureSheetController: NSObject {
         }
     }
 
-    @IBOutlet var appearanceControl: NSSegmentedControl!
-
+    @IBOutlet var squareSizeControl: NSSegmentedControl!
     @IBAction func squareSizeAction(_ sender: NSSegmentedControl) {
         switch sender.selectedSegment {
         case 0:
@@ -83,8 +106,7 @@ class ConfigureSheetController: NSObject {
         }
     }
 
-    @IBOutlet var squareSizeControl: NSSegmentedControl!
-
+    @IBOutlet var animationSpeedControl: NSSegmentedControl!
     @IBAction func animationSpeedAction(_ sender: NSSegmentedControl) {
         switch sender.selectedSegment {
         case 0:
@@ -95,10 +117,6 @@ class ConfigureSheetController: NSObject {
             manager.setAnimationSpeed(.normal)
         }
     }
-
-    @IBOutlet var animationSpeedControl: NSSegmentedControl!
-
-    @IBOutlet var blurAmountControl: NSSegmentedControl!
 
     @IBOutlet var color1Well: NSColorWell!
     @IBAction func color1Action(_ sender: NSColorWell) {
@@ -115,12 +133,10 @@ class ConfigureSheetController: NSObject {
         manager.setColor(sender.color as SKColor, for: .color3)
     }
 
-    @IBOutlet var twitterButton: NSButton!
     @IBAction func twitterAction(_: NSButton) {
         URLType.twitter.open()
     }
 
-    @IBOutlet var gitHubButton: NSButton!
     @IBAction func gitHubAction(_: NSButton) {
         URLType.github.open()
     }
@@ -129,10 +145,16 @@ class ConfigureSheetController: NSObject {
         URLType.brad.open()
     }
 
+    @IBAction func websiteAction(_: NSButton) {
+        URLType.website.open()
+    }
+
     @IBAction func closeConfigureSheet(sender _: AnyObject) {
         guard let window = window else { return }
         window.sheetParent?.endSheet(window)
     }
+
+    // MARK: - View Setup
 
     override init() {
         super.init()
@@ -140,7 +162,6 @@ class ConfigureSheetController: NSObject {
         myBundle.loadNibNamed("ConfigureSheet", owner: self, topLevelObjects: nil)
 
         setupFields()
-        setupPresets()
     }
 
     fileprivate func setupFields() {
@@ -172,13 +193,15 @@ class ConfigureSheetController: NSObject {
         color1Well.color = manager.color1
         color2Well.color = manager.color2
         color3Well.color = manager.color3
+
+        setupPresets()
     }
 
     fileprivate func setupPresets() {
         presetsButton.removeAllItems()
         var presetTitles: [String] = []
-        for preset in LifePresets.allCases {
-            presetTitles.append(preset.rawValue)
+        for preset in presets {
+            presetTitles.append(preset.title)
         }
         presetsButton.addItems(withTitles: presetTitles)
     }

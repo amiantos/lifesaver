@@ -12,10 +12,8 @@
                 <outlet property="color1Well" destination="bj5-ZC-bOW" id="QWC-sP-vS3"/>
                 <outlet property="color2Well" destination="sKx-lc-W5s" id="7mM-9B-Xgv"/>
                 <outlet property="color3Well" destination="7JS-VT-bRe" id="QTl-iA-7kZ"/>
-                <outlet property="gitHubButton" destination="uip-8h-Gh3" id="R50-DS-9Pg"/>
                 <outlet property="presetsButton" destination="4JF-f2-cTd" id="BLb-i4-IfF"/>
                 <outlet property="squareSizeControl" destination="GSf-P5-6p8" id="HDx-pz-MNj"/>
-                <outlet property="twitterButton" destination="0yl-qg-jnR" id="xEN-wS-ahX"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="msk-9s-ld4"/>
             </connections>
         </customObject>
@@ -31,7 +29,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ckD-Qe-k8M">
-                        <rect key="frame" x="158" y="13" width="72" height="32"/>
+                        <rect key="frame" x="302" y="13" width="72" height="32"/>
                         <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="Dbk-lg-fru">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -43,6 +41,69 @@ DQ
                             <action selector="closeConfigureSheetWithSender:" target="-2" id="Wpy-xd-pVw"/>
                         </connections>
                     </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XeC-oa-EiD">
+                        <rect key="frame" x="23" y="310" width="115" height="31"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Life Saver" id="A1b-ty-yQK">
+                            <font key="font" size="26" name=".AppleSystemUIFont"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zng-Ku-YRl">
+                        <rect key="frame" x="58" y="293" width="83" height="17"/>
+                        <buttonCell key="cell" type="square" title="by Brad Root" bezelStyle="shadowlessSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="piz-AH-ud0">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <connections>
+                            <action selector="bradAction:" target="-2" id="jvo-TD-kHZ"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UuZ-Bu-QIk">
+                        <rect key="frame" x="20" y="20" width="181" height="17"/>
+                        <buttonCell key="cell" type="square" title="https://amiantos.net/lifesaver" bezelStyle="shadowlessSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="cN8-4S-TWN">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <color key="contentTintColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <connections>
+                            <action selector="websiteAction:" target="-2" id="13n-7o-usq"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0yl-qg-jnR">
+                        <rect key="frame" x="156" y="321" width="212" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="8mp-cK-RnW"/>
+                            <constraint firstAttribute="width" constant="212" id="i0t-ib-wnk"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" title="Follow @amiantos on Twitter" bezelStyle="shadowlessSquare" image="twitter" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" imageScaling="proportionallyDown" inset="2" id="4T9-k6-D25">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <connections>
+                            <action selector="twitterAction:" target="-2" id="eDt-7V-jZV"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uip-8h-Gh3">
+                        <rect key="frame" x="156" y="291" width="212" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="N17-I6-Jy9"/>
+                            <constraint firstAttribute="width" constant="212" id="ubo-2p-WHN"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" title="Contribute on GitHub" bezelStyle="shadowlessSquare" image="github" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" imageScaling="proportionallyDown" inset="2" id="Du8-rB-WaF">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <connections>
+                            <action selector="gitHubAction:" target="-2" id="ZaY-b4-uxK"/>
+                        </connections>
+                    </button>
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="rhy-1B-SYh">
+                        <rect key="frame" x="20" y="270" width="348" height="5"/>
+                    </box>
                     <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xTv-ci-7Bd">
                         <rect key="frame" x="149" y="190" width="113" height="24"/>
                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="cP7-4T-sj5">
@@ -141,55 +202,6 @@ DQ
                             <action selector="color3Action:" target="-2" id="Cdl-mQ-4vO"/>
                         </connections>
                     </colorWell>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XeC-oa-EiD">
-                        <rect key="frame" x="23" y="310" width="115" height="31"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" title="Life Saver" id="A1b-ty-yQK">
-                            <font key="font" size="26" name=".AppleSystemUIFont"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zng-Ku-YRl">
-                        <rect key="frame" x="58" y="293" width="83" height="17"/>
-                        <buttonCell key="cell" type="square" title="by Brad Root" bezelStyle="shadowlessSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="piz-AH-ud0">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                        <connections>
-                            <action selector="bradAction:" target="-2" id="jvo-TD-kHZ"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0yl-qg-jnR">
-                        <rect key="frame" x="156" y="321" width="212" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="8mp-cK-RnW"/>
-                            <constraint firstAttribute="width" constant="212" id="i0t-ib-wnk"/>
-                        </constraints>
-                        <buttonCell key="cell" type="square" title="Follow @amiantos on Twitter" bezelStyle="shadowlessSquare" image="twitter" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" imageScaling="proportionallyDown" inset="2" id="4T9-k6-D25">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                        <connections>
-                            <action selector="twitterAction:" target="-2" id="eDt-7V-jZV"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uip-8h-Gh3">
-                        <rect key="frame" x="156" y="291" width="212" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="N17-I6-Jy9"/>
-                            <constraint firstAttribute="width" constant="212" id="ubo-2p-WHN"/>
-                        </constraints>
-                        <buttonCell key="cell" type="square" title="Contribute on GitHub" bezelStyle="shadowlessSquare" image="github" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" imageScaling="proportionallyDown" inset="2" id="Du8-rB-WaF">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                        <connections>
-                            <action selector="gitHubAction:" target="-2" id="ZaY-b4-uxK"/>
-                        </connections>
-                    </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1mc-rM-3Jq">
                         <rect key="frame" x="99" y="71" width="44" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Colors" id="0PZ-VH-ysx">
@@ -198,9 +210,6 @@ DQ
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="rhy-1B-SYh">
-                        <rect key="frame" x="20" y="270" width="348" height="5"/>
-                    </box>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4JF-f2-cTd">
                         <rect key="frame" x="149" y="230" width="159" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="Default" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="EfA-LT-Box" id="Uuj-kB-faL">
@@ -232,11 +241,12 @@ DQ
                     <constraint firstItem="rhy-1B-SYh" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="3jM-Y1-v8D"/>
                     <constraint firstItem="bj5-ZC-bOW" firstAttribute="centerY" secondItem="1mc-rM-3Jq" secondAttribute="centerY" id="4g0-UU-Vc2"/>
                     <constraint firstItem="0yl-qg-jnR" firstAttribute="leading" secondItem="XeC-oa-EiD" secondAttribute="trailing" constant="20" id="72g-P3-JTo"/>
+                    <constraint firstItem="4JF-f2-cTd" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="151" id="8mZ-n4-SuC"/>
                     <constraint firstItem="xTv-ci-7Bd" firstAttribute="leading" secondItem="4JF-f2-cTd" secondAttribute="leading" id="8yM-V7-EBm"/>
                     <constraint firstAttribute="trailing" secondItem="rhy-1B-SYh" secondAttribute="trailing" constant="20" id="9v0-7t-tmu"/>
-                    <constraint firstItem="ckD-Qe-k8M" firstAttribute="centerX" secondItem="EiT-Mj-1SZ" secondAttribute="centerX" id="AAf-gj-xc8"/>
                     <constraint firstItem="GSf-P5-6p8" firstAttribute="top" secondItem="xTv-ci-7Bd" secondAttribute="bottom" constant="20" id="Amn-kh-nOE"/>
                     <constraint firstItem="xTv-ci-7Bd" firstAttribute="centerY" secondItem="L1J-rT-SwS" secondAttribute="centerY" id="B7D-Cg-bPA"/>
+                    <constraint firstAttribute="bottom" secondItem="UuZ-Bu-QIk" secondAttribute="bottom" constant="20" id="BEw-ho-jWv"/>
                     <constraint firstItem="uip-8h-Gh3" firstAttribute="top" secondItem="0yl-qg-jnR" secondAttribute="bottom" constant="10" id="Bme-RO-1af"/>
                     <constraint firstAttribute="trailing" secondItem="0yl-qg-jnR" secondAttribute="trailing" constant="20" id="C2t-NK-GYU"/>
                     <constraint firstItem="0yl-qg-jnR" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" id="CAf-lG-o3j"/>
@@ -244,7 +254,6 @@ DQ
                     <constraint firstItem="DzZ-Ny-Gme" firstAttribute="leading" secondItem="xug-Lz-UDX" secondAttribute="trailing" constant="10" id="G2M-E9-R0O"/>
                     <constraint firstItem="xug-Lz-UDX" firstAttribute="top" secondItem="mTf-31-rdO" secondAttribute="bottom" constant="24" id="KIu-Wj-A06"/>
                     <constraint firstAttribute="bottom" secondItem="ckD-Qe-k8M" secondAttribute="bottom" constant="20" id="MYC-07-CER"/>
-                    <constraint firstItem="4JF-f2-cTd" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="151" id="N98-sY-Xbj"/>
                     <constraint firstItem="4JF-f2-cTd" firstAttribute="leading" secondItem="CFo-WB-z3f" secondAttribute="trailing" constant="10" id="ONw-C1-vn6"/>
                     <constraint firstItem="mTf-31-rdO" firstAttribute="top" secondItem="L1J-rT-SwS" secondAttribute="bottom" constant="24" id="PPX-UL-Io6"/>
                     <constraint firstItem="sKx-lc-W5s" firstAttribute="centerY" secondItem="1mc-rM-3Jq" secondAttribute="centerY" id="TeH-xo-tQ5"/>
@@ -259,6 +268,7 @@ DQ
                     <constraint firstItem="GSf-P5-6p8" firstAttribute="leading" secondItem="xTv-ci-7Bd" secondAttribute="leading" id="ipk-Hg-toP"/>
                     <constraint firstItem="zng-Ku-YRl" firstAttribute="trailing" secondItem="XeC-oa-EiD" secondAttribute="trailing" constant="5" id="l3m-qd-1Xu"/>
                     <constraint firstItem="7JS-VT-bRe" firstAttribute="centerY" secondItem="1mc-rM-3Jq" secondAttribute="centerY" id="l4P-1G-Eqg"/>
+                    <constraint firstAttribute="trailing" secondItem="ckD-Qe-k8M" secondAttribute="trailing" constant="20" id="lcN-pZ-oMI"/>
                     <constraint firstItem="XeC-oa-EiD" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" id="mbv-ex-NLO"/>
                     <constraint firstItem="7JS-VT-bRe" firstAttribute="leading" secondItem="bj5-ZC-bOW" secondAttribute="trailing" constant="10" id="mo4-bC-PZL"/>
                     <constraint firstItem="xTv-ci-7Bd" firstAttribute="leading" secondItem="L1J-rT-SwS" secondAttribute="trailing" constant="10" id="q46-x9-JHm"/>
@@ -268,6 +278,7 @@ DQ
                     <constraint firstItem="ckD-Qe-k8M" firstAttribute="top" secondItem="1mc-rM-3Jq" secondAttribute="bottom" constant="30" id="uhD-7F-zIe"/>
                     <constraint firstItem="rhy-1B-SYh" firstAttribute="top" secondItem="zng-Ku-YRl" secondAttribute="bottom" constant="20" id="vxG-ZO-KW2"/>
                     <constraint firstItem="bj5-ZC-bOW" firstAttribute="leading" secondItem="1mc-rM-3Jq" secondAttribute="trailing" constant="12" id="wNn-Jo-OXc"/>
+                    <constraint firstItem="UuZ-Bu-QIk" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="xXw-9N-D8d"/>
                     <constraint firstItem="sKx-lc-W5s" firstAttribute="leading" secondItem="7JS-VT-bRe" secondAttribute="trailing" constant="10" id="xqP-8E-Yog"/>
                     <constraint firstItem="1mc-rM-3Jq" firstAttribute="trailing" secondItem="xug-Lz-UDX" secondAttribute="trailing" id="zrP-R5-L5w"/>
                 </constraints>

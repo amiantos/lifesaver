@@ -1,5 +1,5 @@
 //
-//  Database.swift
+//  LifeDatabase.swift
 //  Life Saver
 //
 //  Created by Brad Root on 5/21/19.
@@ -9,11 +9,7 @@
 import ScreenSaver
 import SpriteKit
 
-// MARK: Database
-
-struct Database {
-    // MARK: Key
-
+struct LifeDatabase {
     fileprivate enum Key {
         static let appearanceMode = "appearanceMode"
         static let squareSize = "squareSize"
@@ -24,10 +20,8 @@ struct Database {
         static let color3 = "color3"
     }
 
-    // MARK: Properties
-
     static var standard: ScreenSaverDefaults {
-        guard let bundleIdentifier = Bundle(for: LifeSaverManager.self).bundleIdentifier,
+        guard let bundleIdentifier = Bundle(for: LifeManager.self).bundleIdentifier,
             let database = ScreenSaverDefaults(forModuleWithName: bundleIdentifier)
         else { fatalError("Failed to retrieve database") }
 
@@ -43,57 +37,53 @@ struct Database {
     }
 }
 
-// MARK: - ScreenSaverDefaults's Functions
-
 extension ScreenSaverDefaults {
     var appearanceMode: Appearance {
-        return Appearance(rawValue: integer(forKey: Database.Key.appearanceMode))!
+        return Appearance(rawValue: integer(forKey: LifeDatabase.Key.appearanceMode))!
     }
 
     func set(appearanceMode: Appearance) {
-        set(appearanceMode.rawValue, for: Database.Key.appearanceMode)
+        set(appearanceMode.rawValue, for: LifeDatabase.Key.appearanceMode)
     }
 
     var squareSize: SquareSize {
-        return SquareSize(rawValue: integer(forKey: Database.Key.squareSize))!
+        return SquareSize(rawValue: integer(forKey: LifeDatabase.Key.squareSize))!
     }
 
     func set(squareSize: SquareSize) {
-        set(squareSize.rawValue, for: Database.Key.squareSize)
+        set(squareSize.rawValue, for: LifeDatabase.Key.squareSize)
     }
 
     var animationSpeed: AnimationSpeed {
-        return AnimationSpeed(rawValue: integer(forKey: Database.Key.animationSpeed))!
+        return AnimationSpeed(rawValue: integer(forKey: LifeDatabase.Key.animationSpeed))!
     }
 
     func set(animationSpeed: AnimationSpeed) {
-        set(animationSpeed.rawValue, for: Database.Key.animationSpeed)
+        set(animationSpeed.rawValue, for: LifeDatabase.Key.animationSpeed)
     }
 
     func getColor(_ color: Colors) -> SKColor {
         switch color {
         case .color1:
-            return unarchiveColor(data(forKey: Database.Key.color1)!)
+            return unarchiveColor(data(forKey: LifeDatabase.Key.color1)!)
         case .color2:
-            return unarchiveColor(data(forKey: Database.Key.color2)!)
+            return unarchiveColor(data(forKey: LifeDatabase.Key.color2)!)
         case .color3:
-            return unarchiveColor(data(forKey: Database.Key.color3)!)
+            return unarchiveColor(data(forKey: LifeDatabase.Key.color3)!)
         }
     }
 
     func set(_ color: SKColor, for colors: Colors) {
         switch colors {
         case .color1:
-            set(archiveData(color), for: Database.Key.color1)
+            set(archiveData(color), for: LifeDatabase.Key.color1)
         case .color2:
-            set(archiveData(color), for: Database.Key.color2)
+            set(archiveData(color), for: LifeDatabase.Key.color2)
         case .color3:
-            set(archiveData(color), for: Database.Key.color3)
+            set(archiveData(color), for: LifeDatabase.Key.color3)
         }
     }
 }
-
-// MARK: - ScreenSaverDefaults's Private Functions
 
 private extension ScreenSaverDefaults {
     func set(_ object: Any, for key: String) {
@@ -102,7 +92,7 @@ private extension ScreenSaverDefaults {
     }
 }
 
-func archiveData(_ data: Any) -> Data {
+private func archiveData(_ data: Any) -> Data {
     do {
         let data = try NSKeyedArchiver.archivedData(withRootObject: data, requiringSecureCoding: false)
         return data
@@ -111,7 +101,7 @@ func archiveData(_ data: Any) -> Data {
     }
 }
 
-func unarchiveColor(_ data: Data) -> SKColor {
+private func unarchiveColor(_ data: Data) -> SKColor {
     do {
         let color = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SKColor
         return color!

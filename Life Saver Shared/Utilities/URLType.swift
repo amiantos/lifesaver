@@ -8,15 +8,12 @@
 
 import Cocoa
 
-// MARK: - URLType
-
 enum URLType: String {
     case brad = "https://amiantos.net"
     case github = "https://github.com/amiantos/lifesaver"
     case twitter = "https://twitter.com/amiantos"
+    case website = "https://amiantos.net/lifesaver"
 }
-
-// MARK: Functions
 
 extension URLType {
     func open() {
