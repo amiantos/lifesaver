@@ -20,12 +20,6 @@ enum SquareSize: Int {
     case large = 2
 }
 
-enum BlurAmount: Int {
-    case none = 0
-    case some = 1
-    case heavy = 2
-}
-
 enum AnimationSpeed: Int {
     case fast = 0
     case normal = 1

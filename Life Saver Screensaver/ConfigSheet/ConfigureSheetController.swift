@@ -12,7 +12,6 @@ import SpriteKit
 struct LifeSettings {
     let appearanceMode: Appearance?
     let squareSize: SquareSize?
-    let blurAmount: BlurAmount?
     let animationSpeed: AnimationSpeed?
     let color1: SKColor?
     let color2: SKColor?
@@ -29,12 +28,12 @@ enum LifePresets: String, CaseIterable {
 }
 
 extension LifeSettings {
-    static let defaults = LifeSettings(appearanceMode: .dark, squareSize: .medium, blurAmount: .none, animationSpeed: .normal, color1: nil, color2: nil, color3: nil)
-    static let defaultsAbstract = LifeSettings(appearanceMode: .dark, squareSize: .large, blurAmount: .none, animationSpeed: .slow, color1: nil, color2: nil, color3: nil)
-    static let defaultsSimulation = LifeSettings(appearanceMode: .dark, squareSize: .small, blurAmount: .none, animationSpeed: .fast, color1: nil, color2: nil, color3: nil)
-    static let colorsDefaults = LifeSettings(appearanceMode: nil, squareSize: nil, blurAmount: nil, animationSpeed: nil, color1: SKColor.defaultColor1, color2: SKColor.defaultColor2, color3: SKColor.defaultColor3)
-    static let colorsDusk = LifeSettings(appearanceMode: nil, squareSize: nil, blurAmount: nil, animationSpeed: nil, color1: SKColor(red: 103/255.0, green: 22/255.0, blue: 169/255.0, alpha: 1.00), color2: SKColor(red: 13/255.0, green: 17/255.0, blue: 108/255.0, alpha: 1.00), color3: SKColor(red: 12/255.0, green: 67/255.0, blue: 108/255.0, alpha: 1.00))
-    static let colorsSwampGirl = LifeSettings(appearanceMode: nil, squareSize: nil, blurAmount: nil, animationSpeed: nil, color1: SKColor(red: 173/255.0, green: 255/255.0, blue: 14/255.0, alpha: 1.00), color2: SKColor(red: 174/255.0, green: 129/255.0, blue: 255/255.0, alpha: 1.00), color3: SKColor(red: 6/255.0, green: 66/255.0, blue: 110/255.0, alpha: 1.00))
+    static let defaults = LifeSettings(appearanceMode: .dark, squareSize: .medium, animationSpeed: .normal, color1: nil, color2: nil, color3: nil)
+    static let defaultsAbstract = LifeSettings(appearanceMode: .dark, squareSize: .large, animationSpeed: .slow, color1: nil, color2: nil, color3: nil)
+    static let defaultsSimulation = LifeSettings(appearanceMode: .dark, squareSize: .small, animationSpeed: .fast, color1: nil, color2: nil, color3: nil)
+    static let colorsDefaults = LifeSettings(appearanceMode: nil, squareSize: nil, animationSpeed: nil, color1: SKColor.defaultColor1, color2: SKColor.defaultColor2, color3: SKColor.defaultColor3)
+    static let colorsDusk = LifeSettings(appearanceMode: nil, squareSize: nil, animationSpeed: nil, color1: SKColor(red: 103/255.0, green: 22/255.0, blue: 169/255.0, alpha: 1.00), color2: SKColor(red: 13/255.0, green: 17/255.0, blue: 108/255.0, alpha: 1.00), color3: SKColor(red: 12/255.0, green: 67/255.0, blue: 108/255.0, alpha: 1.00))
+    static let colorsSwampGirl = LifeSettings(appearanceMode: nil, squareSize: nil, animationSpeed: nil, color1: SKColor(red: 173/255.0, green: 255/255.0, blue: 14/255.0, alpha: 1.00), color2: SKColor(red: 174/255.0, green: 129/255.0, blue: 255/255.0, alpha: 1.00), color3: SKColor(red: 6/255.0, green: 66/255.0, blue: 110/255.0, alpha: 1.00))
 }
 
 class ConfigureSheetController: NSObject {
@@ -98,17 +97,6 @@ class ConfigureSheetController: NSObject {
     }
 
     @IBOutlet var animationSpeedControl: NSSegmentedControl!
-
-    @IBAction func blurAmountAction(_ sender: NSSegmentedControl) {
-        switch sender.selectedSegment {
-        case 1:
-            manager.setBlurAmount(.some)
-        case 2:
-            manager.setBlurAmount(.heavy)
-        default:
-            manager.setBlurAmount(.none)
-        }
-    }
 
     @IBOutlet var blurAmountControl: NSSegmentedControl!
 
@@ -181,15 +169,6 @@ class ConfigureSheetController: NSObject {
             animationSpeedControl.selectedSegment = 2
         }
 
-        switch manager.blurAmount {
-        case .none:
-            blurAmountControl.selectedSegment = 0
-        case .some:
-            blurAmountControl.selectedSegment = 1
-        case .heavy:
-            blurAmountControl.selectedSegment = 2
-        }
-
         color1Well.color = manager.color1
         color2Well.color = manager.color2
         color3Well.color = manager.color3
@@ -225,17 +204,7 @@ class ConfigureSheetController: NSObject {
             }
             manager.setSquareSize(squareSize)
         }
-        if let blurAmount = preset.blurAmount {
-            switch blurAmount {
-            case .none:
-                blurAmountControl.selectedSegment = 0
-            case .some:
-                blurAmountControl.selectedSegment = 1
-            case .heavy:
-                blurAmountControl.selectedSegment = 2
-            }
-            manager.setBlurAmount(blurAmount)
-        }
+
         if let animationSpeed = preset.animationSpeed {
             switch animationSpeed {
             case .normal:

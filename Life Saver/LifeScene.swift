@@ -73,7 +73,6 @@ class LifeScene: SKScene {
         }
     }
     var squareSize: SquareSize = .medium
-    var blurAmount: BlurAmount = .none
 
     override func sceneDidLoad() {
         size.width = frame.size.width * 2
@@ -159,33 +158,9 @@ class LifeScene: SKScene {
         }
     }
 
-    func applyBlur() {
-
-        shouldEnableEffects = true
-        shouldCenterFilter = true
-
-        let blur = CIFilter(name: "CIGaussianBlur")
-        blur?.setDefaults()
-        switch blurAmount {
-        case .some:
-            blur?.setValue(50, forKey: "inputRadius")
-        case .heavy:
-            blur?.setValue(150, forKey: "inputRadius")
-        default:
-            break
-        }
-        shouldRasterize = true
-
-        filter = blur
-    }
-
     override func update(_ currentTime: TimeInterval) {
         if lastUpdate == 0 {
             lastUpdate = currentTime
-
-            if blurAmount != .none {
-                applyBlur()
-            }
         }
 
         if currentTime - lastUpdate >= updateTime {

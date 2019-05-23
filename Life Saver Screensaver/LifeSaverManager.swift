@@ -14,7 +14,6 @@ final class LifeSaverManager {
     private(set) var appearanceMode: Appearance
     private(set) var squareSize: SquareSize
     private(set) var animationSpeed: AnimationSpeed
-    private(set) var blurAmount: BlurAmount
     private(set) var color1: SKColor
     private(set) var color2: SKColor
     private(set) var color3: SKColor
@@ -25,7 +24,6 @@ final class LifeSaverManager {
         appearanceMode = Database.standard.appearanceMode
         squareSize = Database.standard.squareSize
         animationSpeed = Database.standard.animationSpeed
-        blurAmount = Database.standard.blurAmount
         color1 = Database.standard.getColor(.color1)
         color2 = Database.standard.getColor(.color2)
         color3 = Database.standard.getColor(.color3)
@@ -44,11 +42,6 @@ final class LifeSaverManager {
     func setAnimationSpeed(_ animationSpeed: AnimationSpeed) {
         self.animationSpeed = animationSpeed
         Database.standard.set(animationSpeed: animationSpeed)
-    }
-
-    func setBlurAmount(_ blurAmount: BlurAmount) {
-        self.blurAmount = blurAmount
-        Database.standard.set(blurAmount: blurAmount)
     }
 
     func setColor(_ color: SKColor, for colors: Colors) {

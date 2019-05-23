@@ -33,7 +33,6 @@ struct Database {
 
         database.register(defaults:
             [Key.appearanceMode: Appearance.dark.rawValue,
-             Key.blurAmount: BlurAmount.none.rawValue,
              Key.animationSpeed: AnimationSpeed.normal.rawValue,
              Key.squareSize: SquareSize.medium.rawValue,
              Key.color1: archiveData(SKColor.defaultColor1),
@@ -69,14 +68,6 @@ extension ScreenSaverDefaults {
 
     func set(animationSpeed: AnimationSpeed) {
         set(animationSpeed.rawValue, for: Database.Key.animationSpeed)
-    }
-
-    var blurAmount: BlurAmount {
-        return BlurAmount(rawValue: integer(forKey: Database.Key.blurAmount))!
-    }
-
-    func set(blurAmount: BlurAmount) {
-        set(blurAmount.rawValue, for: Database.Key.blurAmount)
     }
 
     func getColor(_ color: Colors) -> SKColor {
