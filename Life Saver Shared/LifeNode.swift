@@ -9,10 +9,20 @@
 import SpriteKit
 
 class LifeNode: SKSpriteNode {
+    let debugLabel: SKLabelNode = SKLabelNode()
+
     let relativePosition: CGPoint
     var alive: Bool
     var timeInState: Int = 0
     var aliveColor: SKColor
+    var neighbors: [LifeNode] = [] {
+        didSet {
+            neighbors = Array(Set(neighbors))
+            debugLabel.text = "\(neighbors.count)"
+            debugLabel.color = .white
+            debugLabel.fontColor = .white
+        }
+    }
 
     init(relativePosition: CGPoint, alive: Bool, color: SKColor, size: CGSize) {
         self.relativePosition = relativePosition
@@ -22,6 +32,10 @@ class LifeNode: SKSpriteNode {
         anchorPoint = CGPoint(x: 0, y: 0)
         colorBlendFactor = 1
         zPosition = 0
+
+        addChild(debugLabel)
+        debugLabel.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        debugLabel.isHidden = true
     }
 
     required init?(coder _: NSCoder) {
@@ -57,7 +71,7 @@ class LifeNode: SKSpriteNode {
         timeInState = 0
         alive = false
 
-        let fadeAction = SKAction.fadeAlpha(to: 0.2, duration: duration)
+        let fadeAction = SKAction.fadeAlpha(to: 0.1, duration: duration)
         fadeAction.timingMode = .easeInEaseOut
         run(fadeAction)
     }

@@ -98,6 +98,8 @@ class LifeScene: SKScene {
         let squareWidth: CGFloat = size.width / lengthSquares
         let squareHeight: CGFloat = size.height / heightSquares
 
+        // Create Nodes
+
         var createdSquares: CGFloat = 0
         var nextXValue: Int = 0
         var nextYValue: Int = 0
@@ -137,15 +139,12 @@ class LifeScene: SKScene {
                 nextXPosition += squareWidth
             }
         }
-    }
 
-    fileprivate func updateLife() {
-        var dyingNodes: [LifeNode] = []
-        var livingNodes: [LifeNode] = []
-        for nodeData in allNodes {
-            // Get neighbors...
-            let livingNeighbors = livingNodes.filter {
-                let delta = (abs(nodeData.relativePosition.x - $0.relativePosition.x), abs(nodeData.relativePosition.y - $0.relativePosition.y))
+        // Calculate Neighbors
+
+        for node in allNodes {
+            let neighbors = allNodes.filter {
+                let delta = (abs(node.relativePosition.x - $0.relativePosition.x), abs(node.relativePosition.y - $0.relativePosition.y))
                 switch delta {
                 case (1, 1), (1, 0), (0, 1):
                     return true
@@ -153,20 +152,75 @@ class LifeScene: SKScene {
                     return false
                 }
             }
+            node.neighbors = neighbors
+        }
 
-            if nodeData.alive {
+        // Add edges to each other
+        let maxX = lengthSquares - 1
+        let maxY = heightSquares - 1
+        let edgeNodes = allNodes.filter { [0, maxX].contains($0.relativePosition.x) || [0, maxY].contains($0.relativePosition.y) }
+        for node in edgeNodes {
+            var neighborPoints: [CGPoint] = []
+            switch node.relativePosition {
+            case CGPoint(x: 0, y: 0):
+                neighborPoints.append(CGPoint(x: maxX, y: maxY))
+            case CGPoint(x: maxX, y: maxY):
+                neighborPoints.append(CGPoint(x: 0, y: 0))
+            case CGPoint(x: 0, y: maxY):
+                neighborPoints.append(CGPoint(x: maxX, y: 0))
+            case CGPoint(x: maxX, y: 0):
+                neighborPoints.append(CGPoint(x: 0, y: maxY))
+            default:
+                break
+            }
+            if node.relativePosition.x == 0 {
+                neighborPoints.append(CGPoint(x: maxX, y: node.relativePosition.y - 1))
+                neighborPoints.append(CGPoint(x: maxX, y: node.relativePosition.y))
+                neighborPoints.append(CGPoint(x: maxX, y: node.relativePosition.y + 1))
+            }
+            if node.relativePosition.y == 0 {
+                neighborPoints.append(CGPoint(x: node.relativePosition.x - 1, y: maxY))
+                neighborPoints.append(CGPoint(x: node.relativePosition.x, y: maxY))
+                neighborPoints.append(CGPoint(x: node.relativePosition.x + 1, y: maxY))
+            }
+            if node.relativePosition.x == maxX {
+                neighborPoints.append(CGPoint(x: 0, y: node.relativePosition.y - 1))
+                neighborPoints.append(CGPoint(x: 0, y: node.relativePosition.y))
+                neighborPoints.append(CGPoint(x: 0, y: node.relativePosition.y + 1))
+            }
+            if node.relativePosition.y == maxY {
+                neighborPoints.append(CGPoint(x: node.relativePosition.x - 1, y: 0))
+                neighborPoints.append(CGPoint(x: node.relativePosition.x, y: 0))
+                neighborPoints.append(CGPoint(x: node.relativePosition.x + 1, y: 0))
+            }
+            let newNeighbors = edgeNodes.filter { neighborPoints.contains($0.relativePosition) }
+            node.neighbors.append(contentsOf: newNeighbors)
+        }
+
+    }
+
+    fileprivate func updateLife() {
+        var dyingNodes: [LifeNode] = []
+        var livingNodes: [LifeNode] = []
+        for node in allNodes {
+            // Get living neighbors...
+            let livingNeighbors = node.neighbors.filter {
+                return $0.alive
+            }
+
+            if node.alive {
                 if livingNeighbors.count > 3 || livingNeighbors.count < 2 {
-                    dyingNodes.append(nodeData)
-                } else if nodeData.timeInState > 10 {
-                    dyingNodes.append(nodeData)
+                    dyingNodes.append(node)
+                } else if node.timeInState > 10 {
+                    dyingNodes.append(node)
                 } else {
-                    livingNodes.append(nodeData)
+                    livingNodes.append(node)
                 }
             } else if livingNeighbors.count == 3 {
-                nodeData.aliveColor = livingNeighbors.randomElement()!.color
-                livingNodes.append(nodeData)
+                node.aliveColor = livingNeighbors.randomElement()!.color
+                livingNodes.append(node)
             } else {
-                dyingNodes.append(nodeData)
+                dyingNodes.append(node)
             }
         }
 
