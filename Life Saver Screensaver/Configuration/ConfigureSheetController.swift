@@ -16,7 +16,7 @@ final class ConfigureSheetController: NSObject {
 
     fileprivate let presets: [LifeSettings] = [
         LifeSettings(
-            title: "Settings: Default",
+            title: "Settings: Defaults",
             appearanceMode: .dark,
             squareSize: .medium,
             animationSpeed: .normal,
@@ -26,7 +26,7 @@ final class ConfigureSheetController: NSObject {
         ),
         LifeSettings(
             title: "Settings: Abstract",
-            appearanceMode: .dark,
+            appearanceMode: nil,
             squareSize: .large,
             animationSpeed: .slow,
             color1: nil,
@@ -35,7 +35,7 @@ final class ConfigureSheetController: NSObject {
         ),
         LifeSettings(
             title: "Settings: Simulation",
-            appearanceMode: .dark,
+            appearanceMode: nil,
             squareSize: .small,
             animationSpeed: .fast,
             color1: nil,
@@ -52,7 +52,7 @@ final class ConfigureSheetController: NSObject {
             color3: SKColor.defaultColor3
         ),
         LifeSettings(
-            title: "Colors: Dusk",
+            title: "Colors: Spooky",
             appearanceMode: nil,
             squareSize: nil,
             animationSpeed: nil,
@@ -68,6 +68,33 @@ final class ConfigureSheetController: NSObject {
             color1: SKColor(red: 173 / 255.0, green: 255 / 255.0, blue: 14 / 255.0, alpha: 1.00),
             color2: SKColor(red: 174 / 255.0, green: 129 / 255.0, blue: 255 / 255.0, alpha: 1.00),
             color3: SKColor(red: 6 / 255.0, green: 66 / 255.0, blue: 110 / 255.0, alpha: 1.00)
+        ),
+        LifeSettings(
+            title: "Colors: Lost Boys",
+            appearanceMode: nil,
+            squareSize: nil,
+            animationSpeed: nil,
+            color1: SKColor(red: 190 / 255.0, green: 14 / 255.0, blue: 19 / 255.0, alpha: 1.00),
+            color2: SKColor(red: 39 / 255.0, green: 65 / 255.0, blue: 110 / 255.0, alpha: 1.00),
+            color3: SKColor(red: 212 / 255.0, green: 205 / 255.0, blue: 196 / 255.0, alpha: 1.00)
+        ),
+        LifeSettings(
+            title: "Colors: Noun Project",
+            appearanceMode: .dark,
+            squareSize: nil,
+            animationSpeed: nil,
+            color1: SKColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1.00),
+            color2: SKColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1.00),
+            color3: SKColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1.00)
+        ),
+        LifeSettings(
+            title: "Colors: Lingo",
+            appearanceMode: .light,
+            squareSize: nil,
+            animationSpeed: nil,
+            color1: SKColor(red: 252 / 255.0, green: 98 / 255.0, blue: 101 / 255.0, alpha: 1.00),
+            color2: SKColor(red: 88 / 255.0, green: 137 / 255.0, blue: 251 / 255.0, alpha: 1.00),
+            color3: SKColor(red: 38 / 255.0, green: 205 / 255.0, blue: 105 / 255.0, alpha: 1.00)
         ),
     ]
 

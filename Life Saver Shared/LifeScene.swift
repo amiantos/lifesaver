@@ -30,7 +30,7 @@ class LifeScene: SKScene {
         }
     }
 
-    private var updateTime: TimeInterval = 1
+    private var updateTime: TimeInterval = 2
     var animationSpeed: AnimationSpeed = .normal {
         didSet {
             switch animationSpeed {
@@ -78,7 +78,6 @@ class LifeScene: SKScene {
 
     private var allNodes: [LifeNode] = []
     private var livingNodes: [LifeNode] = []
-    private var deadNodes: [LifeNode] = []
 
     fileprivate func createLife() {
         var lengthSquares: CGFloat = 16
@@ -112,7 +111,7 @@ class LifeScene: SKScene {
 
             let newSquare = LifeNode(
                 relativePosition: squareRelativePosition,
-                alive: Int.random(in: 0 ... 1) == 1 ? true : false,
+                alive: false,
                 color: appearanceColor,
                 size: squareSize
             )
@@ -122,8 +121,6 @@ class LifeScene: SKScene {
             if newSquare.alive {
                 livingNodes.append(newSquare)
                 newSquare.color = aliveColors.randomElement()!
-            } else {
-                deadNodes.append(newSquare)
             }
             allNodes.append(newSquare)
 
@@ -224,24 +221,50 @@ class LifeScene: SKScene {
             }
         }
 
-        // Fail-safe to ensure tank dieout doesn't happen
-        while CGFloat(livingNodes.count) < (CGFloat(allNodes.count) * 0.08) {
-            let nodeNumber = GKRandomSource.sharedRandom().nextInt(upperBound: dyingNodes.count)
-            let node = dyingNodes[nodeNumber]
-            node.aliveColor = aliveColors.randomElement()!
-            livingNodes.append(node)
-            dyingNodes.remove(at: nodeNumber)
+        // If entire tank has died, populate it!
+        var minLife: CGFloat = 0
+        switch squareSize {
+        case .small:
+            minLife = 4
+        case .medium:
+            minLife = 4
+        case .large:
+            minLife = 10
+        }
+        if CGFloat(livingNodes.count) < minLife {
+            createRandomShapes(&dyingNodes, &livingNodes)
         }
 
         // Update nodes here
+        dyingNodes.forEach {
+            $0.die(duration: updateTime * 5)
+        }
+
         livingNodes.forEach {
             $0.live(duration: updateTime)
         }
 
-        dyingNodes.forEach {
-            $0.die(duration: updateTime * 5)
-        }
         self.livingNodes = livingNodes
-        deadNodes = dyingNodes
+    }
+
+    fileprivate func createRandomShapes(_: inout [LifeNode], _ livingNodes: inout [LifeNode]) {
+        var totalShapes: Int = 0
+        switch squareSize {
+        case .small:
+            totalShapes = 20
+        case .medium:
+            totalShapes = 10
+        case .large:
+            totalShapes = 4
+        }
+        for _ in 1 ... totalShapes {
+            let nodeNumber = GKRandomSource.sharedRandom().nextInt(upperBound: allNodes.count)
+            let color = aliveColors.randomElement()!
+            let node = allNodes[nodeNumber]
+            for neighborNode in node.neighbors where Int.random(in: 0 ... 1) == 1 {
+                neighborNode.aliveColor = color
+                livingNodes.append(neighborNode)
+            }
+        }
     }
 }

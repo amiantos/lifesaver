@@ -30,6 +30,7 @@
 		B49221742291F6AA00D5DEA4 /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
 		B49221752294E5C500D5DEA4 /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */; };
 		B49221762294E71A00D5DEA4 /* ConfigureSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */; };
+		B49F59B8229881C700571F05 /* LifeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415351D229733C20061434F /* LifeSettings.swift */; };
 		B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88A72290553400AE066A /* AppDelegate.swift */; };
 		B4FD88B02290553400AE066A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88AF2290553400AE066A /* ViewController.swift */; };
 		B4FD88B22290553600AE066A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
@@ -321,6 +322,7 @@
 				4415352422974E220061434F /* LifeNode.swift in Sources */,
 				4480C70B2294B05200CC2EDC /* FileGrabber.swift in Sources */,
 				B492216A2291F59D00D5DEA4 /* GameViewController.swift in Sources */,
+				B49F59B8229881C700571F05 /* LifeSettings.swift in Sources */,
 				B49221622291F59D00D5DEA4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

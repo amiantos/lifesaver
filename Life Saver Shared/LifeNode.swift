@@ -55,7 +55,7 @@ class LifeNode: SKSpriteNode {
         alive = true
 
         let fadeAction = SKAction.fadeAlpha(to: 1, duration: duration)
-        let colorAction = SKAction.colorize(with: aliveColor, colorBlendFactor: 1, duration: duration)
+        let colorAction = SKAction.colorize(with: aliveColor, colorBlendFactor: 1, duration: duration / 2)
         let actionGroup = SKAction.group([fadeAction, colorAction])
         actionGroup.timingMode = .easeInEaseOut
         run(actionGroup)
