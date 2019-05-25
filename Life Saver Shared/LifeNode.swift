@@ -58,6 +58,13 @@ class LifeNode: SKSpriteNode {
     public func die(duration: TimeInterval) {
         if !alive {
             timeInState += 1
+
+            if timeInState >= 50 {
+                let fadeAction = SKAction.fadeAlpha(to: 0, duration: duration)
+                fadeAction.timingMode = .easeIn
+                run(fadeAction)
+            }
+
             return
         }
 
