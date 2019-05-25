@@ -15,14 +15,7 @@ class LifeNode: SKSpriteNode {
     var alive: Bool
     var timeInState: Int = 0
     var aliveColor: SKColor
-    var neighbors: [LifeNode] = [] {
-        didSet {
-            neighbors = Array(Set(neighbors))
-            debugLabel.text = "\(neighbors.count)"
-            debugLabel.color = .white
-            debugLabel.fontColor = .white
-        }
-    }
+    var neighbors: [LifeNode] = []
 
     init(relativePosition: CGPoint, alive: Bool, color: SKColor, size: CGSize) {
         self.relativePosition = relativePosition
@@ -35,6 +28,7 @@ class LifeNode: SKSpriteNode {
 
         addChild(debugLabel)
         debugLabel.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        debugLabel.zPosition = 4
         debugLabel.isHidden = true
     }
 
@@ -55,7 +49,7 @@ class LifeNode: SKSpriteNode {
         alive = true
 
         let fadeAction = SKAction.fadeAlpha(to: 1, duration: duration)
-        let colorAction = SKAction.colorize(with: aliveColor, colorBlendFactor: 1, duration: duration / 2)
+        let colorAction = SKAction.colorize(with: aliveColor, colorBlendFactor: 1, duration: duration)
         let actionGroup = SKAction.group([fadeAction, colorAction])
         actionGroup.timingMode = .easeInEaseOut
         run(actionGroup)

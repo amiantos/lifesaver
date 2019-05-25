@@ -35,7 +35,7 @@ class LifeScene: SKScene {
         didSet {
             switch animationSpeed {
             case .fast:
-                updateTime = 0.5
+                updateTime = 0.6
             case .normal:
                 updateTime = 2
             case .slow:
@@ -56,20 +56,14 @@ class LifeScene: SKScene {
     override func didMove(to _: SKView) {
         backgroundColor = appearanceColor
         scaleMode = .fill
-
         createLife()
     }
 
     private var lastUpdate: TimeInterval = 0
 
     override func update(_ currentTime: TimeInterval) {
-        if lastUpdate == 0 {
+        if lastUpdate == 0 || currentTime - lastUpdate >= updateTime {
             lastUpdate = currentTime
-        }
-
-        if currentTime - lastUpdate >= updateTime {
-            lastUpdate = currentTime
-
             updateLife()
         }
     }
@@ -77,7 +71,8 @@ class LifeScene: SKScene {
     // MARK: - Life Logic
 
     private var allNodes: [LifeNode] = []
-    private var livingNodes: [LifeNode] = []
+    private var aliveNodes: [LifeNode] = []
+    private var livingNodeHistory: [Int] = []
 
     fileprivate func createLife() {
         var lengthSquares: CGFloat = 16
@@ -119,7 +114,7 @@ class LifeScene: SKScene {
             newSquare.position = squarePosition
 
             if newSquare.alive {
-                livingNodes.append(newSquare)
+                aliveNodes.append(newSquare)
                 newSquare.color = aliveColors.randomElement()!
             }
             allNodes.append(newSquare)
@@ -193,7 +188,6 @@ class LifeScene: SKScene {
             let newNeighbors = edgeNodes.filter { neighborPoints.contains($0.relativePosition) }
             node.neighbors.append(contentsOf: newNeighbors)
         }
-
     }
 
     fileprivate func updateLife() {
@@ -201,14 +195,10 @@ class LifeScene: SKScene {
         var livingNodes: [LifeNode] = []
         for node in allNodes {
             // Get living neighbors...
-            let livingNeighbors = node.neighbors.filter {
-                return $0.alive
-            }
+            let livingNeighbors = node.neighbors.filter { $0.alive }
 
             if node.alive {
                 if livingNeighbors.count > 3 || livingNeighbors.count < 2 {
-                    dyingNodes.append(node)
-                } else if node.timeInState > 10 {
                     dyingNodes.append(node)
                 } else {
                     livingNodes.append(node)
@@ -221,18 +211,21 @@ class LifeScene: SKScene {
             }
         }
 
-        // If entire tank has died, populate it!
-        var minLife: CGFloat = 0
-        switch squareSize {
-        case .small:
-            minLife = 4
-        case .medium:
-            minLife = 4
-        case .large:
-            minLife = 10
-        }
-        if CGFloat(livingNodes.count) < minLife {
+        // If entire tank is dead, generate a new tank!
+        if CGFloat(livingNodes.count) == 0 {
             createRandomShapes(&dyingNodes, &livingNodes)
+        }
+
+        // Static tank prevention
+        if livingNodeHistory.count >= 20 {
+            livingNodeHistory.removeFirst()
+            livingNodeHistory.append(livingNodes.count)
+            if 1 ... 2 ~= Set(livingNodeHistory).count {
+                dyingNodes.append(contentsOf: livingNodes)
+                livingNodes.removeAll()
+            }
+        } else {
+            livingNodeHistory.append(livingNodes.count)
         }
 
         // Update nodes here
@@ -244,7 +237,7 @@ class LifeScene: SKScene {
             $0.live(duration: updateTime)
         }
 
-        self.livingNodes = livingNodes
+        aliveNodes = livingNodes
     }
 
     fileprivate func createRandomShapes(_: inout [LifeNode], _ livingNodes: inout [LifeNode]) {

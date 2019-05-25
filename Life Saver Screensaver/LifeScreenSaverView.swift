@@ -54,6 +54,7 @@ final class LifeScreenSaverView: ScreenSaverView {
             scene.squareSize = manager.squareSize
             scene.animationSpeed = manager.animationSpeed
             scene.aliveColors = [manager.color1, manager.color2, manager.color3]
+            scene.isUserInteractionEnabled = false
 
             spriteView.presentScene(scene)
         }

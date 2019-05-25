@@ -18,12 +18,12 @@ class ViewController: NSViewController {
 
         let scene = LifeScene(size: view.frame.size)
 
+        scene.animationSpeed = .fast
+        scene.squareSize = .large
+
         let skView = view as? SKView
         skView?.presentScene(scene)
 
         skView?.ignoresSiblingOrder = true
-//        skView?.showsDrawCount = true
-//        skView?.showsFPS = true
-//        skView?.showsNodeCount = true
     }
 }
