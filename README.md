@@ -1,13 +1,21 @@
 # Life Saver
 
-Conway's Game of Life implemented as a macOS screensaver using SpriteKit.
+Life Saver is an abstract macOS screensaver based on [Conway's Game of Life](https://www.github.com/amiantos/lifesaver) implemented with SpriteKit. With a variety of settings and color schemes, Life Saver should satisfy designers and geeks alike.
 
-[Here's a YouTube video preview of v0.1](https://youtu.be/_G7aavJIZmw)
+📼  [Watch a YouTube video to see it in action](https://www.youtube.com/watch?v=N4nCFUVThgg).
 
-To find compiled downloads, check the [Releases](https://github.com/amiantos/lifesaver/releases) section.
+![Life Saver Screenshots](/Design/lifesaver-screenshots.png?raw=true)
 
-Check out the [Projects](https://github.com/amiantos/lifesaver/projects) section to see what needs to be done.
+# Download
 
-# Notes
+👉  [Download Life Saver v1.0 Installer for macOS](https://s3.amazonaws.com/amiantos/lifesaver-1.0.pkg)
 
-To aid in development, technically Life Saver is a macOS app first and a screensaver second. All core files to how the thing works are in the `Life Saver` folder, and the screensaver-related junk is in the `Life Saver Screensaver` folder. Use the main `Life Saver` build target if you just want to see it run.
+## To Install from Source
+
+1. `git clone https://github.com/amiantos/lifesaver.git`
+2. Open `Life Saver.xcodeproj`
+3. To play locally, run `Life Saver macOS`
+
+There's also a tvOS target if you've got an Apple TV.
+
+
