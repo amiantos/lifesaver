@@ -304,7 +304,7 @@
 									<array>
 										<dict>
 											<key>BUNDLE_CAN_DOWNGRADE</key>
-											<true/>
+											<false/>
 											<key>BUNDLE_POSTINSTALL_PATH</key>
 											<dict>
 												<key>PATH_TYPE</key>
@@ -320,9 +320,9 @@
 											<key>GID</key>
 											<integer>0</integer>
 											<key>PATH</key>
-											<string>/Users/bradroot/Desktop/Life Saver.saver</string>
+											<string>Life Saver.saver</string>
 											<key>PATH_TYPE</key>
-											<integer>0</integer>
+											<integer>1</integer>
 											<key>PERMISSIONS</key>
 											<integer>493</integer>
 											<key>TYPE</key>

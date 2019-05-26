@@ -6,6 +6,7 @@
 build/
 DerivedData/
 *.pkg
+*.saver
 
 ## Various settings
 *.pbxuser
