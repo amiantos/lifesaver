@@ -93,7 +93,6 @@ class LifeScene: SKScene {
         let squareHeight: CGFloat = size.height / heightSquares
 
         // Create Nodes
-
         var createdSquares: CGFloat = 0
         var nextXValue: Int = 0
         var nextYValue: Int = 0
@@ -133,7 +132,6 @@ class LifeScene: SKScene {
         }
 
         // Calculate Neighbors
-
         for node in allNodes {
             let neighbors = allNodes.filter {
                 let delta = (abs(node.relativePosition.x - $0.relativePosition.x), abs(node.relativePosition.y - $0.relativePosition.y))
@@ -147,7 +145,7 @@ class LifeScene: SKScene {
             node.neighbors = neighbors
         }
 
-        // Add edges to each other
+        // Setup loop from edge
         let maxX = lengthSquares - 1
         let maxY = heightSquares - 1
         let edgeNodes = allNodes.filter { [0, maxX].contains($0.relativePosition.x) || [0, maxY].contains($0.relativePosition.y) }

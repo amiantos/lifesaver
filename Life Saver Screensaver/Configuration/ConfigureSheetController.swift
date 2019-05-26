@@ -16,34 +16,7 @@ final class ConfigureSheetController: NSObject {
 
     fileprivate let presets: [LifeSettings] = [
         LifeSettings(
-            title: "Settings: Defaults",
-            appearanceMode: .dark,
-            squareSize: .medium,
-            animationSpeed: .normal,
-            color1: nil,
-            color2: nil,
-            color3: nil
-        ),
-        LifeSettings(
-            title: "Settings: Abstract",
-            appearanceMode: nil,
-            squareSize: .large,
-            animationSpeed: .slow,
-            color1: nil,
-            color2: nil,
-            color3: nil
-        ),
-        LifeSettings(
-            title: "Settings: Simulation",
-            appearanceMode: nil,
-            squareSize: .small,
-            animationSpeed: .fast,
-            color1: nil,
-            color2: nil,
-            color3: nil
-        ),
-        LifeSettings(
-            title: "Colors: Santa Fe",
+            title: "Santa Fe",
             appearanceMode: .dark,
             squareSize: nil,
             animationSpeed: nil,
@@ -52,7 +25,7 @@ final class ConfigureSheetController: NSObject {
             color3: SKColor.defaultColor3
         ),
         LifeSettings(
-            title: "Colors: Braineater",
+            title: "Braineater",
             appearanceMode: .dark,
             squareSize: nil,
             animationSpeed: nil,
@@ -61,7 +34,7 @@ final class ConfigureSheetController: NSObject {
             color3: SKColor(red: 12 / 255.0, green: 67 / 255.0, blue: 108 / 255.0, alpha: 1.00)
         ),
         LifeSettings(
-            title: "Colors: Reign In Blood",
+            title: "Reign In Blood",
             appearanceMode: .dark,
             squareSize: nil,
             animationSpeed: nil,
@@ -70,7 +43,7 @@ final class ConfigureSheetController: NSObject {
             color3: SKColor(red: 55 / 255.0, green: 55 / 255.0, blue: 55 / 255.0, alpha: 1.00)
         ),
         LifeSettings(
-            title: "Colors: Swamp Girl",
+            title: "Swamp Girl",
             appearanceMode: .dark,
             squareSize: nil,
             animationSpeed: nil,
@@ -79,7 +52,7 @@ final class ConfigureSheetController: NSObject {
             color3: SKColor(red: 6 / 255.0, green: 66 / 255.0, blue: 110 / 255.0, alpha: 1.00)
         ),
         LifeSettings(
-            title: "Colors: This Is America",
+            title: "This Is America",
             appearanceMode: .dark,
             squareSize: nil,
             animationSpeed: nil,
@@ -88,7 +61,7 @@ final class ConfigureSheetController: NSObject {
             color3: SKColor(red: 212 / 255.0, green: 205 / 255.0, blue: 196 / 255.0, alpha: 1.00)
         ),
         LifeSettings(
-            title: "Colors: The Noun Project",
+            title: "The Noun Project",
             appearanceMode: .dark,
             squareSize: nil,
             animationSpeed: nil,
@@ -97,7 +70,7 @@ final class ConfigureSheetController: NSObject {
             color3: SKColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1.00)
         ),
         LifeSettings(
-            title: "Colors: Lingo",
+            title: "Lingo",
             appearanceMode: .light,
             squareSize: nil,
             animationSpeed: nil,
@@ -106,7 +79,7 @@ final class ConfigureSheetController: NSObject {
             color3: SKColor(red: 38 / 255.0, green: 205 / 255.0, blue: 105 / 255.0, alpha: 1.00)
         ),
         LifeSettings(
-            title: "Colors: Deuteranopia",
+            title: "Deuteranopia",
             appearanceMode: .dark,
             squareSize: nil,
             animationSpeed: nil,
@@ -115,7 +88,7 @@ final class ConfigureSheetController: NSObject {
             color3: SKColor(red: 255 / 255.0, green: 173 / 255.0, blue: 105 / 255.0, alpha: 1.00)
         ),
         LifeSettings(
-            title: "Colors: Retro Pastel",
+            title: "Retro Pastel",
             appearanceMode: .light,
             squareSize: nil,
             animationSpeed: nil,
@@ -124,7 +97,7 @@ final class ConfigureSheetController: NSObject {
             color3: SKColor(red: 175 / 255.0, green: 211 / 255.0, blue: 213 / 255.0, alpha: 1.00)
         ),
         LifeSettings(
-            title: "Colors: Better Days",
+            title: "Better Days",
             appearanceMode: .dark,
             squareSize: nil,
             animationSpeed: nil,
@@ -133,7 +106,7 @@ final class ConfigureSheetController: NSObject {
             color3: SKColor(red: 114 / 255.0, green: 100 / 255.0, blue: 87 / 255.0, alpha: 1.00)
         ),
         LifeSettings(
-            title: "Colors: Bubblegum",
+            title: "Bubblegum",
             appearanceMode: .light,
             squareSize: nil,
             animationSpeed: nil,
@@ -142,7 +115,16 @@ final class ConfigureSheetController: NSObject {
             color3: SKColor(red: 191 / 255.0, green: 178 / 255.0, blue: 95 / 255.0, alpha: 1.00)
         ),
         LifeSettings(
-            title: "Colors: Georgia",
+            title: "Teenage Chapstick",
+            appearanceMode: .dark,
+            squareSize: nil,
+            animationSpeed: nil,
+            color1: SKColor(red: 208 / 255.0, green: 117 / 255.0, blue: 126 / 255.0, alpha: 1.00),
+            color2: SKColor(red: 44 / 255.0, green: 80 / 255.0, blue: 80 / 255.0, alpha: 1.00),
+            color3: SKColor(red: 156 / 255.0, green: 154 / 255.0, blue: 23 / 255.0, alpha: 1.00)
+        ),
+        LifeSettings(
+            title: "Georgia",
             appearanceMode: .light,
             squareSize: nil,
             animationSpeed: nil,
@@ -151,7 +133,7 @@ final class ConfigureSheetController: NSObject {
             color3: SKColor(red: 247 / 255.0, green: 172 / 255.0, blue: 153 / 255.0, alpha: 1.00)
         ),
         LifeSettings(
-            title: "Colors: Boysenberry",
+            title: "Boysenberry",
             appearanceMode: .dark,
             squareSize: nil,
             animationSpeed: nil,
@@ -160,7 +142,7 @@ final class ConfigureSheetController: NSObject {
             color3: SKColor(red: 160 / 255.0, green: 121 / 255.0, blue: 72 / 255.0, alpha: 1.00)
         ),
         LifeSettings(
-            title: "Colors: Tal Véz",
+            title: "Tal Véz",
             appearanceMode: .dark,
             squareSize: nil,
             animationSpeed: nil,
@@ -169,16 +151,16 @@ final class ConfigureSheetController: NSObject {
             color3: SKColor(red: 176 / 255.0, green: 197 / 255.0, blue: 223 / 255.0, alpha: 1.00)
         ),
         LifeSettings(
-            title: "Colors: Deep Forest",
+            title: "Deep Forest",
             appearanceMode: .dark,
             squareSize: nil,
             animationSpeed: nil,
-            color1: SKColor(red: 73 / 255.0, green: 110 / 255.0, blue: 28 / 255.0, alpha: 1.00),
-            color2: SKColor(red: 108 / 255.0, green: 118 / 255.0, blue: 30 / 255.0, alpha: 1.00),
-            color3: SKColor(red: 22 / 255.0, green: 87 / 255.0, blue: 48 / 255.0, alpha: 1.00)
+            color1: SKColor(red: 36 / 255.0, green: 55 / 255.0, blue: 13 / 255.0, alpha: 1.00),
+            color2: SKColor(red: 55 / 255.0, green: 60 / 255.0, blue: 13 / 255.0, alpha: 1.00),
+            color3: SKColor(red: 10 / 255.0, green: 44 / 255.0, blue: 24 / 255.0, alpha: 1.00)
         ),
         LifeSettings(
-            title: "Colors: Bite Me",
+            title: "Bite Me",
             appearanceMode: .dark,
             squareSize: nil,
             animationSpeed: nil,
@@ -191,6 +173,21 @@ final class ConfigureSheetController: NSObject {
     // MARK: - Config Actions and Outlets
 
     @IBOutlet var window: NSWindow?
+
+    @IBOutlet var stylePresetsButton: NSSegmentedControl!
+    @IBAction func stylePresetsAction(_ sender: NSSegmentedControl) {
+        switch sender.selectedSegment {
+        case 0:
+            let simulationSettings = LifeSettings(title: "Simulation", appearanceMode: nil, squareSize: .small, animationSpeed: .fast, color1: nil, color2: nil, color3: nil)
+            setupFields(with: simulationSettings)
+        case 2:
+            let abstractSettings = LifeSettings(title: "Abstract", appearanceMode: nil, squareSize: .large, animationSpeed: .slow, color1: nil, color2: nil, color3: nil)
+            setupFields(with: abstractSettings)
+        default:
+            let defaultSettings = LifeSettings(title: "Defaults", appearanceMode: nil, squareSize: .medium, animationSpeed: .normal, color1: nil, color2: nil, color3: nil)
+            setupFields(with: defaultSettings)
+        }
+    }
 
     @IBOutlet var presetsButton: NSPopUpButton!
     @IBAction func presetsAction(_ sender: NSPopUpButton) {
@@ -221,6 +218,7 @@ final class ConfigureSheetController: NSObject {
         default:
             manager.setSquareSize(.medium)
         }
+        updateStylePresetsControl()
     }
 
     @IBOutlet var animationSpeedControl: NSSegmentedControl!
@@ -233,6 +231,7 @@ final class ConfigureSheetController: NSObject {
         default:
             manager.setAnimationSpeed(.normal)
         }
+        updateStylePresetsControl()
     }
 
     @IBOutlet var color1Well: NSColorWell!
@@ -312,6 +311,7 @@ final class ConfigureSheetController: NSObject {
         color3Well.color = manager.color3
 
         setupPresets()
+        updateStylePresetsControl()
     }
 
     fileprivate func setupPresets() {
@@ -321,6 +321,18 @@ final class ConfigureSheetController: NSObject {
             presetTitles.append(preset.title)
         }
         presetsButton.addItems(withTitles: presetTitles)
+    }
+
+    fileprivate func updateStylePresetsControl() {
+        if manager.animationSpeed == .fast, manager.squareSize == .small {
+            stylePresetsButton.selectSegment(withTag: 0)
+        } else if manager.animationSpeed == .normal, manager.squareSize == .medium {
+            stylePresetsButton.selectSegment(withTag: 1)
+        } else if manager.animationSpeed == .slow, manager.squareSize == .large {
+            stylePresetsButton.selectSegment(withTag: 2)
+        } else {
+            stylePresetsButton.setSelected(false, forSegment: stylePresetsButton.selectedSegment)
+        }
     }
 
     fileprivate func setupFields(with preset: LifeSettings) {
