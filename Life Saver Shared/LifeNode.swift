@@ -8,9 +8,9 @@
 
 import SpriteKit
 
-class LifeNode: SKSpriteNode {
-    let debugLabel: SKLabelNode = SKLabelNode()
+let squareTexture = FileGrabber.shared.getSKTexture(named: "square")
 
+class LifeNode: SKSpriteNode {
     let relativePosition: CGPoint
     var alive: Bool
     var timeInState: Int = 0
@@ -21,15 +21,10 @@ class LifeNode: SKSpriteNode {
         self.relativePosition = relativePosition
         self.alive = alive
         aliveColor = color
-        super.init(texture: FileGrabber.shared.getSKTexture(named: "square"), color: aliveColor, size: size)
+        super.init(texture: squareTexture, color: aliveColor, size: size)
         anchorPoint = CGPoint(x: 0, y: 0)
         colorBlendFactor = 1
         zPosition = 0
-
-        addChild(debugLabel)
-        debugLabel.position = CGPoint(x: size.width / 2, y: size.height / 2)
-        debugLabel.zPosition = 4
-        debugLabel.isHidden = true
     }
 
     required init?(coder _: NSCoder) {
