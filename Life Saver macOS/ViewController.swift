@@ -18,11 +18,10 @@ class ViewController: NSViewController {
 
         let scene = LifeScene(size: view.frame.size)
 
-
         scene.animationSpeed = .fast
-        scene.squareSize = .medium
+        scene.squareSize = .small
 
-        if let preset = lifePresets.filter({ $0.title == "Georgia" }).first {
+        if let preset = lifePresets.filter({ $0.title == "Santa Fe" }).first {
             if let appearanceMode = preset.appearanceMode {
                 scene.appearanceMode = appearanceMode
             }
@@ -31,9 +30,11 @@ class ViewController: NSViewController {
             }
         }
 
-
         let skView = view as? SKView
         skView?.presentScene(scene)
+        skView?.showsFPS = true
+        skView?.showsDrawCount = true
+        skView?.showsNodeCount = true
 
         skView?.ignoresSiblingOrder = true
     }

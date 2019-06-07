@@ -85,6 +85,12 @@ class LifeScene: SKScene {
         case .small:
             lengthSquares = 32
             heightSquares = 18
+        case .verySmall:
+            lengthSquares = 64
+            heightSquares = 36
+        case .superSmall:
+            lengthSquares = 128
+            heightSquares = 74
         default:
             break
         }
@@ -135,7 +141,7 @@ class LifeScene: SKScene {
             }
         }
 
-        // Calculate Neighbors
+        // Pre-fetch Neighbors
         for node in allNodes {
             var neighbors: [LifeNode] = []
             neighbors.append(matrix[Int(node.relativePosition.x - 1), Int(node.relativePosition.y)])
@@ -203,6 +209,10 @@ class LifeScene: SKScene {
     fileprivate func createRandomShapes(_: inout [LifeNode], _ livingNodes: inout [LifeNode]) {
         var totalShapes: Int = 0
         switch squareSize {
+        case .superSmall:
+            totalShapes = 500
+        case .verySmall:
+            totalShapes = 50
         case .small:
             totalShapes = 20
         case .medium:
