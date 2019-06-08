@@ -83,16 +83,19 @@ final class ConfigureSheetController: NSObject {
     @IBOutlet var color1Well: NSColorWell!
     @IBAction func color1Action(_ sender: NSColorWell) {
         manager.setColor(sender.color as SKColor, for: .color1)
+        updateColorPresetsControl()
     }
 
     @IBOutlet var color2Well: NSColorWell!
     @IBAction func color2Action(_ sender: NSColorWell) {
         manager.setColor(sender.color as SKColor, for: .color2)
+        updateColorPresetsControl()
     }
 
     @IBOutlet var color3Well: NSColorWell!
     @IBAction func color3Action(_ sender: NSColorWell) {
         manager.setColor(sender.color as SKColor, for: .color3)
+        updateColorPresetsControl()
     }
 
     @IBAction func twitterAction(_: NSButton) {
@@ -162,6 +165,7 @@ final class ConfigureSheetController: NSObject {
 
         setupPresets()
         updateStylePresetsControl()
+        updateColorPresetsControl()
     }
 
     fileprivate func setupPresets() {
@@ -183,6 +187,11 @@ final class ConfigureSheetController: NSObject {
         } else {
             stylePresetsButton.setSelected(false, forSegment: stylePresetsButton.selectedSegment)
         }
+    }
+
+    fileprivate func updateColorPresetsControl() {
+        let filteredPresets = presets.filter { $0.color1 == manager.color1 && $0.color2 == manager.color2 && $0.color3 == manager.color3 }
+        presetsButton.selectItem(withTitle: filteredPresets.first?.title ?? "Custom")
     }
 
     fileprivate func setupFields(with preset: LifeSettings) {

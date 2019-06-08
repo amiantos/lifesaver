@@ -203,4 +203,13 @@ let lifePresets = [
         color2: SKColor(red: 241 / 255.0, green: 188 / 255.0, blue: 151 / 255.0, alpha: 1.00),
         color3: SKColor(red: 252 / 255.0, green: 53 / 255.0, blue: 113 / 255.0, alpha: 1.00)
     ),
+    LifeSettings(
+        title: "Custom",
+        appearanceMode: nil,
+        squareSize: nil,
+        animationSpeed: nil,
+        color1: nil,
+        color2: nil,
+        color3: nil
+    ),
 ]
