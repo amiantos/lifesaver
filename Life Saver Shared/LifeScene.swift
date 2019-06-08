@@ -73,10 +73,11 @@ class LifeScene: SKScene {
     private var allNodes: [LifeNode] = []
     private var aliveNodes: [LifeNode] = []
     private var livingNodeHistory: [Int] = []
+    private var lengthSquares: CGFloat = 16
+    private var heightSquares: CGFloat = 9
+    private var matrix: ToroidalMatrix<LifeNode> = ToroidalMatrix(rows: 0, columns: 0, defaultValue: LifeNode(relativePosition: .zero, alive: false, color: .black, size: .zero))
 
     fileprivate func createLife() {
-        var lengthSquares: CGFloat = 16
-        var heightSquares: CGFloat = 9
         switch squareSize {
         case .large:
             lengthSquares = 7
@@ -87,6 +88,8 @@ class LifeScene: SKScene {
         default:
             break
         }
+
+        matrix = ToroidalMatrix(rows: Int(lengthSquares), columns: Int(heightSquares), defaultValue: LifeNode(relativePosition: .zero, alive: false, color: .black, size: .zero))
 
         let totalSquares: CGFloat = lengthSquares * heightSquares
         let squareWidth: CGFloat = size.width / lengthSquares
@@ -117,6 +120,7 @@ class LifeScene: SKScene {
                 newSquare.color = aliveColors.randomElement()!
             }
             allNodes.append(newSquare)
+            matrix[Int(squareRelativePosition.x), Int(squareRelativePosition.y)] = newSquare
 
             createdSquares += 1
 
@@ -133,58 +137,16 @@ class LifeScene: SKScene {
 
         // Calculate Neighbors
         for node in allNodes {
-            let neighbors = allNodes.filter {
-                let delta = (abs(node.relativePosition.x - $0.relativePosition.x), abs(node.relativePosition.y - $0.relativePosition.y))
-                switch delta {
-                case (1, 1), (1, 0), (0, 1):
-                    return true
-                default:
-                    return false
-                }
-            }
+            var neighbors: [LifeNode] = []
+            neighbors.append(matrix[Int(node.relativePosition.x - 1), Int(node.relativePosition.y)])
+            neighbors.append(matrix[Int(node.relativePosition.x + 1), Int(node.relativePosition.y)])
+            neighbors.append(matrix[Int(node.relativePosition.x), Int(node.relativePosition.y + 1)])
+            neighbors.append(matrix[Int(node.relativePosition.x), Int(node.relativePosition.y - 1)])
+            neighbors.append(matrix[Int(node.relativePosition.x + 1), Int(node.relativePosition.y + 1)])
+            neighbors.append(matrix[Int(node.relativePosition.x - 1), Int(node.relativePosition.y - 1)])
+            neighbors.append(matrix[Int(node.relativePosition.x - 1), Int(node.relativePosition.y + 1)])
+            neighbors.append(matrix[Int(node.relativePosition.x + 1), Int(node.relativePosition.y - 1)])
             node.neighbors = neighbors
-        }
-
-        // Setup loop from edge
-        let maxX = lengthSquares - 1
-        let maxY = heightSquares - 1
-        let edgeNodes = allNodes.filter { [0, maxX].contains($0.relativePosition.x) || [0, maxY].contains($0.relativePosition.y) }
-        for node in edgeNodes {
-            var neighborPoints: [CGPoint] = []
-            switch node.relativePosition {
-            case CGPoint(x: 0, y: 0):
-                neighborPoints.append(CGPoint(x: maxX, y: maxY))
-            case CGPoint(x: maxX, y: maxY):
-                neighborPoints.append(CGPoint(x: 0, y: 0))
-            case CGPoint(x: 0, y: maxY):
-                neighborPoints.append(CGPoint(x: maxX, y: 0))
-            case CGPoint(x: maxX, y: 0):
-                neighborPoints.append(CGPoint(x: 0, y: maxY))
-            default:
-                break
-            }
-            if node.relativePosition.x == 0 {
-                neighborPoints.append(CGPoint(x: maxX, y: node.relativePosition.y - 1))
-                neighborPoints.append(CGPoint(x: maxX, y: node.relativePosition.y))
-                neighborPoints.append(CGPoint(x: maxX, y: node.relativePosition.y + 1))
-            }
-            if node.relativePosition.y == 0 {
-                neighborPoints.append(CGPoint(x: node.relativePosition.x - 1, y: maxY))
-                neighborPoints.append(CGPoint(x: node.relativePosition.x, y: maxY))
-                neighborPoints.append(CGPoint(x: node.relativePosition.x + 1, y: maxY))
-            }
-            if node.relativePosition.x == maxX {
-                neighborPoints.append(CGPoint(x: 0, y: node.relativePosition.y - 1))
-                neighborPoints.append(CGPoint(x: 0, y: node.relativePosition.y))
-                neighborPoints.append(CGPoint(x: 0, y: node.relativePosition.y + 1))
-            }
-            if node.relativePosition.y == maxY {
-                neighborPoints.append(CGPoint(x: node.relativePosition.x - 1, y: 0))
-                neighborPoints.append(CGPoint(x: node.relativePosition.x, y: 0))
-                neighborPoints.append(CGPoint(x: node.relativePosition.x + 1, y: 0))
-            }
-            let newNeighbors = edgeNodes.filter { neighborPoints.contains($0.relativePosition) }
-            node.neighbors.append(contentsOf: newNeighbors)
         }
     }
 

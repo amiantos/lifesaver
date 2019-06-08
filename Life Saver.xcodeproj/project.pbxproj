@@ -25,6 +25,9 @@
 		4480C7412294CFB800CC2EDC /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */; };
 		4480C7432294CFF400CC2EDC /* ConfigureSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */; };
 		44A547AD22936C6A0020EC8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
+		B45BF8BB22AC33E600D77162 /* ToroidalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */; };
+		B45BF8BC22AC33E900D77162 /* ToroidalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */; };
+		B45BF8BD22AC33EA00D77162 /* ToroidalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */; };
 		B49221622291F59D00D5DEA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49221612291F59D00D5DEA4 /* AppDelegate.swift */; };
 		B492216A2291F59D00D5DEA4 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49221692291F59D00D5DEA4 /* GameViewController.swift */; };
 		B49221742291F6AA00D5DEA4 /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
@@ -49,6 +52,7 @@
 		4480C7152294B60800CC2EDC /* LifeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeManager.swift; sourceTree = "<group>"; };
 		4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigureSheet.xib; sourceTree = "<group>"; };
 		4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureSheetController.swift; sourceTree = "<group>"; };
+		B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToroidalMatrix.swift; sourceTree = "<group>"; };
 		B492215F2291F59C00D5DEA4 /* Life Saver tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Life Saver tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B49221612291F59D00D5DEA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B49221692291F59D00D5DEA4 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +100,7 @@
 			children = (
 				4480C7082294B05200CC2EDC /* FileGrabber.swift */,
 				4437905F22961BA200AC3AFF /* URLType.swift */,
+				B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -322,6 +327,7 @@
 				4415352422974E220061434F /* LifeNode.swift in Sources */,
 				4480C70B2294B05200CC2EDC /* FileGrabber.swift in Sources */,
 				B492216A2291F59D00D5DEA4 /* GameViewController.swift in Sources */,
+				B45BF8BD22AC33EA00D77162 /* ToroidalMatrix.swift in Sources */,
 				B49F59B8229881C700571F05 /* LifeSettings.swift in Sources */,
 				B49221622291F59D00D5DEA4 /* AppDelegate.swift in Sources */,
 			);
@@ -337,6 +343,7 @@
 				4480C7092294B05200CC2EDC /* FileGrabber.swift in Sources */,
 				B4FD88B02290553400AE066A /* ViewController.swift in Sources */,
 				4480C70E2294B4C800CC2EDC /* LifeDatabase.swift in Sources */,
+				B45BF8BB22AC33E600D77162 /* ToroidalMatrix.swift in Sources */,
 				B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */,
 				4415352022973A530061434F /* URLType.swift in Sources */,
 				4480C7162294B60800CC2EDC /* LifeManager.swift in Sources */,
@@ -350,6 +357,7 @@
 			files = (
 				B4FD88D32290BAB700AE066A /* LifeScene.swift in Sources */,
 				4415352322974E220061434F /* LifeNode.swift in Sources */,
+				B45BF8BC22AC33E900D77162 /* ToroidalMatrix.swift in Sources */,
 				4480C70A2294B05200CC2EDC /* FileGrabber.swift in Sources */,
 				4480C70F2294B4C800CC2EDC /* LifeDatabase.swift in Sources */,
 				4415351E229733C20061434F /* LifeSettings.swift in Sources */,
