@@ -67,7 +67,7 @@ class LifeNode: SKSpriteNode {
         timeInState = 0
         alive = false
 
-        let fadeAction = SKAction.fadeAlpha(to: 0.1, duration: duration)
+        let fadeAction = SKAction.fadeAlpha(to: 0.2, duration: duration)
         fadeAction.timingMode = .easeInEaseOut
         run(fadeAction)
     }
