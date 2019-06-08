@@ -20,11 +20,26 @@ class GameViewController: UIViewController {
         UIApplication.shared.isIdleTimerDisabled = true
         view = SKView(frame: UIScreen.main.bounds)
         scene = LifeScene(size: view.bounds.size)
-        scene!.scaleMode = .aspectFill
 
+        scene!.animationSpeed = .fast
+        scene!.squareSize = .verySmall
+
+        if let preset = lifePresets.filter({ $0.title == "Boysenberry" }).first {
+            if let appearanceMode = preset.appearanceMode {
+                scene!.appearanceMode = appearanceMode
+            }
+            if let color1 = preset.color1, let color2 = preset.color2, let color3 = preset.color3 {
+                scene!.aliveColors = [color1, color2, color3]
+            }
+        }
+
+
+        scene!.scaleMode = .aspectFill
         skView = view as? SKView
         skView?.ignoresSiblingOrder = true
-        skView?.showsFPS = false
+        skView?.showsFPS = true
+        skView?.showsDrawCount = true
+        skView?.showsNodeCount = true
         skView!.presentScene(scene)
     }
 }
