@@ -22,9 +22,9 @@ class GameViewController: UIViewController {
         scene = LifeScene(size: view.bounds.size)
 
         scene!.animationSpeed = .fast
-        scene!.squareSize = .verySmall
+        scene!.squareSize = .superSmall
 
-        if let preset = lifePresets.filter({ $0.title == "Boysenberry" }).first {
+        if let preset = lifePresets.filter({ $0.title == "Braineater" }).first {
             if let appearanceMode = preset.appearanceMode {
                 scene!.appearanceMode = appearanceMode
             }
@@ -32,7 +32,6 @@ class GameViewController: UIViewController {
                 scene!.aliveColors = [color1, color2, color3]
             }
         }
-
 
         scene!.scaleMode = .aspectFill
         skView = view as? SKView
