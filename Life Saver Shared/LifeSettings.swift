@@ -24,6 +24,8 @@ enum Appearance: Int {
 }
 
 enum SquareSize: Int {
+    case superSmall = -2
+    case verySmall = -1
     case small = 0
     case medium = 1
     case large = 2

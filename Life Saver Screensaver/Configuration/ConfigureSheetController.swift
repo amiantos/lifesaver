@@ -135,6 +135,10 @@ final class ConfigureSheetController: NSObject {
         }
 
         switch manager.squareSize {
+        case .superSmall:
+            squareSizeControl.selectedSegment = 0
+        case .verySmall:
+            squareSizeControl.selectedSegment = 0
         case .small:
             squareSizeControl.selectedSegment = 0
         case .medium:
@@ -199,6 +203,10 @@ final class ConfigureSheetController: NSObject {
                 squareSizeControl.selectedSegment = 1
             case .large:
                 squareSizeControl.selectedSegment = 2
+            case .superSmall:
+                squareSizeControl.selectedSegment = 0
+            case .verySmall:
+                squareSizeControl.selectedSegment = 0
             }
             manager.setSquareSize(squareSize)
         }
