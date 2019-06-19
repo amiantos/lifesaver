@@ -23,8 +23,8 @@ struct ToroidalMatrix<T> {
 
     subscript(row: Int, column: Int) -> T {
         get {
-            let safeRow = 0 ... rows-1 ~= row ? row : row > rows-1 ? 0 : row < 0 ? rows-1 : -1
-            let safeColumn = 0 ... columns-1 ~= column ? column : column > columns-1 ? 0 : column < 0 ? columns-1 : -1
+            let safeRow = 0 ... rows - 1 ~= row ? row : row > rows - 1 ? 0 : row < 0 ? rows - 1 : -1
+            let safeColumn = 0 ... columns - 1 ~= column ? column : column > columns - 1 ? 0 : column < 0 ? columns - 1 : -1
             assert(indexIsValid(row: safeRow, column: safeColumn), "Index out of range")
             return grid[(safeRow * columns) + safeColumn]
         }
