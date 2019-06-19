@@ -211,5 +211,5 @@ let lifePresets = [
         color1: nil,
         color2: nil,
         color3: nil
-    ),
+    )
 ]

@@ -24,13 +24,37 @@ final class ConfigureSheetController: NSObject {
     @IBAction func stylePresetsAction(_ sender: NSSegmentedControl) {
         switch sender.selectedSegment {
         case 0:
-            let simulationSettings = LifeSettings(title: "Simulation", appearanceMode: nil, squareSize: .small, animationSpeed: .fast, color1: nil, color2: nil, color3: nil)
+            let simulationSettings = LifeSettings(
+                title: "Simulation",
+                appearanceMode: nil,
+                squareSize: .small,
+                animationSpeed: .fast,
+                color1: nil,
+                color2: nil,
+                color3: nil
+            )
             setupFields(with: simulationSettings)
         case 2:
-            let abstractSettings = LifeSettings(title: "Abstract", appearanceMode: nil, squareSize: .large, animationSpeed: .slow, color1: nil, color2: nil, color3: nil)
+            let abstractSettings = LifeSettings(
+                title: "Abstract",
+                appearanceMode: nil,
+                squareSize: .large,
+                animationSpeed: .slow,
+                color1: nil,
+                color2: nil,
+                color3: nil
+            )
             setupFields(with: abstractSettings)
         default:
-            let defaultSettings = LifeSettings(title: "Defaults", appearanceMode: nil, squareSize: .medium, animationSpeed: .normal, color1: nil, color2: nil, color3: nil)
+            let defaultSettings = LifeSettings(
+                title: "Defaults",
+                appearanceMode: nil,
+                squareSize: .medium,
+                animationSpeed: .normal,
+                color1: nil,
+                color2: nil,
+                color3: nil
+            )
             setupFields(with: defaultSettings)
         }
     }
@@ -204,6 +228,7 @@ final class ConfigureSheetController: NSObject {
             }
             manager.setAppearanceMode(appearanceMode)
         }
+
         if let squareSize = preset.squareSize {
             switch squareSize {
             case .small:
@@ -231,14 +256,17 @@ final class ConfigureSheetController: NSObject {
             }
             manager.setAnimationSpeed(animationSpeed)
         }
+
         if let color1 = preset.color1 {
             color1Well.color = color1
             manager.setColor(color1, for: .color1)
         }
+
         if let color2 = preset.color2 {
             color2Well.color = color2
             manager.setColor(color2, for: .color2)
         }
+
         if let color3 = preset.color3 {
             color3Well.color = color3
             manager.setColor(color3, for: .color3)
