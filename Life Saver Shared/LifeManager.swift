@@ -34,27 +34,27 @@ final class LifeManager {
 
     func configure(with preset: LifePreset) {
         if let appearanceMode = preset.appearanceMode {
-            self.setAppearanceMode(appearanceMode)
+            setAppearanceMode(appearanceMode)
         }
 
         if let squareSize = preset.squareSize {
-            self.setSquareSize(squareSize)
+            setSquareSize(squareSize)
         }
 
         if let animationSpeed = preset.animationSpeed {
-            self.setAnimationSpeed(animationSpeed)
+            setAnimationSpeed(animationSpeed)
         }
 
         if let color1 = preset.color1 {
-            self.setColor(color1, for: .color1)
+            setColor(color1, for: .color1)
         }
 
         if let color2 = preset.color2 {
-            self.setColor(color2, for: .color2)
+            setColor(color2, for: .color2)
         }
 
         if let color3 = preset.color3 {
-            self.setColor(color3, for: .color3)
+            setColor(color3, for: .color3)
         }
     }
 

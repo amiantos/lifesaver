@@ -125,12 +125,11 @@ final class ConfigureSheetController: NSObject {
         updateColorPresetsControl()
     }
 
-    @IBOutlet weak var randomColorPresetCheck: NSButton!
+    @IBOutlet var randomColorPresetCheck: NSButton!
     @IBAction func randomColorPresetAction(_ sender: NSButtonCell) {
         manager.setRandomColorPreset(sender.state == .on ? true : false)
         updateColorPresetsControl()
     }
-
 
     @IBAction func twitterAction(_: NSButton) {
         URLType.twitter.open()
