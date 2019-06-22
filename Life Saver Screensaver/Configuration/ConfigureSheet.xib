@@ -24,7 +24,7 @@
         <window title="Life Saver Settings" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="388" height="527"/>
+            <rect key="contentRect" x="196" y="240" width="388" height="494"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="388" height="495"/>
@@ -355,7 +355,7 @@ DQ
                     <constraint firstItem="1mc-rM-3Jq" firstAttribute="trailing" secondItem="xug-Lz-UDX" secondAttribute="trailing" id="zrP-R5-L5w"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="-223" y="142.5"/>
+            <point key="canvasLocation" x="-223" y="126"/>
         </window>
     </objects>
     <resources>

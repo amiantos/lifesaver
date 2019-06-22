@@ -79,6 +79,7 @@ final class ConfigureSheetController: NSObject {
         default:
             manager.setAppearanceMode(Appearance.dark)
         }
+        updateColorPresetsControl()
     }
 
     @IBOutlet var squareSizeControl: NSSegmentedControl!

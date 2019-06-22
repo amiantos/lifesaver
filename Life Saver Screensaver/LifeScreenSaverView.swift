@@ -49,6 +49,7 @@ final class LifeScreenSaverView: ScreenSaverView {
             spriteView.ignoresSiblingOrder = true
             spriteView.showsFPS = false
             spriteView.showsNodeCount = false
+            spriteView.preferredFramesPerSecond = 30
             let scene = LifeScene(size: frame.size)
             self.spriteView = spriteView
             addSubview(spriteView)

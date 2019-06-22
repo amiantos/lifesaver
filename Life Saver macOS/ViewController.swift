@@ -21,8 +21,8 @@ class ViewController: NSViewController {
 
         let scene = LifeScene(size: view.frame.size)
 
-        scene.animationSpeed = .fast
-        scene.squareSize = .small
+        scene.animationSpeed = .normal
+        scene.squareSize = .medium
 
         if let preset = lifePresets.filter({ $0.title == "Santa Fe" }).first {
             if let appearanceMode = preset.appearanceMode {
@@ -34,6 +34,7 @@ class ViewController: NSViewController {
         }
 
         let skView = view as? SKView
+        skView?.preferredFramesPerSecond = 30
         skView?.presentScene(scene)
         skView?.showsFPS = true
         skView?.showsDrawCount = true
