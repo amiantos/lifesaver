@@ -15,12 +15,14 @@ class LifeNode: SKSpriteNode {
     var alive: Bool
     var timeInState: Int = 0
     var aliveColor: SKColor
+    var deadColor: SKColor
     var neighbors: [LifeNode] = []
 
     init(relativePosition: CGPoint, alive: Bool, color: SKColor, size: CGSize) {
         self.relativePosition = relativePosition
         self.alive = alive
         aliveColor = color
+        deadColor = color
         super.init(texture: squareTexture, color: aliveColor, size: size)
         anchorPoint = CGPoint(x: 0, y: 0)
         colorBlendFactor = 1
@@ -56,8 +58,10 @@ class LifeNode: SKSpriteNode {
 
             if timeInState >= 50 {
                 let fadeAction = SKAction.fadeAlpha(to: 0, duration: duration)
-                fadeAction.timingMode = .easeIn
-                run(fadeAction)
+                let colorAction = SKAction.colorize(with: deadColor, colorBlendFactor: 1, duration: duration)
+                let actionGroup = SKAction.group([fadeAction, colorAction])
+                actionGroup.timingMode = .easeIn
+                run(actionGroup)
             }
 
             return
