@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		1D1F135300AE406633FE6FF1 /* Pods_Life_Saver_Screensaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1F42044D46DFD95C77690FA /* Pods_Life_Saver_Screensaver.framework */; };
 		2715B4B449E6226C927E206C /* Pods_Life_Saver_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B1EA2B47E3EC2977A0EC76 /* Pods_Life_Saver_macOS.framework */; };
-		4415351E229733C20061434F /* LifeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415351D229733C20061434F /* LifeSettings.swift */; };
-		4415351F22973A330061434F /* LifeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415351D229733C20061434F /* LifeSettings.swift */; };
+		4415351E229733C20061434F /* LifePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415351D229733C20061434F /* LifePreset.swift */; };
+		4415351F22973A330061434F /* LifePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415351D229733C20061434F /* LifePreset.swift */; };
 		4415352022973A530061434F /* URLType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4437905F22961BA200AC3AFF /* URLType.swift */; };
 		4415352222974E220061434F /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415352122974E220061434F /* LifeNode.swift */; };
 		4415352322974E220061434F /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415352122974E220061434F /* LifeNode.swift */; };
@@ -35,7 +35,8 @@
 		B49221742291F6AA00D5DEA4 /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
 		B49221752294E5C500D5DEA4 /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */; };
 		B49221762294E71A00D5DEA4 /* ConfigureSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */; };
-		B49F59B8229881C700571F05 /* LifeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415351D229733C20061434F /* LifeSettings.swift */; };
+		B49F59B8229881C700571F05 /* LifePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415351D229733C20061434F /* LifePreset.swift */; };
+		B4BF1F2222BEA478007E1095 /* LifeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7152294B60800CC2EDC /* LifeManager.swift */; };
 		B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88A72290553400AE066A /* AppDelegate.swift */; };
 		B4FD88B02290553400AE066A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88AF2290553400AE066A /* ViewController.swift */; };
 		B4FD88B22290553600AE066A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
@@ -49,7 +50,7 @@
 /* Begin PBXFileReference section */
 		1BF1A9B1CA50A4883FA51D8E /* Pods-Life Saver Screensaver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life Saver Screensaver.debug.xcconfig"; path = "Target Support Files/Pods-Life Saver Screensaver/Pods-Life Saver Screensaver.debug.xcconfig"; sourceTree = "<group>"; };
 		41B1EA2B47E3EC2977A0EC76 /* Pods_Life_Saver_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Life_Saver_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4415351D229733C20061434F /* LifeSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeSettings.swift; sourceTree = "<group>"; };
+		4415351D229733C20061434F /* LifePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifePreset.swift; sourceTree = "<group>"; };
 		4415352122974E220061434F /* LifeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeNode.swift; sourceTree = "<group>"; };
 		4437905F22961BA200AC3AFF /* URLType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLType.swift; sourceTree = "<group>"; };
 		4480C7082294B05200CC2EDC /* FileGrabber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileGrabber.swift; sourceTree = "<group>"; };
@@ -203,7 +204,8 @@
 				B4FD88B12290553600AE066A /* Assets.xcassets */,
 				B4FD88BD229055FB00AE066A /* LifeScene.swift */,
 				4415352122974E220061434F /* LifeNode.swift */,
-				4415351D229733C20061434F /* LifeSettings.swift */,
+				4415351D229733C20061434F /* LifePreset.swift */,
+				4480C7152294B60800CC2EDC /* LifeManager.swift */,
 				4415352522974E320061434F /* Utilities */,
 			);
 			path = "Life Saver Shared";
@@ -214,7 +216,6 @@
 			children = (
 				4437905D2296036A00AC3AFF /* Configuration */,
 				B4FD88CF2290BA2400AE066A /* LifeScreenSaverView.swift */,
-				4480C7152294B60800CC2EDC /* LifeManager.swift */,
 				4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */,
 				B4FD88CA2290B9DB00AE066A /* Info.plist */,
 			);
@@ -459,8 +460,9 @@
 				4480C70B2294B05200CC2EDC /* FileGrabber.swift in Sources */,
 				B492216A2291F59D00D5DEA4 /* GameViewController.swift in Sources */,
 				B45BF8BD22AC33EA00D77162 /* ToroidalMatrix.swift in Sources */,
-				B49F59B8229881C700571F05 /* LifeSettings.swift in Sources */,
+				B49F59B8229881C700571F05 /* LifePreset.swift in Sources */,
 				B49221622291F59D00D5DEA4 /* AppDelegate.swift in Sources */,
+				B4BF1F2222BEA478007E1095 /* LifeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,7 +470,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4415351F22973A330061434F /* LifeSettings.swift in Sources */,
+				4415351F22973A330061434F /* LifePreset.swift in Sources */,
 				B4FD88BE229055FB00AE066A /* LifeScene.swift in Sources */,
 				4415352222974E220061434F /* LifeNode.swift in Sources */,
 				4480C7092294B05200CC2EDC /* FileGrabber.swift in Sources */,
@@ -491,7 +493,7 @@
 				B45BF8BC22AC33E900D77162 /* ToroidalMatrix.swift in Sources */,
 				4480C70A2294B05200CC2EDC /* FileGrabber.swift in Sources */,
 				4480C70F2294B4C800CC2EDC /* LifeDatabase.swift in Sources */,
-				4415351E229733C20061434F /* LifeSettings.swift in Sources */,
+				4415351E229733C20061434F /* LifePreset.swift in Sources */,
 				4437906022961BA200AC3AFF /* URLType.swift in Sources */,
 				B4FD88D02290BA2400AE066A /* LifeScreenSaverView.swift in Sources */,
 				4480C7172294B60800CC2EDC /* LifeManager.swift in Sources */,

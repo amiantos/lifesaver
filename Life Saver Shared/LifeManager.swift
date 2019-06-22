@@ -17,6 +17,7 @@ final class LifeManager {
     private(set) var color1: SKColor
     private(set) var color2: SKColor
     private(set) var color3: SKColor
+    private(set) var randomColorPreset: Bool
 
     init() {
         appearanceMode = LifeDatabase.standard.appearanceMode
@@ -25,6 +26,38 @@ final class LifeManager {
         color1 = LifeDatabase.standard.getColor(.color1)
         color2 = LifeDatabase.standard.getColor(.color2)
         color3 = LifeDatabase.standard.getColor(.color3)
+        randomColorPreset = LifeDatabase.standard.randomColorPreset
+    }
+
+    func configure(with preset: LifePreset) {
+        if let appearanceMode = preset.appearanceMode {
+            self.setAppearanceMode(appearanceMode)
+        }
+
+        if let squareSize = preset.squareSize {
+            self.setSquareSize(squareSize)
+        }
+
+        if let animationSpeed = preset.animationSpeed {
+            self.setAnimationSpeed(animationSpeed)
+        }
+
+        if let color1 = preset.color1 {
+            self.setColor(color1, for: .color1)
+        }
+
+        if let color2 = preset.color2 {
+            self.setColor(color2, for: .color2)
+        }
+
+        if let color3 = preset.color3 {
+            self.setColor(color3, for: .color3)
+        }
+    }
+
+    func setRandomColorPreset(_ randomColorPreset: Bool) {
+        self.randomColorPreset = randomColorPreset
+        LifeDatabase.standard.set(randomColorPreset: randomColorPreset)
     }
 
     func setAppearanceMode(_ appearanceMode: Appearance) {
