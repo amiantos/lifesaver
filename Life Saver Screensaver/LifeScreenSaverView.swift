@@ -50,6 +50,10 @@ final class LifeScreenSaverView: ScreenSaverView {
             self.spriteView = spriteView
             addSubview(spriteView)
 
+            if manager.randomColorPreset, let preset = lifePresets.randomElement() {
+                manager.configure(with: preset)
+            }
+
             scene.appearanceMode = manager.appearanceMode
             scene.squareSize = manager.squareSize
             scene.animationSpeed = manager.animationSpeed
