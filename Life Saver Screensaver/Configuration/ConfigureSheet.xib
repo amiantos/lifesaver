@@ -27,7 +27,7 @@
             <rect key="contentRect" x="196" y="240" width="388" height="527"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="388" height="491"/>
+                <rect key="frame" x="0.0" y="0.0" width="388" height="495"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ckD-Qe-k8M">
@@ -44,7 +44,7 @@ DQ
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XeC-oa-EiD">
-                        <rect key="frame" x="23" y="440" width="115" height="31"/>
+                        <rect key="frame" x="23" y="444" width="115" height="31"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Life Saver" id="A1b-ty-yQK">
                             <font key="font" size="26" name=".AppleSystemUIFont"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -52,7 +52,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zng-Ku-YRl">
-                        <rect key="frame" x="58" y="423" width="83" height="17"/>
+                        <rect key="frame" x="58" y="427" width="83" height="17"/>
                         <buttonCell key="cell" type="square" title="by Brad Root" bezelStyle="shadowlessSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="piz-AH-ud0">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -74,7 +74,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0yl-qg-jnR">
-                        <rect key="frame" x="156" y="451" width="212" height="20"/>
+                        <rect key="frame" x="156" y="455" width="212" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="8mp-cK-RnW"/>
                             <constraint firstAttribute="width" constant="212" id="i0t-ib-wnk"/>
@@ -89,7 +89,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uip-8h-Gh3">
-                        <rect key="frame" x="156" y="421" width="212" height="20"/>
+                        <rect key="frame" x="156" y="425" width="212" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="N17-I6-Jy9"/>
                             <constraint firstAttribute="width" constant="212" id="ubo-2p-WHN"/>
@@ -104,7 +104,7 @@ DQ
                         </connections>
                     </button>
                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="rhy-1B-SYh">
-                        <rect key="frame" x="20" y="400" width="348" height="5"/>
+                        <rect key="frame" x="20" y="404" width="348" height="5"/>
                     </box>
                     <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xTv-ci-7Bd">
                         <rect key="frame" x="149" y="129" width="113" height="24"/>
@@ -120,7 +120,7 @@ DQ
                         </connections>
                     </segmentedControl>
                     <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GSf-P5-6p8">
-                        <rect key="frame" x="149" y="310" width="203" height="24"/>
+                        <rect key="frame" x="149" y="314" width="203" height="24"/>
                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="wNe-OY-RRI">
                             <font key="font" metaFont="system"/>
                             <segments>
@@ -134,7 +134,7 @@ DQ
                         </connections>
                     </segmentedControl>
                     <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DzZ-Ny-Gme">
-                        <rect key="frame" x="149" y="269" width="194" height="24"/>
+                        <rect key="frame" x="149" y="273" width="194" height="24"/>
                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="Sy5-pj-KRX">
                             <font key="font" metaFont="system"/>
                             <segments>
@@ -156,7 +156,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mTf-31-rdO">
-                        <rect key="frame" x="67" y="314" width="76" height="17"/>
+                        <rect key="frame" x="67" y="318" width="76" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Square Size" id="QFp-zF-oHZ">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -164,7 +164,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xug-Lz-UDX">
-                        <rect key="frame" x="36" y="273" width="107" height="17"/>
+                        <rect key="frame" x="36" y="277" width="107" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Animation Speed" id="aOe-bL-uPg">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -241,7 +241,7 @@ DQ
                         <rect key="frame" x="97" y="250" width="194" height="5"/>
                     </box>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8PU-Y8-VoF">
-                        <rect key="frame" x="59" y="355" width="84" height="17"/>
+                        <rect key="frame" x="59" y="359" width="84" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Style Presets" id="yvp-Mh-iZH">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -249,7 +249,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h3X-7U-FEV">
-                        <rect key="frame" x="149" y="351" width="199" height="24"/>
+                        <rect key="frame" x="149" y="355" width="199" height="24"/>
                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="qud-vy-yUN">
                             <font key="font" metaFont="system"/>
                             <segments>
@@ -277,7 +277,7 @@ DQ
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ThS-Fc-xvV">
                         <rect key="frame" x="46" y="215" width="97" height="17"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" title="Random Preset" id="QDE-rn-8aW">
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Random Colors" id="QDE-rn-8aW">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -335,7 +335,7 @@ DQ
                     <constraint firstItem="xTv-ci-7Bd" firstAttribute="leading" secondItem="L1J-rT-SwS" secondAttribute="trailing" constant="10" id="q46-x9-JHm"/>
                     <constraint firstItem="h3X-7U-FEV" firstAttribute="leading" secondItem="GSf-P5-6p8" secondAttribute="leading" id="rN7-bo-jAm"/>
                     <constraint firstItem="zng-Ku-YRl" firstAttribute="top" secondItem="XeC-oa-EiD" secondAttribute="bottom" id="t8Y-d4-0ZQ"/>
-                    <constraint firstItem="NRc-if-iOc" firstAttribute="top" secondItem="xug-Lz-UDX" secondAttribute="bottom" constant="20" id="tVg-NI-6VQ"/>
+                    <constraint firstItem="NRc-if-iOc" firstAttribute="top" secondItem="xug-Lz-UDX" secondAttribute="bottom" constant="24" id="tVg-NI-6VQ"/>
                     <constraint firstItem="rhy-1B-SYh" firstAttribute="top" secondItem="zng-Ku-YRl" secondAttribute="bottom" constant="20" id="vxG-ZO-KW2"/>
                     <constraint firstItem="bj5-ZC-bOW" firstAttribute="leading" secondItem="1mc-rM-3Jq" secondAttribute="trailing" constant="12" id="wNn-Jo-OXc"/>
                     <constraint firstItem="4JF-f2-cTd" firstAttribute="leading" secondItem="DzZ-Ny-Gme" secondAttribute="leading" id="wba-wQ-YfO"/>

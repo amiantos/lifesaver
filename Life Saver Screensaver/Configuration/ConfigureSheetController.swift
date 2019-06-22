@@ -159,6 +159,8 @@ final class ConfigureSheetController: NSObject {
         let myBundle = Bundle(for: ConfigureSheetController.self)
         myBundle.loadNibNamed("ConfigureSheet", owner: self, topLevelObjects: nil)
 
+        randomColorPresetCheck.toolTip = "Enable this to have a random color preset selected each time the screensaver loads."
+
         loadPresets()
         loadSettings()
     }
