@@ -122,6 +122,13 @@ final class ConfigureSheetController: NSObject {
         updateColorPresetsControl()
     }
 
+    @IBOutlet weak var randomColorPresetCheck: NSButton!
+    @IBAction func randomColorPresetAction(_ sender: NSButtonCell) {
+        manager.setRandomColorPreset(sender.state == .on ? true : false)
+        updateColorPresetsControl()
+    }
+
+
     @IBAction func twitterAction(_: NSButton) {
         URLType.twitter.open()
     }
@@ -188,6 +195,8 @@ final class ConfigureSheetController: NSObject {
         color2Well.color = manager.color2
         color3Well.color = manager.color3
 
+        randomColorPresetCheck.state = manager.randomColorPreset ? .on : .off
+
         updateStylePresetsControl()
         updateColorPresetsControl()
     }
@@ -216,6 +225,12 @@ final class ConfigureSheetController: NSObject {
     fileprivate func updateColorPresetsControl() {
         let filteredPresets = presets.filter { $0.color1 == manager.color1 && $0.color2 == manager.color2 && $0.color3 == manager.color3 }
         presetsButton.selectItem(withTitle: filteredPresets.first?.title ?? "Custom")
+
+        presetsButton.isEnabled = !manager.randomColorPreset
+        color1Well.isEnabled = !manager.randomColorPreset
+        color2Well.isEnabled = !manager.randomColorPreset
+        color3Well.isEnabled = !manager.randomColorPreset
+        appearanceControl.isEnabled = !manager.randomColorPreset
     }
 
     fileprivate func loadPreset(_ preset: LifePreset) {
