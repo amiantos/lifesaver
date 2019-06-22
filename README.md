@@ -4,10 +4,10 @@ Life Saver is an abstract macOS screensaver based on [Conway's Game of Life](htt
 
 📼  [Watch a YouTube video to see it in action](https://www.youtube.com/watch?v=N4nCFUVThgg).
 
-![Life Saver Screenshots](/Design/lifesaver-screenshots.png?raw=true)
+![Life Saver Screenshots](/Design/lifesaver-screenshots-1.1.png?raw=true)
 
 
-### 👉 [Download Life Saver v1.0 Installer for macOS](https://s3.amazonaws.com/amiantos/lifesaver-1.0.pkg)
+### 👉 [Download Life Saver v1.1 Installer for macOS](https://s3.amazonaws.com/amiantos/lifesaver-1.1.pkg)
 
 ## To Install from Source
 
