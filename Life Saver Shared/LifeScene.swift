@@ -5,17 +5,20 @@
 //  Created by Bradley Root on 5/18/19.
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import GameplayKit
 import SpriteKit
 
-class LifeScene: SKScene {
+final class LifeScene: SKScene {
     // MARK: - Settings
 
     var aliveColors: [SKColor] = [
         SKColor.defaultColor1,
         SKColor.defaultColor2,
-        SKColor.defaultColor3,
+        SKColor.defaultColor3
     ]
 
     var appearanceColor: SKColor = .black
@@ -56,6 +59,24 @@ class LifeScene: SKScene {
     override func didMove(to _: SKView) {
         backgroundColor = appearanceColor
         scaleMode = .fill
+
+        switch squareSize {
+        case .large:
+            lengthSquares = 7
+            heightSquares = 4
+        case .small:
+            lengthSquares = 32
+            heightSquares = 18
+        case .verySmall:
+            lengthSquares = 64
+            heightSquares = 36
+        case .superSmall:
+            lengthSquares = 128
+            heightSquares = 74
+        default:
+            break
+        }
+
         createLife()
     }
 
@@ -75,60 +96,44 @@ class LifeScene: SKScene {
     private var livingNodeHistory: [Int] = []
     private var lengthSquares: CGFloat = 16
     private var heightSquares: CGFloat = 9
-    private var matrix: ToroidalMatrix<LifeNode> = ToroidalMatrix(rows: 0, columns: 0, defaultValue: LifeNode(relativePosition: .zero, alive: false, color: .black, size: .zero))
+    private var matrix: ToroidalMatrix<LifeNode> = ToroidalMatrix(
+        rows: 0,
+        columns: 0,
+        defaultValue: LifeNode(
+            relativePosition: .zero,
+            alive: false,
+            color: .black,
+            size: .zero
+        )
+    )
 
     fileprivate func createLife() {
-        switch squareSize {
-        case .large:
-            lengthSquares = 7
-            heightSquares = 4
-        case .small:
-            lengthSquares = 32
-            heightSquares = 18
-        case .verySmall:
-            lengthSquares = 64
-            heightSquares = 36
-        case .superSmall:
-            lengthSquares = 128
-            heightSquares = 74
-        default:
-            break
-        }
-
-        matrix = ToroidalMatrix(rows: Int(lengthSquares), columns: Int(heightSquares), defaultValue: LifeNode(relativePosition: .zero, alive: false, color: .black, size: .zero))
+        matrix = ToroidalMatrix(
+            rows: Int(lengthSquares),
+            columns: Int(heightSquares),
+            defaultValue: LifeNode(
+                relativePosition: .zero,
+                alive: false,
+                color: .black,
+                size: .zero
+            )
+        )
 
         let totalSquares: CGFloat = lengthSquares * heightSquares
         let squareWidth: CGFloat = size.width / lengthSquares
         let squareHeight: CGFloat = size.height / heightSquares
 
         // Create Nodes
-        var createdSquares: CGFloat = 0
         var nextXValue: Int = 0
         var nextYValue: Int = 0
         var nextXPosition: CGFloat = 0
         var nextYPosition: CGFloat = 0
-        while createdSquares < totalSquares {
-            let squarePosition = CGPoint(x: nextXPosition, y: nextYPosition)
-            let squareRelativePosition = CGPoint(x: nextXValue, y: nextYValue)
+        for _ in 1 ... Int(totalSquares) {
+            let actualPosition = CGPoint(x: nextXPosition, y: nextYPosition)
+            let relativePosition = CGPoint(x: nextXValue, y: nextYValue)
             let squareSize = CGSize(width: squareWidth, height: squareHeight)
 
-            let newSquare = LifeNode(
-                relativePosition: squareRelativePosition,
-                alive: false,
-                color: appearanceColor,
-                size: squareSize
-            )
-            addChild(newSquare)
-            newSquare.position = squarePosition
-
-            if newSquare.alive {
-                aliveNodes.append(newSquare)
-                newSquare.color = aliveColors.randomElement()!
-            }
-            allNodes.append(newSquare)
-            matrix[Int(squareRelativePosition.x), Int(squareRelativePosition.y)] = newSquare
-
-            createdSquares += 1
+            createLifeSquare(relativePosition, squareSize, actualPosition)
 
             if nextXValue == Int(lengthSquares) - 1 {
                 nextXValue = 0
@@ -143,17 +148,39 @@ class LifeScene: SKScene {
 
         // Pre-fetch Neighbors
         for node in allNodes {
-            var neighbors: [LifeNode] = []
-            neighbors.append(matrix[Int(node.relativePosition.x - 1), Int(node.relativePosition.y)])
-            neighbors.append(matrix[Int(node.relativePosition.x + 1), Int(node.relativePosition.y)])
-            neighbors.append(matrix[Int(node.relativePosition.x), Int(node.relativePosition.y + 1)])
-            neighbors.append(matrix[Int(node.relativePosition.x), Int(node.relativePosition.y - 1)])
-            neighbors.append(matrix[Int(node.relativePosition.x + 1), Int(node.relativePosition.y + 1)])
-            neighbors.append(matrix[Int(node.relativePosition.x - 1), Int(node.relativePosition.y - 1)])
-            neighbors.append(matrix[Int(node.relativePosition.x - 1), Int(node.relativePosition.y + 1)])
-            neighbors.append(matrix[Int(node.relativePosition.x + 1), Int(node.relativePosition.y - 1)])
-            node.neighbors = neighbors
+            createNeighbors(node)
         }
+    }
+
+    fileprivate func createLifeSquare(_ relativePosition: CGPoint, _ squareSize: CGSize, _ actualPosition: CGPoint) {
+        let newSquare = LifeNode(
+            relativePosition: relativePosition,
+            alive: false,
+            color: appearanceColor,
+            size: squareSize
+        )
+        addChild(newSquare)
+        newSquare.position = actualPosition
+
+        if newSquare.alive {
+            aliveNodes.append(newSquare)
+            newSquare.color = aliveColors.randomElement()!
+        }
+        allNodes.append(newSquare)
+        matrix[Int(relativePosition.x), Int(relativePosition.y)] = newSquare
+    }
+
+    fileprivate func createNeighbors(_ node: LifeNode) {
+        var neighbors: [LifeNode] = []
+        neighbors.append(matrix[Int(node.relativePosition.x - 1), Int(node.relativePosition.y)])
+        neighbors.append(matrix[Int(node.relativePosition.x + 1), Int(node.relativePosition.y)])
+        neighbors.append(matrix[Int(node.relativePosition.x), Int(node.relativePosition.y + 1)])
+        neighbors.append(matrix[Int(node.relativePosition.x), Int(node.relativePosition.y - 1)])
+        neighbors.append(matrix[Int(node.relativePosition.x + 1), Int(node.relativePosition.y + 1)])
+        neighbors.append(matrix[Int(node.relativePosition.x - 1), Int(node.relativePosition.y - 1)])
+        neighbors.append(matrix[Int(node.relativePosition.x - 1), Int(node.relativePosition.y + 1)])
+        neighbors.append(matrix[Int(node.relativePosition.x + 1), Int(node.relativePosition.y - 1)])
+        node.neighbors = neighbors
     }
 
     fileprivate func updateLife() {

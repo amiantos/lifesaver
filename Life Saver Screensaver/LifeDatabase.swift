@@ -5,6 +5,9 @@
 //  Created by Brad Root on 5/21/19.
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import ScreenSaver
 import SpriteKit
@@ -18,6 +21,7 @@ struct LifeDatabase {
         static let color1 = "color1"
         static let color2 = "color2"
         static let color3 = "color3"
+        static let randomColorPreset = "randomColorPreset"
     }
 
     static var standard: ScreenSaverDefaults {
@@ -31,7 +35,8 @@ struct LifeDatabase {
              Key.squareSize: SquareSize.medium.rawValue,
              Key.color1: archiveData(SKColor.defaultColor1),
              Key.color2: archiveData(SKColor.defaultColor2),
-             Key.color3: archiveData(SKColor.defaultColor3)])
+             Key.color3: archiveData(SKColor.defaultColor3),
+             Key.randomColorPreset: false])
 
         return database
     }
@@ -60,6 +65,14 @@ extension ScreenSaverDefaults {
 
     func set(animationSpeed: AnimationSpeed) {
         set(animationSpeed.rawValue, for: LifeDatabase.Key.animationSpeed)
+    }
+
+    var randomColorPreset: Bool {
+        return bool(forKey: LifeDatabase.Key.randomColorPreset)
+    }
+
+    func set(randomColorPreset: Bool) {
+        set(randomColorPreset, for: LifeDatabase.Key.randomColorPreset)
     }
 
     func getColor(_ color: Colors) -> SKColor {

@@ -5,6 +5,9 @@
 //  Created by Brad Root on 5/21/19.
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import Cocoa
 import SpriteKit
@@ -14,7 +17,7 @@ final class ConfigureSheetController: NSObject {
 
     // MARK: - Presets
 
-    fileprivate let presets: [LifeSettings] = lifePresets
+    fileprivate let presets: [LifePreset] = lifePresets
 
     // MARK: - Config Actions and Outlets
 
@@ -24,14 +27,38 @@ final class ConfigureSheetController: NSObject {
     @IBAction func stylePresetsAction(_ sender: NSSegmentedControl) {
         switch sender.selectedSegment {
         case 0:
-            let simulationSettings = LifeSettings(title: "Simulation", appearanceMode: nil, squareSize: .small, animationSpeed: .fast, color1: nil, color2: nil, color3: nil)
-            setupFields(with: simulationSettings)
+            let simulationSettings = LifePreset(
+                title: "Simulation",
+                appearanceMode: nil,
+                squareSize: .small,
+                animationSpeed: .fast,
+                color1: nil,
+                color2: nil,
+                color3: nil
+            )
+            loadPreset(simulationSettings)
         case 2:
-            let abstractSettings = LifeSettings(title: "Abstract", appearanceMode: nil, squareSize: .large, animationSpeed: .slow, color1: nil, color2: nil, color3: nil)
-            setupFields(with: abstractSettings)
+            let abstractSettings = LifePreset(
+                title: "Abstract",
+                appearanceMode: nil,
+                squareSize: .large,
+                animationSpeed: .slow,
+                color1: nil,
+                color2: nil,
+                color3: nil
+            )
+            loadPreset(abstractSettings)
         default:
-            let defaultSettings = LifeSettings(title: "Defaults", appearanceMode: nil, squareSize: .medium, animationSpeed: .normal, color1: nil, color2: nil, color3: nil)
-            setupFields(with: defaultSettings)
+            let defaultSettings = LifePreset(
+                title: "Defaults",
+                appearanceMode: nil,
+                squareSize: .medium,
+                animationSpeed: .normal,
+                color1: nil,
+                color2: nil,
+                color3: nil
+            )
+            loadPreset(defaultSettings)
         }
     }
 
@@ -40,7 +67,7 @@ final class ConfigureSheetController: NSObject {
         guard let title = sender.titleOfSelectedItem else { return }
         let soughtPreset = presets.filter { $0.title == title }.first
         if let preset = soughtPreset {
-            setupFields(with: preset)
+            loadPreset(preset)
         }
     }
 
@@ -98,6 +125,12 @@ final class ConfigureSheetController: NSObject {
         updateColorPresetsControl()
     }
 
+    @IBOutlet var randomColorPresetCheck: NSButton!
+    @IBAction func randomColorPresetAction(_ sender: NSButtonCell) {
+        manager.setRandomColorPreset(sender.state == .on ? true : false)
+        updateColorPresetsControl()
+    }
+
     @IBAction func twitterAction(_: NSButton) {
         URLType.twitter.open()
     }
@@ -126,10 +159,13 @@ final class ConfigureSheetController: NSObject {
         let myBundle = Bundle(for: ConfigureSheetController.self)
         myBundle.loadNibNamed("ConfigureSheet", owner: self, topLevelObjects: nil)
 
-        setupFields()
+        randomColorPresetCheck.toolTip = "Enable this to have a random color preset selected each time the screensaver loads."
+
+        loadPresets()
+        loadSettings()
     }
 
-    fileprivate func setupFields() {
+    fileprivate func loadSettings() {
         switch manager.appearanceMode {
         case .dark:
             appearanceControl.selectedSegment = 0
@@ -163,12 +199,13 @@ final class ConfigureSheetController: NSObject {
         color2Well.color = manager.color2
         color3Well.color = manager.color3
 
-        setupPresets()
+        randomColorPresetCheck.state = manager.randomColorPreset ? .on : .off
+
         updateStylePresetsControl()
         updateColorPresetsControl()
     }
 
-    fileprivate func setupPresets() {
+    fileprivate func loadPresets() {
         presetsButton.removeAllItems()
         var presetTitles: [String] = []
         for preset in presets {
@@ -192,56 +229,16 @@ final class ConfigureSheetController: NSObject {
     fileprivate func updateColorPresetsControl() {
         let filteredPresets = presets.filter { $0.color1 == manager.color1 && $0.color2 == manager.color2 && $0.color3 == manager.color3 }
         presetsButton.selectItem(withTitle: filteredPresets.first?.title ?? "Custom")
+
+        presetsButton.isEnabled = !manager.randomColorPreset
+        color1Well.isEnabled = !manager.randomColorPreset
+        color2Well.isEnabled = !manager.randomColorPreset
+        color3Well.isEnabled = !manager.randomColorPreset
+        appearanceControl.isEnabled = !manager.randomColorPreset
     }
 
-    fileprivate func setupFields(with preset: LifeSettings) {
-        if let appearanceMode = preset.appearanceMode {
-            switch appearanceMode {
-            case .dark:
-                appearanceControl.selectedSegment = 0
-            case .light:
-                appearanceControl.selectedSegment = 1
-            }
-            manager.setAppearanceMode(appearanceMode)
-        }
-        if let squareSize = preset.squareSize {
-            switch squareSize {
-            case .small:
-                squareSizeControl.selectedSegment = 0
-            case .medium:
-                squareSizeControl.selectedSegment = 1
-            case .large:
-                squareSizeControl.selectedSegment = 2
-            case .superSmall:
-                squareSizeControl.selectedSegment = 0
-            case .verySmall:
-                squareSizeControl.selectedSegment = 0
-            }
-            manager.setSquareSize(squareSize)
-        }
-
-        if let animationSpeed = preset.animationSpeed {
-            switch animationSpeed {
-            case .normal:
-                animationSpeedControl.selectedSegment = 1
-            case .fast:
-                animationSpeedControl.selectedSegment = 0
-            case .slow:
-                animationSpeedControl.selectedSegment = 2
-            }
-            manager.setAnimationSpeed(animationSpeed)
-        }
-        if let color1 = preset.color1 {
-            color1Well.color = color1
-            manager.setColor(color1, for: .color1)
-        }
-        if let color2 = preset.color2 {
-            color2Well.color = color2
-            manager.setColor(color2, for: .color2)
-        }
-        if let color3 = preset.color3 {
-            color3Well.color = color3
-            manager.setColor(color3, for: .color3)
-        }
+    fileprivate func loadPreset(_ preset: LifePreset) {
+        manager.configure(with: preset)
+        loadSettings()
     }
 }

@@ -5,6 +5,9 @@
 //  Created by Brad Root on 5/23/19.
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import SpriteKit
 
@@ -15,12 +18,14 @@ class LifeNode: SKSpriteNode {
     var alive: Bool
     var timeInState: Int = 0
     var aliveColor: SKColor
+    var deadColor: SKColor
     var neighbors: [LifeNode] = []
 
     init(relativePosition: CGPoint, alive: Bool, color: SKColor, size: CGSize) {
         self.relativePosition = relativePosition
         self.alive = alive
         aliveColor = color
+        deadColor = color
         super.init(texture: squareTexture, color: aliveColor, size: size)
         anchorPoint = CGPoint(x: 0, y: 0)
         colorBlendFactor = 1
@@ -54,10 +59,13 @@ class LifeNode: SKSpriteNode {
         if !alive {
             timeInState += 1
 
-            if timeInState >= 50 {
+            if timeInState == 30 {
+                removeAllActions()
                 let fadeAction = SKAction.fadeAlpha(to: 0, duration: duration)
-                fadeAction.timingMode = .easeIn
-                run(fadeAction)
+                let colorAction = SKAction.colorize(with: deadColor, colorBlendFactor: 1, duration: duration)
+                let actionGroup = SKAction.group([fadeAction, colorAction])
+                actionGroup.timingMode = .easeIn
+                run(actionGroup)
             }
 
             return
