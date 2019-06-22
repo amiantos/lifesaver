@@ -56,7 +56,8 @@ class LifeNode: SKSpriteNode {
         if !alive {
             timeInState += 1
 
-            if timeInState >= 50 {
+            if timeInState == 30 {
+                removeAllActions()
                 let fadeAction = SKAction.fadeAlpha(to: 0, duration: duration)
                 let colorAction = SKAction.colorize(with: deadColor, colorBlendFactor: 1, duration: duration)
                 let actionGroup = SKAction.group([fadeAction, colorAction])
