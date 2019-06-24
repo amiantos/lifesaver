@@ -24,10 +24,10 @@ class GameViewController: UIViewController {
         view = SKView(frame: UIScreen.main.bounds)
         scene = LifeScene(size: view.bounds.size)
 
-        scene!.animationSpeed = .fast
-        scene!.squareSize = .superSmall
+        scene!.animationSpeed = .normal
+        scene!.squareSize = .medium
 
-        if let preset = lifePresets.filter({ $0.title == "Braineater" }).first {
+        if let preset = lifePresets.filter({ $0.title == "Santa Fe" }).first {
             if let appearanceMode = preset.appearanceMode {
                 scene!.appearanceMode = appearanceMode
             }
@@ -36,12 +36,13 @@ class GameViewController: UIViewController {
             }
         }
 
-        scene!.scaleMode = .aspectFill
+        scene!.scaleMode = .aspectFit
         skView = view as? SKView
         skView?.ignoresSiblingOrder = true
         skView?.showsFPS = true
         skView?.showsDrawCount = true
         skView?.showsNodeCount = true
+        skView?.preferredFramesPerSecond = 60
         skView!.presentScene(scene)
     }
 }

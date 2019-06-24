@@ -36,7 +36,6 @@
 		B49221752294E5C500D5DEA4 /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */; };
 		B49221762294E71A00D5DEA4 /* ConfigureSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */; };
 		B49F59B8229881C700571F05 /* LifePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415351D229733C20061434F /* LifePreset.swift */; };
-		B4BF1F2222BEA478007E1095 /* LifeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7152294B60800CC2EDC /* LifeManager.swift */; };
 		B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88A72290553400AE066A /* AppDelegate.swift */; };
 		B4FD88B02290553400AE066A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88AF2290553400AE066A /* ViewController.swift */; };
 		B4FD88B22290553600AE066A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
@@ -61,6 +60,7 @@
 		502A6BF15E385B76A6422725 /* Pods-Life Saver tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life Saver tvOS.release.xcconfig"; path = "Target Support Files/Pods-Life Saver tvOS/Pods-Life Saver tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		5EE01FF9B77AC381FC307FC3 /* Pods-Life Saver macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life Saver macOS.release.xcconfig"; path = "Target Support Files/Pods-Life Saver macOS/Pods-Life Saver macOS.release.xcconfig"; sourceTree = "<group>"; };
 		6B6B746C076EE9C58D443E92 /* Pods-Life Saver macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life Saver macOS.debug.xcconfig"; path = "Target Support Files/Pods-Life Saver macOS/Pods-Life Saver macOS.debug.xcconfig"; sourceTree = "<group>"; };
+		B40CD56622C0520600CC33DC /* LifeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeDatabase.swift; sourceTree = "<group>"; };
 		B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToroidalMatrix.swift; sourceTree = "<group>"; };
 		B492215F2291F59C00D5DEA4 /* Life Saver tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Life Saver tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B49221612291F59D00D5DEA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 			path = Configuration;
 			sourceTree = "<group>";
 		};
-		4480C70C2294B1B300CC2EDC /* Life Saver macOS */ = {
+		4480C70C2294B1B300CC2EDC /* macOS */ = {
 			isa = PBXGroup;
 			children = (
 				B4FD88B62290553600AE066A /* Info.plist */,
@@ -149,7 +149,7 @@
 				B4FD88B72290553600AE066A /* Life_Saver.entitlements */,
 				B4FD88B32290553600AE066A /* Main.storyboard */,
 			);
-			path = "Life Saver macOS";
+			path = macOS;
 			sourceTree = "<group>";
 		};
 		58C9C1C400ED8FD965B9FA76 /* Pods */ = {
@@ -165,23 +165,23 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		B49221602291F59D00D5DEA4 /* Life Saver tvOS */ = {
+		B49221602291F59D00D5DEA4 /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
 				B49221612291F59D00D5DEA4 /* AppDelegate.swift */,
 				B49221692291F59D00D5DEA4 /* GameViewController.swift */,
 				B49221702291F5A000D5DEA4 /* Info.plist */,
 			);
-			path = "Life Saver tvOS";
+			path = tvOS;
 			sourceTree = "<group>";
 		};
 		B4FD889B2290553400AE066A = {
 			isa = PBXGroup;
 			children = (
-				B4FD88A62290553400AE066A /* Life Saver Shared */,
-				B4FD88C52290B9DB00AE066A /* Life Saver Screensaver */,
-				4480C70C2294B1B300CC2EDC /* Life Saver macOS */,
-				B49221602291F59D00D5DEA4 /* Life Saver tvOS */,
+				B4FD88A62290553400AE066A /* Shared */,
+				B4FD88C52290B9DB00AE066A /* Screensaver */,
+				4480C70C2294B1B300CC2EDC /* macOS */,
+				B49221602291F59D00D5DEA4 /* tvOS */,
 				B4FD88A52290553400AE066A /* Products */,
 				58C9C1C400ED8FD965B9FA76 /* Pods */,
 				0E788E8E9F042832DC359B27 /* Frameworks */,
@@ -198,7 +198,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B4FD88A62290553400AE066A /* Life Saver Shared */ = {
+		B4FD88A62290553400AE066A /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 				B4FD88B12290553600AE066A /* Assets.xcassets */,
@@ -207,11 +207,12 @@
 				4415351D229733C20061434F /* LifePreset.swift */,
 				4480C7152294B60800CC2EDC /* LifeManager.swift */,
 				4415352522974E320061434F /* Utilities */,
+				B40CD56622C0520600CC33DC /* LifeDatabase.swift */,
 			);
-			path = "Life Saver Shared";
+			path = Shared;
 			sourceTree = "<group>";
 		};
-		B4FD88C52290B9DB00AE066A /* Life Saver Screensaver */ = {
+		B4FD88C52290B9DB00AE066A /* Screensaver */ = {
 			isa = PBXGroup;
 			children = (
 				4437905D2296036A00AC3AFF /* Configuration */,
@@ -219,7 +220,7 @@
 				4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */,
 				B4FD88CA2290B9DB00AE066A /* Info.plist */,
 			);
-			path = "Life Saver Screensaver";
+			path = Screensaver;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,6 +244,7 @@
 				B492215B2291F59C00D5DEA4 /* Sources */,
 				B492215C2291F59C00D5DEA4 /* Frameworks */,
 				B492215D2291F59C00D5DEA4 /* Resources */,
+				B40CD56522C051C400CC33DC /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -426,6 +428,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B40CD56522C051C400CC33DC /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
 		DBD9B1CE8DFAA8523A73363F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -462,7 +482,6 @@
 				B45BF8BD22AC33EA00D77162 /* ToroidalMatrix.swift in Sources */,
 				B49F59B8229881C700571F05 /* LifePreset.swift in Sources */,
 				B49221622291F59D00D5DEA4 /* AppDelegate.swift in Sources */,
-				B4BF1F2222BEA478007E1095 /* LifeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
