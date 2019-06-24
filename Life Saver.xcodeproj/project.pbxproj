@@ -179,7 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				B4FD88A62290553400AE066A /* Shared */,
-				B4FD88C52290B9DB00AE066A /* Screensaver */,
+				B4FD88C52290B9DB00AE066A /* macOS Screensaver */,
 				4480C70C2294B1B300CC2EDC /* macOS */,
 				B49221602291F59D00D5DEA4 /* tvOS */,
 				B4FD88A52290553400AE066A /* Products */,
@@ -212,7 +212,7 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		B4FD88C52290B9DB00AE066A /* Screensaver */ = {
+		B4FD88C52290B9DB00AE066A /* macOS Screensaver */ = {
 			isa = PBXGroup;
 			children = (
 				4437905D2296036A00AC3AFF /* Configuration */,
@@ -220,7 +220,7 @@
 				4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */,
 				B4FD88CA2290B9DB00AE066A /* Info.plist */,
 			);
-			path = Screensaver;
+			path = "macOS Screensaver";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
