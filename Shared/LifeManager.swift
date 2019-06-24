@@ -12,6 +12,10 @@
 import Foundation
 import SpriteKit
 
+protocol LifeManagerDelegate: AnyObject {
+    func updatedSettings()
+}
+
 final class LifeManager {
     private(set) var appearanceMode: Appearance
     private(set) var squareSize: SquareSize
@@ -20,6 +24,14 @@ final class LifeManager {
     private(set) var color2: SKColor
     private(set) var color3: SKColor
     private(set) var randomColorPreset: Bool
+    private(set) var shiftingColors: Bool
+    private(set) var deathFade: Bool
+    private(set) var selectedPresetTitle: String
+
+    private var usingPreset: Bool = false
+
+    weak var delegate: LifeManagerDelegate?
+    weak var settingsDelegate: LifeManagerDelegate?
 
     init() {
         appearanceMode = LifeDatabase.standard.appearanceMode
@@ -29,9 +41,14 @@ final class LifeManager {
         color2 = LifeDatabase.standard.getColor(.color2)
         color3 = LifeDatabase.standard.getColor(.color3)
         randomColorPreset = LifeDatabase.standard.randomColorPreset
+        deathFade = LifeDatabase.standard.deathFade
+        shiftingColors = LifeDatabase.standard.shiftingColors
+        selectedPresetTitle = LifeDatabase.standard.selectedPresetTitle
     }
 
     func configure(with preset: LifePreset) {
+        usingPreset = true
+
         if let appearanceMode = preset.appearanceMode {
             setAppearanceMode(appearanceMode)
         }
@@ -42,6 +59,14 @@ final class LifeManager {
 
         if let animationSpeed = preset.animationSpeed {
             setAnimationSpeed(animationSpeed)
+        }
+
+        if let deathFade = preset.deathFade {
+            setDeathFade(deathFade)
+        }
+
+        if let shiftingColors = preset.shiftingColors {
+            setShiftingColors(shiftingColors)
         }
 
         if let color1 = preset.color1 {
@@ -55,26 +80,48 @@ final class LifeManager {
         if let color3 = preset.color3 {
             setColor(color3, for: .color3)
         }
+
+        selectedPresetTitle = preset.title
+        LifeDatabase.standard.set(selectedPresetTitle: selectedPresetTitle)
+
+        usingPreset = false
+        sendUpdateMessage()
     }
 
     func setRandomColorPreset(_ randomColorPreset: Bool) {
         self.randomColorPreset = randomColorPreset
         LifeDatabase.standard.set(randomColorPreset: randomColorPreset)
+        sendUpdateMessage()
+    }
+
+    func setShiftingColors(_ shiftingColors: Bool) {
+        self.shiftingColors = shiftingColors
+        LifeDatabase.standard.set(shiftingColors: shiftingColors)
+        sendUpdateMessage()
+    }
+
+    func setDeathFade(_ deathFade: Bool) {
+        self.deathFade = deathFade
+        LifeDatabase.standard.set(deathFade: deathFade)
+        sendUpdateMessage()
     }
 
     func setAppearanceMode(_ appearanceMode: Appearance) {
         self.appearanceMode = appearanceMode
         LifeDatabase.standard.set(appearanceMode: appearanceMode)
+        sendUpdateMessage()
     }
 
     func setSquareSize(_ squareSize: SquareSize) {
         self.squareSize = squareSize
         LifeDatabase.standard.set(squareSize: squareSize)
+        sendUpdateMessage()
     }
 
     func setAnimationSpeed(_ animationSpeed: AnimationSpeed) {
         self.animationSpeed = animationSpeed
         LifeDatabase.standard.set(animationSpeed: animationSpeed)
+        sendUpdateMessage()
     }
 
     func setColor(_ color: SKColor, for colors: Colors) {
@@ -87,5 +134,19 @@ final class LifeManager {
             color3 = color
         }
         LifeDatabase.standard.set(color, for: colors)
+
+        if !usingPreset {
+            selectedPresetTitle = ""
+            LifeDatabase.standard.set(selectedPresetTitle: selectedPresetTitle)
+        }
+
+        sendUpdateMessage()
+    }
+
+    func sendUpdateMessage() {
+        if !usingPreset {
+            delegate?.updatedSettings()
+            settingsDelegate?.updatedSettings()
+        }
     }
 }

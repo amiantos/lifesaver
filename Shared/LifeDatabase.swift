@@ -21,12 +21,13 @@ struct LifeDatabase {
         static let color2 = "color2"
         static let color3 = "color3"
         static let randomColorPreset = "randomColorPreset"
+        static let selectedPresetTitle = "selectedPresetTitle"
+        static let deathFade = "deathFade"
+        static let shiftingColors = "shiftingColors"
     }
 
     static var standard: UserDefaults {
-        guard let bundleIdentifier = Bundle(for: LifeManager.self).bundleIdentifier,
-            let database = UserDefaults(suiteName: <#T##String?#>)
-            else { fatalError("Failed to retrieve database") }
+        let database = UserDefaults.standard
 
         database.register(defaults:
             [Key.appearanceMode: Appearance.dark.rawValue,
@@ -35,7 +36,10 @@ struct LifeDatabase {
              Key.color1: archiveData(SKColor.defaultColor1),
              Key.color2: archiveData(SKColor.defaultColor2),
              Key.color3: archiveData(SKColor.defaultColor3),
-             Key.randomColorPreset: false])
+             Key.randomColorPreset: false,
+             Key.deathFade: true,
+             Key.shiftingColors: false,
+             Key.selectedPresetTitle: "Santa Fe"])
 
         return database
     }
@@ -74,6 +78,30 @@ extension UserDefaults {
         set(randomColorPreset, for: LifeDatabase.Key.randomColorPreset)
     }
 
+    var shiftingColors: Bool {
+        return bool(forKey: LifeDatabase.Key.shiftingColors)
+    }
+
+    func set(shiftingColors: Bool) {
+        set(shiftingColors, for: LifeDatabase.Key.shiftingColors)
+    }
+
+    var deathFade: Bool {
+        return bool(forKey: LifeDatabase.Key.deathFade)
+    }
+
+    func set(deathFade: Bool) {
+        set(deathFade, for: LifeDatabase.Key.deathFade)
+    }
+
+    var selectedPresetTitle: String {
+        return string(forKey: LifeDatabase.Key.selectedPresetTitle) ?? ""
+    }
+
+    func set(selectedPresetTitle: String) {
+        set(selectedPresetTitle, for: LifeDatabase.Key.selectedPresetTitle)
+    }
+
     func getColor(_ color: Colors) -> SKColor {
         switch color {
         case .color1:
@@ -97,8 +125,8 @@ extension UserDefaults {
     }
 }
 
-private extension ScreenSaverDefaults {
-    func set(_ object: Any, for key: String) {
+private extension UserDefaults {
+    func set(_ object: Any?, for key: String) {
         set(object, forKey: key)
         synchronize()
     }

@@ -27,6 +27,7 @@ class LifeNode: SKSpriteNode {
         aliveColor = color
         deadColor = color
         super.init(texture: squareTexture, color: aliveColor, size: size)
+        isUserInteractionEnabled = false
         anchorPoint = CGPoint(x: 0, y: 0)
         colorBlendFactor = 1
         zPosition = 0
@@ -44,22 +45,28 @@ class LifeNode: SKSpriteNode {
             return
         }
 
-        removeAllActions()
         timeInState = 0
         alive = true
 
-        let fadeAction = SKAction.fadeAlpha(to: 1, duration: duration)
-        let colorAction = SKAction.colorize(with: aliveColor, colorBlendFactor: 1, duration: duration)
-        let actionGroup = SKAction.group([fadeAction, colorAction])
-        actionGroup.timingMode = .easeInEaseOut
-        run(actionGroup)
+        if duration > 0 {
+            removeAllActions()
+            let fadeAction = SKAction.fadeAlpha(to: 1, duration: duration)
+            let colorAction = SKAction.colorize(with: aliveColor, colorBlendFactor: 1, duration: duration)
+            let actionGroup = SKAction.group([fadeAction, colorAction])
+            actionGroup.timingMode = .easeInEaseOut
+            run(actionGroup)
+        } else {
+            alpha = 1
+            color = aliveColor
+        }
     }
 
-    public func die(duration: TimeInterval) {
+    public func die(duration: TimeInterval, fade: Bool) {
         if !alive {
             timeInState += 1
 
-            if timeInState == 30 {
+            // 30 for slow modes... 120 for fast?
+            if timeInState == 120, duration > 0, fade {
                 removeAllActions()
                 let fadeAction = SKAction.fadeAlpha(to: 0, duration: duration)
                 let colorAction = SKAction.colorize(with: deadColor, colorBlendFactor: 1, duration: duration)
@@ -71,12 +78,28 @@ class LifeNode: SKSpriteNode {
             return
         }
 
+        timeInState = 0
+        alive = false
+
+        if duration > 0, fade {
+            removeAllActions()
+            let fadeAction = SKAction.fadeAlpha(to: 0.2, duration: duration)
+            fadeAction.timingMode = .easeInEaseOut
+            run(fadeAction)
+        } else if fade {
+            alpha = 0.2
+        }
+    }
+
+    public func remove(duration: TimeInterval) {
         removeAllActions()
         timeInState = 0
         alive = false
 
-        let fadeAction = SKAction.fadeAlpha(to: 0.2, duration: duration)
+        let fadeAction = SKAction.fadeAlpha(to: 0, duration: duration)
         fadeAction.timingMode = .easeInEaseOut
-        run(fadeAction)
+        run(fadeAction) {
+            self.removeFromParent()
+        }
     }
 }

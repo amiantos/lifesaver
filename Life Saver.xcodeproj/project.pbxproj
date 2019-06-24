@@ -14,28 +14,37 @@
 		4415352022973A530061434F /* URLType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4437905F22961BA200AC3AFF /* URLType.swift */; };
 		4415352222974E220061434F /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415352122974E220061434F /* LifeNode.swift */; };
 		4415352322974E220061434F /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415352122974E220061434F /* LifeNode.swift */; };
-		4415352422974E220061434F /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415352122974E220061434F /* LifeNode.swift */; };
 		4437906022961BA200AC3AFF /* URLType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4437905F22961BA200AC3AFF /* URLType.swift */; };
 		4437906122961D3B00AC3AFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
 		4480C7092294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
 		4480C70A2294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
-		4480C70B2294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
 		4480C70E2294B4C800CC2EDC /* LifeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */; };
 		4480C70F2294B4C800CC2EDC /* LifeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */; };
 		4480C7162294B60800CC2EDC /* LifeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7152294B60800CC2EDC /* LifeManager.swift */; };
 		4480C7172294B60800CC2EDC /* LifeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7152294B60800CC2EDC /* LifeManager.swift */; };
 		4480C7412294CFB800CC2EDC /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */; };
 		4480C7432294CFF400CC2EDC /* ConfigureSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */; };
-		44A547AD22936C6A0020EC8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
+		67E99765F2CC85D2357000E3 /* Pods_Life_Saver_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0F247DB6D6F78817A3F0E8F /* Pods_Life_Saver_tvOS.framework */; };
 		B45BF8BB22AC33E600D77162 /* ToroidalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */; };
 		B45BF8BC22AC33E900D77162 /* ToroidalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */; };
-		B45BF8BD22AC33EA00D77162 /* ToroidalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */; };
-		B49221622291F59D00D5DEA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49221612291F59D00D5DEA4 /* AppDelegate.swift */; };
-		B492216A2291F59D00D5DEA4 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49221692291F59D00D5DEA4 /* GameViewController.swift */; };
-		B49221742291F6AA00D5DEA4 /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
+		B476201522C4612300B4834C /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B476201422C4612300B4834C /* MenuTableViewController.swift */; };
 		B49221752294E5C500D5DEA4 /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */; };
 		B49221762294E71A00D5DEA4 /* ConfigureSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */; };
-		B49F59B8229881C700571F05 /* LifePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415351D229733C20061434F /* LifePreset.swift */; };
+		B49CB72822C3047500A53FB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49CB72722C3047500A53FB7 /* AppDelegate.swift */; };
+		B49CB73022C3047500A53FB7 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49CB72F22C3047500A53FB7 /* GameViewController.swift */; };
+		B49CB73322C3047500A53FB7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B49CB73122C3047500A53FB7 /* Main.storyboard */; };
+		B49CB73522C3047800A53FB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B49CB73422C3047800A53FB7 /* Assets.xcassets */; };
+		B49CB73A22C304F500A53FB7 /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
+		B49CB73B22C304F700A53FB7 /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415352122974E220061434F /* LifeNode.swift */; };
+		B49CB73C22C304FA00A53FB7 /* LifePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415351D229733C20061434F /* LifePreset.swift */; };
+		B49CB73D22C3050300A53FB7 /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
+		B49CB73F22C3050B00A53FB7 /* ToroidalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */; };
+		B49CB74122C30EFA00A53FB7 /* ColorPresetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49CB74022C30EFA00A53FB7 /* ColorPresetTableViewCell.swift */; };
+		B49CB74222C314C400A53FB7 /* LifeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7152294B60800CC2EDC /* LifeManager.swift */; };
+		B49CB74322C314CD00A53FB7 /* LifeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40CD56622C0520600CC33DC /* LifeDatabase.swift */; };
+		B4D49C0B22C7B5C2000F4E0C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */; };
+		B4D49C0C22C7B5C2000F4E0C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */; };
+		B4D49C0D22C7B5C2000F4E0C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */; };
 		B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88A72290553400AE066A /* AppDelegate.swift */; };
 		B4FD88B02290553400AE066A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88AF2290553400AE066A /* ViewController.swift */; };
 		B4FD88B22290553600AE066A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
@@ -43,7 +52,6 @@
 		B4FD88BE229055FB00AE066A /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
 		B4FD88D02290BA2400AE066A /* LifeScreenSaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88CF2290BA2400AE066A /* LifeScreenSaverView.swift */; };
 		B4FD88D32290BAB700AE066A /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
-		BDD2445FD5A862ADAD380E48 /* Pods_Life_Saver_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0F247DB6D6F78817A3F0E8F /* Pods_Life_Saver_tvOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,10 +70,15 @@
 		6B6B746C076EE9C58D443E92 /* Pods-Life Saver macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life Saver macOS.debug.xcconfig"; path = "Target Support Files/Pods-Life Saver macOS/Pods-Life Saver macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B40CD56622C0520600CC33DC /* LifeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeDatabase.swift; sourceTree = "<group>"; };
 		B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToroidalMatrix.swift; sourceTree = "<group>"; };
-		B492215F2291F59C00D5DEA4 /* Life Saver tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Life Saver tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B49221612291F59D00D5DEA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B49221692291F59D00D5DEA4 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		B49221702291F5A000D5DEA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B476201422C4612300B4834C /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
+		B49CB72522C3047500A53FB7 /* Life Saver tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Life Saver tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B49CB72722C3047500A53FB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B49CB72F22C3047500A53FB7 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		B49CB73222C3047500A53FB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B49CB73422C3047800A53FB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B49CB73622C3047800A53FB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B49CB74022C30EFA00A53FB7 /* ColorPresetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPresetTableViewCell.swift; sourceTree = "<group>"; };
+		B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B4FD88A42290553400AE066A /* Life Saver macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Life Saver macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FD88A72290553400AE066A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4FD88AF2290553400AE066A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,11 +97,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		B492215C2291F59C00D5DEA4 /* Frameworks */ = {
+		B49CB72222C3047500A53FB7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDD2445FD5A862ADAD380E48 /* Pods_Life_Saver_tvOS.framework in Frameworks */,
+				67E99765F2CC85D2357000E3 /* Pods_Life_Saver_tvOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +140,7 @@
 				4480C7082294B05200CC2EDC /* FileGrabber.swift */,
 				4437905F22961BA200AC3AFF /* URLType.swift */,
 				B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */,
+				B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -165,12 +179,16 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		B49221602291F59D00D5DEA4 /* tvOS */ = {
+		B49CB72622C3047500A53FB7 /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
-				B49221612291F59D00D5DEA4 /* AppDelegate.swift */,
-				B49221692291F59D00D5DEA4 /* GameViewController.swift */,
-				B49221702291F5A000D5DEA4 /* Info.plist */,
+				B49CB72722C3047500A53FB7 /* AppDelegate.swift */,
+				B49CB72F22C3047500A53FB7 /* GameViewController.swift */,
+				B476201422C4612300B4834C /* MenuTableViewController.swift */,
+				B49CB74022C30EFA00A53FB7 /* ColorPresetTableViewCell.swift */,
+				B49CB73122C3047500A53FB7 /* Main.storyboard */,
+				B49CB73422C3047800A53FB7 /* Assets.xcassets */,
+				B49CB73622C3047800A53FB7 /* Info.plist */,
 			);
 			path = tvOS;
 			sourceTree = "<group>";
@@ -181,7 +199,7 @@
 				B4FD88A62290553400AE066A /* Shared */,
 				B4FD88C52290B9DB00AE066A /* macOS Screensaver */,
 				4480C70C2294B1B300CC2EDC /* macOS */,
-				B49221602291F59D00D5DEA4 /* tvOS */,
+				B49CB72622C3047500A53FB7 /* tvOS */,
 				B4FD88A52290553400AE066A /* Products */,
 				58C9C1C400ED8FD965B9FA76 /* Pods */,
 				0E788E8E9F042832DC359B27 /* Frameworks */,
@@ -193,7 +211,7 @@
 			children = (
 				B4FD88A42290553400AE066A /* Life Saver macOS.app */,
 				B4FD88C42290B9DB00AE066A /* Life Saver Screensaver.saver */,
-				B492215F2291F59C00D5DEA4 /* Life Saver tvOS.app */,
+				B49CB72522C3047500A53FB7 /* Life Saver tvOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -206,8 +224,8 @@
 				4415352122974E220061434F /* LifeNode.swift */,
 				4415351D229733C20061434F /* LifePreset.swift */,
 				4480C7152294B60800CC2EDC /* LifeManager.swift */,
-				4415352522974E320061434F /* Utilities */,
 				B40CD56622C0520600CC33DC /* LifeDatabase.swift */,
+				4415352522974E320061434F /* Utilities */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -236,23 +254,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		B492215E2291F59C00D5DEA4 /* Life Saver tvOS */ = {
+		B49CB72422C3047500A53FB7 /* Life Saver tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B49221732291F5A000D5DEA4 /* Build configuration list for PBXNativeTarget "Life Saver tvOS" */;
+			buildConfigurationList = B49CB73922C3047800A53FB7 /* Build configuration list for PBXNativeTarget "Life Saver tvOS" */;
 			buildPhases = (
-				075C67AD20E5ECF4F6464D41 /* [CP] Check Pods Manifest.lock */,
-				B492215B2291F59C00D5DEA4 /* Sources */,
-				B492215C2291F59C00D5DEA4 /* Frameworks */,
-				B492215D2291F59C00D5DEA4 /* Resources */,
-				B40CD56522C051C400CC33DC /* SwiftLint */,
+				3B9839752AE999D754E73906 /* [CP] Check Pods Manifest.lock */,
+				B49CB72122C3047500A53FB7 /* Sources */,
+				B49CB72222C3047500A53FB7 /* Frameworks */,
+				B49CB72322C3047500A53FB7 /* Resources */,
+				B4D49C0822C7B239000F4E0C /* SwiftLint */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "Life Saver tvOS";
-			productName = "Life Saver tvOS";
-			productReference = B492215F2291F59C00D5DEA4 /* Life Saver tvOS.app */;
+			productName = "Life Saver";
+			productReference = B49CB72522C3047500A53FB7 /* Life Saver tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B4FD88A32290553400AE066A /* Life Saver macOS */ = {
@@ -303,7 +321,7 @@
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Brad Root";
 				TargetAttributes = {
-					B492215E2291F59C00D5DEA4 = {
+					B49CB72422C3047500A53FB7 = {
 						CreatedOnToolsVersion = 10.2.1;
 					};
 					B4FD88A32290553400AE066A = {
@@ -330,17 +348,18 @@
 			targets = (
 				B4FD88A32290553400AE066A /* Life Saver macOS */,
 				B4FD88C32290B9DB00AE066A /* Life Saver Screensaver */,
-				B492215E2291F59C00D5DEA4 /* Life Saver tvOS */,
+				B49CB72422C3047500A53FB7 /* Life Saver tvOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		B492215D2291F59C00D5DEA4 /* Resources */ = {
+		B49CB72322C3047500A53FB7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44A547AD22936C6A0020EC8E /* Assets.xcassets in Resources */,
+				B49CB73322C3047500A53FB7 /* Main.storyboard in Resources */,
+				B49CB73522C3047800A53FB7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,7 +385,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		075C67AD20E5ECF4F6464D41 /* [CP] Check Pods Manifest.lock */ = {
+		3B9839752AE999D754E73906 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -428,7 +447,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B40CD56522C051C400CC33DC /* SwiftLint */ = {
+		B4D49C0822C7B239000F4E0C /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -471,17 +490,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		B492215B2291F59C00D5DEA4 /* Sources */ = {
+		B49CB72122C3047500A53FB7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B49221742291F6AA00D5DEA4 /* LifeScene.swift in Sources */,
-				4415352422974E220061434F /* LifeNode.swift in Sources */,
-				4480C70B2294B05200CC2EDC /* FileGrabber.swift in Sources */,
-				B492216A2291F59D00D5DEA4 /* GameViewController.swift in Sources */,
-				B45BF8BD22AC33EA00D77162 /* ToroidalMatrix.swift in Sources */,
-				B49F59B8229881C700571F05 /* LifePreset.swift in Sources */,
-				B49221622291F59D00D5DEA4 /* AppDelegate.swift in Sources */,
+				B49CB73A22C304F500A53FB7 /* LifeScene.swift in Sources */,
+				B49CB73C22C304FA00A53FB7 /* LifePreset.swift in Sources */,
+				B476201522C4612300B4834C /* MenuTableViewController.swift in Sources */,
+				B49CB73022C3047500A53FB7 /* GameViewController.swift in Sources */,
+				B49CB72822C3047500A53FB7 /* AppDelegate.swift in Sources */,
+				B49CB73F22C3050B00A53FB7 /* ToroidalMatrix.swift in Sources */,
+				B49CB73B22C304F700A53FB7 /* LifeNode.swift in Sources */,
+				B4D49C0D22C7B5C2000F4E0C /* Extensions.swift in Sources */,
+				B49CB74322C314CD00A53FB7 /* LifeDatabase.swift in Sources */,
+				B49CB74122C30EFA00A53FB7 /* ColorPresetTableViewCell.swift in Sources */,
+				B49CB73D22C3050300A53FB7 /* FileGrabber.swift in Sources */,
+				B49CB74222C314C400A53FB7 /* LifeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,6 +520,7 @@
 				B4FD88B02290553400AE066A /* ViewController.swift in Sources */,
 				4480C70E2294B4C800CC2EDC /* LifeDatabase.swift in Sources */,
 				B45BF8BB22AC33E600D77162 /* ToroidalMatrix.swift in Sources */,
+				B4D49C0B22C7B5C2000F4E0C /* Extensions.swift in Sources */,
 				B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */,
 				4415352022973A530061434F /* URLType.swift in Sources */,
 				4480C7162294B60800CC2EDC /* LifeManager.swift in Sources */,
@@ -516,6 +541,7 @@
 				4437906022961BA200AC3AFF /* URLType.swift in Sources */,
 				B4FD88D02290BA2400AE066A /* LifeScreenSaverView.swift in Sources */,
 				4480C7172294B60800CC2EDC /* LifeManager.swift in Sources */,
+				B4D49C0C22C7B5C2000F4E0C /* Extensions.swift in Sources */,
 				4480C7432294CFF400CC2EDC /* ConfigureSheetController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -523,6 +549,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		B49CB73122C3047500A53FB7 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B49CB73222C3047500A53FB7 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		B4FD88B32290553600AE066A /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -534,16 +568,16 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		B49221712291F5A000D5DEA4 /* Debug */ = {
+		B49CB73722C3047800A53FB7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E829750ED1ADE3B20BC32D52 /* Pods-Life Saver tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch Image";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
-				INFOPLIST_FILE = "Life Saver tvOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -557,16 +591,16 @@
 			};
 			name = Debug;
 		};
-		B49221722291F5A000D5DEA4 /* Release */ = {
+		B49CB73822C3047800A53FB7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 502A6BF15E385B76A6422725 /* Pods-Life Saver tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch Image";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
-				INFOPLIST_FILE = "Life Saver tvOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -701,11 +735,11 @@
 			baseConfigurationReference = 6B6B746C076EE9C58D443E92 /* Pods-Life Saver macOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Life Saver macOS/Life_Saver.entitlements";
+				CODE_SIGN_ENTITLEMENTS = macOS/Life_Saver.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
-				INFOPLIST_FILE = "$(SRCROOT)/Life Saver macOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -721,11 +755,11 @@
 			baseConfigurationReference = 5EE01FF9B77AC381FC307FC3 /* Pods-Life Saver macOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Life Saver macOS/Life_Saver.entitlements";
+				CODE_SIGN_ENTITLEMENTS = macOS/Life_Saver.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
-				INFOPLIST_FILE = "$(SRCROOT)/Life Saver macOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -744,7 +778,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
-				INFOPLIST_FILE = "Life Saver Screensaver/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/macOS Screensaver/Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -767,7 +801,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
-				INFOPLIST_FILE = "Life Saver Screensaver/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/macOS Screensaver/Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -784,11 +818,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B49221732291F5A000D5DEA4 /* Build configuration list for PBXNativeTarget "Life Saver tvOS" */ = {
+		B49CB73922C3047800A53FB7 /* Build configuration list for PBXNativeTarget "Life Saver tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B49221712291F5A000D5DEA4 /* Debug */,
-				B49221722291F5A000D5DEA4 /* Release */,
+				B49CB73722C3047800A53FB7 /* Debug */,
+				B49CB73822C3047800A53FB7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -12,13 +12,13 @@
 import GameplayKit
 import SpriteKit
 
-final class LifeScene: SKScene {
+final class LifeScene: SKScene, LifeManagerDelegate {
     // MARK: - Settings
 
     var aliveColors: [SKColor] = [
         SKColor.defaultColor1,
         SKColor.defaultColor2,
-        SKColor.defaultColor3
+        SKColor.defaultColor3,
     ]
 
     var appearanceColor: SKColor = .black
@@ -33,21 +33,46 @@ final class LifeScene: SKScene {
         }
     }
 
+    var deathFade: Bool = true
+    var shiftingColors: Bool = false
+
+    private var animationTime: TimeInterval = 2
     private var updateTime: TimeInterval = 2
     var animationSpeed: AnimationSpeed = .normal {
         didSet {
             switch animationSpeed {
             case .fast:
+                animationTime = 0.6
                 updateTime = 0.6
             case .normal:
+                animationTime = 2
                 updateTime = 2
             case .slow:
+                animationTime = 5
                 updateTime = 5
+            case .off:
+                animationTime = 0
+                updateTime = 0.1
             }
         }
     }
 
     var squareSize: SquareSize = .medium
+
+    // MARK: - Manager
+
+    var manager: LifeManager? {
+        didSet {
+            manager?.delegate = self
+        }
+    }
+
+    func updatedSettings() {
+        print("Updated Settings")
+        isUpdating = false
+        endLife()
+        perform(#selector(createField), with: nil, afterDelay: 0.5)
+    }
 
     // MARK: - Scene Lifecycle
 
@@ -57,40 +82,29 @@ final class LifeScene: SKScene {
     }
 
     override func didMove(to _: SKView) {
-        backgroundColor = appearanceColor
-        scaleMode = .fill
-
-        switch squareSize {
-        case .large:
-            lengthSquares = 7
-            heightSquares = 4
-        case .small:
-            lengthSquares = 32
-            heightSquares = 18
-        case .verySmall:
-            lengthSquares = 64
-            heightSquares = 36
-        case .superSmall:
-            lengthSquares = 128
-            heightSquares = 74
-        default:
-            break
-        }
-
-        createLife()
+        backgroundNode = SKSpriteNode(texture: squareTexture, color: appearanceColor, size: frame.size)
+        addChild(backgroundNode)
+        backgroundNode.position = CGPoint(x: frame.width / 2, y: frame.height / 2)
+        backgroundNode.zPosition = 0
+        createField()
     }
 
     private var lastUpdate: TimeInterval = 0
 
+    private var isUpdating: Bool = true
+
     override func update(_ currentTime: TimeInterval) {
         if lastUpdate == 0 || currentTime - lastUpdate >= updateTime {
             lastUpdate = currentTime
-            updateLife()
+            if isUpdating {
+                updateLife()
+            }
         }
     }
 
-    // MARK: - Life Logic
+    // MARK: - Life Parameters
 
+    private var backgroundNode: SKSpriteNode = SKSpriteNode()
     private var allNodes: [LifeNode] = []
     private var aliveNodes: [LifeNode] = []
     private var livingNodeHistory: [Int] = []
@@ -106,6 +120,48 @@ final class LifeScene: SKScene {
             size: .zero
         )
     )
+
+    // MARK: - Life Creation
+
+    @objc func createField() {
+        if let manager = manager {
+            appearanceMode = manager.appearanceMode
+            squareSize = manager.squareSize
+            animationSpeed = manager.animationSpeed
+            aliveColors = [manager.color1, manager.color2, manager.color3]
+            deathFade = manager.deathFade
+            shiftingColors = manager.shiftingColors
+        }
+
+        if backgroundNode.color != appearanceColor {
+            let colorize = SKAction.colorize(with: appearanceColor, colorBlendFactor: 1.0, duration: 0.5)
+            backgroundNode.run(colorize) {
+                self.isUpdating = true
+            }
+        }
+
+        scaleMode = .aspectFill
+
+        switch squareSize {
+        case .large:
+            lengthSquares = 7
+            heightSquares = 4
+        case .medium:
+            lengthSquares = 16
+            heightSquares = 9
+        case .small:
+            lengthSquares = 32
+            heightSquares = 18
+        case .verySmall:
+            lengthSquares = 64
+            heightSquares = 36
+        case .superSmall:
+            lengthSquares = 128
+            heightSquares = 74
+        }
+
+        createLife()
+    }
 
     fileprivate func createLife() {
         matrix = ToroidalMatrix(
@@ -161,6 +217,7 @@ final class LifeScene: SKScene {
         )
         addChild(newSquare)
         newSquare.position = actualPosition
+        newSquare.alpha = 0
 
         if newSquare.alive {
             aliveNodes.append(newSquare)
@@ -183,6 +240,21 @@ final class LifeScene: SKScene {
         node.neighbors = neighbors
     }
 
+    // MARK: - Life Ending
+
+    fileprivate func destroyField() {
+        removeAllChildren()
+    }
+
+    fileprivate func endLife() {
+        allNodes.forEach { $0.remove(duration: 0.5) }
+        allNodes.removeAll()
+        aliveNodes.removeAll()
+        livingNodeHistory.removeAll()
+    }
+
+    // MARK: - Life Updates
+
     fileprivate func updateLife() {
         var dyingNodes: [LifeNode] = []
         var livingNodes: [LifeNode] = []
@@ -197,7 +269,11 @@ final class LifeScene: SKScene {
                     livingNodes.append(node)
                 }
             } else if livingNeighbors.count == 3 {
-                node.aliveColor = livingNeighbors.randomElement()!.color
+                var livingColor = livingNeighbors.randomElement()!.color
+                if shiftingColors {
+                    livingColor = livingColor.modified(withAdditionalHue: 0.005, additionalSaturation: 0, additionalBrightness: 0)
+                }
+                node.aliveColor = livingColor
                 livingNodes.append(node)
             } else {
                 dyingNodes.append(node)
@@ -210,7 +286,7 @@ final class LifeScene: SKScene {
         }
 
         // Static tank prevention
-        if livingNodeHistory.count >= 20 {
+        if livingNodeHistory.count >= 10 {
             livingNodeHistory.removeFirst()
             livingNodeHistory.append(livingNodes.count)
             if 1 ... 2 ~= Set(livingNodeHistory).count {
@@ -223,11 +299,11 @@ final class LifeScene: SKScene {
 
         // Update nodes here
         dyingNodes.forEach {
-            $0.die(duration: updateTime * 5)
+            $0.die(duration: animationTime * 5, fade: deathFade)
         }
 
         livingNodes.forEach {
-            $0.live(duration: updateTime)
+            $0.live(duration: animationTime)
         }
 
         aliveNodes = livingNodes
