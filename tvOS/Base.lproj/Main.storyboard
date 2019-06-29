@@ -245,19 +245,28 @@
                                 <rect key="frame" x="920" y="497" width="80" height="86"/>
                                 <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
                             </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5a5-Sa-t0f">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="5a5-Sa-t0f" firstAttribute="top" secondItem="weF-Pa-zaM" secondAttribute="top" id="2FH-l1-BE3"/>
+                            <constraint firstAttribute="trailing" secondItem="5a5-Sa-t0f" secondAttribute="trailing" id="FZM-1F-CSP"/>
                             <constraint firstAttribute="trailing" secondItem="Xx0-76-TuD" secondAttribute="trailing" id="N2O-Jq-GTN"/>
                             <constraint firstAttribute="bottom" secondItem="Xx0-76-TuD" secondAttribute="bottom" id="Njp-tx-Syh"/>
                             <constraint firstAttribute="bottom" secondItem="UII-yg-Zny" secondAttribute="bottom" constant="35" id="O1f-x4-oYd"/>
                             <constraint firstItem="tNG-hn-xjk" firstAttribute="centerY" secondItem="6df-27-8hi" secondAttribute="centerY" id="W1w-6j-8Oq"/>
                             <constraint firstItem="Xx0-76-TuD" firstAttribute="top" secondItem="weF-Pa-zaM" secondAttribute="top" id="ag8-Pt-4ch"/>
+                            <constraint firstItem="5a5-Sa-t0f" firstAttribute="leading" secondItem="weF-Pa-zaM" secondAttribute="leading" id="cZX-N6-i9m"/>
                             <constraint firstItem="wdm-5G-eMB" firstAttribute="top" secondItem="weF-Pa-zaM" secondAttribute="top" id="d47-Yp-OyD"/>
                             <constraint firstItem="wdm-5G-eMB" firstAttribute="leading" secondItem="weF-Pa-zaM" secondAttribute="leading" id="hip-vy-zcV"/>
                             <constraint firstAttribute="bottom" secondItem="4CX-EI-Gof" secondAttribute="bottom" constant="35" id="iDS-vn-nMH"/>
                             <constraint firstAttribute="bottom" secondItem="wdm-5G-eMB" secondAttribute="bottom" id="mAG-Zc-vo8"/>
                             <constraint firstItem="tNG-hn-xjk" firstAttribute="centerX" secondItem="6df-27-8hi" secondAttribute="centerX" id="psX-dX-Sgr"/>
                             <constraint firstItem="UII-yg-Zny" firstAttribute="leading" secondItem="wdm-5G-eMB" secondAttribute="trailing" constant="35" id="tiK-AY-UDp"/>
+                            <constraint firstAttribute="bottom" secondItem="5a5-Sa-t0f" secondAttribute="bottom" id="um5-Oe-3PE"/>
                             <constraint firstItem="Xx0-76-TuD" firstAttribute="leading" secondItem="4CX-EI-Gof" secondAttribute="trailing" constant="35" id="wPg-48-BcF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6df-27-8hi"/>
@@ -267,6 +276,8 @@
                         <outlet property="colorMenuTrailingConstraint" destination="N2O-Jq-GTN" id="wgk-2q-Pfi"/>
                         <outlet property="colorPresetsTableView" destination="bqq-Bg-TPH" id="nxc-wk-m7k"/>
                         <outlet property="colorPresetsView" destination="Xx0-76-TuD" id="I46-P2-Qv0"/>
+                        <outlet property="initialOverlayView" destination="5a5-Sa-t0f" id="aVr-LA-g2k"/>
+                        <outlet property="kludgeButton" destination="tNG-hn-xjk" id="erO-bc-jw4"/>
                         <outlet property="mainMenuCloseToast" destination="UII-yg-Zny" id="hZa-0j-Nzd"/>
                         <outlet property="mainMenuLeadingConstraint" destination="hip-vy-zcV" id="qvq-pu-aJO"/>
                         <outlet property="mainMenuView" destination="wdm-5G-eMB" id="j5K-uW-yur"/>

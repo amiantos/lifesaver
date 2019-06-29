@@ -31,10 +31,15 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     @IBOutlet var colorMenuCloseToast: UIVisualEffectView!
     @IBOutlet var mainMenuCloseToast: UIVisualEffectView!
 
+    @IBOutlet weak var kludgeButton: UIButton!
+    @IBOutlet weak var initialOverlayView: UIView!
+
     var menuTableViewController: MenuTableViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .black
+        initialOverlayView.isHidden = false
         setupView()
     }
 
@@ -45,6 +50,15 @@ class LifeViewController: UIViewController, MenuTableDelegate {
 
         setupPresetMenu()
         setupGestureRecognizers()
+
+        UIView.animate(withDuration: 2, animations: {
+            self.initialOverlayView.alpha = 0
+        }, completion: { (finished) in
+            if finished {
+                self.initialOverlayView.isHidden = true
+                self.setNeedsFocusUpdate()
+            }
+        })
     }
 
     override var preferredFocusEnvironments: [UIFocusEnvironment] {
@@ -103,6 +117,11 @@ class LifeViewController: UIViewController, MenuTableDelegate {
                 self.mainMenuCloseToast.alpha = mainMenuToastAlpha
             })
             propertyAnimator.addCompletion { _ in
+                if self.state == .allClosed {
+                    self.kludgeButton.alpha = 1
+                } else {
+                    self.kludgeButton.alpha = 0
+                }
                 self.setNeedsFocusUpdate()
                 self.updateFocusIfNeeded()
             }
@@ -132,6 +151,11 @@ class LifeViewController: UIViewController, MenuTableDelegate {
                 self.mainMenuCloseToast.alpha = mainMenuToastAlpha
             })
             propertyAnimator.addCompletion { _ in
+                if self.state == .allClosed {
+                    self.kludgeButton.alpha = 1
+                } else {
+                    self.kludgeButton.alpha = 0
+                }
                 self.setNeedsFocusUpdate()
                 self.updateFocusIfNeeded()
             }
@@ -151,6 +175,7 @@ class LifeViewController: UIViewController, MenuTableDelegate {
                 self.mainMenuCloseToast.alpha = 0
             })
             propertyAnimator.addCompletion { _ in
+                self.kludgeButton.alpha = 0
                 self.setNeedsFocusUpdate()
                 self.updateFocusIfNeeded()
             }

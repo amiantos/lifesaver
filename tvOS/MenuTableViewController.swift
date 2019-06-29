@@ -52,7 +52,7 @@ class MenuTableViewController: UITableViewController, LifeManagerDelegate {
             case .slow:
                 speedCell.detailTextLabel?.text = "Slow"
             case .off:
-                speedCell.detailTextLabel?.text = "Off"
+                speedCell.detailTextLabel?.text = "Instant"
             }
 
             let randomColorPresetTitle = manager.shiftingColors ? "On" : "Off"
@@ -125,10 +125,9 @@ class MenuTableViewController: UITableViewController, LifeManagerDelegate {
         let alert = UIAlertController(
             title: "Animation Speed",
             message: """
-            This governs how quickly animations occur. \
+            This governs how quickly change animations occur. \
             Slower speeds lead to more abstract, shifting colors. \
-            Faster speeds make the simulation easier to observe. \
-            If you turn animations off, the simulation will run as quickly as possible.
+            Faster speeds make the simulation easier to observe.
             """,
             preferredStyle: .actionSheet
         )
@@ -143,12 +142,7 @@ class MenuTableViewController: UITableViewController, LifeManagerDelegate {
         }
         alert.addAction(fastAction)
 
-        let slowAction = UIAlertAction(title: "Slow", style: .default) { _ in
-            self.manager?.setAnimationSpeed(.slow)
-        }
-        alert.addAction(slowAction)
-
-        let offAction = UIAlertAction(title: "Off", style: .default) { _ in
+        let offAction = UIAlertAction(title: "Instant", style: .default) { _ in
             self.manager?.setAnimationSpeed(.off)
         }
         alert.addAction(offAction)

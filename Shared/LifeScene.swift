@@ -79,13 +79,19 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     override func sceneDidLoad() {
         size.width = frame.size.width * 2
         size.height = frame.size.height * 2
+        backgroundColor = .black
     }
 
     override func didMove(to _: SKView) {
         backgroundNode = SKSpriteNode(texture: squareTexture, color: appearanceColor, size: frame.size)
+        backgroundNode.alpha = 0
         addChild(backgroundNode)
         backgroundNode.position = CGPoint(x: frame.width / 2, y: frame.height / 2)
         backgroundNode.zPosition = 0
+
+        let fadeIn = SKAction.fadeIn(withDuration: 0.5)
+        backgroundNode.run(fadeIn)
+
         createField()
     }
 

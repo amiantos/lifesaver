@@ -313,6 +313,17 @@ let colorPresets = [
         color3: SKColor(red: 252 / 255.0, green: 53 / 255.0, blue: 113 / 255.0, alpha: 1.00)
     ),
     LifePreset(
+        title: "Monochrome Red",
+        appearanceMode: .dark,
+        squareSize: nil,
+        animationSpeed: nil,
+        deathFade: nil,
+        shiftingColors: nil,
+        color1: SKColor(red: 229/255, green: 0/255, blue: 0/255, alpha: 1.0),
+        color2: SKColor(red: 204/255, green: 0/255, blue: 0/255, alpha: 1.0),
+        color3: SKColor(red: 178/255, green: 0/255, blue: 0/255, alpha: 1.0)
+    ),
+    LifePreset(
         title: "Custom",
         appearanceMode: nil,
         squareSize: nil,
