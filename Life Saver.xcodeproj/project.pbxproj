@@ -31,7 +31,7 @@
 		B49221752294E5C500D5DEA4 /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */; };
 		B49221762294E71A00D5DEA4 /* ConfigureSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */; };
 		B49CB72822C3047500A53FB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49CB72722C3047500A53FB7 /* AppDelegate.swift */; };
-		B49CB73022C3047500A53FB7 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49CB72F22C3047500A53FB7 /* GameViewController.swift */; };
+		B49CB73022C3047500A53FB7 /* LifeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49CB72F22C3047500A53FB7 /* LifeViewController.swift */; };
 		B49CB73322C3047500A53FB7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B49CB73122C3047500A53FB7 /* Main.storyboard */; };
 		B49CB73522C3047800A53FB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B49CB73422C3047800A53FB7 /* Assets.xcassets */; };
 		B49CB73A22C304F500A53FB7 /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
@@ -73,7 +73,7 @@
 		B476201422C4612300B4834C /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		B49CB72522C3047500A53FB7 /* Life Saver tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Life Saver tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B49CB72722C3047500A53FB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B49CB72F22C3047500A53FB7 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		B49CB72F22C3047500A53FB7 /* LifeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeViewController.swift; sourceTree = "<group>"; };
 		B49CB73222C3047500A53FB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B49CB73422C3047800A53FB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B49CB73622C3047800A53FB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -183,7 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				B49CB72722C3047500A53FB7 /* AppDelegate.swift */,
-				B49CB72F22C3047500A53FB7 /* GameViewController.swift */,
+				B49CB72F22C3047500A53FB7 /* LifeViewController.swift */,
 				B476201422C4612300B4834C /* MenuTableViewController.swift */,
 				B49CB74022C30EFA00A53FB7 /* ColorPresetTableViewCell.swift */,
 				B49CB73122C3047500A53FB7 /* Main.storyboard */,
@@ -497,7 +497,7 @@
 				B49CB73A22C304F500A53FB7 /* LifeScene.swift in Sources */,
 				B49CB73C22C304FA00A53FB7 /* LifePreset.swift in Sources */,
 				B476201522C4612300B4834C /* MenuTableViewController.swift in Sources */,
-				B49CB73022C3047500A53FB7 /* GameViewController.swift in Sources */,
+				B49CB73022C3047500A53FB7 /* LifeViewController.swift in Sources */,
 				B49CB72822C3047500A53FB7 /* AppDelegate.swift in Sources */,
 				B49CB73F22C3050B00A53FB7 /* ToroidalMatrix.swift in Sources */,
 				B49CB73B22C304F700A53FB7 /* LifeNode.swift in Sources */,

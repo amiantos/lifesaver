@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Game View Controller-->
+        <!--Life View Controller-->
         <scene sceneID="dEh-eV-dlg">
             <objects>
-                <viewController id="499-42-d0g" customClass="GameViewController" customModule="Life_Saver_tvOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="499-42-d0g" customClass="LifeViewController" customModule="Life_Saver_tvOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TiC-Vw-u93"/>
                         <viewControllerLayoutGuide type="bottom" id="3TX-uQ-fmp"/>
@@ -170,7 +170,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="by Brad Root" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WhP-fL-Sqz">
-                                                        <rect key="frame" x="387" y="152" width="144" height="30"/>
+                                                        <rect key="frame" x="375" y="152" width="144" height="30"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                         <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                                         <nil key="highlightedColor"/>
@@ -181,7 +181,7 @@
                                                     <constraint firstItem="WhP-fL-Sqz" firstAttribute="top" secondItem="QVy-gS-3lY" secondAttribute="bottom" constant="-10" id="Hpe-Dh-Fi3"/>
                                                     <constraint firstItem="QVy-gS-3lY" firstAttribute="centerX" secondItem="iMz-dA-ZDw" secondAttribute="centerX" id="LpV-5b-QlG"/>
                                                     <constraint firstItem="QVy-gS-3lY" firstAttribute="centerY" secondItem="iMz-dA-ZDw" secondAttribute="centerY" constant="-10" id="bdK-GD-ngN"/>
-                                                    <constraint firstItem="WhP-fL-Sqz" firstAttribute="leading" secondItem="iMz-dA-ZDw" secondAttribute="leading" constant="387" id="d5v-eF-9Lb"/>
+                                                    <constraint firstItem="WhP-fL-Sqz" firstAttribute="leading" secondItem="iMz-dA-ZDw" secondAttribute="leading" constant="375" id="d5v-eF-9Lb"/>
                                                 </constraints>
                                             </view>
                                             <constraints>
@@ -439,7 +439,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iiP-KF-WXI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-591" y="1254"/>
+            <point key="canvasLocation" x="-591" y="1105"/>
         </scene>
     </scenes>
 </document>

@@ -1,5 +1,5 @@
 //
-//  GameViewController.swift
+//  LifeViewController.swift
 //  Life Saver
 //
 //  Created by Bradley Root on 6/25/19.
@@ -16,7 +16,7 @@ enum UIState {
     case allClosed
 }
 
-class GameViewController: UIViewController, MenuTableDelegate {
+class LifeViewController: UIViewController, MenuTableDelegate {
     var scene: LifeScene?
     let manager = LifeManager()
     var state: UIState = .allClosed
@@ -201,7 +201,7 @@ class GameViewController: UIViewController, MenuTableDelegate {
     }
 }
 
-extension GameViewController: UITableViewDelegate, UITableViewDataSource {
+extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in _: UITableView) -> Int {
         return 2
     }
