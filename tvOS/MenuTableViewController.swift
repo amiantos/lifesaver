@@ -57,6 +57,9 @@ class MenuTableViewController: UITableViewController, LifeManagerDelegate {
 
             let randomColorPresetTitle = manager.shiftingColors ? "On" : "Off"
             randomPresetColorCell.detailTextLabel?.text = randomColorPresetTitle
+
+            let deathFadeTitle = manager.deathFade ? "On" : "Off"
+            deathFadeCell.detailTextLabel?.text = deathFadeTitle
         }
     }
 
