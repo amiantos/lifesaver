@@ -26,17 +26,10 @@ class MenuTableViewController: UITableViewController, LifeManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
         updatedSettings()
     }
 
     func updatedSettings() {
-        // MARK: - Set up config views
-
         if let manager = manager {
             switch manager.squareSize {
             case .superSmall:
@@ -96,13 +89,11 @@ class MenuTableViewController: UITableViewController, LifeManagerDelegate {
 
         let onAction = UIAlertAction(title: "On", style: .default) { _ in
             self.manager?.setShiftingColors(true)
-            self.randomPresetColorCell.detailTextLabel?.text = "On"
         }
         alert.addAction(onAction)
 
         let offAction = UIAlertAction(title: "Off", style: .default) { _ in
             self.manager?.setShiftingColors(false)
-            self.randomPresetColorCell.detailTextLabel?.text = "Off"
         }
         alert.addAction(offAction)
 
@@ -131,35 +122,31 @@ class MenuTableViewController: UITableViewController, LifeManagerDelegate {
         let alert = UIAlertController(
             title: "Animation Speed",
             message: """
-                This governs how quickly animations occur. \
-                Slower speeds lead to more abstract, shifting colors. \
-                Faster speeds make the simulation easier to observe. \
-                If you turn animations off, the simulation will run as quickly as possible.
+            This governs how quickly animations occur. \
+            Slower speeds lead to more abstract, shifting colors. \
+            Faster speeds make the simulation easier to observe. \
+            If you turn animations off, the simulation will run as quickly as possible.
             """,
             preferredStyle: .actionSheet
         )
 
         let defaultAction = UIAlertAction(title: "Normal", style: .default) { _ in
             self.manager?.setAnimationSpeed(.normal)
-            self.speedCell.detailTextLabel?.text = "Normal"
         }
         alert.addAction(defaultAction)
 
         let fastAction = UIAlertAction(title: "Fast", style: .default) { _ in
             self.manager?.setAnimationSpeed(.fast)
-            self.speedCell.detailTextLabel?.text = "Fast"
         }
         alert.addAction(fastAction)
 
         let slowAction = UIAlertAction(title: "Slow", style: .default) { _ in
             self.manager?.setAnimationSpeed(.slow)
-            self.speedCell.detailTextLabel?.text = "Slow"
         }
         alert.addAction(slowAction)
 
         let offAction = UIAlertAction(title: "Off", style: .default) { _ in
             self.manager?.setAnimationSpeed(.off)
-            self.speedCell.detailTextLabel?.text = "Off"
         }
         alert.addAction(offAction)
 
@@ -172,22 +159,20 @@ class MenuTableViewController: UITableViewController, LifeManagerDelegate {
         let alert = UIAlertController(
             title: "Death Fade",
             message: """
-                With death fade turned on, when a cell dies, it will fade into the background, \
-                and eventually fade out completely. With death fade turned off, the cell color \
-                will persist on the screen until it comes back to life as another color.
+            With death fade turned on, when a cell dies, it will fade into the background, \
+            and eventually fade out completely. With death fade turned off, the cell color \
+            will persist on the screen until it comes back to life as another color.
             """,
             preferredStyle: .actionSheet
         )
 
         let onAction = UIAlertAction(title: "On", style: .default) { _ in
             self.manager?.setDeathFade(true)
-            self.deathFadeCell.detailTextLabel?.text = "On"
         }
         alert.addAction(onAction)
 
         let offAction = UIAlertAction(title: "Off", style: .default) { _ in
             self.manager?.setDeathFade(false)
-            self.deathFadeCell.detailTextLabel?.text = "Off"
         }
         alert.addAction(offAction)
 
@@ -202,38 +187,34 @@ class MenuTableViewController: UITableViewController, LifeManagerDelegate {
         let alert = UIAlertController(
             title: "Square Size",
             message: """
-                This governs the size of the squares on screen. \
-                Larger squares are more abstract, while smaller squares allow you to see the simulation easier.
+            This governs the size of the squares on screen. \
+            Larger squares are more abstract, while smaller squares allow you to see the simulation easier.
             """,
             preferredStyle: .actionSheet
         )
         let xSmallAction = UIAlertAction(title: "Tiny", style: .default) { _ in
-            print("Selected Small")
             self.manager?.setSquareSize(.verySmall)
-            self.squareSizeCell.detailTextLabel?.text = "Tiny"
         }
-        let smallAction = UIAlertAction(title: "Small", style: .default) { _ in
-            print("Selected Small")
-            self.manager?.setSquareSize(.small)
-            self.squareSizeCell.detailTextLabel?.text = "Small"
-        }
-        let mediumAction = UIAlertAction(title: "Medium", style: .default) { _ in
-            print("Selected Medium")
-            self.manager?.setSquareSize(.medium)
-            self.squareSizeCell.detailTextLabel?.text = "Medium"
-        }
-        let largeAction = UIAlertAction(title: "Large", style: .default) { _ in
-            print("Selected Large")
-            self.manager?.setSquareSize(.large)
-            self.squareSizeCell.detailTextLabel?.text = "Large"
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//        alert.addAction(xxSmallAction)
         alert.addAction(xSmallAction)
+
+        let smallAction = UIAlertAction(title: "Small", style: .default) { _ in
+            self.manager?.setSquareSize(.small)
+        }
         alert.addAction(smallAction)
+
+        let mediumAction = UIAlertAction(title: "Medium", style: .default) { _ in
+            self.manager?.setSquareSize(.medium)
+        }
         alert.addAction(mediumAction)
+
+        let largeAction = UIAlertAction(title: "Large", style: .default) { _ in
+            self.manager?.setSquareSize(.large)
+        }
         alert.addAction(largeAction)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
+
         present(alert, animated: true, completion: nil)
     }
 }

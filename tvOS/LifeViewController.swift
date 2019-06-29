@@ -24,6 +24,7 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     @IBOutlet var colorPresetsTableView: UITableView!
     @IBOutlet var colorPresetsView: UIVisualEffectView!
     @IBOutlet var mainMenuView: UIVisualEffectView!
+
     @IBOutlet var mainMenuLeadingConstraint: NSLayoutConstraint!
     @IBOutlet var colorMenuTrailingConstraint: NSLayoutConstraint!
 
@@ -34,37 +35,52 @@ class LifeViewController: UIViewController, MenuTableDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
+    }
 
-        colorMenuCloseToast.layer.cornerRadius = colorMenuCloseToast.frame.height / 2
-        colorMenuCloseToast.clipsToBounds = true
-        colorMenuCloseToast.alpha = 0
-        colorMenuTrailingConstraint.constant = -colorPresetsView.frame.width
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
-        mainMenuCloseToast.layer.cornerRadius = colorMenuCloseToast.frame.height / 2
-        mainMenuCloseToast.clipsToBounds = true
-        mainMenuCloseToast.alpha = 0
-        mainMenuLeadingConstraint.constant = -mainMenuView.frame.width
+        view.isUserInteractionEnabled = true
 
-        updateViewConstraints()
+        setupPresetMenu()
+        setupGestureRecognizers()
+    }
 
-        colorPresetsTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
-
-        if let view = self.view as? SKView {
-            scene = LifeScene(size: view.bounds.size)
-            scene!.scaleMode = .aspectFit
-
-            scene!.manager = manager
-
-            view.ignoresSiblingOrder = true
-            view.preferredFramesPerSecond = 60
-            view.presentScene(scene)
-
-            colorPresetsTableView.delegate = self
-            colorPresetsTableView.dataSource = self
+    override var preferredFocusEnvironments: [UIFocusEnvironment] {
+        if state == .colorPresets {
+            return [colorPresetsView]
+        } else {
+            return [mainMenuView]
         }
     }
 
-    // Swipe gesture selector function
+    override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
+        if segue.identifier == "menuEmbedSegue" {
+            if let tableViewController = segue.destination as? MenuTableViewController {
+                menuTableViewController = tableViewController
+                menuTableViewController?.manager = manager
+                menuTableViewController?.delegate = self
+                manager.settingsDelegate = tableViewController
+            }
+        }
+    }
+
+    // MARK: - UI Interactions
+
+    fileprivate func setupGestureRecognizers() {
+        // Swipe gesture for left and right
+        let swipeFromRight = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeft))
+        swipeFromRight.direction = .left
+        swipeFromRight.allowedTouchTypes = [NSNumber(value: UITouch.TouchType.indirect.rawValue)]
+        view.addGestureRecognizer(swipeFromRight)
+
+        let swipeFromLeft = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeRight))
+        swipeFromLeft.direction = .right
+        swipeFromLeft.allowedTouchTypes = [NSNumber(value: UITouch.TouchType.indirect.rawValue)]
+        view.addGestureRecognizer(swipeFromLeft)
+    }
+
     @objc func didSwipeLeft(gesture _: UIGestureRecognizer) {
         DispatchQueue.main.async {
             var colorMenuToastAlpha: CGFloat = 0
@@ -123,14 +139,6 @@ class LifeViewController: UIViewController, MenuTableDelegate {
         }
     }
 
-    override var preferredFocusEnvironments: [UIFocusEnvironment] {
-        if state == .colorPresets {
-            return [colorPresetsView]
-        } else {
-            return [mainMenuView]
-        }
-    }
-
     func showColorPresets() {
         DispatchQueue.main.async {
             self.colorMenuTrailingConstraint.constant = 0
@@ -150,9 +158,37 @@ class LifeViewController: UIViewController, MenuTableDelegate {
         }
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    // MARK: - View Setup
 
+    fileprivate func setupView() {
+        colorMenuCloseToast.layer.cornerRadius = colorMenuCloseToast.frame.height / 2
+        colorMenuCloseToast.clipsToBounds = true
+        colorMenuCloseToast.alpha = 0
+        colorMenuTrailingConstraint.constant = -colorPresetsView.frame.width
+
+        mainMenuCloseToast.layer.cornerRadius = colorMenuCloseToast.frame.height / 2
+        mainMenuCloseToast.clipsToBounds = true
+        mainMenuCloseToast.alpha = 0
+        mainMenuLeadingConstraint.constant = -mainMenuView.frame.width
+
+        updateViewConstraints()
+
+        if let view = self.view as? SKView {
+            scene = LifeScene(size: view.bounds.size)
+            scene!.scaleMode = .aspectFit
+
+            scene!.manager = manager
+
+            view.ignoresSiblingOrder = true
+            view.preferredFramesPerSecond = 60
+            view.presentScene(scene)
+
+            colorPresetsTableView.delegate = self
+            colorPresetsTableView.dataSource = self
+        }
+    }
+
+    fileprivate func setupPresetMenu() {
         let selectedPresetTitle = manager.selectedPresetTitle == "" ? "Default" : manager.selectedPresetTitle
         var filteredPresets = colorPresets.filter { $0.title == selectedPresetTitle }
         if filteredPresets.isEmpty {
@@ -173,30 +209,6 @@ class LifeViewController: UIViewController, MenuTableDelegate {
                 animated: false,
                 scrollPosition: .top
             )
-        }
-
-        view.isUserInteractionEnabled = true
-
-        // Swipe gesture for left and right
-        let swipeFromRight = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeft))
-        swipeFromRight.direction = .left
-        swipeFromRight.allowedTouchTypes = [NSNumber(value: UITouch.TouchType.indirect.rawValue)]
-        view.addGestureRecognizer(swipeFromRight)
-
-        let swipeFromLeft = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeRight))
-        swipeFromLeft.direction = .right
-        swipeFromLeft.allowedTouchTypes = [NSNumber(value: UITouch.TouchType.indirect.rawValue)]
-        view.addGestureRecognizer(swipeFromLeft)
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
-        if segue.identifier == "menuEmbedSegue" {
-            if let tableViewController = segue.destination as? MenuTableViewController {
-                menuTableViewController = tableViewController
-                menuTableViewController?.manager = manager
-                menuTableViewController?.delegate = self
-                manager.settingsDelegate = tableViewController
-            }
         }
     }
 }
