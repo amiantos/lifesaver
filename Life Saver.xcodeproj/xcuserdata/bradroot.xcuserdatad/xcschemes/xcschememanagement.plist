@@ -4,22 +4,22 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Screensaver.xcscheme_^#shared#^_</key>
+		<key>Life Saver Screensaver.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>macOS Debug.xcscheme_^#shared#^_</key>
+		<key>Life Saver macOS Debug.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>tvOS Debug.xcscheme_^#shared#^_</key>
+		<key>Life Saver tvOS Debug.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
-		<key>tvOS.xcscheme_^#shared#^_</key>
+		<key>Life Saver tvOS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>6</integer>
