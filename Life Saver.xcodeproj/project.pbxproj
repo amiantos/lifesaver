@@ -15,7 +15,6 @@
 		4415352222974E220061434F /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415352122974E220061434F /* LifeNode.swift */; };
 		4415352322974E220061434F /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415352122974E220061434F /* LifeNode.swift */; };
 		4437906022961BA200AC3AFF /* URLType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4437905F22961BA200AC3AFF /* URLType.swift */; };
-		4437906122961D3B00AC3AFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
 		4480C7092294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
 		4480C70A2294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
 		4480C70E2294B4C800CC2EDC /* LifeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */; };
@@ -25,6 +24,8 @@
 		4480C7412294CFB800CC2EDC /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */; };
 		4480C7432294CFF400CC2EDC /* ConfigureSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */; };
 		67E99765F2CC85D2357000E3 /* Pods_Life_Saver_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0F247DB6D6F78817A3F0E8F /* Pods_Life_Saver_tvOS.framework */; };
+		B41C8C3F22C81D0200777A09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
+		B41C8C4122C81D2400777A09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B41C8C4022C81D2400777A09 /* Assets.xcassets */; };
 		B45BF8BB22AC33E600D77162 /* ToroidalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */; };
 		B45BF8BC22AC33E900D77162 /* ToroidalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */; };
 		B476201522C4612300B4834C /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B476201422C4612300B4834C /* MenuTableViewController.swift */; };
@@ -45,10 +46,10 @@
 		B4D49C0C22C7B5C2000F4E0C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */; };
 		B4D49C0D22C7B5C2000F4E0C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */; };
 		B4D49C0F22C7B976000F4E0C /* LifeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40CD56622C0520600CC33DC /* LifeDatabase.swift */; };
-		B4D49C1022C7B9DA000F4E0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
+		B4D49C1122C81C67000F4E0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
+		B4D49C1222C81C67000F4E0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
 		B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88A72290553400AE066A /* AppDelegate.swift */; };
 		B4FD88B02290553400AE066A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88AF2290553400AE066A /* ViewController.swift */; };
-		B4FD88B22290553600AE066A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
 		B4FD88B52290553600AE066A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B32290553600AE066A /* Main.storyboard */; };
 		B4FD88BE229055FB00AE066A /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
 		B4FD88D02290BA2400AE066A /* LifeScreenSaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88CF2290BA2400AE066A /* LifeScreenSaverView.swift */; };
@@ -70,6 +71,7 @@
 		5EE01FF9B77AC381FC307FC3 /* Pods-Life Saver macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life Saver macOS.release.xcconfig"; path = "Target Support Files/Pods-Life Saver macOS/Pods-Life Saver macOS.release.xcconfig"; sourceTree = "<group>"; };
 		6B6B746C076EE9C58D443E92 /* Pods-Life Saver macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life Saver macOS.debug.xcconfig"; path = "Target Support Files/Pods-Life Saver macOS/Pods-Life Saver macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B40CD56622C0520600CC33DC /* LifeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeDatabase.swift; sourceTree = "<group>"; };
+		B41C8C4022C81D2400777A09 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToroidalMatrix.swift; sourceTree = "<group>"; };
 		B476201422C4612300B4834C /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuTableViewController.swift; path = ../MenuTableViewController.swift; sourceTree = "<group>"; };
 		B49CB72522C3047500A53FB7 /* Life Saver tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Life Saver tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,6 +189,7 @@
 				B49CB72F22C3047500A53FB7 /* LifeViewController.swift */,
 				B49CB73122C3047500A53FB7 /* Main.storyboard */,
 				B49CB73622C3047800A53FB7 /* Info.plist */,
+				B41C8C4022C81D2400777A09 /* Assets.xcassets */,
 			);
 			path = tvOS;
 			sourceTree = "<group>";
@@ -365,7 +368,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4D49C1022C7B9DA000F4E0C /* Assets.xcassets in Resources */,
+				B41C8C3F22C81D0200777A09 /* Assets.xcassets in Resources */,
+				B41C8C4122C81D2400777A09 /* Assets.xcassets in Resources */,
 				B49CB73322C3047500A53FB7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,8 +378,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4FD88B22290553600AE066A /* Assets.xcassets in Resources */,
 				B4FD88B52290553600AE066A /* Main.storyboard in Resources */,
+				B4D49C1222C81C67000F4E0C /* Assets.xcassets in Resources */,
 				B49221752294E5C500D5DEA4 /* ConfigureSheet.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,8 +388,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4D49C1122C81C67000F4E0C /* Assets.xcassets in Resources */,
 				4480C7412294CFB800CC2EDC /* ConfigureSheet.xib in Resources */,
-				4437906122961D3B00AC3AFF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,6 +585,7 @@
 			baseConfigurationReference = E829750ED1ADE3B20BC32D52 /* Pods-Life Saver tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "Brand Assets";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
@@ -603,6 +608,7 @@
 			baseConfigurationReference = 502A6BF15E385B76A6422725 /* Pods-Life Saver tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "Brand Assets";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
