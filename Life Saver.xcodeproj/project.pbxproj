@@ -33,7 +33,6 @@
 		B49CB72822C3047500A53FB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49CB72722C3047500A53FB7 /* AppDelegate.swift */; };
 		B49CB73022C3047500A53FB7 /* LifeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49CB72F22C3047500A53FB7 /* LifeViewController.swift */; };
 		B49CB73322C3047500A53FB7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B49CB73122C3047500A53FB7 /* Main.storyboard */; };
-		B49CB73522C3047800A53FB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B49CB73422C3047800A53FB7 /* Assets.xcassets */; };
 		B49CB73A22C304F500A53FB7 /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
 		B49CB73B22C304F700A53FB7 /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415352122974E220061434F /* LifeNode.swift */; };
 		B49CB73C22C304FA00A53FB7 /* LifePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415351D229733C20061434F /* LifePreset.swift */; };
@@ -45,6 +44,7 @@
 		B4D49C0B22C7B5C2000F4E0C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */; };
 		B4D49C0C22C7B5C2000F4E0C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */; };
 		B4D49C0D22C7B5C2000F4E0C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */; };
+		B4D49C0F22C7B976000F4E0C /* LifeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40CD56622C0520600CC33DC /* LifeDatabase.swift */; };
 		B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88A72290553400AE066A /* AppDelegate.swift */; };
 		B4FD88B02290553400AE066A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88AF2290553400AE066A /* ViewController.swift */; };
 		B4FD88B22290553600AE066A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
@@ -70,14 +70,13 @@
 		6B6B746C076EE9C58D443E92 /* Pods-Life Saver macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life Saver macOS.debug.xcconfig"; path = "Target Support Files/Pods-Life Saver macOS/Pods-Life Saver macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B40CD56622C0520600CC33DC /* LifeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeDatabase.swift; sourceTree = "<group>"; };
 		B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToroidalMatrix.swift; sourceTree = "<group>"; };
-		B476201422C4612300B4834C /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
+		B476201422C4612300B4834C /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuTableViewController.swift; path = ../MenuTableViewController.swift; sourceTree = "<group>"; };
 		B49CB72522C3047500A53FB7 /* Life Saver tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Life Saver tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B49CB72722C3047500A53FB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B49CB72F22C3047500A53FB7 /* LifeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeViewController.swift; sourceTree = "<group>"; };
 		B49CB73222C3047500A53FB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B49CB73422C3047800A53FB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B49CB73622C3047800A53FB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B49CB74022C30EFA00A53FB7 /* ColorPresetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPresetTableViewCell.swift; sourceTree = "<group>"; };
+		B49CB74022C30EFA00A53FB7 /* ColorPresetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorPresetTableViewCell.swift; path = ../ColorPresetTableViewCell.swift; sourceTree = "<group>"; };
 		B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B4FD88A42290553400AE066A /* Life Saver macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Life Saver macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FD88A72290553400AE066A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -182,15 +181,22 @@
 		B49CB72622C3047500A53FB7 /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
+				B4D49C0E22C7B93A000F4E0C /* Menus */,
 				B49CB72722C3047500A53FB7 /* AppDelegate.swift */,
 				B49CB72F22C3047500A53FB7 /* LifeViewController.swift */,
-				B476201422C4612300B4834C /* MenuTableViewController.swift */,
-				B49CB74022C30EFA00A53FB7 /* ColorPresetTableViewCell.swift */,
 				B49CB73122C3047500A53FB7 /* Main.storyboard */,
-				B49CB73422C3047800A53FB7 /* Assets.xcassets */,
 				B49CB73622C3047800A53FB7 /* Info.plist */,
 			);
 			path = tvOS;
+			sourceTree = "<group>";
+		};
+		B4D49C0E22C7B93A000F4E0C /* Menus */ = {
+			isa = PBXGroup;
+			children = (
+				B476201422C4612300B4834C /* MenuTableViewController.swift */,
+				B49CB74022C30EFA00A53FB7 /* ColorPresetTableViewCell.swift */,
+			);
+			path = Menus;
 			sourceTree = "<group>";
 		};
 		B4FD889B2290553400AE066A = {
@@ -359,7 +365,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B49CB73322C3047500A53FB7 /* Main.storyboard in Resources */,
-				B49CB73522C3047800A53FB7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -521,6 +526,7 @@
 				4480C70E2294B4C800CC2EDC /* LifeDatabase.swift in Sources */,
 				B45BF8BB22AC33E600D77162 /* ToroidalMatrix.swift in Sources */,
 				B4D49C0B22C7B5C2000F4E0C /* Extensions.swift in Sources */,
+				B4D49C0F22C7B976000F4E0C /* LifeDatabase.swift in Sources */,
 				B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */,
 				4415352022973A530061434F /* URLType.swift in Sources */,
 				4480C7162294B60800CC2EDC /* LifeManager.swift in Sources */,
