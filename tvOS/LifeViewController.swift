@@ -39,8 +39,8 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        initialOverlayView.isHidden = false
         setupView()
+        hideInitialOverlay()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -50,15 +50,6 @@ class LifeViewController: UIViewController, MenuTableDelegate {
 
         setupPresetMenu()
         setupGestureRecognizers()
-
-        UIView.animate(withDuration: 2, animations: {
-            self.initialOverlayView.alpha = 0
-        }, completion: { (finished) in
-            if finished {
-                self.initialOverlayView.isHidden = true
-                self.setNeedsFocusUpdate()
-            }
-        })
     }
 
     override var preferredFocusEnvironments: [UIFocusEnvironment] {
@@ -83,7 +74,6 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     // MARK: - UI Interactions
 
     fileprivate func setupGestureRecognizers() {
-        // Swipe gesture for left and right
         let swipeFromRight = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeft))
         swipeFromRight.direction = .left
         swipeFromRight.allowedTouchTypes = [NSNumber(value: UITouch.TouchType.indirect.rawValue)]
@@ -236,6 +226,23 @@ class LifeViewController: UIViewController, MenuTableDelegate {
             )
         }
     }
+
+    fileprivate func hideInitialOverlay() {
+        let fadeAction = UIViewPropertyAnimator(duration: 2, curve: .easeInOut) {
+            self.initialOverlayView.alpha = 0
+        }
+        fadeAction.addCompletion { state in
+            switch state {
+            case .end:
+                self.initialOverlayView.removeFromSuperview()
+                self.setNeedsFocusUpdate()
+            default:
+                return
+            }
+        }
+        fadeAction.startAnimation(afterDelay: 1)
+    }
+
 }
 
 extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
