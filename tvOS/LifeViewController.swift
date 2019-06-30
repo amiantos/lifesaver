@@ -43,8 +43,11 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
+
         setupView()
+
         setupPresetMenu()
+
         setupGestureRecognizers()
 
         if !manager.hasPressedMenuButton {
@@ -53,8 +56,9 @@ class LifeViewController: UIViewController, MenuTableDelegate {
             menuHintToast.alpha = 0
         }
 
-        hideInitialOverlay()
         createScene()
+
+        hideInitialOverlay()
     }
 
     override func viewDidAppear(_ animated: Bool) {
