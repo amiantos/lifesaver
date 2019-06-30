@@ -28,6 +28,9 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     @IBOutlet var mainMenuLeadingConstraint: NSLayoutConstraint!
     @IBOutlet var colorMenuTrailingConstraint: NSLayoutConstraint!
 
+    @IBOutlet weak var menuHintToast: UIVisualEffectView!
+    @IBOutlet weak var menuHintToastConstraint: NSLayoutConstraint!
+    var menuHintBounceAnimation: UIViewPropertyAnimator?
     @IBOutlet var colorMenuCloseToast: UIVisualEffectView!
     @IBOutlet var mainMenuCloseToast: UIVisualEffectView!
 
@@ -41,16 +44,22 @@ class LifeViewController: UIViewController, MenuTableDelegate {
         super.viewDidLoad()
         view.backgroundColor = .black
         setupView()
+        setupPresetMenu()
+        setupGestureRecognizers()
+
+        if !manager.hasPressedMenuButton {
+            bounceOrHideMenuHintToast(reverse: false)
+        } else {
+            menuHintToast.alpha = 0
+        }
+
         hideInitialOverlay()
+        createScene()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
         view.isUserInteractionEnabled = true
-
-        setupPresetMenu()
-        setupGestureRecognizers()
     }
 
     override var preferredFocusEnvironments: [UIFocusEnvironment] {
@@ -93,6 +102,7 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     @objc func didPressMenuButton(gesture: UIGestureRecognizer) {
         print("Pressed Menu")
         showMainMenu()
+        manager.setHasPressedMenuButton(true)
     }
 
     @objc func didSwipeLeft(gesture _: UIGestureRecognizer) {
@@ -211,6 +221,10 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     // MARK: - View Setup
 
     fileprivate func setupView() {
+        menuHintToast.layer.cornerRadius = menuHintToast.frame.height / 2
+        menuHintToast.clipsToBounds = true
+        menuHintToast.alpha = 1
+
         colorMenuCloseToast.layer.cornerRadius = colorMenuCloseToast.frame.height / 2
         colorMenuCloseToast.clipsToBounds = true
         colorMenuCloseToast.alpha = 0
@@ -223,19 +237,8 @@ class LifeViewController: UIViewController, MenuTableDelegate {
 
         updateViewConstraints()
 
-        if let view = self.view as? SKView {
-            scene = LifeScene(size: view.bounds.size)
-            scene!.scaleMode = .aspectFit
-
-            scene!.manager = manager
-
-            view.ignoresSiblingOrder = true
-            view.preferredFramesPerSecond = 60
-            view.presentScene(scene)
-
-            colorPresetsTableView.delegate = self
-            colorPresetsTableView.dataSource = self
-        }
+        colorPresetsTableView.delegate = self
+        colorPresetsTableView.dataSource = self
     }
 
     fileprivate func setupPresetMenu() {
@@ -276,6 +279,47 @@ class LifeViewController: UIViewController, MenuTableDelegate {
             }
         }
         fadeAction.startAnimation(afterDelay: 1)
+    }
+
+    fileprivate func bounceOrHideMenuHintToast(reverse: Bool) {
+        if !manager.hasPressedMenuButton {
+            self.menuHintToastConstraint.constant = reverse ? 35 : 15
+            menuHintBounceAnimation = UIViewPropertyAnimator(duration: 1.5, curve: .easeInOut, animations: nil)
+            menuHintBounceAnimation?.addAnimations {
+                self.view.layoutIfNeeded()
+            }
+            menuHintBounceAnimation?.addCompletion { (_) in
+                self.bounceOrHideMenuHintToast(reverse: !reverse)
+            }
+            menuHintBounceAnimation?.startAnimation()
+        } else {
+            menuHintBounceAnimation?.stopAnimation(true)
+            self.menuHintToastConstraint.constant = 35
+            menuHintBounceAnimation = UIViewPropertyAnimator(duration: 1, curve: .easeIn, animations: nil)
+            menuHintBounceAnimation?.addAnimations {
+                self.menuHintToast.alpha = 0
+                self.view.layoutIfNeeded()
+            }
+            menuHintBounceAnimation?.addCompletion { (state) in
+                if state == .end {
+                    self.bounceOrHideMenuHintToast(reverse: !reverse)
+                }
+            }
+            menuHintBounceAnimation?.startAnimation()
+        }
+    }
+
+    fileprivate func createScene() {
+        if let view = self.view as? SKView {
+            scene = LifeScene(size: view.bounds.size)
+            scene!.scaleMode = .aspectFit
+
+            scene!.manager = manager
+
+            view.ignoresSiblingOrder = true
+            view.preferredFramesPerSecond = 60
+            view.presentScene(scene)
+        }
     }
 
 }

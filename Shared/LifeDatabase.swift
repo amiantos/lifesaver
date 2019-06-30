@@ -24,6 +24,7 @@ struct LifeDatabase {
         static let selectedPresetTitle = "selectedPresetTitle"
         static let deathFade = "deathFade"
         static let shiftingColors = "shiftingColors"
+        static let hasPressedMenuButton = "hasPressedMenuButton"
     }
 
     static var standard: UserDefaults {
@@ -39,7 +40,8 @@ struct LifeDatabase {
              Key.randomColorPreset: false,
              Key.deathFade: true,
              Key.shiftingColors: false,
-             Key.selectedPresetTitle: "Santa Fe"])
+             Key.selectedPresetTitle: "Santa Fe",
+             Key.hasPressedMenuButton: false])
 
         return database
     }
@@ -92,6 +94,14 @@ extension UserDefaults {
 
     func set(deathFade: Bool) {
         set(deathFade, for: LifeDatabase.Key.deathFade)
+    }
+
+    var hasPressedMenuButton: Bool {
+        return bool(forKey: LifeDatabase.Key.hasPressedMenuButton)
+    }
+
+    func set(hasPressedMenuButton: Bool) {
+        set(hasPressedMenuButton, for: LifeDatabase.Key.hasPressedMenuButton)
     }
 
     var selectedPresetTitle: String {
