@@ -28,14 +28,14 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     @IBOutlet var mainMenuLeadingConstraint: NSLayoutConstraint!
     @IBOutlet var colorMenuTrailingConstraint: NSLayoutConstraint!
 
-    @IBOutlet weak var menuHintToast: UIVisualEffectView!
-    @IBOutlet weak var menuHintToastConstraint: NSLayoutConstraint!
+    @IBOutlet var menuHintToast: UIVisualEffectView!
+    @IBOutlet var menuHintToastConstraint: NSLayoutConstraint!
     var menuHintBounceAnimation: UIViewPropertyAnimator?
     @IBOutlet var colorMenuCloseToast: UIVisualEffectView!
     @IBOutlet var mainMenuCloseToast: UIVisualEffectView!
 
-    @IBOutlet weak var kludgeButton: UIButton!
-    @IBOutlet weak var initialOverlayView: UIView!
+    @IBOutlet var kludgeButton: UIButton!
+    @IBOutlet var initialOverlayView: UIView!
 
     var menuTableViewController: MenuTableViewController?
     var pressedMenuButton: UITapGestureRecognizer?
@@ -103,7 +103,7 @@ class LifeViewController: UIViewController, MenuTableDelegate {
         view.addGestureRecognizer(pressedMenuButton!)
     }
 
-    @objc func didPressMenuButton(gesture: UIGestureRecognizer) {
+    @objc func didPressMenuButton(gesture _: UIGestureRecognizer) {
         print("Pressed Menu")
         showMainMenu()
         manager.setHasPressedMenuButton(true)
@@ -287,24 +287,24 @@ class LifeViewController: UIViewController, MenuTableDelegate {
 
     fileprivate func bounceOrHideMenuHintToast(reverse: Bool) {
         if !manager.hasPressedMenuButton {
-            self.menuHintToastConstraint.constant = reverse ? 35 : 15
+            menuHintToastConstraint.constant = reverse ? 35 : 15
             menuHintBounceAnimation = UIViewPropertyAnimator(duration: 1.5, curve: .easeInOut, animations: nil)
             menuHintBounceAnimation?.addAnimations {
                 self.view.layoutIfNeeded()
             }
-            menuHintBounceAnimation?.addCompletion { (_) in
+            menuHintBounceAnimation?.addCompletion { _ in
                 self.bounceOrHideMenuHintToast(reverse: !reverse)
             }
             menuHintBounceAnimation?.startAnimation()
         } else {
             menuHintBounceAnimation?.stopAnimation(true)
-            self.menuHintToastConstraint.constant = 35
+            menuHintToastConstraint.constant = 35
             menuHintBounceAnimation = UIViewPropertyAnimator(duration: 1, curve: .easeIn, animations: nil)
             menuHintBounceAnimation?.addAnimations {
                 self.menuHintToast.alpha = 0
                 self.view.layoutIfNeeded()
             }
-            menuHintBounceAnimation?.addCompletion { (state) in
+            menuHintBounceAnimation?.addCompletion { state in
                 if state == .end {
                     self.bounceOrHideMenuHintToast(reverse: !reverse)
                 }
@@ -325,7 +325,6 @@ class LifeViewController: UIViewController, MenuTableDelegate {
             view.presentScene(scene)
         }
     }
-
 }
 
 extension LifeViewController: UITableViewDelegate, UITableViewDataSource {

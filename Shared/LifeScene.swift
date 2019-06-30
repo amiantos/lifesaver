@@ -276,9 +276,11 @@ final class LifeScene: SKScene, LifeManagerDelegate {
                 }
             } else if livingNeighbors.count == 3 {
                 var livingColor = livingNeighbors.randomElement()!.color
-                if shiftingColors {
-                    livingColor = livingColor.modified(withAdditionalHue: 0.005, additionalSaturation: 0, additionalBrightness: 0)
-                }
+                #if os(tvOS)
+                    if shiftingColors {
+                        livingColor = livingColor.modified(withAdditionalHue: 0.005, additionalSaturation: 0, additionalBrightness: 0)
+                    }
+                #endif
                 node.aliveColor = livingColor
                 livingNodes.append(node)
             } else {

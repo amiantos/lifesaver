@@ -17,7 +17,7 @@ final class ConfigureSheetController: NSObject {
 
     // MARK: - Presets
 
-    fileprivate let presets: [LifePreset] = lifePresets
+    fileprivate let presets: [LifePreset] = colorPresets
 
     // MARK: - Config Actions and Outlets
 
@@ -32,6 +32,8 @@ final class ConfigureSheetController: NSObject {
                 appearanceMode: nil,
                 squareSize: .small,
                 animationSpeed: .fast,
+                deathFade: nil,
+                shiftingColors: nil,
                 color1: nil,
                 color2: nil,
                 color3: nil
@@ -43,6 +45,8 @@ final class ConfigureSheetController: NSObject {
                 appearanceMode: nil,
                 squareSize: .large,
                 animationSpeed: .slow,
+                deathFade: nil,
+                shiftingColors: nil,
                 color1: nil,
                 color2: nil,
                 color3: nil
@@ -54,6 +58,8 @@ final class ConfigureSheetController: NSObject {
                 appearanceMode: nil,
                 squareSize: .medium,
                 animationSpeed: .normal,
+                deathFade: nil,
+                shiftingColors: nil,
                 color1: nil,
                 color2: nil,
                 color3: nil
@@ -194,6 +200,8 @@ final class ConfigureSheetController: NSObject {
             animationSpeedControl.selectedSegment = 0
         case .slow:
             animationSpeedControl.selectedSegment = 2
+        case .off:
+            animationSpeedControl.selectedSegment = 1
         }
 
         color1Well.color = manager.color1

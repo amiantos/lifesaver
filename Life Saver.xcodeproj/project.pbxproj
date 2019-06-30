@@ -17,7 +17,6 @@
 		4437906022961BA200AC3AFF /* URLType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4437905F22961BA200AC3AFF /* URLType.swift */; };
 		4480C7092294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
 		4480C70A2294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
-		4480C70E2294B4C800CC2EDC /* LifeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */; };
 		4480C70F2294B4C800CC2EDC /* LifeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */; };
 		4480C7162294B60800CC2EDC /* LifeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7152294B60800CC2EDC /* LifeManager.swift */; };
 		4480C7172294B60800CC2EDC /* LifeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7152294B60800CC2EDC /* LifeManager.swift */; };
@@ -42,8 +41,6 @@
 		B49CB74122C30EFA00A53FB7 /* ColorPresetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49CB74022C30EFA00A53FB7 /* ColorPresetTableViewCell.swift */; };
 		B49CB74222C314C400A53FB7 /* LifeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7152294B60800CC2EDC /* LifeManager.swift */; };
 		B49CB74322C314CD00A53FB7 /* LifeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40CD56622C0520600CC33DC /* LifeDatabase.swift */; };
-		B4D49C0B22C7B5C2000F4E0C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */; };
-		B4D49C0C22C7B5C2000F4E0C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */; };
 		B4D49C0D22C7B5C2000F4E0C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */; };
 		B4D49C0F22C7B976000F4E0C /* LifeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40CD56622C0520600CC33DC /* LifeDatabase.swift */; };
 		B4D49C1122C81C67000F4E0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
@@ -529,9 +526,7 @@
 				4415352222974E220061434F /* LifeNode.swift in Sources */,
 				4480C7092294B05200CC2EDC /* FileGrabber.swift in Sources */,
 				B4FD88B02290553400AE066A /* ViewController.swift in Sources */,
-				4480C70E2294B4C800CC2EDC /* LifeDatabase.swift in Sources */,
 				B45BF8BB22AC33E600D77162 /* ToroidalMatrix.swift in Sources */,
-				B4D49C0B22C7B5C2000F4E0C /* Extensions.swift in Sources */,
 				B4D49C0F22C7B976000F4E0C /* LifeDatabase.swift in Sources */,
 				B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */,
 				4415352022973A530061434F /* URLType.swift in Sources */,
@@ -553,7 +548,6 @@
 				4437906022961BA200AC3AFF /* URLType.swift in Sources */,
 				B4FD88D02290BA2400AE066A /* LifeScreenSaverView.swift in Sources */,
 				4480C7172294B60800CC2EDC /* LifeManager.swift in Sources */,
-				B4D49C0C22C7B5C2000F4E0C /* Extensions.swift in Sources */,
 				4480C7432294CFF400CC2EDC /* ConfigureSheetController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

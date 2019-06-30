@@ -22,6 +22,10 @@ struct LifeDatabase {
         static let color2 = "color2"
         static let color3 = "color3"
         static let randomColorPreset = "randomColorPreset"
+        static let selectedPresetTitle = "selectedPresetTitle"
+        static let deathFade = "deathFade"
+        static let shiftingColors = "shiftingColors"
+        static let hasPressedMenuButton = "hasPressedMenuButton"
     }
 
     static var standard: ScreenSaverDefaults {
@@ -36,7 +40,11 @@ struct LifeDatabase {
              Key.color1: archiveData(SKColor.defaultColor1),
              Key.color2: archiveData(SKColor.defaultColor2),
              Key.color3: archiveData(SKColor.defaultColor3),
-             Key.randomColorPreset: false])
+             Key.randomColorPreset: false,
+             Key.deathFade: true,
+             Key.shiftingColors: false,
+             Key.selectedPresetTitle: "Santa Fe",
+             Key.hasPressedMenuButton: false])
 
         return database
     }
@@ -73,6 +81,38 @@ extension ScreenSaverDefaults {
 
     func set(randomColorPreset: Bool) {
         set(randomColorPreset, for: LifeDatabase.Key.randomColorPreset)
+    }
+
+    var shiftingColors: Bool {
+        return bool(forKey: LifeDatabase.Key.shiftingColors)
+    }
+
+    func set(shiftingColors: Bool) {
+        set(shiftingColors, for: LifeDatabase.Key.shiftingColors)
+    }
+
+    var deathFade: Bool {
+        return bool(forKey: LifeDatabase.Key.deathFade)
+    }
+
+    func set(deathFade: Bool) {
+        set(deathFade, for: LifeDatabase.Key.deathFade)
+    }
+
+    var hasPressedMenuButton: Bool {
+        return bool(forKey: LifeDatabase.Key.hasPressedMenuButton)
+    }
+
+    func set(hasPressedMenuButton: Bool) {
+        set(hasPressedMenuButton, for: LifeDatabase.Key.hasPressedMenuButton)
+    }
+
+    var selectedPresetTitle: String {
+        return string(forKey: LifeDatabase.Key.selectedPresetTitle) ?? ""
+    }
+
+    func set(selectedPresetTitle: String) {
+        set(selectedPresetTitle, for: LifeDatabase.Key.selectedPresetTitle)
     }
 
     func getColor(_ color: Colors) -> SKColor {

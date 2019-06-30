@@ -319,9 +319,9 @@ let colorPresets = [
         animationSpeed: nil,
         deathFade: nil,
         shiftingColors: nil,
-        color1: SKColor(red: 229/255, green: 0/255, blue: 0/255, alpha: 1.0),
-        color2: SKColor(red: 204/255, green: 0/255, blue: 0/255, alpha: 1.0),
-        color3: SKColor(red: 178/255, green: 0/255, blue: 0/255, alpha: 1.0)
+        color1: SKColor(red: 229 / 255, green: 0 / 255, blue: 0 / 255, alpha: 1.0),
+        color2: SKColor(red: 204 / 255, green: 0 / 255, blue: 0 / 255, alpha: 1.0),
+        color3: SKColor(red: 178 / 255, green: 0 / 255, blue: 0 / 255, alpha: 1.0)
     ),
     LifePreset(
         title: "Custom",

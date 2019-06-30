@@ -9,7 +9,7 @@
 import SpriteKit
 
 extension SKColor {
-    func modified(withAdditionalHue hue: CGFloat, additionalSaturation: CGFloat, additionalBrightness: CGFloat) -> UIColor {
+    func modified(withAdditionalHue hue: CGFloat, additionalSaturation: CGFloat, additionalBrightness: CGFloat) -> SKColor {
         var currentHue: CGFloat = 0.0
         var currentSaturation: CGFloat = 0.0
         var currentBrigthness: CGFloat = 0.0

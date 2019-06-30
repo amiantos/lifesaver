@@ -24,7 +24,7 @@ class ViewController: NSViewController {
         scene.animationSpeed = .normal
         scene.squareSize = .medium
 
-        if let preset = lifePresets.filter({ $0.title == "Santa Fe" }).first {
+        if let preset = colorPresets.filter({ $0.title == "Santa Fe" }).first {
             if let appearanceMode = preset.appearanceMode {
                 scene.appearanceMode = appearanceMode
             }
