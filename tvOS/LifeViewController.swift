@@ -118,11 +118,13 @@ class LifeViewController: UIViewController, MenuTableDelegate {
                 self.colorMenuTrailingConstraint.constant = 0
                 colorMenuToastAlpha = 1
                 self.state = .colorPresets
+                self.pressedMenuButton?.isEnabled = true
             }
 
             if self.state == .mainMenu {
                 self.mainMenuLeadingConstraint.constant = -self.mainMenuView.frame.width
                 self.state = .allClosed
+                self.pressedMenuButton?.isEnabled = true
             }
 
             let propertyAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
@@ -136,7 +138,6 @@ class LifeViewController: UIViewController, MenuTableDelegate {
                 } else {
                     self.kludgeButton.alpha = 0
                 }
-                self.pressedMenuButton?.isEnabled = true
                 self.setNeedsFocusUpdate()
                 self.updateFocusIfNeeded()
             }
@@ -153,10 +154,12 @@ class LifeViewController: UIViewController, MenuTableDelegate {
                 self.mainMenuLeadingConstraint.constant = 0
                 mainMenuToastAlpha = 1
                 self.state = .mainMenu
+                self.pressedMenuButton?.isEnabled = false
             }
 
             if self.state == .colorPresets {
                 self.colorMenuTrailingConstraint.constant = -self.colorPresetsView.frame.width
+                self.pressedMenuButton?.isEnabled = true
                 self.state = .allClosed
             }
 
@@ -168,10 +171,8 @@ class LifeViewController: UIViewController, MenuTableDelegate {
             propertyAnimator.addCompletion { _ in
                 if self.state == .allClosed {
                     self.kludgeButton.alpha = 1
-                    self.pressedMenuButton?.isEnabled = true
                 } else {
                     self.kludgeButton.alpha = 0
-                    self.pressedMenuButton?.isEnabled = false
                 }
                 self.setNeedsFocusUpdate()
                 self.updateFocusIfNeeded()
@@ -185,6 +186,7 @@ class LifeViewController: UIViewController, MenuTableDelegate {
             self.colorMenuTrailingConstraint.constant = 0
             self.mainMenuLeadingConstraint.constant = -self.mainMenuView.frame.width
             self.state = .colorPresets
+            self.pressedMenuButton?.isEnabled = true
 
             let propertyAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
                 self.view.layoutIfNeeded()
@@ -193,7 +195,6 @@ class LifeViewController: UIViewController, MenuTableDelegate {
             })
             propertyAnimator.addCompletion { _ in
                 self.kludgeButton.alpha = 0
-                self.pressedMenuButton?.isEnabled = false
                 self.setNeedsFocusUpdate()
                 self.updateFocusIfNeeded()
             }
@@ -206,6 +207,7 @@ class LifeViewController: UIViewController, MenuTableDelegate {
             self.colorMenuTrailingConstraint.constant = -self.colorPresetsView.frame.width
             self.mainMenuLeadingConstraint.constant = 0
             self.state = .mainMenu
+            self.pressedMenuButton?.isEnabled = false
 
             let propertyAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
                 self.view.layoutIfNeeded()
@@ -214,7 +216,6 @@ class LifeViewController: UIViewController, MenuTableDelegate {
             })
             propertyAnimator.addCompletion { _ in
                 self.kludgeButton.alpha = 0
-                self.pressedMenuButton?.isEnabled = false
                 self.setNeedsFocusUpdate()
                 self.updateFocusIfNeeded()
             }
