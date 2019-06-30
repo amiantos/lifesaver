@@ -23,5 +23,5 @@ target 'Life Saver tvOS' do
   use_frameworks!
 
   # Pods for Life Saver tvOS
-
+  pod 'SwiftLint'
 end

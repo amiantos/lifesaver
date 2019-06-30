@@ -9,20 +9,20 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>macOS Debug.xcscheme_^#shared#^_</key>
+		<key>Life Saver macOS Debug.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>tvOS Debug.xcscheme_^#shared#^_</key>
+		<key>Life Saver tvOS Debug.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>7</integer>
 		</dict>
-		<key>tvOS.xcscheme</key>
+		<key>Life Saver tvOS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>6</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

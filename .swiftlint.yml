@@ -1,3 +1,6 @@
+disabled_rules:
+  - trailing_comma
+
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Carthage
   - Pods
@@ -5,6 +8,9 @@ excluded: # paths to ignore during linting. Takes precedence over `included`.
 line_length:
   - 150 # warning
   - 200 # error
+
+type_body_length:
+  - 250
 
 cyclomatic_complexity:
   ignores_case_statements: true
