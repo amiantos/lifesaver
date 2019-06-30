@@ -35,6 +35,7 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     @IBOutlet weak var initialOverlayView: UIView!
 
     var menuTableViewController: MenuTableViewController?
+    var pressedMenuButton: UITapGestureRecognizer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +84,15 @@ class LifeViewController: UIViewController, MenuTableDelegate {
         swipeFromLeft.direction = .right
         swipeFromLeft.allowedTouchTypes = [NSNumber(value: UITouch.TouchType.indirect.rawValue)]
         view.addGestureRecognizer(swipeFromLeft)
+
+        pressedMenuButton = UITapGestureRecognizer(target: self, action: #selector(didPressMenuButton))
+        pressedMenuButton!.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)]
+        view.addGestureRecognizer(pressedMenuButton!)
+    }
+
+    @objc func didPressMenuButton(gesture: UIGestureRecognizer) {
+        print("Pressed Menu")
+        didSwipeRight(gesture: gesture)
     }
 
     @objc func didSwipeLeft(gesture _: UIGestureRecognizer) {
@@ -109,8 +119,10 @@ class LifeViewController: UIViewController, MenuTableDelegate {
             propertyAnimator.addCompletion { _ in
                 if self.state == .allClosed {
                     self.kludgeButton.alpha = 1
+                    self.pressedMenuButton?.isEnabled = true
                 } else {
                     self.kludgeButton.alpha = 0
+                    self.pressedMenuButton?.isEnabled = false
                 }
                 self.setNeedsFocusUpdate()
                 self.updateFocusIfNeeded()
@@ -143,8 +155,10 @@ class LifeViewController: UIViewController, MenuTableDelegate {
             propertyAnimator.addCompletion { _ in
                 if self.state == .allClosed {
                     self.kludgeButton.alpha = 1
+                    self.pressedMenuButton?.isEnabled = true
                 } else {
                     self.kludgeButton.alpha = 0
+                    self.pressedMenuButton?.isEnabled = false
                 }
                 self.setNeedsFocusUpdate()
                 self.updateFocusIfNeeded()
