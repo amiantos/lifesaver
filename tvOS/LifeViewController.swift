@@ -92,7 +92,7 @@ class LifeViewController: UIViewController, MenuTableDelegate {
 
     @objc func didPressMenuButton(gesture: UIGestureRecognizer) {
         print("Pressed Menu")
-        didSwipeRight(gesture: gesture)
+        showMainMenu()
     }
 
     @objc func didSwipeLeft(gesture _: UIGestureRecognizer) {
@@ -119,11 +119,10 @@ class LifeViewController: UIViewController, MenuTableDelegate {
             propertyAnimator.addCompletion { _ in
                 if self.state == .allClosed {
                     self.kludgeButton.alpha = 1
-                    self.pressedMenuButton?.isEnabled = true
                 } else {
                     self.kludgeButton.alpha = 0
-                    self.pressedMenuButton?.isEnabled = false
                 }
+                self.pressedMenuButton?.isEnabled = true
                 self.setNeedsFocusUpdate()
                 self.updateFocusIfNeeded()
             }
@@ -180,6 +179,28 @@ class LifeViewController: UIViewController, MenuTableDelegate {
             })
             propertyAnimator.addCompletion { _ in
                 self.kludgeButton.alpha = 0
+                self.pressedMenuButton?.isEnabled = false
+                self.setNeedsFocusUpdate()
+                self.updateFocusIfNeeded()
+            }
+            propertyAnimator.startAnimation()
+        }
+    }
+
+    func showMainMenu() {
+        DispatchQueue.main.async {
+            self.colorMenuTrailingConstraint.constant = -self.colorPresetsView.frame.width
+            self.mainMenuLeadingConstraint.constant = 0
+            self.state = .mainMenu
+
+            let propertyAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
+                self.view.layoutIfNeeded()
+                self.colorMenuCloseToast.alpha = 0
+                self.mainMenuCloseToast.alpha = 1
+            })
+            propertyAnimator.addCompletion { _ in
+                self.kludgeButton.alpha = 0
+                self.pressedMenuButton?.isEnabled = false
                 self.setNeedsFocusUpdate()
                 self.updateFocusIfNeeded()
             }
