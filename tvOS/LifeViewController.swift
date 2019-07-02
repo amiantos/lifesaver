@@ -250,6 +250,19 @@ class LifeViewController: UIViewController, MenuTableDelegate {
         colorPresetsTableView.dataSource = self
     }
 
+    fileprivate func createScene() {
+        if let view = self.view as? SKView {
+            scene = LifeScene(size: view.bounds.size)
+            scene!.scaleMode = .aspectFit
+
+            scene!.manager = manager
+
+            view.ignoresSiblingOrder = true
+            view.preferredFramesPerSecond = 60
+            view.presentScene(scene)
+        }
+    }
+
     fileprivate func setupPresetMenu() {
         let selectedPresetTitle = manager.selectedPresetTitle == "" ? "Default" : manager.selectedPresetTitle
         var filteredPresets = colorPresets.filter { $0.title == selectedPresetTitle }
@@ -318,18 +331,6 @@ class LifeViewController: UIViewController, MenuTableDelegate {
         }
     }
 
-    fileprivate func createScene() {
-        if let view = self.view as? SKView {
-            scene = LifeScene(size: view.bounds.size)
-            scene!.scaleMode = .aspectFit
-
-            scene!.manager = manager
-
-            view.ignoresSiblingOrder = true
-            view.preferredFramesPerSecond = 60
-            view.presentScene(scene)
-        }
-    }
 }
 
 // MARK: - Preset Table View
