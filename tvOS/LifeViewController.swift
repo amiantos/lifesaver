@@ -293,30 +293,24 @@ class LifeViewController: UIViewController, MenuTableDelegate {
         if !manager.hasPressedMenuButton {
             menuHintToastConstraint.constant = reverse ? 35 : 15
             menuHintBounceAnimation = UIViewPropertyAnimator(duration: 1.5, curve: .easeInOut, animations: nil)
-            menuHintBounceAnimation?.addAnimations {
-                self.view.layoutIfNeeded()
-            }
-            menuHintBounceAnimation?.addCompletion { _ in
-                self.bounceOrHideMenuHintToast(reverse: !reverse)
-            }
-            menuHintBounceAnimation?.startAnimation()
         } else {
             menuHintBounceAnimation?.stopAnimation(true)
             menuHintToastConstraint.constant = 35
             menuHintBounceAnimation = UIViewPropertyAnimator(duration: 1, curve: .easeIn, animations: nil)
             menuHintBounceAnimation?.addAnimations {
                 self.menuHintToast.alpha = 0
-                self.view.layoutIfNeeded()
             }
-            menuHintBounceAnimation?.addCompletion { state in
-                if state == .end {
-                    self.bounceOrHideMenuHintToast(reverse: !reverse)
-                }
-            }
-            menuHintBounceAnimation?.startAnimation()
         }
+        menuHintBounceAnimation?.addAnimations {
+            self.view.layoutIfNeeded()
+        }
+        menuHintBounceAnimation?.addCompletion { state in
+            if state == .end {
+                self.bounceOrHideMenuHintToast(reverse: !reverse)
+            }
+        }
+        menuHintBounceAnimation?.startAnimation()
     }
-
 }
 
 // MARK: - Preset Table View
