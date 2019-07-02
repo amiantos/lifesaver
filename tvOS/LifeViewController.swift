@@ -290,6 +290,7 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     }
 
     fileprivate func bounceOrHideMenuHintToast(reverse: Bool) {
+        // TODO: - This code is problematic (infinitely repeats unnecessarily) and should be broken apart.
         if !manager.hasPressedMenuButton {
             menuHintToastConstraint.constant = reverse ? 35 : 15
             menuHintBounceAnimation = UIViewPropertyAnimator(duration: 1.5, curve: .easeInOut, animations: nil)
