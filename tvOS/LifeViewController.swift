@@ -37,8 +37,12 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     @IBOutlet var kludgeButton: UIButton!
     @IBOutlet var initialOverlayView: UIView!
 
+    let tableViewSource: [Int: [LifePreset]] = [0: settingsPresets, 1: colorPresets]
+
     var menuTableViewController: MenuTableViewController?
     var pressedMenuButton: UITapGestureRecognizer?
+
+    // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -328,6 +332,8 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     }
 }
 
+// MARK: - Preset Table View
+
 extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in _: UITableView) -> Int {
         return 2
@@ -350,29 +356,18 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 1,
-            let cell = tableView.dequeueReusableCell(withIdentifier: "presetCell", for: indexPath) as? ColorPresetTableViewCell {
-            let colorPreset = colorPresets[indexPath.row]
-            cell.titleLabel.text = colorPreset.title
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "presetCell", for: indexPath) as? ColorPresetTableViewCell,
+            let preset = tableViewSource[indexPath.section]?[indexPath.row] {
+            cell.titleLabel.text = preset.title
             return cell
         }
 
-        if indexPath.section == 0,
-            let cell = tableView.dequeueReusableCell(withIdentifier: "presetCell", for: indexPath) as? ColorPresetTableViewCell {
-            let settingPreset = settingsPresets[indexPath.row]
-            cell.titleLabel.text = settingPreset.title
-            return cell
-        }
         return UITableViewCell()
     }
 
     func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
-            let colorPreset = colorPresets[indexPath.row]
-            manager.configure(with: colorPreset)
-        } else if indexPath.section == 0 {
-            let settingPreset = settingsPresets[indexPath.row]
-            manager.configure(with: settingPreset)
+        if let preset = tableViewSource[indexPath.section]?[indexPath.row] {
+            manager.configure(with: preset)
         }
     }
 }
