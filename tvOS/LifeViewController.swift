@@ -40,7 +40,7 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     let tableViewSource: [Int: [LifePreset]] = [0: settingsPresets, 1: colorPresets]
 
     var menuTableViewController: MenuTableViewController?
-    var pressedMenuButton: UITapGestureRecognizer?
+    var pressedMenuButtonRecognizer: UITapGestureRecognizer?
 
     // MARK: - View Lifecycle
 
@@ -102,86 +102,32 @@ class LifeViewController: UIViewController, MenuTableDelegate {
         swipeFromLeft.allowedTouchTypes = [NSNumber(value: UITouch.TouchType.indirect.rawValue)]
         view.addGestureRecognizer(swipeFromLeft)
 
-        pressedMenuButton = UITapGestureRecognizer(target: self, action: #selector(didPressMenuButton))
-        pressedMenuButton!.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)]
-        view.addGestureRecognizer(pressedMenuButton!)
+        pressedMenuButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(didPressMenuButton))
+        pressedMenuButtonRecognizer!.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)]
+        view.addGestureRecognizer(pressedMenuButtonRecognizer!)
     }
 
     @objc func didPressMenuButton(gesture _: UIGestureRecognizer) {
-        print("Pressed Menu")
         showMainMenu()
-        manager.setHasPressedMenuButton(true)
     }
 
     @objc func didSwipeLeft(gesture _: UIGestureRecognizer) {
-        DispatchQueue.main.async {
-            var colorMenuToastAlpha: CGFloat = 0
-            let mainMenuToastAlpha: CGFloat = 0
+        if state == .mainMenu {
+            hideAllMenus()
+        }
 
-            if self.state == .allClosed {
-                self.colorMenuTrailingConstraint.constant = 0
-                colorMenuToastAlpha = 1
-                self.state = .colorPresets
-                self.pressedMenuButton?.isEnabled = true
-            }
-
-            if self.state == .mainMenu {
-                self.mainMenuLeadingConstraint.constant = -self.mainMenuView.frame.width
-                self.state = .allClosed
-                self.pressedMenuButton?.isEnabled = true
-            }
-
-            let propertyAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
-                self.view.layoutIfNeeded()
-                self.colorMenuCloseToast.alpha = colorMenuToastAlpha
-                self.mainMenuCloseToast.alpha = mainMenuToastAlpha
-            })
-            propertyAnimator.addCompletion { _ in
-                if self.state == .allClosed {
-                    self.kludgeButton.alpha = 1
-                } else {
-                    self.kludgeButton.alpha = 0
-                }
-                self.setNeedsFocusUpdate()
-                self.updateFocusIfNeeded()
-            }
-            propertyAnimator.startAnimation()
+        if state == .allClosed {
+            showColorPresets()
         }
     }
 
     @objc func didSwipeRight(gesture _: UIGestureRecognizer) {
-        DispatchQueue.main.async {
-            let colorMenuToastAlpha: CGFloat = 0
-            var mainMenuToastAlpha: CGFloat = 0
+        if state == .colorPresets {
+            hideAllMenus()
+        }
 
-            if self.state == .allClosed {
-                self.mainMenuLeadingConstraint.constant = 0
-                mainMenuToastAlpha = 1
-                self.state = .mainMenu
-                self.pressedMenuButton?.isEnabled = false
-            }
-
-            if self.state == .colorPresets {
-                self.colorMenuTrailingConstraint.constant = -self.colorPresetsView.frame.width
-                self.pressedMenuButton?.isEnabled = true
-                self.state = .allClosed
-            }
-
-            let propertyAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
-                self.view.layoutIfNeeded()
-                self.colorMenuCloseToast.alpha = colorMenuToastAlpha
-                self.mainMenuCloseToast.alpha = mainMenuToastAlpha
-            })
-            propertyAnimator.addCompletion { _ in
-                if self.state == .allClosed {
-                    self.kludgeButton.alpha = 1
-                } else {
-                    self.kludgeButton.alpha = 0
-                }
-                self.setNeedsFocusUpdate()
-                self.updateFocusIfNeeded()
-            }
-            propertyAnimator.startAnimation()
+        if state == .allClosed {
+            showMainMenu()
         }
     }
 
@@ -190,7 +136,7 @@ class LifeViewController: UIViewController, MenuTableDelegate {
             self.colorMenuTrailingConstraint.constant = 0
             self.mainMenuLeadingConstraint.constant = -self.mainMenuView.frame.width
             self.state = .colorPresets
-            self.pressedMenuButton?.isEnabled = true
+            self.pressedMenuButtonRecognizer?.isEnabled = true
 
             let propertyAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
                 self.view.layoutIfNeeded()
@@ -207,11 +153,14 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     }
 
     func showMainMenu() {
+        if !manager.hasPressedMenuButton {
+            manager.setHasPressedMenuButton(true)
+        }
         DispatchQueue.main.async {
             self.colorMenuTrailingConstraint.constant = -self.colorPresetsView.frame.width
             self.mainMenuLeadingConstraint.constant = 0
             self.state = .mainMenu
-            self.pressedMenuButton?.isEnabled = false
+            self.pressedMenuButtonRecognizer?.isEnabled = false
 
             let propertyAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
                 self.view.layoutIfNeeded()
@@ -220,6 +169,27 @@ class LifeViewController: UIViewController, MenuTableDelegate {
             })
             propertyAnimator.addCompletion { _ in
                 self.kludgeButton.alpha = 0
+                self.setNeedsFocusUpdate()
+                self.updateFocusIfNeeded()
+            }
+            propertyAnimator.startAnimation()
+        }
+    }
+
+    func hideAllMenus() {
+        DispatchQueue.main.async {
+            self.colorMenuTrailingConstraint.constant = -self.colorPresetsView.frame.width
+            self.mainMenuLeadingConstraint.constant = -self.mainMenuView.frame.width
+            self.state = .allClosed
+            self.pressedMenuButtonRecognizer?.isEnabled = true
+
+            let propertyAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
+                self.view.layoutIfNeeded()
+                self.colorMenuCloseToast.alpha = 0
+                self.mainMenuCloseToast.alpha = 0
+            })
+            propertyAnimator.addCompletion { _ in
+                self.kludgeButton.alpha = 1
                 self.setNeedsFocusUpdate()
                 self.updateFocusIfNeeded()
             }
