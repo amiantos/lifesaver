@@ -42,6 +42,8 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     var menuTableViewController: MenuTableViewController?
     var pressedMenuButtonRecognizer: UITapGestureRecognizer?
 
+    var propertyAnimators: [UIViewPropertyAnimator] = []
+
     // MARK: - View Lifecycle
 
     override func viewDidLoad() {
@@ -132,6 +134,7 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     }
 
     func showColorPresets() {
+        cancelRunningAnimators()
         DispatchQueue.main.async {
             self.colorMenuTrailingConstraint.constant = 0
             self.mainMenuLeadingConstraint.constant = -self.mainMenuView.frame.width
@@ -148,11 +151,13 @@ class LifeViewController: UIViewController, MenuTableDelegate {
                 self.setNeedsFocusUpdate()
                 self.updateFocusIfNeeded()
             }
+            self.propertyAnimators.append(propertyAnimator)
             propertyAnimator.startAnimation()
         }
     }
 
     func showMainMenu() {
+        cancelRunningAnimators()
         if !manager.hasPressedMenuButton {
             manager.setHasPressedMenuButton(true)
         }
@@ -172,11 +177,13 @@ class LifeViewController: UIViewController, MenuTableDelegate {
                 self.setNeedsFocusUpdate()
                 self.updateFocusIfNeeded()
             }
+            self.propertyAnimators.append(propertyAnimator)
             propertyAnimator.startAnimation()
         }
     }
 
     func hideAllMenus() {
+        cancelRunningAnimators()
         DispatchQueue.main.async {
             self.colorMenuTrailingConstraint.constant = -self.colorPresetsView.frame.width
             self.mainMenuLeadingConstraint.constant = -self.mainMenuView.frame.width
@@ -193,8 +200,17 @@ class LifeViewController: UIViewController, MenuTableDelegate {
                 self.setNeedsFocusUpdate()
                 self.updateFocusIfNeeded()
             }
+            self.propertyAnimators.append(propertyAnimator)
             propertyAnimator.startAnimation()
         }
+    }
+
+    func cancelRunningAnimators() {
+        propertyAnimators.forEach {
+            $0.pauseAnimation()
+            $0.stopAnimation(true)
+        }
+        propertyAnimators.removeAll()
     }
 
     // MARK: - View Setup
