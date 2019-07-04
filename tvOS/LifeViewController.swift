@@ -37,8 +37,14 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     @IBOutlet var kludgeButton: UIButton!
     @IBOutlet var initialOverlayView: UIView!
 
+    let tableViewSource: [Int: [LifePreset]] = [0: settingsPresets, 1: colorPresets]
+
     var menuTableViewController: MenuTableViewController?
-    var pressedMenuButton: UITapGestureRecognizer?
+    var pressedMenuButtonRecognizer: UITapGestureRecognizer?
+
+    var propertyAnimators: [UIViewPropertyAnimator] = []
+
+    // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,95 +104,42 @@ class LifeViewController: UIViewController, MenuTableDelegate {
         swipeFromLeft.allowedTouchTypes = [NSNumber(value: UITouch.TouchType.indirect.rawValue)]
         view.addGestureRecognizer(swipeFromLeft)
 
-        pressedMenuButton = UITapGestureRecognizer(target: self, action: #selector(didPressMenuButton))
-        pressedMenuButton!.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)]
-        view.addGestureRecognizer(pressedMenuButton!)
+        pressedMenuButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(didPressMenuButton))
+        pressedMenuButtonRecognizer!.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)]
+        view.addGestureRecognizer(pressedMenuButtonRecognizer!)
     }
 
     @objc func didPressMenuButton(gesture _: UIGestureRecognizer) {
-        print("Pressed Menu")
         showMainMenu()
-        manager.setHasPressedMenuButton(true)
     }
 
     @objc func didSwipeLeft(gesture _: UIGestureRecognizer) {
-        DispatchQueue.main.async {
-            var colorMenuToastAlpha: CGFloat = 0
-            let mainMenuToastAlpha: CGFloat = 0
+        if state == .mainMenu {
+            hideAllMenus()
+        }
 
-            if self.state == .allClosed {
-                self.colorMenuTrailingConstraint.constant = 0
-                colorMenuToastAlpha = 1
-                self.state = .colorPresets
-                self.pressedMenuButton?.isEnabled = true
-            }
-
-            if self.state == .mainMenu {
-                self.mainMenuLeadingConstraint.constant = -self.mainMenuView.frame.width
-                self.state = .allClosed
-                self.pressedMenuButton?.isEnabled = true
-            }
-
-            let propertyAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
-                self.view.layoutIfNeeded()
-                self.colorMenuCloseToast.alpha = colorMenuToastAlpha
-                self.mainMenuCloseToast.alpha = mainMenuToastAlpha
-            })
-            propertyAnimator.addCompletion { _ in
-                if self.state == .allClosed {
-                    self.kludgeButton.alpha = 1
-                } else {
-                    self.kludgeButton.alpha = 0
-                }
-                self.setNeedsFocusUpdate()
-                self.updateFocusIfNeeded()
-            }
-            propertyAnimator.startAnimation()
+        if state == .allClosed {
+            showColorPresets()
         }
     }
 
     @objc func didSwipeRight(gesture _: UIGestureRecognizer) {
-        DispatchQueue.main.async {
-            let colorMenuToastAlpha: CGFloat = 0
-            var mainMenuToastAlpha: CGFloat = 0
+        if state == .colorPresets {
+            hideAllMenus()
+        }
 
-            if self.state == .allClosed {
-                self.mainMenuLeadingConstraint.constant = 0
-                mainMenuToastAlpha = 1
-                self.state = .mainMenu
-                self.pressedMenuButton?.isEnabled = false
-            }
-
-            if self.state == .colorPresets {
-                self.colorMenuTrailingConstraint.constant = -self.colorPresetsView.frame.width
-                self.pressedMenuButton?.isEnabled = true
-                self.state = .allClosed
-            }
-
-            let propertyAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
-                self.view.layoutIfNeeded()
-                self.colorMenuCloseToast.alpha = colorMenuToastAlpha
-                self.mainMenuCloseToast.alpha = mainMenuToastAlpha
-            })
-            propertyAnimator.addCompletion { _ in
-                if self.state == .allClosed {
-                    self.kludgeButton.alpha = 1
-                } else {
-                    self.kludgeButton.alpha = 0
-                }
-                self.setNeedsFocusUpdate()
-                self.updateFocusIfNeeded()
-            }
-            propertyAnimator.startAnimation()
+        if state == .allClosed {
+            showMainMenu()
         }
     }
 
     func showColorPresets() {
+        cancelRunningAnimators()
         DispatchQueue.main.async {
             self.colorMenuTrailingConstraint.constant = 0
             self.mainMenuLeadingConstraint.constant = -self.mainMenuView.frame.width
             self.state = .colorPresets
-            self.pressedMenuButton?.isEnabled = true
+            self.pressedMenuButtonRecognizer?.isEnabled = true
 
             let propertyAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
                 self.view.layoutIfNeeded()
@@ -198,16 +151,21 @@ class LifeViewController: UIViewController, MenuTableDelegate {
                 self.setNeedsFocusUpdate()
                 self.updateFocusIfNeeded()
             }
+            self.propertyAnimators.append(propertyAnimator)
             propertyAnimator.startAnimation()
         }
     }
 
     func showMainMenu() {
+        cancelRunningAnimators()
+        if !manager.hasPressedMenuButton {
+            manager.setHasPressedMenuButton(true)
+        }
         DispatchQueue.main.async {
             self.colorMenuTrailingConstraint.constant = -self.colorPresetsView.frame.width
             self.mainMenuLeadingConstraint.constant = 0
             self.state = .mainMenu
-            self.pressedMenuButton?.isEnabled = false
+            self.pressedMenuButtonRecognizer?.isEnabled = false
 
             let propertyAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
                 self.view.layoutIfNeeded()
@@ -219,8 +177,40 @@ class LifeViewController: UIViewController, MenuTableDelegate {
                 self.setNeedsFocusUpdate()
                 self.updateFocusIfNeeded()
             }
+            self.propertyAnimators.append(propertyAnimator)
             propertyAnimator.startAnimation()
         }
+    }
+
+    func hideAllMenus() {
+        cancelRunningAnimators()
+        DispatchQueue.main.async {
+            self.colorMenuTrailingConstraint.constant = -self.colorPresetsView.frame.width
+            self.mainMenuLeadingConstraint.constant = -self.mainMenuView.frame.width
+            self.state = .allClosed
+            self.pressedMenuButtonRecognizer?.isEnabled = true
+
+            let propertyAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
+                self.view.layoutIfNeeded()
+                self.colorMenuCloseToast.alpha = 0
+                self.mainMenuCloseToast.alpha = 0
+            })
+            propertyAnimator.addCompletion { _ in
+                self.kludgeButton.alpha = 1
+                self.setNeedsFocusUpdate()
+                self.updateFocusIfNeeded()
+            }
+            self.propertyAnimators.append(propertyAnimator)
+            propertyAnimator.startAnimation()
+        }
+    }
+
+    func cancelRunningAnimators() {
+        propertyAnimators.forEach {
+            $0.pauseAnimation()
+            $0.stopAnimation(true)
+        }
+        propertyAnimators.removeAll()
     }
 
     // MARK: - View Setup
@@ -244,6 +234,19 @@ class LifeViewController: UIViewController, MenuTableDelegate {
 
         colorPresetsTableView.delegate = self
         colorPresetsTableView.dataSource = self
+    }
+
+    fileprivate func createScene() {
+        if let view = self.view as? SKView {
+            scene = LifeScene(size: view.bounds.size)
+            scene!.scaleMode = .aspectFit
+
+            scene!.manager = manager
+
+            view.ignoresSiblingOrder = true
+            view.preferredFramesPerSecond = 60
+            view.presentScene(scene)
+        }
     }
 
     fileprivate func setupPresetMenu() {
@@ -287,46 +290,31 @@ class LifeViewController: UIViewController, MenuTableDelegate {
     }
 
     fileprivate func bounceOrHideMenuHintToast(reverse: Bool) {
+        // TODO: - This code is problematic (infinitely repeats unnecessarily) and should be broken apart.
         if !manager.hasPressedMenuButton {
             menuHintToastConstraint.constant = reverse ? 35 : 15
             menuHintBounceAnimation = UIViewPropertyAnimator(duration: 1.5, curve: .easeInOut, animations: nil)
-            menuHintBounceAnimation?.addAnimations {
-                self.view.layoutIfNeeded()
-            }
-            menuHintBounceAnimation?.addCompletion { _ in
-                self.bounceOrHideMenuHintToast(reverse: !reverse)
-            }
-            menuHintBounceAnimation?.startAnimation()
         } else {
             menuHintBounceAnimation?.stopAnimation(true)
             menuHintToastConstraint.constant = 35
             menuHintBounceAnimation = UIViewPropertyAnimator(duration: 1, curve: .easeIn, animations: nil)
             menuHintBounceAnimation?.addAnimations {
                 self.menuHintToast.alpha = 0
-                self.view.layoutIfNeeded()
             }
-            menuHintBounceAnimation?.addCompletion { state in
-                if state == .end {
-                    self.bounceOrHideMenuHintToast(reverse: !reverse)
-                }
+        }
+        menuHintBounceAnimation?.addAnimations {
+            self.view.layoutIfNeeded()
+        }
+        menuHintBounceAnimation?.addCompletion { state in
+            if state == .end {
+                self.bounceOrHideMenuHintToast(reverse: !reverse)
             }
-            menuHintBounceAnimation?.startAnimation()
         }
-    }
-
-    fileprivate func createScene() {
-        if let view = self.view as? SKView {
-            scene = LifeScene(size: view.bounds.size)
-            scene!.scaleMode = .aspectFit
-
-            scene!.manager = manager
-
-            view.ignoresSiblingOrder = true
-            view.preferredFramesPerSecond = 60
-            view.presentScene(scene)
-        }
+        menuHintBounceAnimation?.startAnimation()
     }
 }
+
+// MARK: - Preset Table View
 
 extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in _: UITableView) -> Int {
@@ -350,29 +338,18 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 1,
-            let cell = tableView.dequeueReusableCell(withIdentifier: "presetCell", for: indexPath) as? ColorPresetTableViewCell {
-            let colorPreset = colorPresets[indexPath.row]
-            cell.titleLabel.text = colorPreset.title
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "presetCell", for: indexPath) as? ColorPresetTableViewCell,
+            let preset = tableViewSource[indexPath.section]?[indexPath.row] {
+            cell.titleLabel.text = preset.title
             return cell
         }
 
-        if indexPath.section == 0,
-            let cell = tableView.dequeueReusableCell(withIdentifier: "presetCell", for: indexPath) as? ColorPresetTableViewCell {
-            let settingPreset = settingsPresets[indexPath.row]
-            cell.titleLabel.text = settingPreset.title
-            return cell
-        }
         return UITableViewCell()
     }
 
     func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
-            let colorPreset = colorPresets[indexPath.row]
-            manager.configure(with: colorPreset)
-        } else if indexPath.section == 0 {
-            let settingPreset = settingsPresets[indexPath.row]
-            manager.configure(with: settingPreset)
+        if let preset = tableViewSource[indexPath.section]?[indexPath.row] {
+            manager.configure(with: preset)
         }
     }
 }
