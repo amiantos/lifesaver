@@ -12,7 +12,7 @@ Life Saver is an abstract, artistic implementation of [Conway's Game of Life](ht
 
 ## 📺&nbsp;&nbsp;Apple TV
 
-There's also an Apple TV version, with additional features over the free screensaver version. ~Buy on the App Store.~
+There's also an Apple TV version, with additional features over the free screensaver version. [Buy on the App Store](https://apps.apple.com/us/app/life-saver-tv/id1470667717).
 
 ![Life Saver tvOS Main menu](/Design/tvos/tvos-ss-1.png?raw=true)
 ![Life Saver tvOS Preset menu](/Design/tvos/tvos-ss-2.png?raw=true)
