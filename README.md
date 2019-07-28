@@ -1,6 +1,6 @@
 # Life Saver
 
-Life Saver is an abstract, artistic implementation of [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) implemented with SpriteKit. With a variety of settings and color schemes, Life Saver should satisfy designers and geeks alike.
+Life Saver is an abstract, artistic implementation of [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) built with SpriteKit. With a variety of settings and color schemes, Life Saver should satisfy designers and geeks alike. Comes in two flavors: a macOS screensaver, and an Apple TV app.
 
 ## 🖥&nbsp;&nbsp;Screensaver
 
@@ -12,7 +12,9 @@ Life Saver is an abstract, artistic implementation of [Conway's Game of Life](ht
 
 ## 📺&nbsp;&nbsp;Apple TV
 
-There's also an Apple TV version, with additional features over the free screensaver version. [Buy on the App Store](https://apps.apple.com/us/app/life-saver-tv/id1470667717).
+There's also an Apple TV version, with additional features over the free screensaver version.
+
+[![Get Life Saver TV on the App Store](https://www.apple.com/itunes/link/images/link-badge-appstore.png)](https://apps.apple.com/us/app/life-saver-tv/id1470667717)
 
 ![Life Saver tvOS Main menu](/Design/tvos/tvos-ss-1.png?raw=true)
 ![Life Saver tvOS Preset menu](/Design/tvos/tvos-ss-2.png?raw=true)
