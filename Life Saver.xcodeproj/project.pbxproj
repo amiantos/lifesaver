@@ -15,6 +15,8 @@
 		4415352222974E220061434F /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415352122974E220061434F /* LifeNode.swift */; };
 		4415352322974E220061434F /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415352122974E220061434F /* LifeNode.swift */; };
 		4437906022961BA200AC3AFF /* URLType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4437905F22961BA200AC3AFF /* URLType.swift */; };
+		44655C3D232C582A00F12493 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44655C39232C580E00F12493 /* MenuTableViewController.swift */; };
+		44655C3E232C582A00F12493 /* ColorPresetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44655C3B232C581E00F12493 /* ColorPresetTableViewCell.swift */; };
 		4480C7092294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
 		4480C70A2294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
 		4480C70F2294B4C800CC2EDC /* LifeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */; };
@@ -27,7 +29,6 @@
 		B41C8C4122C81D2400777A09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B41C8C4022C81D2400777A09 /* Assets.xcassets */; };
 		B45BF8BB22AC33E600D77162 /* ToroidalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */; };
 		B45BF8BC22AC33E900D77162 /* ToroidalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */; };
-		B476201522C4612300B4834C /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B476201422C4612300B4834C /* MenuTableViewController.swift */; };
 		B49221752294E5C500D5DEA4 /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */; };
 		B49221762294E71A00D5DEA4 /* ConfigureSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */; };
 		B49CB72822C3047500A53FB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49CB72722C3047500A53FB7 /* AppDelegate.swift */; };
@@ -38,7 +39,6 @@
 		B49CB73C22C304FA00A53FB7 /* LifePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415351D229733C20061434F /* LifePreset.swift */; };
 		B49CB73D22C3050300A53FB7 /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
 		B49CB73F22C3050B00A53FB7 /* ToroidalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */; };
-		B49CB74122C30EFA00A53FB7 /* ColorPresetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49CB74022C30EFA00A53FB7 /* ColorPresetTableViewCell.swift */; };
 		B49CB74222C314C400A53FB7 /* LifeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7152294B60800CC2EDC /* LifeManager.swift */; };
 		B49CB74322C314CD00A53FB7 /* LifeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40CD56622C0520600CC33DC /* LifeDatabase.swift */; };
 		B4D49C0D22C7B5C2000F4E0C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */; };
@@ -59,6 +59,8 @@
 		4415351D229733C20061434F /* LifePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifePreset.swift; sourceTree = "<group>"; };
 		4415352122974E220061434F /* LifeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeNode.swift; sourceTree = "<group>"; };
 		4437905F22961BA200AC3AFF /* URLType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLType.swift; sourceTree = "<group>"; };
+		44655C39232C580E00F12493 /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuTableViewController.swift; path = tvOS/Menus/MenuTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		44655C3B232C581E00F12493 /* ColorPresetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorPresetTableViewCell.swift; path = tvOS/Menus/ColorPresetTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		4480C7082294B05200CC2EDC /* FileGrabber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileGrabber.swift; sourceTree = "<group>"; };
 		4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeDatabase.swift; sourceTree = "<group>"; };
 		4480C7152294B60800CC2EDC /* LifeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeManager.swift; sourceTree = "<group>"; };
@@ -70,13 +72,11 @@
 		B40CD56622C0520600CC33DC /* LifeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeDatabase.swift; sourceTree = "<group>"; };
 		B41C8C4022C81D2400777A09 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToroidalMatrix.swift; sourceTree = "<group>"; };
-		B476201422C4612300B4834C /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuTableViewController.swift; path = ../MenuTableViewController.swift; sourceTree = "<group>"; };
 		B49CB72522C3047500A53FB7 /* Life Saver tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Life Saver tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B49CB72722C3047500A53FB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B49CB72F22C3047500A53FB7 /* LifeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeViewController.swift; sourceTree = "<group>"; };
 		B49CB73222C3047500A53FB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B49CB73622C3047800A53FB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B49CB74022C30EFA00A53FB7 /* ColorPresetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorPresetTableViewCell.swift; path = ../ColorPresetTableViewCell.swift; sourceTree = "<group>"; };
 		B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B4FD88A42290553400AE066A /* Life Saver macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Life Saver macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FD88A72290553400AE066A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -194,8 +194,8 @@
 		B4D49C0E22C7B93A000F4E0C /* Menus */ = {
 			isa = PBXGroup;
 			children = (
-				B476201422C4612300B4834C /* MenuTableViewController.swift */,
-				B49CB74022C30EFA00A53FB7 /* ColorPresetTableViewCell.swift */,
+				44655C3B232C581E00F12493 /* ColorPresetTableViewCell.swift */,
+				44655C39232C580E00F12493 /* MenuTableViewController.swift */,
 			);
 			path = Menus;
 			sourceTree = "<group>";
@@ -504,14 +504,14 @@
 			files = (
 				B49CB73A22C304F500A53FB7 /* LifeScene.swift in Sources */,
 				B49CB73C22C304FA00A53FB7 /* LifePreset.swift in Sources */,
-				B476201522C4612300B4834C /* MenuTableViewController.swift in Sources */,
+				44655C3E232C582A00F12493 /* ColorPresetTableViewCell.swift in Sources */,
+				44655C3D232C582A00F12493 /* MenuTableViewController.swift in Sources */,
 				B49CB73022C3047500A53FB7 /* LifeViewController.swift in Sources */,
 				B49CB72822C3047500A53FB7 /* AppDelegate.swift in Sources */,
 				B49CB73F22C3050B00A53FB7 /* ToroidalMatrix.swift in Sources */,
 				B49CB73B22C304F700A53FB7 /* LifeNode.swift in Sources */,
 				B4D49C0D22C7B5C2000F4E0C /* Extensions.swift in Sources */,
 				B49CB74322C314CD00A53FB7 /* LifeDatabase.swift in Sources */,
-				B49CB74122C30EFA00A53FB7 /* ColorPresetTableViewCell.swift in Sources */,
 				B49CB73D22C3050300A53FB7 /* FileGrabber.swift in Sources */,
 				B49CB74222C314C400A53FB7 /* LifeManager.swift in Sources */,
 			);
