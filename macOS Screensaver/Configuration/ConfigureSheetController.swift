@@ -95,6 +95,10 @@ final class ConfigureSheetController: NSObject {
             manager.setSquareSize(.small)
         case 2:
             manager.setSquareSize(.large)
+        case 3:
+            manager.setSquareSize(.verySmall)
+        case 4:
+            manager.setSquareSize(.superSmall)
         default:
             manager.setSquareSize(.medium)
         }

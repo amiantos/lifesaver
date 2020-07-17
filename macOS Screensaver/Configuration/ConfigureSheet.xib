@@ -120,13 +120,15 @@ DQ
                         </connections>
                     </segmentedControl>
                     <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GSf-P5-6p8">
-                        <rect key="frame" x="149" y="314" width="203" height="24"/>
+                        <rect key="frame" x="149" y="313" width="187" height="24"/>
                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="wNe-OY-RRI">
                             <font key="font" metaFont="system"/>
                             <segments>
-                                <segment label="Small" width="65"/>
-                                <segment label="Medium" width="65" selected="YES" tag="1"/>
-                                <segment label="Large" width="65"/>
+                                <segment label="S" width="32"/>
+                                <segment label="M" width="31" selected="YES" tag="1"/>
+                                <segment label="L" width="31"/>
+                                <segment label="XS"/>
+                                <segment label="XXS"/>
                             </segments>
                         </segmentedCell>
                         <connections>
