@@ -92,13 +92,15 @@ final class ConfigureSheetController: NSObject {
     @IBAction func squareSizeAction(_ sender: NSSegmentedControl) {
         switch sender.selectedSegment {
         case 0:
-            manager.setSquareSize(.small)
-        case 2:
-            manager.setSquareSize(.large)
-        case 3:
-            manager.setSquareSize(.verySmall)
-        case 4:
             manager.setSquareSize(.superSmall)
+        case 1:
+            manager.setSquareSize(.verySmall)
+        case 2:
+            manager.setSquareSize(.small)
+        case 3:
+            manager.setSquareSize(.medium)
+        case 4:
+            manager.setSquareSize(.large)
         default:
             manager.setSquareSize(.medium)
         }
@@ -188,13 +190,13 @@ final class ConfigureSheetController: NSObject {
         case .superSmall:
             squareSizeControl.selectedSegment = 0
         case .verySmall:
-            squareSizeControl.selectedSegment = 0
-        case .small:
-            squareSizeControl.selectedSegment = 0
-        case .medium:
             squareSizeControl.selectedSegment = 1
-        case .large:
+        case .small:
             squareSizeControl.selectedSegment = 2
+        case .medium:
+            squareSizeControl.selectedSegment = 3
+        case .large:
+            squareSizeControl.selectedSegment = 4
         }
 
         switch manager.animationSpeed {

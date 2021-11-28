@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,13 +26,13 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="388" height="494"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="388" height="495"/>
+                <rect key="frame" x="0.0" y="0.0" width="388" height="489"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ckD-Qe-k8M">
-                        <rect key="frame" x="302" y="13" width="72" height="32"/>
+                        <rect key="frame" x="309" y="13" width="66" height="32"/>
                         <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="Dbk-lg-fru">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -44,15 +45,15 @@ DQ
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XeC-oa-EiD">
-                        <rect key="frame" x="23" y="444" width="115" height="31"/>
+                        <rect key="frame" x="23" y="439" width="115" height="30"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Life Saver" id="A1b-ty-yQK">
-                            <font key="font" size="26" name=".AppleSystemUIFont"/>
+                            <font key="font" metaFont="system" size="26"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zng-Ku-YRl">
-                        <rect key="frame" x="58" y="427" width="83" height="17"/>
+                        <rect key="frame" x="57" y="423" width="84" height="16"/>
                         <buttonCell key="cell" type="square" title="by Brad Root" bezelStyle="shadowlessSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="piz-AH-ud0">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -63,7 +64,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UuZ-Bu-QIk">
-                        <rect key="frame" x="20" y="22" width="181" height="17"/>
+                        <rect key="frame" x="20" y="22" width="180" height="16"/>
                         <buttonCell key="cell" type="square" title="https://amiantos.net/lifesaver" bezelStyle="shadowlessSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="cN8-4S-TWN">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -74,7 +75,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0yl-qg-jnR">
-                        <rect key="frame" x="156" y="455" width="212" height="20"/>
+                        <rect key="frame" x="156" y="449" width="212" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="8mp-cK-RnW"/>
                             <constraint firstAttribute="width" constant="212" id="i0t-ib-wnk"/>
@@ -89,7 +90,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uip-8h-Gh3">
-                        <rect key="frame" x="156" y="425" width="212" height="20"/>
+                        <rect key="frame" x="156" y="419" width="212" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="N17-I6-Jy9"/>
                             <constraint firstAttribute="width" constant="212" id="ubo-2p-WHN"/>
@@ -104,10 +105,10 @@ DQ
                         </connections>
                     </button>
                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="rhy-1B-SYh">
-                        <rect key="frame" x="20" y="404" width="348" height="5"/>
+                        <rect key="frame" x="20" y="400" width="348" height="5"/>
                     </box>
                     <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xTv-ci-7Bd">
-                        <rect key="frame" x="149" y="129" width="113" height="24"/>
+                        <rect key="frame" x="149" y="127" width="115" height="24"/>
                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="cP7-4T-sj5">
                             <font key="font" metaFont="system"/>
                             <segments>
@@ -119,24 +120,24 @@ DQ
                             <action selector="appearanceAction:" target="-2" id="ROx-6A-ps1"/>
                         </connections>
                     </segmentedControl>
-                    <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GSf-P5-6p8">
-                        <rect key="frame" x="149" y="313" width="187" height="24"/>
+                    <segmentedControl verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GSf-P5-6p8">
+                        <rect key="frame" x="149" y="312" width="131" height="24"/>
                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="wNe-OY-RRI">
                             <font key="font" metaFont="system"/>
                             <segments>
-                                <segment label="S" width="32"/>
-                                <segment label="M" width="31" selected="YES" tag="1"/>
-                                <segment label="L" width="31"/>
                                 <segment label="XS"/>
-                                <segment label="XXS"/>
+                                <segment label="S" selected="YES" tag="1"/>
+                                <segment label="M"/>
+                                <segment label="L"/>
+                                <segment label="XL"/>
                             </segments>
                         </segmentedCell>
                         <connections>
                             <action selector="squareSizeAction:" target="-2" id="Dad-jP-3ol"/>
                         </connections>
                     </segmentedControl>
-                    <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DzZ-Ny-Gme">
-                        <rect key="frame" x="149" y="273" width="194" height="24"/>
+                    <segmentedControl verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DzZ-Ny-Gme">
+                        <rect key="frame" x="149" y="272" width="184" height="24"/>
                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="Sy5-pj-KRX">
                             <font key="font" metaFont="system"/>
                             <segments>
@@ -150,23 +151,23 @@ DQ
                         </connections>
                     </segmentedControl>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L1J-rT-SwS">
-                        <rect key="frame" x="66" y="133" width="77" height="17"/>
+                        <rect key="frame" x="66" y="131" width="77" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Background" id="1XX-4i-lsl">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mTf-31-rdO">
-                        <rect key="frame" x="67" y="318" width="76" height="17"/>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mTf-31-rdO">
+                        <rect key="frame" x="67" y="317" width="76" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Square Size" id="QFp-zF-oHZ">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xug-Lz-UDX">
-                        <rect key="frame" x="36" y="277" width="107" height="17"/>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xug-Lz-UDX">
+                        <rect key="frame" x="36" y="276" width="107" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Animation Speed" id="aOe-bL-uPg">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -174,7 +175,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="bj5-ZC-bOW">
-                        <rect key="frame" x="153" y="90" width="50" height="21"/>
+                        <rect key="frame" x="153" y="89" width="50" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="IjN-qg-4cB"/>
                             <constraint firstAttribute="height" constant="21" id="t6w-EU-K1d"/>
@@ -185,7 +186,7 @@ DQ
                         </connections>
                     </colorWell>
                     <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="sKx-lc-W5s">
-                        <rect key="frame" x="273" y="90" width="50" height="21"/>
+                        <rect key="frame" x="273" y="89" width="50" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="7it-iq-bgb"/>
                             <constraint firstAttribute="width" constant="50" id="uPJ-Bs-Z6z"/>
@@ -196,7 +197,7 @@ DQ
                         </connections>
                     </colorWell>
                     <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="7JS-VT-bRe">
-                        <rect key="frame" x="213" y="90" width="50" height="21"/>
+                        <rect key="frame" x="213" y="89" width="50" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="BGE-5A-ZFp"/>
                             <constraint firstAttribute="height" constant="21" id="VJ6-w3-EQY"/>
@@ -207,7 +208,7 @@ DQ
                         </connections>
                     </colorWell>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1mc-rM-3Jq">
-                        <rect key="frame" x="99" y="92" width="44" height="17"/>
+                        <rect key="frame" x="99" y="91" width="44" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Colors" id="0PZ-VH-ysx">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -215,7 +216,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4JF-f2-cTd">
-                        <rect key="frame" x="149" y="169" width="159" height="25"/>
+                        <rect key="frame" x="148" y="165" width="160" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="Default" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="EfA-LT-Box" id="Uuj-kB-faL">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
@@ -232,7 +233,7 @@ DQ
                         </connections>
                     </popUpButton>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CFo-WB-z3f">
-                        <rect key="frame" x="57" y="174" width="86" height="17"/>
+                        <rect key="frame" x="57" y="171" width="86" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Color Presets" id="TJ1-RD-4wk">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -240,7 +241,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ThS-Fc-xvV">
-                        <rect key="frame" x="46" y="215" width="97" height="17"/>
+                        <rect key="frame" x="46" y="211" width="97" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Random Colors" id="QDE-rn-8aW">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -248,10 +249,10 @@ DQ
                         </textFieldCell>
                     </textField>
                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="NRc-if-iOc">
-                        <rect key="frame" x="97" y="250" width="194" height="5"/>
+                        <rect key="frame" x="97" y="245" width="194" height="5"/>
                     </box>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8PU-Y8-VoF">
-                        <rect key="frame" x="59" y="359" width="84" height="17"/>
+                        <rect key="frame" x="59" y="356" width="84" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Style Presets" id="yvp-Mh-iZH">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -259,7 +260,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h3X-7U-FEV">
-                        <rect key="frame" x="149" y="355" width="199" height="24"/>
+                        <rect key="frame" x="149" y="352" width="161" height="24"/>
                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="qud-vy-yUN">
                             <font key="font" metaFont="system"/>
                             <segments>
@@ -273,10 +274,10 @@ DQ
                         </connections>
                     </segmentedControl>
                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Ezl-WK-wYQ">
-                        <rect key="frame" x="20" y="59" width="348" height="5"/>
+                        <rect key="frame" x="20" y="58" width="348" height="5"/>
                     </box>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h1R-y4-Jlv">
-                        <rect key="frame" x="149" y="215" width="63" height="18"/>
+                        <rect key="frame" x="149" y="210" width="67" height="18"/>
                         <buttonCell key="cell" type="check" title="Enable" bezelStyle="regularSquare" imagePosition="left" inset="2" id="QlG-xr-pN4">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -286,7 +287,7 @@ DQ
                         </buttonCell>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cPI-vH-MTc">
-                        <rect key="frame" x="28" y="428" width="24" height="14"/>
+                        <rect key="frame" x="28" y="423" width="24" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="v1.1" id="aYW-mH-qB5">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -361,7 +362,7 @@ DQ
         </window>
     </objects>
     <resources>
-        <image name="github" width="429" height="256"/>
-        <image name="twitter" width="429" height="256"/>
+        <image name="github" width="858" height="512"/>
+        <image name="twitter" width="858" height="512"/>
     </resources>
 </document>
