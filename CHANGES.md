@@ -1,5 +1,8 @@
 # Screensaver
 
+## 1.2
+- Added two smaller size options ((#18 by lordlycastle)[https://www.youtube.com/watch?v=A3pq9xL3kIs])
+
 ## 1.1
 - Config sheet detects if colors match existing preset and selects it in picker
 - Added option for selecting a random color preset on launch

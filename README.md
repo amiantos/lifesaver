@@ -8,16 +8,14 @@ Life Saver is an abstract, artistic implementation of [Conway's Game of Life](ht
 
 ![Life Saver Screensaver](/Design/screensaver/lifesaver-screenshots-1.1.png?raw=true)
 
-### 👉 [Download Life Saver v1.1 Installer for macOS](https://s3.amazonaws.com/amiantos/lifesaver-1.1.pkg)
+### 👉 [Download Life Saver v1.2 for macOS](https://amiantos.s3.amazonaws.com/lifesaver-1.2.zip)
 
 ## 📺&nbsp;&nbsp;Apple TV
 
-There's also an Apple TV version, with additional features over the free screensaver version.
-
-[![Get Life Saver TV on the App Store](https://www.apple.com/itunes/link/images/link-badge-appstore.png)](https://apps.apple.com/us/app/life-saver-tv/id1470667717)
-
 ![Life Saver tvOS Main menu](/Design/tvos/tvos-ss-1.png?raw=true)
 ![Life Saver tvOS Preset menu](/Design/tvos/tvos-ss-2.png?raw=true)
+
+### 👉 [Get Life Saver TV on the App Store](https://apps.apple.com/us/app/life-saver-tv/id1470667717)
 
 ## To Install from Source
 
