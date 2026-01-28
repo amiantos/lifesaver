@@ -20,7 +20,7 @@ Life Saver is an abstract, artistic implementation of [Conway's Game of Life](ht
 ## To Install from Source
 
 1. `git clone https://github.com/amiantos/lifesaver.git`
-2. Open `Life Saver.xcworkspace`
+2. Open `Life Saver.xcodeproj`
 3. Pick a target and run!
 
 

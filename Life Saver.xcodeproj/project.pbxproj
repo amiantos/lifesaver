@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D1F135300AE406633FE6FF1 /* Pods_Life_Saver_Screensaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1F42044D46DFD95C77690FA /* Pods_Life_Saver_Screensaver.framework */; };
-		2715B4B449E6226C927E206C /* Pods_Life_Saver_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B1EA2B47E3EC2977A0EC76 /* Pods_Life_Saver_macOS.framework */; };
 		4415351E229733C20061434F /* LifePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415351D229733C20061434F /* LifePreset.swift */; };
 		4415351F22973A330061434F /* LifePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415351D229733C20061434F /* LifePreset.swift */; };
 		4415352022973A530061434F /* URLType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4437905F22961BA200AC3AFF /* URLType.swift */; };
@@ -24,7 +22,6 @@
 		4480C7172294B60800CC2EDC /* LifeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7152294B60800CC2EDC /* LifeManager.swift */; };
 		4480C7412294CFB800CC2EDC /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */; };
 		4480C7432294CFF400CC2EDC /* ConfigureSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */; };
-		67E99765F2CC85D2357000E3 /* Pods_Life_Saver_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0F247DB6D6F78817A3F0E8F /* Pods_Life_Saver_tvOS.framework */; };
 		B41C8C3F22C81D0200777A09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
 		B41C8C4122C81D2400777A09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B41C8C4022C81D2400777A09 /* Assets.xcassets */; };
 		B45BF8BB22AC33E600D77162 /* ToroidalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */; };
@@ -54,8 +51,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1BF1A9B1CA50A4883FA51D8E /* Pods-Life Saver Screensaver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life Saver Screensaver.debug.xcconfig"; path = "Target Support Files/Pods-Life Saver Screensaver/Pods-Life Saver Screensaver.debug.xcconfig"; sourceTree = "<group>"; };
-		41B1EA2B47E3EC2977A0EC76 /* Pods_Life_Saver_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Life_Saver_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4415351D229733C20061434F /* LifePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifePreset.swift; sourceTree = "<group>"; };
 		4415352122974E220061434F /* LifeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeNode.swift; sourceTree = "<group>"; };
 		4437905F22961BA200AC3AFF /* URLType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLType.swift; sourceTree = "<group>"; };
@@ -66,9 +61,6 @@
 		4480C7152294B60800CC2EDC /* LifeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeManager.swift; sourceTree = "<group>"; };
 		4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigureSheet.xib; sourceTree = "<group>"; };
 		4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureSheetController.swift; sourceTree = "<group>"; };
-		502A6BF15E385B76A6422725 /* Pods-Life Saver tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life Saver tvOS.release.xcconfig"; path = "Target Support Files/Pods-Life Saver tvOS/Pods-Life Saver tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		5EE01FF9B77AC381FC307FC3 /* Pods-Life Saver macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life Saver macOS.release.xcconfig"; path = "Target Support Files/Pods-Life Saver macOS/Pods-Life Saver macOS.release.xcconfig"; sourceTree = "<group>"; };
-		6B6B746C076EE9C58D443E92 /* Pods-Life Saver macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life Saver macOS.debug.xcconfig"; path = "Target Support Files/Pods-Life Saver macOS/Pods-Life Saver macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B40CD56622C0520600CC33DC /* LifeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeDatabase.swift; sourceTree = "<group>"; };
 		B41C8C4022C81D2400777A09 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToroidalMatrix.swift; sourceTree = "<group>"; };
@@ -89,10 +81,6 @@
 		B4FD88C42290B9DB00AE066A /* Life Saver Screensaver.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Life Saver Screensaver.saver"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FD88CA2290B9DB00AE066A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4FD88CF2290BA2400AE066A /* LifeScreenSaverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeScreenSaverView.swift; sourceTree = "<group>"; };
-		C0F247DB6D6F78817A3F0E8F /* Pods_Life_Saver_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Life_Saver_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CED3196A7C6203032FDEBB6F /* Pods-Life Saver Screensaver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life Saver Screensaver.release.xcconfig"; path = "Target Support Files/Pods-Life Saver Screensaver/Pods-Life Saver Screensaver.release.xcconfig"; sourceTree = "<group>"; };
-		D1F42044D46DFD95C77690FA /* Pods_Life_Saver_Screensaver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Life_Saver_Screensaver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E829750ED1ADE3B20BC32D52 /* Pods-Life Saver tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life Saver tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Life Saver tvOS/Pods-Life Saver tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +88,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67E99765F2CC85D2357000E3 /* Pods_Life_Saver_tvOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,7 +95,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2715B4B449E6226C927E206C /* Pods_Life_Saver_macOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,23 +102,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D1F135300AE406633FE6FF1 /* Pods_Life_Saver_Screensaver.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0E788E8E9F042832DC359B27 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D1F42044D46DFD95C77690FA /* Pods_Life_Saver_Screensaver.framework */,
-				41B1EA2B47E3EC2977A0EC76 /* Pods_Life_Saver_macOS.framework */,
-				C0F247DB6D6F78817A3F0E8F /* Pods_Life_Saver_tvOS.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		4415352522974E320061434F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,19 +140,6 @@
 			path = macOS;
 			sourceTree = "<group>";
 		};
-		58C9C1C400ED8FD965B9FA76 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1BF1A9B1CA50A4883FA51D8E /* Pods-Life Saver Screensaver.debug.xcconfig */,
-				CED3196A7C6203032FDEBB6F /* Pods-Life Saver Screensaver.release.xcconfig */,
-				6B6B746C076EE9C58D443E92 /* Pods-Life Saver macOS.debug.xcconfig */,
-				5EE01FF9B77AC381FC307FC3 /* Pods-Life Saver macOS.release.xcconfig */,
-				E829750ED1ADE3B20BC32D52 /* Pods-Life Saver tvOS.debug.xcconfig */,
-				502A6BF15E385B76A6422725 /* Pods-Life Saver tvOS.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		B49CB72622C3047500A53FB7 /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,8 +170,6 @@
 				4480C70C2294B1B300CC2EDC /* macOS */,
 				B49CB72622C3047500A53FB7 /* tvOS */,
 				B4FD88A52290553400AE066A /* Products */,
-				58C9C1C400ED8FD965B9FA76 /* Pods */,
-				0E788E8E9F042832DC359B27 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -265,11 +225,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B49CB73922C3047800A53FB7 /* Build configuration list for PBXNativeTarget "Life Saver tvOS" */;
 			buildPhases = (
-				3B9839752AE999D754E73906 /* [CP] Check Pods Manifest.lock */,
 				B49CB72122C3047500A53FB7 /* Sources */,
 				B49CB72222C3047500A53FB7 /* Frameworks */,
 				B49CB72322C3047500A53FB7 /* Resources */,
-				B4D49C0822C7B239000F4E0C /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -284,11 +242,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B4FD88BA2290553600AE066A /* Build configuration list for PBXNativeTarget "Life Saver macOS" */;
 			buildPhases = (
-				470BAD26309A1CF9F00A13A9 /* [CP] Check Pods Manifest.lock */,
 				B4FD88A02290553400AE066A /* Sources */,
 				B4FD88A12290553400AE066A /* Frameworks */,
 				B4FD88A22290553400AE066A /* Resources */,
-				44D747E622BAB99600BB5F52 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -303,7 +259,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B4FD88CB2290B9DB00AE066A /* Build configuration list for PBXNativeTarget "Life Saver Screensaver" */;
 			buildPhases = (
-				DBD9B1CE8DFAA8523A73363F /* [CP] Check Pods Manifest.lock */,
 				B4FD88BF2290B9DB00AE066A /* Headers */,
 				B4FD88C02290B9DB00AE066A /* Sources */,
 				B4FD88C12290B9DB00AE066A /* Frameworks */,
@@ -392,111 +347,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		3B9839752AE999D754E73906 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Life Saver tvOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		44D747E622BAB99600BB5F52 /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
-		};
-		470BAD26309A1CF9F00A13A9 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Life Saver macOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B4D49C0822C7B239000F4E0C /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
-		};
-		DBD9B1CE8DFAA8523A73363F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Life Saver Screensaver-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		B49CB72122C3047500A53FB7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -576,7 +426,6 @@
 /* Begin XCBuildConfiguration section */
 		B49CB73722C3047800A53FB7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E829750ED1ADE3B20BC32D52 /* Pods-Life Saver tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "Brand Assets";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -599,7 +448,6 @@
 		};
 		B49CB73822C3047800A53FB7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 502A6BF15E385B76A6422725 /* Pods-Life Saver tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "Brand Assets";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -738,7 +586,6 @@
 		};
 		B4FD88BB2290553600AE066A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6B6B746C076EE9C58D443E92 /* Pods-Life Saver macOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = macOS/Life_Saver.entitlements;
@@ -759,7 +606,6 @@
 		};
 		B4FD88BC2290553600AE066A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5EE01FF9B77AC381FC307FC3 /* Pods-Life Saver macOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = macOS/Life_Saver.entitlements;
@@ -780,7 +626,6 @@
 		};
 		B4FD88CC2290B9DB00AE066A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1BF1A9B1CA50A4883FA51D8E /* Pods-Life Saver Screensaver.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -805,7 +650,6 @@
 		};
 		B4FD88CD2290B9DB00AE066A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CED3196A7C6203032FDEBB6F /* Pods-Life Saver Screensaver.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
