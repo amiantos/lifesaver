@@ -42,6 +42,8 @@ class MenuTableViewController: UITableViewController, LifeManagerDelegate {
                 squareSizeCell.detailTextLabel?.text = "Medium"
             case .large:
                 squareSizeCell.detailTextLabel?.text = "Large"
+            case .ultraSmall:
+                squareSizeCell.detailTextLabel?.text = "XXX Small"
             }
 
             switch manager.animationSpeed {
@@ -53,6 +55,8 @@ class MenuTableViewController: UITableViewController, LifeManagerDelegate {
                 speedCell.detailTextLabel?.text = "Slow"
             case .off:
                 speedCell.detailTextLabel?.text = "Instant"
+            case .fastest:
+                speedCell.detailTextLabel?.text = "Fastest"
             }
 
             let randomColorPresetTitle = manager.shiftingColors ? "On" : "Off"

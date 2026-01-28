@@ -29,6 +29,7 @@ enum Appearance: Int {
 }
 
 enum SquareSize: Int {
+    case ultraSmall = -3
     case superSmall = -2
     case verySmall = -1
     case small = 0
@@ -37,6 +38,7 @@ enum SquareSize: Int {
 }
 
 enum AnimationSpeed: Int {
+    case fastest = -1
     case fast = 0
     case normal = 1
     case slow = 2

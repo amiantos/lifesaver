@@ -197,6 +197,8 @@ final class ConfigureSheetController: NSObject {
             squareSizeControl.selectedSegment = 3
         case .large:
             squareSizeControl.selectedSegment = 4
+        case .ultraSmall:
+            squareSizeControl.selectedSegment = 5
         }
 
         switch manager.animationSpeed {
@@ -207,6 +209,8 @@ final class ConfigureSheetController: NSObject {
         case .slow:
             animationSpeedControl.selectedSegment = 2
         case .off:
+            animationSpeedControl.selectedSegment = 1
+        case .fastest:
             animationSpeedControl.selectedSegment = 1
         }
 

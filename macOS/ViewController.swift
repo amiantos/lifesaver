@@ -16,15 +16,21 @@ import SpriteKit
 class ViewController: NSViewController {
     @IBOutlet var skView: SKView!
 
+    private var lifeScene: LifeScene?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let scene = LifeScene(size: view.frame.size)
+        lifeScene = scene
 
-        scene.animationSpeed = .normal
-        scene.squareSize = .medium
+        scene.animationSpeed = .fastest
+        scene.squareSize = .ultraSmall
+        scene.deathFade = false
+        scene.shiftingColors = true
+        scene.startPaused = true  // Pause after first generation
 
-        if let preset = colorPresets.filter({ $0.title == "Santa Fe" }).first {
+        if let preset = settingsPresets.filter({ $0.title == "Technicolor Dream" }).first {
             if let appearanceMode = preset.appearanceMode {
                 scene.appearanceMode = appearanceMode
             }
@@ -34,7 +40,7 @@ class ViewController: NSViewController {
         }
 
         let skView = view as? SKView
-        skView?.preferredFramesPerSecond = 30
+//        skView?.preferredFramesPerSecond = 60
         skView?.presentScene(scene)
         skView?.showsFPS = true
         skView?.showsDrawCount = true
@@ -42,4 +48,5 @@ class ViewController: NSViewController {
 
         skView?.ignoresSiblingOrder = true
     }
+
 }

@@ -41,6 +41,9 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     var animationSpeed: AnimationSpeed = .normal {
         didSet {
             switch animationSpeed {
+            case .fastest:
+                animationTime = 0
+                updateTime = 0
             case .fast:
                 animationTime = 0.6
                 updateTime = 0.6
@@ -98,12 +101,32 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     private var lastUpdate: TimeInterval = 0
 
     private var isUpdating: Bool = true
+    var startPaused: Bool = false
+    private var hasRunFirstUpdate: Bool = false
+
+    var isLifePaused: Bool {
+        get { !isUpdating }
+        set { isUpdating = !newValue }
+    }
+
+    func toggleLifePause() {
+        isUpdating.toggle()
+    }
+
+    func stepOneGeneration() {
+        updateLife()
+    }
 
     override func update(_ currentTime: TimeInterval) {
         if lastUpdate == 0 || currentTime - lastUpdate >= updateTime {
             lastUpdate = currentTime
             if isUpdating {
                 updateLife()
+                // If startPaused is set, pause after first update to show initial pattern
+                if startPaused && !hasRunFirstUpdate {
+                    hasRunFirstUpdate = true
+                    isUpdating = false
+                }
             }
         }
     }
@@ -145,7 +168,9 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         if backgroundNode.color != appearanceColor {
             let colorize = SKAction.colorize(with: appearanceColor, colorBlendFactor: 1.0, duration: 0.5)
             backgroundNode.run(colorize) {
-                self.isUpdating = true
+                if !self.startPaused || !self.hasRunFirstUpdate {
+                    self.isUpdating = true
+                }
             }
         }
 
@@ -167,6 +192,9 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         case .superSmall:
             lengthSquares = 128
             heightSquares = 74
+        case .ultraSmall:
+            lengthSquares = 256
+            heightSquares = 148
         }
 
         createLife()
@@ -368,6 +396,8 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     fileprivate func createRandomShapes(_: inout [LifeNode], _ livingNodes: inout [LifeNode]) {
         var totalShapes: Int = 0
         switch squareSize {
+        case .ultraSmall:
+            totalShapes = 2000
         case .superSmall:
             totalShapes = 500
         case .verySmall:
@@ -389,4 +419,19 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             }
         }
     }
+
+    // MARK: - Debug Input Handling
+
+    #if os(macOS)
+    override func keyDown(with event: NSEvent) {
+        // Spacebar to toggle pause
+        if event.keyCode == 49 {
+            toggleLifePause()
+        }
+    }
+
+    override func mouseDown(with event: NSEvent) {
+        toggleLifePause()
+    }
+    #endif
 }
