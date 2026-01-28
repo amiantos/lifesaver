@@ -13,13 +13,88 @@ import SpriteKit
 
 let squareTexture = FileGrabber.shared.getSKTexture(named: "square")
 
-class LifeNode: SKSpriteNode {
+// MARK: - Cached SKActions for standard durations
+
+private enum CachedActions {
+    // Fade to full alpha (live action)
+    static let fadeIn_0_1 = SKAction.fadeAlpha(to: 1, duration: 0.1)
+    static let fadeIn_0_6 = SKAction.fadeAlpha(to: 1, duration: 0.6)
+    static let fadeIn_2_0 = SKAction.fadeAlpha(to: 1, duration: 2.0)
+    static let fadeIn_5_0 = SKAction.fadeAlpha(to: 1, duration: 5.0)
+
+    // Fade to 0.2 alpha (initial death)
+    static let fadeDim_0_1 = createFadeDimAction(duration: 0.1)
+    static let fadeDim_0_6 = createFadeDimAction(duration: 0.6)
+    static let fadeDim_2_0 = createFadeDimAction(duration: 2.0)
+    static let fadeDim_5_0 = createFadeDimAction(duration: 5.0)
+
+    // Fade to 0 alpha (full death after 120 cycles)
+    static let fadeOut_0_5 = createFadeOutAction(duration: 0.5)
+    static let fadeOut_3_0 = createFadeOutAction(duration: 3.0)
+    static let fadeOut_10_0 = createFadeOutAction(duration: 10.0)
+    static let fadeOut_25_0 = createFadeOutAction(duration: 25.0)
+
+    private static func createFadeDimAction(duration: TimeInterval) -> SKAction {
+        let action = SKAction.fadeAlpha(to: 0.2, duration: duration)
+        action.timingMode = .easeInEaseOut
+        return action
+    }
+
+    private static func createFadeOutAction(duration: TimeInterval) -> SKAction {
+        let action = SKAction.fadeAlpha(to: 0, duration: duration)
+        action.timingMode = .easeIn
+        return action
+    }
+
+    static func fadeIn(duration: TimeInterval) -> SKAction? {
+        switch duration {
+        case 0.1: return fadeIn_0_1
+        case 0.6: return fadeIn_0_6
+        case 2.0: return fadeIn_2_0
+        case 5.0: return fadeIn_5_0
+        default: return nil
+        }
+    }
+
+    static func fadeDim(duration: TimeInterval) -> SKAction? {
+        switch duration {
+        case 0.1: return fadeDim_0_1
+        case 0.6: return fadeDim_0_6
+        case 2.0: return fadeDim_2_0
+        case 5.0: return fadeDim_5_0
+        default: return nil
+        }
+    }
+
+    static func fadeOut(duration: TimeInterval) -> SKAction? {
+        switch duration {
+        case 0.5: return fadeOut_0_5
+        case 3.0: return fadeOut_3_0
+        case 10.0: return fadeOut_10_0
+        case 25.0: return fadeOut_25_0
+        default: return nil
+        }
+    }
+}
+
+final class LifeNode: SKSpriteNode {
     let relativePosition: CGPoint
     var alive: Bool
     var timeInState: Int = 0
     var aliveColor: SKColor
     var deadColor: SKColor
     var neighbors: [LifeNode] = []
+
+    // MARK: - Hashable (using object identity)
+
+    override var hash: Int {
+        return ObjectIdentifier(self).hashValue
+    }
+
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let other = object as? LifeNode else { return false }
+        return self === other
+    }
 
     init(relativePosition: CGPoint, alive: Bool, color: SKColor, size: CGSize) {
         self.relativePosition = relativePosition
@@ -50,7 +125,9 @@ class LifeNode: SKSpriteNode {
 
         if duration > 0 {
             removeAllActions()
-            let fadeAction = SKAction.fadeAlpha(to: 1, duration: duration)
+            // Use cached fade action if available, otherwise create new one
+            let fadeAction = CachedActions.fadeIn(duration: duration)
+                ?? SKAction.fadeAlpha(to: 1, duration: duration)
             let colorAction = SKAction.colorize(with: aliveColor, colorBlendFactor: 1, duration: duration)
             let actionGroup = SKAction.group([fadeAction, colorAction])
             actionGroup.timingMode = .easeInEaseOut
@@ -68,7 +145,12 @@ class LifeNode: SKSpriteNode {
             // 30 for slow modes... 120 for fast?
             if timeInState == 120, duration > 0, fade {
                 removeAllActions()
-                let fadeAction = SKAction.fadeAlpha(to: 0, duration: duration)
+                // Use cached fade action if available, otherwise create new one
+                let fadeAction = CachedActions.fadeOut(duration: duration) ?? {
+                    let action = SKAction.fadeAlpha(to: 0, duration: duration)
+                    action.timingMode = .easeIn
+                    return action
+                }()
                 let colorAction = SKAction.colorize(with: deadColor, colorBlendFactor: 1, duration: duration)
                 let actionGroup = SKAction.group([fadeAction, colorAction])
                 actionGroup.timingMode = .easeIn
@@ -83,8 +165,12 @@ class LifeNode: SKSpriteNode {
 
         if duration > 0, fade {
             removeAllActions()
-            let fadeAction = SKAction.fadeAlpha(to: 0.2, duration: duration)
-            fadeAction.timingMode = .easeInEaseOut
+            // Use cached fade action if available, otherwise create new one
+            let fadeAction = CachedActions.fadeDim(duration: duration) ?? {
+                let action = SKAction.fadeAlpha(to: 0.2, duration: duration)
+                action.timingMode = .easeInEaseOut
+                return action
+            }()
             run(fadeAction)
         } else if fade {
             alpha = 0.2

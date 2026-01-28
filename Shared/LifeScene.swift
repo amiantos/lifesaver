@@ -113,7 +113,10 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     private var backgroundNode: SKSpriteNode = SKSpriteNode()
     private var allNodes: [LifeNode] = []
     private var aliveNodes: [LifeNode] = []
-    private var livingNodeHistory: [Int] = []
+    private var activeCells: Set<LifeNode> = []
+    private var historyBuffer: [Int] = Array(repeating: -1, count: 10)
+    private var historyIndex: Int = 0
+    private var historyFilled: Bool = false
     private var lengthSquares: CGFloat = 16
     private var heightSquares: CGFloat = 9
     private var matrix: ToroidalMatrix<LifeNode> = ToroidalMatrix(
@@ -256,7 +259,10 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         allNodes.forEach { $0.remove(duration: 0.5) }
         allNodes.removeAll()
         aliveNodes.removeAll()
-        livingNodeHistory.removeAll()
+        activeCells.removeAll()
+        historyBuffer = Array(repeating: -1, count: 10)
+        historyIndex = 0
+        historyFilled = false
     }
 
     // MARK: - Life Updates
@@ -264,18 +270,38 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     fileprivate func updateLife() {
         var dyingNodes: [LifeNode] = []
         var livingNodes: [LifeNode] = []
-        for node in allNodes {
-            // Get living neighbors...
-            let livingNeighbors = node.neighbors.filter { $0.alive }
+        var nextActiveCells: Set<LifeNode> = []
+
+        // On first iteration or after reset, check all nodes
+        // Otherwise, only check active cells (cells that changed or have neighbors that changed)
+        let cellsToCheck: AnyCollection<LifeNode> = activeCells.isEmpty
+            ? AnyCollection(allNodes)
+            : AnyCollection(activeCells)
+
+        for node in cellsToCheck {
+            // Count living neighbors inline to avoid array allocation
+            var livingNeighborCount = 0
+            var sampleLivingNeighbor: LifeNode?
+            for neighbor in node.neighbors where neighbor.alive {
+                livingNeighborCount += 1
+                if sampleLivingNeighbor == nil {
+                    sampleLivingNeighbor = neighbor
+                }
+            }
 
             if node.alive {
-                if livingNeighbors.count > 3 || livingNeighbors.count < 2 {
+                if livingNeighborCount > 3 || livingNeighborCount < 2 {
                     dyingNodes.append(node)
+                    // Cell will change state - mark it and neighbors as active for next iteration
+                    nextActiveCells.insert(node)
+                    for neighbor in node.neighbors {
+                        nextActiveCells.insert(neighbor)
+                    }
                 } else {
                     livingNodes.append(node)
                 }
-            } else if livingNeighbors.count == 3 {
-                var livingColor = livingNeighbors.randomElement()!.color
+            } else if livingNeighborCount == 3 {
+                var livingColor = sampleLivingNeighbor!.color
                 #if os(tvOS)
                     if shiftingColors {
                         livingColor = livingColor.modified(withAdditionalHue: 0.005, additionalSaturation: 0, additionalBrightness: 0)
@@ -283,6 +309,11 @@ final class LifeScene: SKScene, LifeManagerDelegate {
                 #endif
                 node.aliveColor = livingColor
                 livingNodes.append(node)
+                // Cell will change state - mark it and neighbors as active for next iteration
+                nextActiveCells.insert(node)
+                for neighbor in node.neighbors {
+                    nextActiveCells.insert(neighbor)
+                }
             } else {
                 dyingNodes.append(node)
             }
@@ -291,19 +322,38 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         // If entire tank is dead, generate a new tank!
         if CGFloat(livingNodes.count) == 0 {
             createRandomShapes(&dyingNodes, &livingNodes)
+            // After regeneration, mark all new living nodes and their neighbors as active
+            for node in livingNodes {
+                nextActiveCells.insert(node)
+                for neighbor in node.neighbors {
+                    nextActiveCells.insert(neighbor)
+                }
+            }
         }
 
-        // Static tank prevention
-        if livingNodeHistory.count >= 10 {
-            livingNodeHistory.removeFirst()
-            livingNodeHistory.append(livingNodes.count)
-            if 1 ... 2 ~= Set(livingNodeHistory).count {
+        // Static tank prevention using circular buffer
+        historyBuffer[historyIndex] = livingNodes.count
+        historyIndex = (historyIndex + 1) % 10
+        if !historyFilled && historyIndex == 0 {
+            historyFilled = true
+        }
+
+        if historyFilled {
+            // Check for stasis: count unique values in history buffer
+            var uniqueValues = Set<Int>()
+            for value in historyBuffer {
+                uniqueValues.insert(value)
+            }
+            if 1 ... 2 ~= uniqueValues.count {
                 dyingNodes.append(contentsOf: livingNodes)
                 livingNodes.removeAll()
+                // After stasis reset, all cells become active for next generation
+                nextActiveCells = Set(allNodes)
             }
-        } else {
-            livingNodeHistory.append(livingNodes.count)
         }
+
+        // Update active cells for next iteration
+        activeCells = nextActiveCells
 
         // Update nodes here
         dyingNodes.forEach {
