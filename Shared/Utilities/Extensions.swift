@@ -15,15 +15,23 @@ extension SKColor {
         var currentBrigthness: CGFloat = 0.0
         var currentAlpha: CGFloat = 0.0
 
-        if getHue(&currentHue, saturation: &currentSaturation, brightness: &currentBrigthness, alpha: &currentAlpha) {
-            return SKColor(
-                hue: currentHue + hue > 1 ? hue : currentHue + hue,
-                saturation: currentSaturation + additionalSaturation,
-                brightness: currentBrigthness + additionalBrightness,
-                alpha: currentAlpha
-            )
-        } else {
+        #if os(macOS)
+        // On macOS, NSColor must be converted to a compatible color space before extracting HSB
+        guard let rgbColor = usingColorSpace(.deviceRGB) else {
             return self
         }
+        rgbColor.getHue(&currentHue, saturation: &currentSaturation, brightness: &currentBrigthness, alpha: &currentAlpha)
+        #else
+        guard getHue(&currentHue, saturation: &currentSaturation, brightness: &currentBrigthness, alpha: &currentAlpha) else {
+            return self
+        }
+        #endif
+
+        return SKColor(
+            hue: currentHue + hue > 1 ? hue : currentHue + hue,
+            saturation: currentSaturation + additionalSaturation,
+            brightness: currentBrigthness + additionalBrightness,
+            alpha: currentAlpha
+        )
     }
 }

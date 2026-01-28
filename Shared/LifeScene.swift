@@ -302,11 +302,9 @@ final class LifeScene: SKScene, LifeManagerDelegate {
                 }
             } else if livingNeighborCount == 3 {
                 var livingColor = sampleLivingNeighbor!.color
-                #if os(tvOS)
-                    if shiftingColors {
-                        livingColor = livingColor.modified(withAdditionalHue: 0.005, additionalSaturation: 0, additionalBrightness: 0)
-                    }
-                #endif
+                if shiftingColors {
+                    livingColor = livingColor.modified(withAdditionalHue: 0.005, additionalSaturation: 0, additionalBrightness: 0)
+                }
                 node.aliveColor = livingColor
                 livingNodes.append(node)
                 // Cell will change state - mark it and neighbors as active for next iteration

@@ -22,6 +22,7 @@
 		4480C7172294B60800CC2EDC /* LifeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7152294B60800CC2EDC /* LifeManager.swift */; };
 		4480C7412294CFB800CC2EDC /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */; };
 		4480C7432294CFF400CC2EDC /* ConfigureSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */; };
+		44F2C9102F2ABFBB00F1D5C1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */; };
 		B41C8C3F22C81D0200777A09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
 		B41C8C4122C81D2400777A09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B41C8C4022C81D2400777A09 /* Assets.xcassets */; };
 		B45BF8BB22AC33E600D77162 /* ToroidalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */; };
@@ -378,6 +379,7 @@
 				B4FD88B02290553400AE066A /* ViewController.swift in Sources */,
 				B45BF8BB22AC33E600D77162 /* ToroidalMatrix.swift in Sources */,
 				B4D49C0F22C7B976000F4E0C /* LifeDatabase.swift in Sources */,
+				44F2C9102F2ABFBB00F1D5C1 /* Extensions.swift in Sources */,
 				B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */,
 				4415352022973A530061434F /* URLType.swift in Sources */,
 				4480C7162294B60800CC2EDC /* LifeManager.swift in Sources */,
