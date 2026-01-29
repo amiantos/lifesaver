@@ -44,6 +44,7 @@ enum AnimationSpeed: Int {
     case normal = 1
     case slow = 2
     case off = 3
+    case medium = 4
 }
 
 enum StartingPattern: Int {

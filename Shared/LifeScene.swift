@@ -52,6 +52,10 @@ final class LifeScene: SKScene, LifeManagerDelegate {
                 animationTime = 0
                 updateTime = 0.067
                 fadeDelayTime = 90
+            case .medium:
+                animationTime = 0.3
+                updateTime = 0.3
+                fadeDelayTime = 135
             case .fast:
                 animationTime = 0.6
                 updateTime = 0.6

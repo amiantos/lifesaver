@@ -607,6 +607,11 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         }
         alert.addAction(fastAction)
 
+        let mediumAction = UIAlertAction(title: "Medium", style: .default) { _ in
+            self.manager.setAnimationSpeed(.medium)
+        }
+        alert.addAction(mediumAction)
+
         let fastestAction = UIAlertAction(title: "Fast", style: .default) { _ in
             self.manager.setAnimationSpeed(.fastest)
         }
@@ -930,6 +935,8 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             speedCell?.detailTextLabel?.text = "Slower"
         case .fast:
             speedCell?.detailTextLabel?.text = "Slow"
+        case .medium:
+            speedCell?.detailTextLabel?.text = "Medium"
         case .fastest:
             speedCell?.detailTextLabel?.text = "Fast"
         case .off:

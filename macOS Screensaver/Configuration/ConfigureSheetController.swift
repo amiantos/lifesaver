@@ -212,6 +212,8 @@ final class ConfigureSheetController: NSObject {
             animationSpeedControl.selectedSegment = 1
         case .fastest:
             animationSpeedControl.selectedSegment = 1
+        case .medium:
+            animationSpeedControl.selectedSegment = 1
         }
 
         color1Well.color = manager.color1
