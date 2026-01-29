@@ -466,9 +466,9 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             // Check if stasis timer has expired
             if let detectedTime = stasisDetectedTime,
                CACurrentMediaTime() - detectedTime >= stasisResetDelay {
-                // For Gosper Gun, kill all existing cells before regenerating
-                // so the gun can fire cleanly without interference
-                if startingPattern == .gosperGun {
+                // For Gosper Gun and Pulsar, kill all existing cells before regenerating
+                // so the pattern can restart cleanly without interference
+                if startingPattern == .gosperGun || startingPattern == .pulsar {
                     livingNodes.removeAll()
                     for node in allNodes where node.alive {
                         dyingNodes.append(node)
@@ -540,6 +540,12 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             createLonelyGliderShapes(&livingNodes)
         case .gosperGun:
             createGosperGunShapes(&livingNodes)
+        case .rPentomino:
+            createRPentominoShapes(&livingNodes)
+        case .acorn:
+            createAcornShapes(&livingNodes)
+        case .pulsar:
+            createPulsarShapes(&livingNodes)
         }
     }
 
@@ -784,6 +790,204 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         let startY = (height - patternHeight) / 2
 
         // Use a single color for all cells
+        let color = aliveColors.randomElement()!
+
+        for offset in transformedOffsets {
+            let x = startX + offset.0
+            let y = startY + offset.1
+            let node = matrix[x, y]
+            node.aliveColor = color
+            livingNodes.append(node)
+        }
+    }
+
+    fileprivate func createRPentominoShapes(_ livingNodes: inout [LifeNode]) {
+        let width = Int(lengthSquares)
+        let height = Int(heightSquares)
+
+        // R-pentomino requires 3x3 minimum grid
+        guard width >= 3 && height >= 3 else {
+            createDefaultRandomShapes(&livingNodes)
+            return
+        }
+
+        // R-pentomino pattern offsets (5 cells, 3x3 bounding box)
+        // Pattern:
+        // .##
+        // ##.
+        // .#.
+        let rPentominoOffsets: [(Int, Int)] = [
+            (1, 0), (2, 0),
+            (0, 1), (1, 1),
+            (1, 2)
+        ]
+
+        let patternWidth = 3
+        let patternHeight = 3
+
+        // Randomly flip horizontally and/or vertically for variety
+        let flipHorizontal = Bool.random()
+        let flipVertical = Bool.random()
+
+        let transformedOffsets = rPentominoOffsets.map { offset -> (Int, Int) in
+            var x = offset.0
+            var y = offset.1
+            if flipHorizontal {
+                x = (patternWidth - 1) - x
+            }
+            if flipVertical {
+                y = (patternHeight - 1) - y
+            }
+            return (x, y)
+        }
+
+        // Center the pattern on the grid
+        let startX = (width - patternWidth) / 2
+        let startY = (height - patternHeight) / 2
+
+        let color = aliveColors.randomElement()!
+
+        for offset in transformedOffsets {
+            let x = startX + offset.0
+            let y = startY + offset.1
+            let node = matrix[x, y]
+            node.aliveColor = color
+            livingNodes.append(node)
+        }
+    }
+
+    fileprivate func createAcornShapes(_ livingNodes: inout [LifeNode]) {
+        let width = Int(lengthSquares)
+        let height = Int(heightSquares)
+
+        // Acorn requires 7x3 minimum grid
+        guard width >= 7 && height >= 3 else {
+            createDefaultRandomShapes(&livingNodes)
+            return
+        }
+
+        // Acorn pattern offsets (7 cells, 7x3 bounding box)
+        // Pattern:
+        // .#.....
+        // ...#...
+        // ##..###
+        let acornOffsets: [(Int, Int)] = [
+            (1, 0),
+            (3, 1),
+            (0, 2), (1, 2), (4, 2), (5, 2), (6, 2)
+        ]
+
+        let patternWidth = 7
+        let patternHeight = 3
+
+        // Randomly flip horizontally and/or vertically for variety
+        let flipHorizontal = Bool.random()
+        let flipVertical = Bool.random()
+
+        let transformedOffsets = acornOffsets.map { offset -> (Int, Int) in
+            var x = offset.0
+            var y = offset.1
+            if flipHorizontal {
+                x = (patternWidth - 1) - x
+            }
+            if flipVertical {
+                y = (patternHeight - 1) - y
+            }
+            return (x, y)
+        }
+
+        // Center the pattern on the grid
+        let startX = (width - patternWidth) / 2
+        let startY = (height - patternHeight) / 2
+
+        let color = aliveColors.randomElement()!
+
+        for offset in transformedOffsets {
+            let x = startX + offset.0
+            let y = startY + offset.1
+            let node = matrix[x, y]
+            node.aliveColor = color
+            livingNodes.append(node)
+        }
+    }
+
+    fileprivate func createPulsarShapes(_ livingNodes: inout [LifeNode]) {
+        let width = Int(lengthSquares)
+        let height = Int(heightSquares)
+
+        // Pulsar requires 13x13 minimum grid
+        guard width >= 13 && height >= 13 else {
+            createDefaultRandomShapes(&livingNodes)
+            return
+        }
+
+        // Pulsar pattern offsets (48 cells, 13x13 bounding box)
+        // Symmetric period-3 oscillator
+        // Pattern:
+        // ..###...###..
+        // .............
+        // #....#.#....#
+        // #....#.#....#
+        // #....#.#....#
+        // ..###...###..
+        // .............
+        // ..###...###..
+        // #....#.#....#
+        // #....#.#....#
+        // #....#.#....#
+        // .............
+        // ..###...###..
+        let pulsarOffsets: [(Int, Int)] = [
+            // Top horizontal bars
+            (2, 0), (3, 0), (4, 0), (8, 0), (9, 0), (10, 0),
+            // Upper left vertical bar
+            (0, 2), (0, 3), (0, 4),
+            // Upper right vertical bar
+            (12, 2), (12, 3), (12, 4),
+            // Upper middle left vertical bar
+            (5, 2), (5, 3), (5, 4),
+            // Upper middle right vertical bar
+            (7, 2), (7, 3), (7, 4),
+            // Upper middle horizontal bars
+            (2, 5), (3, 5), (4, 5), (8, 5), (9, 5), (10, 5),
+            // Lower middle horizontal bars
+            (2, 7), (3, 7), (4, 7), (8, 7), (9, 7), (10, 7),
+            // Lower left vertical bar
+            (0, 8), (0, 9), (0, 10),
+            // Lower right vertical bar
+            (12, 8), (12, 9), (12, 10),
+            // Lower middle left vertical bar
+            (5, 8), (5, 9), (5, 10),
+            // Lower middle right vertical bar
+            (7, 8), (7, 9), (7, 10),
+            // Bottom horizontal bars
+            (2, 12), (3, 12), (4, 12), (8, 12), (9, 12), (10, 12)
+        ]
+
+        let patternWidth = 13
+        let patternHeight = 13
+
+        // Randomly flip horizontally and/or vertically for variety
+        // (Pulsar is symmetric, but this maintains consistency with other patterns)
+        let flipHorizontal = Bool.random()
+        let flipVertical = Bool.random()
+
+        let transformedOffsets = pulsarOffsets.map { offset -> (Int, Int) in
+            var x = offset.0
+            var y = offset.1
+            if flipHorizontal {
+                x = (patternWidth - 1) - x
+            }
+            if flipVertical {
+                y = (patternHeight - 1) - y
+            }
+            return (x, y)
+        }
+
+        // Center the pattern on the grid
+        let startX = (width - patternWidth) / 2
+        let startY = (height - patternHeight) / 2
+
         let color = aliveColors.randomElement()!
 
         for offset in transformedOffsets {

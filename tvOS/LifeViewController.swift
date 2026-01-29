@@ -740,6 +740,24 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         }
         alert.addAction(gosperGunAction)
 
+        let rPentominoAction = UIAlertAction(title: "R-pentomino", style: .default) { _ in
+            self.manager.setStartingPattern(.rPentomino)
+            self.updateStartingPatternCellText()
+        }
+        alert.addAction(rPentominoAction)
+
+        let acornAction = UIAlertAction(title: "Acorn", style: .default) { _ in
+            self.manager.setStartingPattern(.acorn)
+            self.updateStartingPatternCellText()
+        }
+        alert.addAction(acornAction)
+
+        let pulsarAction = UIAlertAction(title: "Pulsar", style: .default) { _ in
+            self.manager.setStartingPattern(.pulsar)
+            self.updateStartingPatternCellText()
+        }
+        alert.addAction(pulsarAction)
+
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
 
@@ -968,6 +986,12 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             startingPatternCell?.detailTextLabel?.text = "Lonely Gliders"
         case .gosperGun:
             startingPatternCell?.detailTextLabel?.text = "Gosper Gun"
+        case .rPentomino:
+            startingPatternCell?.detailTextLabel?.text = "R-pentomino"
+        case .acorn:
+            startingPatternCell?.detailTextLabel?.text = "Acorn"
+        case .pulsar:
+            startingPatternCell?.detailTextLabel?.text = "Pulsar"
         }
     }
 
