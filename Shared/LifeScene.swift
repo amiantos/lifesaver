@@ -12,6 +12,12 @@
 import GameplayKit
 import SpriteKit
 
+#if os(macOS)
+import AppKit
+#elseif os(tvOS) || os(iOS)
+import UIKit
+#endif
+
 final class LifeScene: SKScene, LifeManagerDelegate {
     // MARK: - Settings
 
@@ -93,6 +99,8 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     }
 
     override func didMove(to _: SKView) {
+        setupNotificationObservers()
+
         backgroundNode = SKSpriteNode(texture: squareTexture, color: appearanceColor, size: frame.size)
         backgroundNode.alpha = 0
         addChild(backgroundNode)
@@ -103,6 +111,53 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         backgroundNode.run(fadeIn)
 
         createField()
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    // MARK: - App Lifecycle Handling
+
+    private func setupNotificationObservers() {
+        #if os(macOS)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleDidBecomeActive),
+            name: NSApplication.didBecomeActiveNotification,
+            object: nil
+        )
+        #elseif os(tvOS) || os(iOS)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleDidBecomeActive),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
+        #endif
+    }
+
+    @objc private func handleDidBecomeActive() {
+        resetTimingState()
+        syncVisualState()
+    }
+
+    private func resetTimingState() {
+        lastUpdate = 0
+        stasisDetectedTime = nil
+        activeCells.removeAll()  // Force full board check on next update
+    }
+
+    private func syncVisualState() {
+        for node in allNodes {
+            node.removeAllActions()
+            if node.alive {
+                node.alpha = 1.0
+                node.color = node.aliveColor
+            } else {
+                node.alpha = deathFade ? 0.2 : 0
+            }
+        }
     }
 
     private var lastUpdate: TimeInterval = 0
@@ -149,6 +204,8 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     private var snapshotsFilled: Bool = false
     private var stasisDetectedTime: TimeInterval?
     private var stasisResetDelay: TimeInterval { deathFade ? 30.0 : 5.0 }
+    private var updatesSinceVisualSync: Int = 0
+    private let visualSyncInterval: Int = 100  // Check all nodes every N updates
     private var lengthSquares: CGFloat = 16
     private var heightSquares: CGFloat = 9
     private var matrix: ToroidalMatrix<LifeNode> = ToroidalMatrix(
@@ -302,6 +359,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         snapshotIndex = 0
         snapshotsFilled = false
         stasisDetectedTime = nil
+        updatesSinceVisualSync = 0
     }
 
     // MARK: - Life Updates
@@ -434,6 +492,26 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         }
 
         aliveNodes = livingNodes
+
+        // Periodic full-board visual consistency check
+        // This catches any cells that got stuck with wrong alpha and aren't in activeCells
+        updatesSinceVisualSync += 1
+        if updatesSinceVisualSync >= visualSyncInterval {
+            updatesSinceVisualSync = 0
+            for node in allNodes where !node.hasActions() {
+                if node.alive {
+                    if node.alpha < 1 {
+                        node.alpha = 1
+                        node.color = node.aliveColor
+                    }
+                } else {
+                    let expectedAlpha: CGFloat = deathFade ? 0.2 : 0
+                    if node.alpha > expectedAlpha {
+                        node.alpha = expectedAlpha
+                    }
+                }
+            }
+        }
     }
 
     fileprivate func createRandomShapes(_: inout [LifeNode], _ livingNodes: inout [LifeNode]) {

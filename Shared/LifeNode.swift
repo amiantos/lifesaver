@@ -117,14 +117,19 @@ final class LifeNode: SKSpriteNode {
     public func live(duration: TimeInterval) {
         if alive {
             timeInState += 1
+            // Ensure visual state is correct - fix any desync
+            if alpha < 1 && !hasActions() {
+                alpha = 1
+                color = aliveColor
+            }
             return
         }
 
         timeInState = 0
         alive = true
+        removeAllActions()  // Always cancel pending animations (especially stale death fades)
 
         if duration > 0 {
-            removeAllActions()
             // Use cached fade action if available, otherwise create new one
             let fadeAction = CachedActions.fadeIn(duration: duration)
                 ?? SKAction.fadeAlpha(to: 1, duration: duration)
@@ -141,15 +146,25 @@ final class LifeNode: SKSpriteNode {
     public func die(duration: TimeInterval, fadeDelay: TimeInterval, fade: Bool) {
         if !alive {
             timeInState += 1
+            // Ensure visual state is correct - fix any desync
+            if !hasActions() {
+                let expectedAlpha: CGFloat = fade ? 0.2 : 0
+                if alpha > expectedAlpha {
+                    alpha = expectedAlpha
+                }
+            }
             return
         }
 
         timeInState = 0
         alive = false
 
-        guard fade else { return }
-
         removeAllActions()
+
+        guard fade else {
+            alpha = 0  // Immediately hide when no fade effect
+            return
+        }
 
         if duration > 0 {
             // Use cached fade action if available, otherwise create new one
