@@ -43,7 +43,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             switch animationSpeed {
             case .fastest:
                 animationTime = 0
-                updateTime = 0
+                updateTime = 0.067
             case .fast:
                 animationTime = 0.6
                 updateTime = 0.6
