@@ -148,7 +148,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     private var snapshotIndex: Int = 0
     private var snapshotsFilled: Bool = false
     private var stasisDetectedTime: TimeInterval?
-    private let stasisResetDelay: TimeInterval = 30.0
+    private var stasisResetDelay: TimeInterval { deathFade ? 30.0 : 5.0 }
     private var lengthSquares: CGFloat = 16
     private var heightSquares: CGFloat = 9
     private var matrix: ToroidalMatrix<LifeNode> = ToroidalMatrix(
