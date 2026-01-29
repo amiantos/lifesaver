@@ -388,7 +388,10 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             let match02 = boardSnapshots[0] == boardSnapshots[2]
             let match12 = boardSnapshots[1] == boardSnapshots[2]
 
-            if match01 || match02 || match12 {
+            // Also check for very low population (e.g., single glider = 5 cells)
+            let lowPopulation = livingNodes.count <= 5
+
+            if match01 || match02 || match12 || lowPopulation {
                 // Stasis detected - start timer if not already running
                 if stasisDetectedTime == nil {
                     stasisDetectedTime = CACurrentMediaTime()
@@ -443,6 +446,8 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             createGliderShapes(&livingNodes)
         case .sparseGliders:
             createSparseGliderShapes(&livingNodes)
+        case .lonelyGliders:
+            createLonelyGliderShapes(&livingNodes)
         }
     }
 
@@ -577,6 +582,46 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             let centerY = Int.random(in: 2 ..< Int(heightSquares) - 2)
             let color = aliveColors.randomElement()!
             let gliderOffsets = gliderOrientations.randomElement()!
+
+            for offset in gliderOffsets {
+                let node = matrix[centerX + offset.0, centerY + offset.1]
+                node.aliveColor = color
+                livingNodes.append(node)
+            }
+        }
+    }
+
+    fileprivate func createLonelyGliderShapes(_ livingNodes: inout [LifeNode]) {
+        // Four glider orientations for different diagonal directions
+        let gliderOrientations = [
+            // Down-right
+            [(0, 1), (1, 0), (-1, -1), (0, -1), (1, -1)],
+            // Down-left
+            [(0, 1), (-1, 0), (1, -1), (0, -1), (-1, -1)],
+            // Up-right
+            [(0, -1), (1, 0), (-1, 1), (0, 1), (1, 1)],
+            // Up-left
+            [(0, -1), (-1, 0), (1, 1), (0, 1), (-1, 1)]
+        ]
+
+        let width = Int(lengthSquares)
+        let height = Int(heightSquares)
+
+        // Place 3 gliders in different regions with different directions
+        let placements: [(xRange: ClosedRange<Int>, yRange: ClosedRange<Int>, orientation: Int)] = [
+            // Top-left region, going down-right
+            (2...(width / 3), (height * 2 / 3)...(height - 3), 0),
+            // Top-right region, going down-left
+            ((width * 2 / 3)...(width - 3), (height * 2 / 3)...(height - 3), 1),
+            // Bottom-center region, going up-right or up-left randomly
+            ((width / 3)...(width * 2 / 3), 2...(height / 3), Int.random(in: 2...3))
+        ]
+
+        for (index, placement) in placements.enumerated() {
+            let centerX = Int.random(in: placement.xRange)
+            let centerY = Int.random(in: placement.yRange)
+            let color = aliveColors[index % aliveColors.count]
+            let gliderOffsets = gliderOrientations[placement.orientation]
 
             for offset in gliderOffsets {
                 let node = matrix[centerX + offset.0, centerY + offset.1]

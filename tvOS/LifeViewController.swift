@@ -742,6 +742,12 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         }
         alert.addAction(sparseGlidersAction)
 
+        let lonelyGlidersAction = UIAlertAction(title: "Lonely Gliders", style: .default) { _ in
+            self.manager.setStartingPattern(.lonelyGliders)
+            self.updateStartingPatternCellText()
+        }
+        alert.addAction(lonelyGlidersAction)
+
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
 
@@ -936,6 +942,8 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             startingPatternCell?.detailTextLabel?.text = "Gliders"
         case .sparseGliders:
             startingPatternCell?.detailTextLabel?.text = "Sparse Gliders"
+        case .lonelyGliders:
+            startingPatternCell?.detailTextLabel?.text = "Lonely Gliders"
         }
     }
 
