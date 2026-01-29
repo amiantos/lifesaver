@@ -395,15 +395,20 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             // Check if stasis timer has expired
             if let detectedTime = stasisDetectedTime,
                CACurrentMediaTime() - detectedTime >= stasisResetDelay {
-                dyingNodes.append(contentsOf: livingNodes)
-                livingNodes.removeAll()
+                // Add new life to the existing stable patterns
+                createRandomShapes(&dyingNodes, &livingNodes)
+                // Mark new cells and their neighbors as active
+                for node in livingNodes {
+                    nextActiveCells.insert(node)
+                    for neighbor in node.neighbors {
+                        nextActiveCells.insert(neighbor)
+                    }
+                }
                 // Reset snapshots and timer
                 boardSnapshots = [[], [], []]
                 snapshotIndex = 0
                 snapshotsFilled = false
                 stasisDetectedTime = nil
-                // After stasis reset, all cells become active for next generation
-                nextActiveCells = Set(allNodes)
             }
         }
 
