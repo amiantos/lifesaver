@@ -57,6 +57,8 @@ enum StartingPattern: Int {
     case rPentomino = 6
     case acorn = 7
     case pulsar = 8
+    case pufferTrain = 9
+    case piFusePuffer = 10
 }
 
 enum Colors: Int {

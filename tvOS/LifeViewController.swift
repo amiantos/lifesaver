@@ -746,18 +746,6 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         }
         alert.addAction(rPentominoAction)
 
-        let acornAction = UIAlertAction(title: "Acorn", style: .default) { _ in
-            self.manager.setStartingPattern(.acorn)
-            self.updateStartingPatternCellText()
-        }
-        alert.addAction(acornAction)
-
-        let pulsarAction = UIAlertAction(title: "Pulsar", style: .default) { _ in
-            self.manager.setStartingPattern(.pulsar)
-            self.updateStartingPatternCellText()
-        }
-        alert.addAction(pulsarAction)
-
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
 
@@ -992,6 +980,10 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             startingPatternCell?.detailTextLabel?.text = "Acorn"
         case .pulsar:
             startingPatternCell?.detailTextLabel?.text = "Pulsar"
+        case .pufferTrain:
+            startingPatternCell?.detailTextLabel?.text = "Puffer Train"
+        case .piFusePuffer:
+            startingPatternCell?.detailTextLabel?.text = "Pi Fuse Puffer"
         }
     }
 

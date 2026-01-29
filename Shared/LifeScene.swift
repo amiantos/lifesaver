@@ -466,9 +466,9 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             // Check if stasis timer has expired
             if let detectedTime = stasisDetectedTime,
                CACurrentMediaTime() - detectedTime >= stasisResetDelay {
-                // For Gosper Gun and Pulsar, kill all existing cells before regenerating
+                // For specific patterns, kill all existing cells before regenerating
                 // so the pattern can restart cleanly without interference
-                if startingPattern == .gosperGun || startingPattern == .pulsar {
+                if startingPattern == .gosperGun || startingPattern == .pulsar || startingPattern == .pufferTrain || startingPattern == .piFusePuffer {
                     livingNodes.removeAll()
                     for node in allNodes where node.alive {
                         dyingNodes.append(node)
@@ -546,6 +546,10 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             createAcornShapes(&livingNodes)
         case .pulsar:
             createPulsarShapes(&livingNodes)
+        case .pufferTrain:
+            createPufferTrainShapes(&livingNodes)
+        case .piFusePuffer:
+            createPiFusePufferShapes(&livingNodes)
         }
     }
 
@@ -580,17 +584,17 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         var totalShapes: Int = 0
         switch squareSize {
         case .ultraSmall:
-            totalShapes = 1000
+            totalShapes = 500
         case .superSmall:
-            totalShapes = 250
+            totalShapes = 125
         case .verySmall:
-            totalShapes = 25
+            totalShapes = 12
         case .small:
-            totalShapes = 10
-        case .medium:
             totalShapes = 5
-        case .large:
+        case .medium:
             totalShapes = 2
+        case .large:
+            totalShapes = 1
         }
         for _ in 1 ... totalShapes {
             let nodeNumber = GKRandomSource.sharedRandom().nextInt(upperBound: allNodes.count)
@@ -650,15 +654,15 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         var totalGliders: Int = 0
         switch squareSize {
         case .ultraSmall:
-            totalGliders = 50
-        case .superSmall:
             totalGliders = 25
+        case .superSmall:
+            totalGliders = 12
         case .verySmall:
-            totalGliders = 10
-        case .small:
             totalGliders = 5
-        case .medium:
+        case .small:
             totalGliders = 2
+        case .medium:
+            totalGliders = 1
         case .large:
             totalGliders = 1
         }
@@ -785,9 +789,13 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             return (x, y)
         }
 
-        // Center the pattern on the grid
-        let startX = (width - patternWidth) / 2
-        let startY = (height - patternHeight) / 2
+        // Center the pattern on the grid with random offset for variety
+        let maxOffsetX = min(2, (width - patternWidth) / 2)
+        let maxOffsetY = min(2, (height - patternHeight) / 2)
+        let randomOffsetX = Int.random(in: -maxOffsetX...maxOffsetX)
+        let randomOffsetY = Int.random(in: -maxOffsetY...maxOffsetY)
+        let startX = (width - patternWidth) / 2 + randomOffsetX
+        let startY = (height - patternHeight) / 2 + randomOffsetY
 
         // Use a single color for all cells
         let color = aliveColors.randomElement()!
@@ -973,6 +981,244 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         let flipVertical = Bool.random()
 
         let transformedOffsets = pulsarOffsets.map { offset -> (Int, Int) in
+            var x = offset.0
+            var y = offset.1
+            if flipHorizontal {
+                x = (patternWidth - 1) - x
+            }
+            if flipVertical {
+                y = (patternHeight - 1) - y
+            }
+            return (x, y)
+        }
+
+        // Center the pattern on the grid
+        let startX = (width - patternWidth) / 2
+        let startY = (height - patternHeight) / 2
+
+        let color = aliveColors.randomElement()!
+
+        for offset in transformedOffsets {
+            let x = startX + offset.0
+            let y = startY + offset.1
+            let node = matrix[x, y]
+            node.aliveColor = color
+            livingNodes.append(node)
+        }
+    }
+
+    fileprivate func createPufferTrainShapes(_ livingNodes: inout [LifeNode]) {
+        let width = Int(lengthSquares)
+        let height = Int(heightSquares)
+
+        // Puffer train requires 18x5 minimum grid (or 5x18 vertical)
+        guard width >= 18 && height >= 5 else {
+            createDefaultRandomShapes(&livingNodes)
+            return
+        }
+
+        // Classic Puffer Train pattern (B-heptomino escorted by two LWSS)
+        // From Golly patterns: x = 5, y = 18, rule = B3/S23
+        // RLE: 3bo$4bo$o3bo$b4o4$o$boo$bbo$bbo$bo3$3bo$4bo$o3bo$b4o!
+        // This pattern moves downward at c/2 speed, leaving debris behind
+        //
+        // Pattern (5 wide x 18 tall, vertical orientation):
+        //    O      (0)
+        //     O     (1)
+        // O   O     (2)
+        //  OOOO     (3)
+        //           (4-6 empty)
+        // O         (7)
+        //  OO       (8)
+        //   O       (9)
+        //   O       (10)
+        //  O        (11)
+        //           (12-13 empty)
+        //    O      (14)
+        //     O     (15)
+        // O   O     (16)
+        //  OOOO     (17)
+        let pufferTrainVertical: [(Int, Int)] = [
+            // Top LWSS
+            (3, 0),
+            (4, 1),
+            (0, 2), (4, 2),
+            (1, 3), (2, 3), (3, 3), (4, 3),
+            // B-heptomino
+            (0, 7),
+            (1, 8), (2, 8),
+            (2, 9),
+            (2, 10),
+            (1, 11),
+            // Bottom LWSS
+            (3, 14),
+            (4, 15),
+            (0, 16), (4, 16),
+            (1, 17), (2, 17), (3, 17), (4, 17)
+        ]
+
+        // Rotate 90° clockwise to make it horizontal (18 wide x 5 tall)
+        // (x, y) -> (17 - y, x) for 90° clockwise rotation
+        let pufferTrainHorizontal = pufferTrainVertical.map { (17 - $0.1, $0.0) }
+
+        let patternWidth = 18
+        let patternHeight = 5
+
+        // Randomly flip for variety (changes movement direction)
+        let flipHorizontal = Bool.random()
+        let flipVertical = Bool.random()
+
+        let transformedOffsets = pufferTrainHorizontal.map { offset -> (Int, Int) in
+            var x = offset.0
+            var y = offset.1
+            if flipHorizontal {
+                x = (patternWidth - 1) - x
+            }
+            if flipVertical {
+                y = (patternHeight - 1) - y
+            }
+            return (x, y)
+        }
+
+        // Center the pattern on the grid
+        let startX = (width - patternWidth) / 2
+        let startY = (height - patternHeight) / 2
+
+        let color = aliveColors.randomElement()!
+
+        for offset in transformedOffsets {
+            let x = startX + offset.0
+            let y = startY + offset.1
+            let node = matrix[x, y]
+            node.aliveColor = color
+            livingNodes.append(node)
+        }
+    }
+
+    fileprivate func createPiFusePufferShapes(_ livingNodes: inout [LifeNode]) {
+        let width = Int(lengthSquares)
+        let height = Int(heightSquares)
+
+        // Pi fuse puffer requires 87x21 minimum grid (rotated to horizontal)
+        guard width >= 87 && height >= 21 else {
+            createDefaultRandomShapes(&livingNodes)
+            return
+        }
+
+        // Pi Fuse Puffer pattern from Golly: x = 21, y = 87, rule = B3/S23
+        // A space-filling puffer that grows while traveling
+        // Original is vertical (21x87), we rotate to horizontal (87x21)
+        let piFuseVertical: [(Int, Int)] = [
+            // Row 0-9
+            (4,0), (6,0),
+            (4,1), (7,1), (13,1),
+            (7,2), (8,2), (13,2), (14,2), (15,2), (16,2),
+            (9,3), (15,3), (16,3),
+            (7,4), (8,4), (9,4), (10,4), (18,4),
+            (6,5), (11,5), (15,5), (16,5), (17,5), (18,5),
+            (8,6), (11,6), (19,6),
+            (8,7), (11,7), (15,7), (18,7), (19,7), (20,7),
+            (10,8), (17,8), (18,8), (19,8),
+            (4,9), (6,9), (7,9), (8,9), (9,9), (18,9),
+            // Row 10-19
+            (4,10), (8,10), (13,10), (15,10), (16,10), (17,10),
+            (7,11), (13,11), (14,11), (17,11),
+            (5,12), (7,12), (14,12), (15,12), (16,12),
+            (14,13),
+            (6,14), (7,14), (8,14), (16,14),
+            (7,15), (8,15), (14,15), (16,15),
+            (6,16), (7,16), (8,16), (17,16),
+            (14,17), (16,17),
+            (5,18), (7,18), (16,18),
+            (5,19), (8,19), (14,19),
+            // Row 20-29
+            (8,20), (14,20), (15,20), (16,20),
+            (6,21), (9,21), (15,21), (16,21), (17,21),
+            (8,22), (9,22), (15,22), (16,22),
+            (9,23), (11,23), (14,23), (15,23),
+            (9,24), (11,24), (13,24), (14,24),
+            (9,25),
+            (6,26), (9,26), (11,26), (13,26), (14,26),
+            (8,27), (9,27), (11,27), (14,27), (15,27),
+            (6,28), (9,28), (15,28), (16,28),
+            (9,29), (11,29), (14,29), (16,29), (17,29),
+            // Row 30-39
+            (6,30), (9,30), (11,30), (13,30), (14,30), (15,30), (18,30),
+            (0,31), (1,31), (6,31), (9,31), (18,31),
+            (0,32), (1,32), (6,32), (9,32), (11,32), (13,32), (14,32), (15,32), (18,32),
+            (6,33), (9,33), (11,33), (14,33), (16,33), (17,33),
+            (9,34), (15,34), (16,34),
+            (6,35), (9,35), (11,35), (14,35), (15,35),
+            (8,36), (9,36), (11,36), (13,36), (14,36),
+            (6,37), (9,37),
+            (9,38), (11,38), (13,38), (14,38),
+            (6,39), (9,39), (11,39), (14,39), (15,39),
+            // Row 40-49
+            (6,40), (9,40), (15,40), (16,40),
+            (9,41), (11,41), (14,41), (16,41), (17,41),
+            (0,42), (1,42), (2,42), (6,42), (9,42), (11,42), (13,42), (14,42), (15,42), (18,42),
+            (2,43), (8,43), (9,43), (18,43),
+            (0,44), (1,44), (2,44), (6,44), (9,44), (11,44), (13,44), (14,44), (15,44), (18,44),
+            (9,45), (11,45), (14,45), (16,45), (17,45),
+            (6,46), (9,46), (15,46), (16,46),
+            (6,47), (9,47), (11,47), (14,47), (15,47),
+            (9,48), (11,48), (13,48), (14,48),
+            (6,49), (9,49),
+            // Row 50-59
+            (8,50), (9,50), (11,50), (13,50), (14,50),
+            (6,51), (9,51), (11,51), (14,51), (15,51),
+            (9,52), (15,52), (16,52),
+            (6,53), (9,53), (11,53), (14,53), (16,53), (17,53),
+            (0,54), (1,54), (6,54), (9,54), (11,54), (13,54), (14,54), (15,54), (18,54),
+            (0,55), (1,55), (6,55), (9,55), (18,55),
+            (6,56), (9,56), (11,56), (13,56), (14,56), (15,56), (18,56),
+            (9,57), (11,57), (14,57), (16,57), (17,57),
+            (6,58), (9,58), (15,58), (16,58),
+            (8,59), (9,59), (11,59), (14,59), (15,59),
+            // Row 60-69
+            (6,60), (9,60), (11,60), (13,60), (14,60),
+            (9,61),
+            (9,62), (11,62), (13,62), (14,62),
+            (9,63), (11,63), (14,63), (15,63),
+            (8,64), (9,64), (15,64), (16,64),
+            (6,65), (9,65), (15,65), (16,65), (17,65),
+            (8,66), (14,66), (15,66), (16,66),
+            (5,67), (8,67), (14,67),
+            (5,68), (7,68), (16,68),
+            (14,69), (16,69),
+            // Row 70-79
+            (6,70), (7,70), (8,70), (17,70),
+            (7,71), (8,71), (14,71), (16,71),
+            (6,72), (7,72), (8,72), (16,72),
+            (14,73),
+            (5,74), (7,74), (14,74), (15,74), (16,74),
+            (7,75), (13,75), (14,75), (17,75),
+            (4,76), (8,76), (13,76), (15,76), (16,76), (17,76),
+            (4,77), (6,77), (7,77), (8,77), (9,77), (18,77),
+            (10,78), (17,78), (18,78), (19,78),
+            (8,79), (11,79), (15,79), (18,79), (19,79), (20,79),
+            // Row 80-86
+            (8,80), (11,80), (19,80),
+            (6,81), (11,81), (15,81), (16,81), (17,81), (18,81),
+            (7,82), (8,82), (9,82), (10,82), (18,82),
+            (9,83), (15,83), (16,83),
+            (7,84), (8,84), (13,84), (14,84), (15,84), (16,84),
+            (4,85), (7,85), (13,85),
+            (4,86), (6,86)
+        ]
+
+        // Rotate 90° clockwise to make it horizontal (87 wide x 21 tall)
+        // (x, y) -> (86 - y, x) for 90° clockwise rotation
+        let piFuseHorizontal = piFuseVertical.map { (86 - $0.1, $0.0) }
+
+        let patternWidth = 87
+        let patternHeight = 21
+
+        // Randomly flip for variety (changes movement direction)
+        let flipHorizontal = Bool.random()
+        let flipVertical = Bool.random()
+
+        let transformedOffsets = piFuseHorizontal.map { offset -> (Int, Int) in
             var x = offset.0
             var y = offset.1
             if flipHorizontal {
