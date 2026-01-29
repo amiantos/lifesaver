@@ -154,12 +154,9 @@ final class LifeNode: SKSpriteNode {
     public func die(duration: TimeInterval, fadeDelay: TimeInterval, fade: Bool) {
         if !alive {
             timeInState += 1
-            // Ensure visual state is correct - fix any desync
-            if !hasActions() {
-                let expectedAlpha: CGFloat = fade ? 0.2 : 0
-                if alpha > expectedAlpha {
-                    alpha = expectedAlpha
-                }
+            // Ensure visual state is correct - fix any desync (only when fade is enabled)
+            if fade, !hasActions(), alpha > 0.2 {
+                alpha = 0.2
             }
             return
         }
@@ -170,8 +167,7 @@ final class LifeNode: SKSpriteNode {
         removeAllActions()
 
         guard fade else {
-            alpha = 0  // Immediately hide when no fade effect
-            return
+            return  // Keep cell visible when fade effect is disabled
         }
 
         if duration > 0 {

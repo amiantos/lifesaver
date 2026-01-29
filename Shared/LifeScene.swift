@@ -159,7 +159,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
                 node.alpha = 1.0
                 node.color = node.aliveColor
             } else {
-                node.alpha = deathFade ? 0.2 : 0
+                node.alpha = deathFade ? 0.2 : 1.0  // Keep visible when fade is off
             }
         }
     }
@@ -516,10 +516,10 @@ final class LifeScene: SKScene, LifeManagerDelegate {
                         node.alpha = 1
                         node.color = node.aliveColor
                     }
-                } else {
-                    let expectedAlpha: CGFloat = deathFade ? 0.2 : 0
-                    if node.alpha > expectedAlpha {
-                        node.alpha = expectedAlpha
+                } else if deathFade {
+                    // Only enforce dimmed state when fade is enabled
+                    if node.alpha > 0.2 {
+                        node.alpha = 0.2
                     }
                 }
             }
