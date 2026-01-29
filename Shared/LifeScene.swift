@@ -138,9 +138,11 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     private var allNodes: [LifeNode] = []
     private var aliveNodes: [LifeNode] = []
     private var activeCells: Set<LifeNode> = []
-    private var historyBuffer: [Int] = Array(repeating: -1, count: 10)
-    private var historyIndex: Int = 0
-    private var historyFilled: Bool = false
+    private var boardSnapshots: [Set<CGPoint>] = [[], [], []]
+    private var snapshotIndex: Int = 0
+    private var snapshotsFilled: Bool = false
+    private var stasisDetectedTime: TimeInterval?
+    private let stasisResetDelay: TimeInterval = 30.0
     private var lengthSquares: CGFloat = 16
     private var heightSquares: CGFloat = 9
     private var matrix: ToroidalMatrix<LifeNode> = ToroidalMatrix(
@@ -290,9 +292,10 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         allNodes.removeAll()
         aliveNodes.removeAll()
         activeCells.removeAll()
-        historyBuffer = Array(repeating: -1, count: 10)
-        historyIndex = 0
-        historyFilled = false
+        boardSnapshots = [[], [], []]
+        snapshotIndex = 0
+        snapshotsFilled = false
+        stasisDetectedTime = nil
     }
 
     // MARK: - Life Updates
@@ -359,26 +362,46 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             }
         }
 
-        // Static tank prevention using circular buffer
-        historyBuffer[historyIndex] = livingNodes.count
-        historyIndex = (historyIndex + 1) % 10
-        if !historyFilled && historyIndex == 0 {
-            historyFilled = true
+        // Static tank prevention - compare board snapshots
+        // Create snapshot of current living cell positions
+        var currentSnapshot = Set<CGPoint>()
+        for node in livingNodes {
+            currentSnapshot.insert(node.relativePosition)
         }
 
-        if historyFilled {
-            // Check for stasis: count unique values in history buffer
-            var uniqueValues = Set<Int>()
-            for value in historyBuffer {
-                uniqueValues.insert(value)
+        // Store in circular buffer of 3 boards
+        boardSnapshots[snapshotIndex] = currentSnapshot
+        snapshotIndex = (snapshotIndex + 1) % 3
+        if !snapshotsFilled && snapshotIndex == 0 {
+            snapshotsFilled = true
+        }
+
+        if snapshotsFilled {
+            // Check if any 2 boards match (period-1 or period-2 oscillator)
+            let match01 = boardSnapshots[0] == boardSnapshots[1]
+            let match02 = boardSnapshots[0] == boardSnapshots[2]
+            let match12 = boardSnapshots[1] == boardSnapshots[2]
+
+            if match01 || match02 || match12 {
+                // Stasis detected - start timer if not already running
+                if stasisDetectedTime == nil {
+                    stasisDetectedTime = CACurrentMediaTime()
+                }
+            } else {
+                // Not in stasis - reset timer
+                stasisDetectedTime = nil
             }
-            if 1 ... 2 ~= uniqueValues.count {
+
+            // Check if stasis timer has expired
+            if let detectedTime = stasisDetectedTime,
+               CACurrentMediaTime() - detectedTime >= stasisResetDelay {
                 dyingNodes.append(contentsOf: livingNodes)
                 livingNodes.removeAll()
-                // Reset history buffer so next regeneration gets a fresh start
-                historyBuffer = Array(repeating: -1, count: 10)
-                historyIndex = 0
-                historyFilled = false
+                // Reset snapshots and timer
+                boardSnapshots = [[], [], []]
+                snapshotIndex = 0
+                snapshotsFilled = false
+                stasisDetectedTime = nil
                 // After stasis reset, all cells become active for next generation
                 nextActiveCells = Set(allNodes)
             }
