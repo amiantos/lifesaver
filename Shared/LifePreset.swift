@@ -50,6 +50,7 @@ enum StartingPattern: Int {
     case defaultRandom = 0
     case sparse = 1
     case gliders = 2
+    case sparseGliders = 3
 }
 
 enum Colors: Int {

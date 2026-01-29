@@ -375,6 +375,10 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             if 1 ... 2 ~= uniqueValues.count {
                 dyingNodes.append(contentsOf: livingNodes)
                 livingNodes.removeAll()
+                // Reset history buffer so next regeneration gets a fresh start
+                historyBuffer = Array(repeating: -1, count: 10)
+                historyIndex = 0
+                historyFilled = false
                 // After stasis reset, all cells become active for next generation
                 nextActiveCells = Set(allNodes)
             }
@@ -403,6 +407,8 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             createSparseShapes(&livingNodes)
         case .gliders:
             createGliderShapes(&livingNodes)
+        case .sparseGliders:
+            createSparseGliderShapes(&livingNodes)
         }
     }
 
@@ -477,22 +483,66 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             totalGliders = 2
         }
 
-        // Glider pattern offsets (relative to center):
-        //   X        (0, 1)
-        //     X      (1, 0)
-        // X X X      (-1,-1), (0,-1), (1,-1)
-        let gliderOffsets = [
-            (0, 1),
-            (1, 0),
-            (-1, -1),
-            (0, -1),
-            (1, -1)
+        // Four glider orientations for different diagonal directions
+        let gliderOrientations = [
+            // Down-right
+            [(0, 1), (1, 0), (-1, -1), (0, -1), (1, -1)],
+            // Down-left
+            [(0, 1), (-1, 0), (1, -1), (0, -1), (-1, -1)],
+            // Up-right
+            [(0, -1), (1, 0), (-1, 1), (0, 1), (1, 1)],
+            // Up-left
+            [(0, -1), (-1, 0), (1, 1), (0, 1), (-1, 1)]
         ]
 
         for _ in 1 ... totalGliders {
             let centerX = Int.random(in: 2 ..< Int(lengthSquares) - 2)
             let centerY = Int.random(in: 2 ..< Int(heightSquares) - 2)
             let color = aliveColors.randomElement()!
+            let gliderOffsets = gliderOrientations.randomElement()!
+
+            for offset in gliderOffsets {
+                let node = matrix[centerX + offset.0, centerY + offset.1]
+                node.aliveColor = color
+                livingNodes.append(node)
+            }
+        }
+    }
+
+    fileprivate func createSparseGliderShapes(_ livingNodes: inout [LifeNode]) {
+        var totalGliders: Int = 0
+        switch squareSize {
+        case .ultraSmall:
+            totalGliders = 50
+        case .superSmall:
+            totalGliders = 25
+        case .verySmall:
+            totalGliders = 10
+        case .small:
+            totalGliders = 5
+        case .medium:
+            totalGliders = 2
+        case .large:
+            totalGliders = 1
+        }
+
+        // Four glider orientations for different diagonal directions
+        let gliderOrientations = [
+            // Down-right
+            [(0, 1), (1, 0), (-1, -1), (0, -1), (1, -1)],
+            // Down-left
+            [(0, 1), (-1, 0), (1, -1), (0, -1), (-1, -1)],
+            // Up-right
+            [(0, -1), (1, 0), (-1, 1), (0, 1), (1, 1)],
+            // Up-left
+            [(0, -1), (-1, 0), (1, 1), (0, 1), (-1, 1)]
+        ]
+
+        for _ in 1 ... totalGliders {
+            let centerX = Int.random(in: 2 ..< Int(lengthSquares) - 2)
+            let centerY = Int.random(in: 2 ..< Int(heightSquares) - 2)
+            let color = aliveColors.randomElement()!
+            let gliderOffsets = gliderOrientations.randomElement()!
 
             for offset in gliderOffsets {
                 let node = matrix[centerX + offset.0, centerY + offset.1]
