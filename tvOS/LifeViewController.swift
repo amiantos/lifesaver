@@ -609,22 +609,22 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
             preferredStyle: .actionSheet
         )
 
-        let slowAction = UIAlertAction(title: "Slow", style: .default) { _ in
+        let slowAction = UIAlertAction(title: "Slowest", style: .default) { _ in
             self.manager.setAnimationSpeed(.slow)
         }
         alert.addAction(slowAction)
 
-        let normalAction = UIAlertAction(title: "Normal", style: .default) { _ in
+        let normalAction = UIAlertAction(title: "Slower", style: .default) { _ in
             self.manager.setAnimationSpeed(.normal)
         }
         alert.addAction(normalAction)
 
-        let fastAction = UIAlertAction(title: "Fast", style: .default) { _ in
+        let fastAction = UIAlertAction(title: "Slow", style: .default) { _ in
             self.manager.setAnimationSpeed(.fast)
         }
         alert.addAction(fastAction)
 
-        let fastestAction = UIAlertAction(title: "Fastest", style: .default) { _ in
+        let fastestAction = UIAlertAction(title: "Fast", style: .default) { _ in
             self.manager.setAnimationSpeed(.fastest)
         }
         alert.addAction(fastestAction)
@@ -936,13 +936,13 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
     private func updateSpeedCellText() {
         switch manager.animationSpeed {
         case .slow:
-            speedCell?.detailTextLabel?.text = "Slow"
+            speedCell?.detailTextLabel?.text = "Slowest"
         case .normal:
-            speedCell?.detailTextLabel?.text = "Normal"
+            speedCell?.detailTextLabel?.text = "Slower"
         case .fast:
-            speedCell?.detailTextLabel?.text = "Fast"
+            speedCell?.detailTextLabel?.text = "Slow"
         case .fastest:
-            speedCell?.detailTextLabel?.text = "Fastest"
+            speedCell?.detailTextLabel?.text = "Fast"
         case .off:
             speedCell?.detailTextLabel?.text = "Instant"
         }
