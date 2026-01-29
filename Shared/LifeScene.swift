@@ -38,24 +38,30 @@ final class LifeScene: SKScene, LifeManagerDelegate {
 
     private var animationTime: TimeInterval = 2
     private var updateTime: TimeInterval = 2
+    private var fadeDelayTime: TimeInterval = 540
     var animationSpeed: AnimationSpeed = .normal {
         didSet {
             switch animationSpeed {
             case .fastest:
                 animationTime = 0
                 updateTime = 0.067
+                fadeDelayTime = 90
             case .fast:
                 animationTime = 0.6
                 updateTime = 0.6
+                fadeDelayTime = 180
             case .normal:
                 animationTime = 2
                 updateTime = 2
+                fadeDelayTime = 540
             case .slow:
                 animationTime = 5
                 updateTime = 5
+                fadeDelayTime = 900
             case .off:
                 animationTime = 0
                 updateTime = 0.1
+                fadeDelayTime = 90
             }
         }
     }
@@ -417,7 +423,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
 
         // Update nodes here
         dyingNodes.forEach {
-            $0.die(duration: animationTime * 5, fade: deathFade)
+            $0.die(duration: animationTime * 5, fadeDelay: fadeDelayTime, fade: deathFade)
         }
 
         livingNodes.forEach {
