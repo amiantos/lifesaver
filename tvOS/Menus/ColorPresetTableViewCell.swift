@@ -9,16 +9,44 @@
 import UIKit
 
 class ColorPresetTableViewCell: UITableViewCell {
-    @IBOutlet var titleLabel: UILabel!
+    static let reuseIdentifier = "presetCell"
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 38)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupViews()
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
-        // Configure the view for the selected state
+    private func setupViews() {
+        contentView.addSubview(titleLabel)
+
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+    }
+
+    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        super.didUpdateFocus(in: context, with: coordinator)
+
+        coordinator.addCoordinatedAnimations({
+            if self.isFocused {
+                self.titleLabel.textColor = .black
+            } else {
+                self.titleLabel.textColor = .white
+            }
+        }, completion: nil)
     }
 }
