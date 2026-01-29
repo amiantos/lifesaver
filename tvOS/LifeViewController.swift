@@ -367,7 +367,11 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
     }
 
     @objc func didPressMenuButton(gesture _: UIGestureRecognizer) {
-        showMainMenu()
+        if state == .allClosed {
+            showMainMenu()
+        } else {
+            hideAllMenus()
+        }
     }
 
     @objc func didSwipeLeft(gesture _: UIGestureRecognizer) {
@@ -396,7 +400,6 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
             self.colorMenuTrailingConstraint.constant = 0
             self.mainMenuLeadingConstraint.constant = -self.mainMenuView.frame.width
             self.state = .colorPresets
-            self.pressedMenuButtonRecognizer?.isEnabled = true
 
             let propertyAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
                 self.view.layoutIfNeeded()
@@ -422,7 +425,6 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
             self.colorMenuTrailingConstraint.constant = self.colorPresetsView.frame.width
             self.mainMenuLeadingConstraint.constant = 0
             self.state = .mainMenu
-            self.pressedMenuButtonRecognizer?.isEnabled = false
 
             let propertyAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
                 self.view.layoutIfNeeded()
@@ -445,7 +447,6 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
             self.colorMenuTrailingConstraint.constant = self.colorPresetsView.frame.width
             self.mainMenuLeadingConstraint.constant = -self.mainMenuView.frame.width
             self.state = .allClosed
-            self.pressedMenuButtonRecognizer?.isEnabled = true
 
             let propertyAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
                 self.view.layoutIfNeeded()
