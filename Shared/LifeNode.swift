@@ -122,9 +122,9 @@ final class LifeNode: SKSpriteNode {
 
         timeInState = 0
         alive = true
-        removeAllActions()  // Always cancel pending die animations
 
         if duration > 0 {
+            removeAllActions()
             // Use cached fade action if available, otherwise create new one
             let fadeAction = CachedActions.fadeIn(duration: duration)
                 ?? SKAction.fadeAlpha(to: 1, duration: duration)
@@ -141,30 +141,39 @@ final class LifeNode: SKSpriteNode {
     public func die(duration: TimeInterval, fade: Bool) {
         if !alive {
             timeInState += 1
+
+            // 30 for slow modes... 120 for fast?
+            if timeInState == 120, duration > 0, fade {
+                removeAllActions()
+                // Use cached fade action if available, otherwise create new one
+                let fadeAction = CachedActions.fadeOut(duration: duration) ?? {
+                    let action = SKAction.fadeAlpha(to: 0, duration: duration)
+                    action.timingMode = .easeIn
+                    return action
+                }()
+                let colorAction = SKAction.colorize(with: deadColor, colorBlendFactor: 1, duration: duration)
+                let actionGroup = SKAction.group([fadeAction, colorAction])
+                actionGroup.timingMode = .easeIn
+                run(actionGroup)
+            }
+
             return
         }
 
         timeInState = 0
         alive = false
 
-        if fade {
+        if duration > 0, fade {
             removeAllActions()
-
-            // First dim to 0.2, then after a delay fade out completely
-            let dimDuration = max(0.1, duration)
-            let fadeOutDuration = 0.6
-            let fadeOutDelay = min(540.0, max(180.0, 180.0 + duration * 15.0))  // 180-540 seconds (3-9 min)
-
-            let dimAction = SKAction.fadeAlpha(to: 0.2, duration: dimDuration)
-            dimAction.timingMode = .easeInEaseOut
-
-            let waitAction = SKAction.wait(forDuration: fadeOutDelay)
-
-            let fadeOutAction = SKAction.fadeAlpha(to: 0, duration: fadeOutDuration)
-            fadeOutAction.timingMode = .easeIn
-
-            let sequence = SKAction.sequence([dimAction, waitAction, fadeOutAction])
-            run(sequence)
+            // Use cached fade action if available, otherwise create new one
+            let fadeAction = CachedActions.fadeDim(duration: duration) ?? {
+                let action = SKAction.fadeAlpha(to: 0.2, duration: duration)
+                action.timingMode = .easeInEaseOut
+                return action
+            }()
+            run(fadeAction)
+        } else if fade {
+            alpha = 0.2
         }
     }
 
