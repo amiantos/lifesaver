@@ -108,9 +108,9 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
 
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: view.contentView.centerXAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: view.contentView.centerYAnchor, constant: -10),
+            titleLabel.centerYAnchor.constraint(equalTo: view.contentView.centerYAnchor, constant: -20),
             subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: -10),
-            subtitleLabel.leadingAnchor.constraint(equalTo: view.contentView.leadingAnchor, constant: 375)
+            subtitleLabel.leadingAnchor.constraint(equalTo: view.contentView.leadingAnchor, constant: 450)
         ])
 
         return view
@@ -224,22 +224,23 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         NSLayoutConstraint.activate([
             mainMenuView.topAnchor.constraint(equalTo: view.topAnchor),
             mainMenuView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            mainMenuView.widthAnchor.constraint(equalToConstant: 700),
+            mainMenuView.widthAnchor.constraint(equalToConstant: 800),
 
             headerView.topAnchor.constraint(equalTo: mainMenuView.contentView.topAnchor),
             headerView.leadingAnchor.constraint(equalTo: mainMenuView.contentView.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: mainMenuView.contentView.trailingAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 250),
+            headerView.heightAnchor.constraint(equalToConstant: 225),
 
-            menuTableView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            menuTableView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -30),
             menuTableView.leadingAnchor.constraint(equalTo: mainMenuView.contentView.leadingAnchor),
             menuTableView.trailingAnchor.constraint(equalTo: mainMenuView.contentView.trailingAnchor, constant: -100),
-            menuTableView.heightAnchor.constraint(equalToConstant: 670),
+            // menuTableView.heightAnchor.constraint(equalToConstant: 770),
+            menuTableView.bottomAnchor.constraint(equalTo: mainMenuView.contentView.bottomAnchor),
 
-            footerView.topAnchor.constraint(equalTo: menuTableView.bottomAnchor),
-            footerView.leadingAnchor.constraint(equalTo: mainMenuView.contentView.leadingAnchor),
-            footerView.trailingAnchor.constraint(equalTo: mainMenuView.contentView.trailingAnchor),
-            footerView.bottomAnchor.constraint(equalTo: mainMenuView.contentView.bottomAnchor)
+//            footerView.topAnchor.constraint(equalTo: menuTableView.bottomAnchor),
+//            footerView.leadingAnchor.constraint(equalTo: mainMenuView.contentView.leadingAnchor),
+//            footerView.trailingAnchor.constraint(equalTo: mainMenuView.contentView.trailingAnchor),
+//            footerView.bottomAnchor.constraint(equalTo: mainMenuView.contentView.bottomAnchor)
         ])
     }
 
@@ -288,7 +289,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
 
     private func setupConstraints() {
         mainMenuLeadingConstraint = mainMenuView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        mainMenuLeadingConstraint.constant = -700
+        mainMenuLeadingConstraint.constant = -800
         mainMenuLeadingConstraint.isActive = true
 
         colorMenuTrailingConstraint = colorPresetsView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -488,25 +489,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
     }
 
     fileprivate func setupPresetMenu() {
-        let selectedPresetTitle = manager.selectedPresetTitle == "" ? "Default" : manager.selectedPresetTitle
-
-        // Check if it's a color preset
-        if let colorIndex = colorPresets.firstIndex(where: { $0.title == selectedPresetTitle }) {
-            colorPresetsTableView.selectRow(
-                at: IndexPath(row: colorIndex, section: 0),
-                animated: false,
-                scrollPosition: .top
-            )
-        }
-
-        // Check if it's a settings preset (for main menu in Quick Start mode)
-        if !isCustomizeMode, let settingsIndex = settingsPresets.firstIndex(where: { $0.title == selectedPresetTitle }) {
-            menuTableView.selectRow(
-                at: IndexPath(row: settingsIndex, section: 0),
-                animated: false,
-                scrollPosition: .none
-            )
-        }
+        // No initial selection - presets are actions, not persistent selections
     }
 
     fileprivate func hideInitialOverlay() {
@@ -1031,6 +1014,13 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
         isCustomizeMode = !isCustomizeMode
         manager.setIsCustomizeMode(isCustomizeMode)
         menuTableView.reloadData()
+
+        // Deselect all cells and scroll to top
+        if let selectedIndexPath = menuTableView.indexPathForSelectedRow {
+            menuTableView.deselectRow(at: selectedIndexPath, animated: false)
+        }
+        menuTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+
         setNeedsFocusUpdate()
         updateFocusIfNeeded()
     }
