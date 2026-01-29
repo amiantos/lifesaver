@@ -68,7 +68,7 @@ extension SKColor {
 
 let settingsPresets = [
     LifePreset(
-        title: "Defaults",
+        title: "Santa Fe",
         appearanceMode: .dark,
         squareSize: .medium,
         animationSpeed: .normal,
@@ -104,7 +104,7 @@ let settingsPresets = [
         color3: SKColor(red: 0.71, green: 0.13, blue: 0.01, alpha: 1.0)
     ),
     LifePreset(
-        title: "Technicolor Dream",
+        title: "Psychedelic",
         appearanceMode: .light,
         squareSize: .verySmall,
         animationSpeed: .fastest,
@@ -123,6 +123,18 @@ let settingsPresets = [
         deathFade: true,
         shiftingColors: true,
         startingPattern: .sparse,
+        color1: SKColor(red: 252 / 255.0, green: 98 / 255.0, blue: 101 / 255.0, alpha: 1.00),
+        color2: SKColor(red: 88 / 255.0, green: 137 / 255.0, blue: 251 / 255.0, alpha: 1.00),
+        color3: SKColor(red: 38 / 255.0, green: 205 / 255.0, blue: 105 / 255.0, alpha: 1.00)
+    ),
+    LifePreset(
+        title: "Lonely Gliders",
+        appearanceMode: .dark,
+        squareSize: .ultraSmall,
+        animationSpeed: .fastest,
+        deathFade: true,
+        shiftingColors: true,
+        startingPattern: .lonelyGliders,
         color1: SKColor(red: 252 / 255.0, green: 98 / 255.0, blue: 101 / 255.0, alpha: 1.00),
         color2: SKColor(red: 88 / 255.0, green: 137 / 255.0, blue: 251 / 255.0, alpha: 1.00),
         color3: SKColor(red: 38 / 255.0, green: 205 / 255.0, blue: 105 / 255.0, alpha: 1.00)
