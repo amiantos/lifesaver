@@ -123,7 +123,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         view.translatesAutoresizingMaskIntoConstraints = false
 
         let urlLabel = UILabel()
-        urlLabel.text = "https://amiantos.net/lifesaver"
+        urlLabel.text = "https://github.com/amiantos/lifesaver"
         urlLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
         urlLabel.translatesAutoresizingMaskIntoConstraints = false
 
@@ -172,6 +172,11 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         setupGestureRecognizers()
 
         manager.settingsDelegate = self
+
+        // Migrate deprecated "Instant" speed to "Fastest"
+        if manager.animationSpeed == .off {
+            manager.setAnimationSpeed(.fastest)
+        }
 
         if !manager.hasPressedMenuButton {
             bounceOrHideMenuHintToast(reverse: false)
@@ -546,41 +551,10 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
     // MARK: - LifeManagerDelegate
 
     func updatedSettings() {
-        if let manager = Optional(manager) {
-            switch manager.squareSize {
-            case .superSmall:
-                squareSizeCell?.detailTextLabel?.text = "XX Small"
-            case .verySmall:
-                squareSizeCell?.detailTextLabel?.text = "Tiny"
-            case .small:
-                squareSizeCell?.detailTextLabel?.text = "Small"
-            case .medium:
-                squareSizeCell?.detailTextLabel?.text = "Medium"
-            case .large:
-                squareSizeCell?.detailTextLabel?.text = "Large"
-            case .ultraSmall:
-                squareSizeCell?.detailTextLabel?.text = "XXX Small"
-            }
-
-            switch manager.animationSpeed {
-            case .normal:
-                speedCell?.detailTextLabel?.text = "Normal"
-            case .fast:
-                speedCell?.detailTextLabel?.text = "Fast"
-            case .slow:
-                speedCell?.detailTextLabel?.text = "Slow"
-            case .off:
-                speedCell?.detailTextLabel?.text = "Instant"
-            case .fastest:
-                speedCell?.detailTextLabel?.text = "Fastest"
-            }
-
-            let randomColorPresetTitle = manager.shiftingColors ? "On" : "Off"
-            shiftingColorsCell?.detailTextLabel?.text = randomColorPresetTitle
-
-            let deathFadeTitle = manager.deathFade ? "On" : "Off"
-            deathFadeCell?.detailTextLabel?.text = deathFadeTitle
-        }
+        updateSquareSizeCellText()
+        updateSpeedCellText()
+        updateShiftingColorsCellText()
+        updateDeathFadeCellText()
     }
 
     // MARK: - Menu Picker Methods (from MenuTableViewController)
@@ -614,7 +588,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
 
         Life Saver is open source software, which means you can see how it works and use it to make your own versions or modifications.
 
-        For more information, visit https://amiantos.net/lifesaver
+        For more information, visit https://github.com/amiantos/lifesaver
         """, preferredStyle: .alert)
 
         let cancelAction = UIAlertAction(title: "Close", style: .cancel, handler: nil)
@@ -634,20 +608,25 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
             preferredStyle: .actionSheet
         )
 
-        let defaultAction = UIAlertAction(title: "Normal", style: .default) { _ in
+        let slowAction = UIAlertAction(title: "Slow", style: .default) { _ in
+            self.manager.setAnimationSpeed(.slow)
+        }
+        alert.addAction(slowAction)
+
+        let normalAction = UIAlertAction(title: "Normal", style: .default) { _ in
             self.manager.setAnimationSpeed(.normal)
         }
-        alert.addAction(defaultAction)
+        alert.addAction(normalAction)
 
         let fastAction = UIAlertAction(title: "Fast", style: .default) { _ in
             self.manager.setAnimationSpeed(.fast)
         }
         alert.addAction(fastAction)
 
-        let offAction = UIAlertAction(title: "Instant", style: .default) { _ in
-            self.manager.setAnimationSpeed(.off)
+        let fastestAction = UIAlertAction(title: "Fastest", style: .default) { _ in
+            self.manager.setAnimationSpeed(.fastest)
         }
-        alert.addAction(offAction)
+        alert.addAction(fastestAction)
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
@@ -690,25 +669,36 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
             """,
             preferredStyle: .actionSheet
         )
-        let xSmallAction = UIAlertAction(title: "Tiny", style: .default) { _ in
-            self.manager.setSquareSize(.verySmall)
-        }
-        alert.addAction(xSmallAction)
 
-        let smallAction = UIAlertAction(title: "Small", style: .default) { _ in
-            self.manager.setSquareSize(.small)
+        let largeAction = UIAlertAction(title: "Large", style: .default) { _ in
+            self.manager.setSquareSize(.large)
         }
-        alert.addAction(smallAction)
+        alert.addAction(largeAction)
 
         let mediumAction = UIAlertAction(title: "Medium", style: .default) { _ in
             self.manager.setSquareSize(.medium)
         }
         alert.addAction(mediumAction)
 
-        let largeAction = UIAlertAction(title: "Large", style: .default) { _ in
-            self.manager.setSquareSize(.large)
+        let smallAction = UIAlertAction(title: "Small", style: .default) { _ in
+            self.manager.setSquareSize(.small)
         }
-        alert.addAction(largeAction)
+        alert.addAction(smallAction)
+
+        let tinyAction = UIAlertAction(title: "Tiny", style: .default) { _ in
+            self.manager.setSquareSize(.verySmall)
+        }
+        alert.addAction(tinyAction)
+
+        let miniAction = UIAlertAction(title: "Mini", style: .default) { _ in
+            self.manager.setSquareSize(.superSmall)
+        }
+        alert.addAction(miniAction)
+
+        let microAction = UIAlertAction(title: "Micro", style: .default) { _ in
+            self.manager.setSquareSize(.ultraSmall)
+        }
+        alert.addAction(microAction)
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
@@ -845,33 +835,33 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
 
     private func updateSquareSizeCellText() {
         switch manager.squareSize {
-        case .superSmall:
-            squareSizeCell?.detailTextLabel?.text = "XX Small"
-        case .verySmall:
-            squareSizeCell?.detailTextLabel?.text = "Tiny"
-        case .small:
-            squareSizeCell?.detailTextLabel?.text = "Small"
-        case .medium:
-            squareSizeCell?.detailTextLabel?.text = "Medium"
         case .large:
             squareSizeCell?.detailTextLabel?.text = "Large"
+        case .medium:
+            squareSizeCell?.detailTextLabel?.text = "Medium"
+        case .small:
+            squareSizeCell?.detailTextLabel?.text = "Small"
+        case .verySmall:
+            squareSizeCell?.detailTextLabel?.text = "Tiny"
+        case .superSmall:
+            squareSizeCell?.detailTextLabel?.text = "Mini"
         case .ultraSmall:
-            squareSizeCell?.detailTextLabel?.text = "XXX Small"
+            squareSizeCell?.detailTextLabel?.text = "Micro"
         }
     }
 
     private func updateSpeedCellText() {
         switch manager.animationSpeed {
+        case .slow:
+            speedCell?.detailTextLabel?.text = "Slow"
         case .normal:
             speedCell?.detailTextLabel?.text = "Normal"
         case .fast:
             speedCell?.detailTextLabel?.text = "Fast"
-        case .slow:
-            speedCell?.detailTextLabel?.text = "Slow"
-        case .off:
-            speedCell?.detailTextLabel?.text = "Instant"
         case .fastest:
             speedCell?.detailTextLabel?.text = "Fastest"
+        case .off:
+            speedCell?.detailTextLabel?.text = "Instant"
         }
     }
 
