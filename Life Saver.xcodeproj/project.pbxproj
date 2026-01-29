@@ -430,7 +430,7 @@
 				SDKROOT = appletvos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 15.6;
+				TVOS_DEPLOYMENT_TARGET = 18.6;
 			};
 			name = Debug;
 		};
@@ -453,7 +453,7 @@
 				SDKROOT = appletvos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 15.6;
+				TVOS_DEPLOYMENT_TARGET = 18.6;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
