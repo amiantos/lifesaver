@@ -728,6 +728,12 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
             self.updateStartingPatternCellText()
         }
         alert.addAction(lonelyGlidersAction)
+        
+        let gosperGunAction = UIAlertAction(title: "Gosper Gun", style: .default) { _ in
+            self.manager.setStartingPattern(.gosperGun)
+            self.updateStartingPatternCellText()
+        }
+        alert.addAction(gosperGunAction)
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
@@ -953,6 +959,8 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             startingPatternCell?.detailTextLabel?.text = "Sparse Gliders"
         case .lonelyGliders:
             startingPatternCell?.detailTextLabel?.text = "Lonely Gliders"
+        case .gosperGun:
+            startingPatternCell?.detailTextLabel?.text = "Gosper Gun"
         }
     }
 

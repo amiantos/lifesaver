@@ -52,6 +52,7 @@ enum StartingPattern: Int {
     case gliders = 2
     case sparseGliders = 3
     case lonelyGliders = 4
+    case gosperGun = 5
 }
 
 enum Colors: Int {

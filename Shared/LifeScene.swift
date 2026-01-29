@@ -526,6 +526,8 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             createSparseGliderShapes(&livingNodes)
         case .lonelyGliders:
             createLonelyGliderShapes(&livingNodes)
+        case .gosperGun:
+            createGosperGunShapes(&livingNodes)
         }
     }
 
@@ -706,6 +708,59 @@ final class LifeScene: SKScene, LifeManagerDelegate {
                 node.aliveColor = color
                 livingNodes.append(node)
             }
+        }
+    }
+
+    fileprivate func createGosperGunShapes(_ livingNodes: inout [LifeNode]) {
+        let width = Int(lengthSquares)
+        let height = Int(heightSquares)
+
+        // Gosper Glider Gun requires 36x9 minimum grid
+        guard width >= 36 && height >= 9 else {
+            // Fall back to default random if grid is too small
+            createDefaultRandomShapes(&livingNodes)
+            return
+        }
+
+        // Gosper Glider Gun pattern offsets (36 cells, 36x9 bounding box)
+        // Pattern oriented with (0,0) at top-left of bounding box
+        let gosperGunOffsets: [(Int, Int)] = [
+            // Left square (block)
+            (0, 4), (0, 5), (1, 4), (1, 5),
+            // Left part of gun
+            (10, 4), (10, 5), (10, 6),
+            (11, 3), (11, 7),
+            (12, 2), (12, 8),
+            (13, 2), (13, 8),
+            // Middle left
+            (14, 5),
+            (15, 3), (15, 7),
+            (16, 4), (16, 5), (16, 6),
+            (17, 5),
+            // Middle right
+            (20, 2), (20, 3), (20, 4),
+            (21, 2), (21, 3), (21, 4),
+            (22, 1), (22, 5),
+            (24, 0), (24, 1), (24, 5), (24, 6),
+            // Right square (block)
+            (34, 2), (34, 3), (35, 2), (35, 3)
+        ]
+
+        // Center the pattern on the grid
+        let patternWidth = 36
+        let patternHeight = 9
+        let startX = (width - patternWidth) / 2
+        let startY = (height - patternHeight) / 2
+
+        // Use a single color for all cells
+        let color = aliveColors.randomElement()!
+
+        for offset in gosperGunOffsets {
+            let x = startX + offset.0
+            let y = startY + offset.1
+            let node = matrix[x, y]
+            node.aliveColor = color
+            livingNodes.append(node)
         }
     }
 
