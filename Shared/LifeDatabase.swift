@@ -25,7 +25,7 @@ struct LifeDatabase {
         static let deathFade = "deathFade"
         static let shiftingColors = "shiftingColors"
         static let hasPressedMenuButton = "hasPressedMenuButton"
-        static let startingPreset = "startingPreset"
+        static let startingPattern = "startingPattern"
     }
 
     static var standard: UserDefaults {
@@ -43,7 +43,7 @@ struct LifeDatabase {
              Key.shiftingColors: false,
              Key.selectedPresetTitle: "Santa Fe",
              Key.hasPressedMenuButton: false,
-             Key.startingPreset: StartingPreset.defaultRandom.rawValue])
+             Key.startingPattern: StartingPattern.defaultRandom.rawValue])
 
         return database
     }
@@ -106,12 +106,12 @@ extension UserDefaults {
         set(hasPressedMenuButton, for: LifeDatabase.Key.hasPressedMenuButton)
     }
 
-    var startingPreset: StartingPreset {
-        return StartingPreset(rawValue: integer(forKey: LifeDatabase.Key.startingPreset)) ?? .defaultRandom
+    var startingPattern: StartingPattern {
+        return StartingPattern(rawValue: integer(forKey: LifeDatabase.Key.startingPattern)) ?? .defaultRandom
     }
 
-    func set(startingPreset: StartingPreset) {
-        set(startingPreset.rawValue, for: LifeDatabase.Key.startingPreset)
+    func set(startingPattern: StartingPattern) {
+        set(startingPattern.rawValue, for: LifeDatabase.Key.startingPattern)
     }
 
     var selectedPresetTitle: String {

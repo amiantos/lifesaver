@@ -61,7 +61,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     }
 
     var squareSize: SquareSize = .medium
-    var startingPreset: StartingPreset = .defaultRandom
+    var startingPattern: StartingPattern = .defaultRandom
 
     // MARK: - Manager
 
@@ -164,7 +164,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             aliveColors = [manager.color1, manager.color2, manager.color3]
             deathFade = manager.deathFade
             shiftingColors = manager.shiftingColors
-            startingPreset = manager.startingPreset
+            startingPattern = manager.startingPattern
         }
 
         if backgroundNode.color != appearanceColor {
@@ -396,7 +396,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     }
 
     fileprivate func createRandomShapes(_: inout [LifeNode], _ livingNodes: inout [LifeNode]) {
-        switch startingPreset {
+        switch startingPattern {
         case .defaultRandom:
             createDefaultRandomShapes(&livingNodes)
         case .sparse:

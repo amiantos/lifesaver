@@ -156,7 +156,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
     private var speedCell: UITableViewCell?
     private var deathFadeCell: UITableViewCell?
     private var shiftingColorsCell: UITableViewCell?
-    private var startingPresetCell: UITableViewCell?
+    private var startingPatternCell: UITableViewCell?
 
     // MARK: - View Lifecycle
 
@@ -557,7 +557,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         updateSpeedCellText()
         updateShiftingColorsCellText()
         updateDeathFadeCellText()
-        updateStartingPresetCellText()
+        updateStartingPatternCellText()
     }
 
     // MARK: - Menu Picker Methods (from MenuTableViewController)
@@ -709,7 +709,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         present(alert, animated: true, completion: nil)
     }
 
-    fileprivate func showStartingPresetPicker() {
+    fileprivate func showStartingPatternPicker() {
         let alert = UIAlertController(
             title: "Starting Pattern",
             message: """
@@ -719,20 +719,20 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         )
 
         let defaultAction = UIAlertAction(title: "Default", style: .default) { _ in
-            self.manager.setStartingPreset(.defaultRandom)
-            self.updateStartingPresetCellText()
+            self.manager.setStartingPattern(.defaultRandom)
+            self.updateStartingPatternCellText()
         }
         alert.addAction(defaultAction)
 
         let sparseAction = UIAlertAction(title: "Sparse", style: .default) { _ in
-            self.manager.setStartingPreset(.sparse)
-            self.updateStartingPresetCellText()
+            self.manager.setStartingPattern(.sparse)
+            self.updateStartingPatternCellText()
         }
         alert.addAction(sparseAction)
 
         let glidersAction = UIAlertAction(title: "Gliders", style: .default) { _ in
-            self.manager.setStartingPreset(.gliders)
-            self.updateStartingPresetCellText()
+            self.manager.setStartingPattern(.gliders)
+            self.updateStartingPatternCellText()
         }
         alert.addAction(glidersAction)
 
@@ -758,7 +758,7 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
         case animationSpeed = 1
         case deathFade = 2
         case shiftingColors = 3
-        case startingPreset = 4
+        case startingPattern = 4
         case showPresets = 5
     }
 
@@ -843,12 +843,12 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
                 updateShiftingColorsCellText()
                 return cell
 
-            case SettingsRow.startingPreset.rawValue:
+            case SettingsRow.startingPattern.rawValue:
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
                 cell.textLabel?.text = "Starting Pattern"
                 cell.accessoryType = .disclosureIndicator
-                startingPresetCell = cell
-                updateStartingPresetCellText()
+                startingPatternCell = cell
+                updateStartingPatternCellText()
                 return cell
 
             case SettingsRow.showPresets.rawValue:
@@ -920,14 +920,14 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
         shiftingColorsCell?.detailTextLabel?.text = shiftingColorsTitle
     }
 
-    private func updateStartingPresetCellText() {
-        switch manager.startingPreset {
+    private func updateStartingPatternCellText() {
+        switch manager.startingPattern {
         case .defaultRandom:
-            startingPresetCell?.detailTextLabel?.text = "Default"
+            startingPatternCell?.detailTextLabel?.text = "Default"
         case .sparse:
-            startingPresetCell?.detailTextLabel?.text = "Sparse"
+            startingPatternCell?.detailTextLabel?.text = "Sparse"
         case .gliders:
-            startingPresetCell?.detailTextLabel?.text = "Gliders"
+            startingPatternCell?.detailTextLabel?.text = "Gliders"
         }
     }
 
@@ -950,8 +950,8 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             showDeathFadePicker()
         case (0, SettingsRow.shiftingColors.rawValue):
             showColorShiftingPicker()
-        case (0, SettingsRow.startingPreset.rawValue):
-            showStartingPresetPicker()
+        case (0, SettingsRow.startingPattern.rawValue):
+            showStartingPatternPicker()
         case (0, SettingsRow.showPresets.rawValue):
             showColorPresets()
         case (1, 0):
