@@ -143,9 +143,8 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
     private var colorMenuTrailingConstraint: NSLayoutConstraint!
     private var menuHintToastConstraint: NSLayoutConstraint!
 
-    // MARK: - Data Sources
-
-    let tableViewSource: [Int: [LifePreset]] = [0: settingsPresets, 1: colorPresets]
+    // Tracks whether the main menu shows presets (false) or settings (true)
+    private var isCustomizeMode: Bool = false
 
     var pressedMenuButtonRecognizer: UITapGestureRecognizer?
     var propertyAnimators: [UIViewPropertyAnimator] = []
@@ -205,6 +204,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
     // MARK: - UI Setup
 
     private func setupUI() {
+        isCustomizeMode = manager.isCustomizeMode
         setupMainMenuPanel()
         setupColorPresetsPanel()
         setupToasts()
@@ -489,24 +489,22 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
 
     fileprivate func setupPresetMenu() {
         let selectedPresetTitle = manager.selectedPresetTitle == "" ? "Default" : manager.selectedPresetTitle
-        var filteredPresets = colorPresets.filter { $0.title == selectedPresetTitle }
-        if filteredPresets.isEmpty {
-            filteredPresets = settingsPresets.filter { $0.title == selectedPresetTitle }
-        }
-        if let selectedPreset = filteredPresets.first {
-            var index = colorPresets.firstIndex(where: { $0.title == selectedPreset.title })
-            var section = 1
-            if index == nil {
-                section = 0
-                index = settingsPresets.firstIndex(where: { $0.title == selectedPreset.title })
-            }
+
+        // Check if it's a color preset
+        if let colorIndex = colorPresets.firstIndex(where: { $0.title == selectedPresetTitle }) {
             colorPresetsTableView.selectRow(
-                at: IndexPath(
-                    row: index ?? colorPresets.count - 1,
-                    section: section
-                ),
+                at: IndexPath(row: colorIndex, section: 0),
                 animated: false,
                 scrollPosition: .top
+            )
+        }
+
+        // Check if it's a settings preset (for main menu in Quick Start mode)
+        if !isCustomizeMode, let settingsIndex = settingsPresets.firstIndex(where: { $0.title == selectedPresetTitle }) {
+            menuTableView.selectRow(
+                at: IndexPath(row: settingsIndex, section: 0),
+                animated: false,
+                scrollPosition: .none
             )
         }
     }
@@ -759,10 +757,16 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
 
 extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
 
-    // Menu sections/rows
+    // Main menu sections
     private enum MenuSection: Int {
-        case settings = 0
-        case about = 1
+        case mainContent = 0  // Either presets or settings depending on mode
+        case navigation = 1
+    }
+
+    private enum NavigationRow: Int {
+        case showPresets = 0
+        case toggleMode = 1  // "Customize" or "Quick Start" depending on mode
+        case about = 2
     }
 
     private enum SettingsRow: Int {
@@ -771,44 +775,39 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
         case deathFade = 2
         case shiftingColors = 3
         case startingPattern = 4
-        case showPresets = 5
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
         if tableView === menuTableView {
-            return 2
+            return 2  // Main content + Navigation
         } else {
             // Color presets table
-            return 2
+            return 1
         }
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if tableView === menuTableView {
+            if section == MenuSection.mainContent.rawValue {
+                return isCustomizeMode ? "Settings" : "Quick Start"
+            }
             return nil
         } else {
-            if section == 1 {
-                return "Color Presets"
-            } else {
-                return "Presets"
-            }
+            // Color presets table
+            return "Color Presets"
         }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView === menuTableView {
-            if section == 0 {
-                return 6 // Square Size, Animation, Death Fade, Shifting Colors, Starting Pattern, Show Presets
+            if section == MenuSection.mainContent.rawValue {
+                return isCustomizeMode ? 5 : settingsPresets.count
             } else {
-                return 1 // About
+                return 3  // Show Color Presets, Customize/Quick Start, About
             }
         } else {
-            // Color presets table
-            if section == 1 {
-                return colorPresets.count - 1
-            } else {
-                return settingsPresets.count
-            }
+            // Color presets table - only color presets (excluding Custom)
+            return colorPresets.count - 1
         }
     }
 
@@ -816,73 +815,100 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView === menuTableView {
             return menuCellForRowAt(indexPath)
         } else {
-            return presetCellForRowAt(tableView, indexPath: indexPath)
+            return colorPresetCellForRowAt(tableView, indexPath: indexPath)
         }
     }
 
     private func menuCellForRowAt(_ indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            switch indexPath.row {
-            case SettingsRow.squareSize.rawValue:
-                let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
-                cell.textLabel?.text = "Square Size"
-                cell.accessoryType = .disclosureIndicator
-                squareSizeCell = cell
-                updateSquareSizeCellText()
-                return cell
-
-            case SettingsRow.animationSpeed.rawValue:
-                let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
-                cell.textLabel?.text = "Animation"
-                cell.accessoryType = .disclosureIndicator
-                speedCell = cell
-                updateSpeedCellText()
-                return cell
-
-            case SettingsRow.deathFade.rawValue:
-                let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
-                cell.textLabel?.text = "Death Fade"
-                cell.accessoryType = .disclosureIndicator
-                deathFadeCell = cell
-                updateDeathFadeCellText()
-                return cell
-
-            case SettingsRow.shiftingColors.rawValue:
-                let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
-                cell.textLabel?.text = "Shifting Colors"
-                cell.accessoryType = .disclosureIndicator
-                shiftingColorsCell = cell
-                updateShiftingColorsCellText()
-                return cell
-
-            case SettingsRow.startingPattern.rawValue:
-                let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
-                cell.textLabel?.text = "Starting Pattern"
-                cell.accessoryType = .disclosureIndicator
-                startingPatternCell = cell
-                updateStartingPatternCellText()
-                return cell
-
-            case SettingsRow.showPresets.rawValue:
-                let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-                cell.textLabel?.text = "Show Presets"
-                return cell
-
-            default:
-                return UITableViewCell()
+        if indexPath.section == MenuSection.mainContent.rawValue {
+            if isCustomizeMode {
+                return settingsCellForRowAt(indexPath)
+            } else {
+                return presetCellForRowAt(indexPath)
             }
         } else {
-            // About section
-            let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            cell.textLabel?.text = "About"
-            cell.accessoryType = .disclosureIndicator
-            return cell
+            return navigationCellForRowAt(indexPath)
         }
     }
 
-    private func presetCellForRowAt(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: ColorPresetTableViewCell.reuseIdentifier, for: indexPath) as? ColorPresetTableViewCell,
-            let preset = tableViewSource[indexPath.section]?[indexPath.row] {
+    private func presetCellForRowAt(_ indexPath: IndexPath) -> UITableViewCell {
+        let cell = menuTableView.dequeueReusableCell(withIdentifier: "PresetCell")
+            ?? UITableViewCell(style: .default, reuseIdentifier: "PresetCell")
+
+        let preset = settingsPresets[indexPath.row]
+        cell.textLabel?.text = preset.title
+        cell.accessoryType = .none
+        return cell
+    }
+
+    private func settingsCellForRowAt(_ indexPath: IndexPath) -> UITableViewCell {
+        let cell = menuTableView.dequeueReusableCell(withIdentifier: "SettingsCell")
+            ?? UITableViewCell(style: .value1, reuseIdentifier: "SettingsCell")
+
+        cell.accessoryType = .disclosureIndicator
+
+        switch indexPath.row {
+        case SettingsRow.squareSize.rawValue:
+            cell.textLabel?.text = "Square Size"
+            squareSizeCell = cell
+            updateSquareSizeCellText()
+
+        case SettingsRow.animationSpeed.rawValue:
+            cell.textLabel?.text = "Animation"
+            speedCell = cell
+            updateSpeedCellText()
+
+        case SettingsRow.deathFade.rawValue:
+            cell.textLabel?.text = "Death Fade"
+            deathFadeCell = cell
+            updateDeathFadeCellText()
+
+        case SettingsRow.shiftingColors.rawValue:
+            cell.textLabel?.text = "Shifting Colors"
+            shiftingColorsCell = cell
+            updateShiftingColorsCellText()
+
+        case SettingsRow.startingPattern.rawValue:
+            cell.textLabel?.text = "Starting Pattern"
+            startingPatternCell = cell
+            updateStartingPatternCellText()
+
+        default:
+            break
+        }
+
+        return cell
+    }
+
+    private func navigationCellForRowAt(_ indexPath: IndexPath) -> UITableViewCell {
+        let cell = menuTableView.dequeueReusableCell(withIdentifier: "NavigationCell")
+            ?? UITableViewCell(style: .default, reuseIdentifier: "NavigationCell")
+
+        // Reset cell state
+        cell.textLabel?.text = nil
+        cell.accessoryType = .none
+
+        switch indexPath.row {
+        case NavigationRow.showPresets.rawValue:
+            cell.textLabel?.text = "Show Color Presets"
+
+        case NavigationRow.toggleMode.rawValue:
+            cell.textLabel?.text = isCustomizeMode ? "Quick Start" : "Customize"
+
+        case NavigationRow.about.rawValue:
+            cell.textLabel?.text = "About"
+            cell.accessoryType = .disclosureIndicator
+
+        default:
+            break
+        }
+
+        return cell
+    }
+
+    private func colorPresetCellForRowAt(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: ColorPresetTableViewCell.reuseIdentifier, for: indexPath) as? ColorPresetTableViewCell {
+            let preset = colorPresets[indexPath.row]
             cell.titleLabel.text = preset.title
             return cell
         }
@@ -952,34 +978,60 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             tableView.deselectRow(at: indexPath, animated: true)
             handleMenuSelection(indexPath)
         } else {
-            handlePresetSelection(indexPath)
+            handleColorPresetSelection(indexPath)
         }
     }
 
     private func handleMenuSelection(_ indexPath: IndexPath) {
-        switch (indexPath.section, indexPath.row) {
-        case (0, SettingsRow.squareSize.rawValue):
-            showSquareSizePicker()
-        case (0, SettingsRow.animationSpeed.rawValue):
-            showSpeedPicker()
-        case (0, SettingsRow.deathFade.rawValue):
-            showDeathFadePicker()
-        case (0, SettingsRow.shiftingColors.rawValue):
-            showColorShiftingPicker()
-        case (0, SettingsRow.startingPattern.rawValue):
-            showStartingPatternPicker()
-        case (0, SettingsRow.showPresets.rawValue):
-            showColorPresets()
-        case (1, 0):
-            showAboutPage()
-        default:
-            return
+        if indexPath.section == MenuSection.mainContent.rawValue {
+            if isCustomizeMode {
+                handleSettingsSelection(indexPath)
+            } else {
+                let preset = settingsPresets[indexPath.row]
+                manager.configure(with: preset)
+            }
+        } else {
+            // Navigation section
+            switch indexPath.row {
+            case NavigationRow.showPresets.rawValue:
+                showColorPresets()
+            case NavigationRow.toggleMode.rawValue:
+                toggleCustomizeMode()
+            case NavigationRow.about.rawValue:
+                showAboutPage()
+            default:
+                break
+            }
         }
     }
 
-    private func handlePresetSelection(_ indexPath: IndexPath) {
-        if let preset = tableViewSource[indexPath.section]?[indexPath.row] {
-            manager.configure(with: preset)
+    private func handleSettingsSelection(_ indexPath: IndexPath) {
+        switch indexPath.row {
+        case SettingsRow.squareSize.rawValue:
+            showSquareSizePicker()
+        case SettingsRow.animationSpeed.rawValue:
+            showSpeedPicker()
+        case SettingsRow.deathFade.rawValue:
+            showDeathFadePicker()
+        case SettingsRow.shiftingColors.rawValue:
+            showColorShiftingPicker()
+        case SettingsRow.startingPattern.rawValue:
+            showStartingPatternPicker()
+        default:
+            break
         }
+    }
+
+    private func handleColorPresetSelection(_ indexPath: IndexPath) {
+        let preset = colorPresets[indexPath.row]
+        manager.configure(with: preset)
+    }
+
+    private func toggleCustomizeMode() {
+        isCustomizeMode = !isCustomizeMode
+        manager.setIsCustomizeMode(isCustomizeMode)
+        menuTableView.reloadData()
+        setNeedsFocusUpdate()
+        updateFocusIfNeeded()
     }
 }

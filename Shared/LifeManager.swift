@@ -29,6 +29,7 @@ final class LifeManager {
     private(set) var selectedPresetTitle: String
     private(set) var hasPressedMenuButton: Bool
     private(set) var startingPattern: StartingPattern
+    private(set) var isCustomizeMode: Bool
 
     private var usingPreset: Bool = false
 
@@ -48,6 +49,7 @@ final class LifeManager {
         selectedPresetTitle = LifeDatabase.standard.selectedPresetTitle
         hasPressedMenuButton = LifeDatabase.standard.hasPressedMenuButton
         startingPattern = LifeDatabase.standard.startingPattern
+        isCustomizeMode = LifeDatabase.standard.isCustomizeMode
     }
 
     func configure(with preset: LifePreset) {
@@ -117,6 +119,11 @@ final class LifeManager {
     func setHasPressedMenuButton(_ hasPressedMenuButton: Bool) {
         self.hasPressedMenuButton = hasPressedMenuButton
         LifeDatabase.standard.set(hasPressedMenuButton: hasPressedMenuButton)
+    }
+
+    func setIsCustomizeMode(_ isCustomizeMode: Bool) {
+        self.isCustomizeMode = isCustomizeMode
+        LifeDatabase.standard.set(isCustomizeMode: isCustomizeMode)
     }
 
     func setStartingPattern(_ startingPattern: StartingPattern) {

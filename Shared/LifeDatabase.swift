@@ -26,6 +26,7 @@ struct LifeDatabase {
         static let shiftingColors = "shiftingColors"
         static let hasPressedMenuButton = "hasPressedMenuButton"
         static let startingPattern = "startingPattern"
+        static let isCustomizeMode = "isCustomizeMode"
     }
 
     static var standard: UserDefaults {
@@ -43,7 +44,8 @@ struct LifeDatabase {
              Key.shiftingColors: false,
              Key.selectedPresetTitle: "Santa Fe",
              Key.hasPressedMenuButton: false,
-             Key.startingPattern: StartingPattern.defaultRandom.rawValue])
+             Key.startingPattern: StartingPattern.defaultRandom.rawValue,
+             Key.isCustomizeMode: false])
 
         return database
     }
@@ -104,6 +106,14 @@ extension UserDefaults {
 
     func set(hasPressedMenuButton: Bool) {
         set(hasPressedMenuButton, for: LifeDatabase.Key.hasPressedMenuButton)
+    }
+
+    var isCustomizeMode: Bool {
+        return bool(forKey: LifeDatabase.Key.isCustomizeMode)
+    }
+
+    func set(isCustomizeMode: Bool) {
+        set(isCustomizeMode, for: LifeDatabase.Key.isCustomizeMode)
     }
 
     var startingPattern: StartingPattern {
