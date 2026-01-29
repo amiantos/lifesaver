@@ -18,18 +18,22 @@ let squareTexture = FileGrabber.shared.getSKTexture(named: "square")
 private enum CachedActions {
     // Fade to full alpha (live action)
     static let fadeIn_0_1 = SKAction.fadeAlpha(to: 1, duration: 0.1)
+    static let fadeIn_0_3 = SKAction.fadeAlpha(to: 1, duration: 0.3)
     static let fadeIn_0_6 = SKAction.fadeAlpha(to: 1, duration: 0.6)
     static let fadeIn_2_0 = SKAction.fadeAlpha(to: 1, duration: 2.0)
     static let fadeIn_5_0 = SKAction.fadeAlpha(to: 1, duration: 5.0)
 
     // Fade to 0.2 alpha (initial death)
     static let fadeDim_0_1 = createFadeDimAction(duration: 0.1)
+    static let fadeDim_0_3 = createFadeDimAction(duration: 0.3)
     static let fadeDim_0_6 = createFadeDimAction(duration: 0.6)
+    static let fadeDim_1_5 = createFadeDimAction(duration: 1.5)
     static let fadeDim_2_0 = createFadeDimAction(duration: 2.0)
     static let fadeDim_5_0 = createFadeDimAction(duration: 5.0)
 
     // Fade to 0 alpha (full death after 120 cycles)
     static let fadeOut_0_5 = createFadeOutAction(duration: 0.5)
+    static let fadeOut_1_5 = createFadeOutAction(duration: 1.5)
     static let fadeOut_3_0 = createFadeOutAction(duration: 3.0)
     static let fadeOut_10_0 = createFadeOutAction(duration: 10.0)
     static let fadeOut_25_0 = createFadeOutAction(duration: 25.0)
@@ -49,6 +53,7 @@ private enum CachedActions {
     static func fadeIn(duration: TimeInterval) -> SKAction? {
         switch duration {
         case 0.1: return fadeIn_0_1
+        case 0.3: return fadeIn_0_3
         case 0.6: return fadeIn_0_6
         case 2.0: return fadeIn_2_0
         case 5.0: return fadeIn_5_0
@@ -59,7 +64,9 @@ private enum CachedActions {
     static func fadeDim(duration: TimeInterval) -> SKAction? {
         switch duration {
         case 0.1: return fadeDim_0_1
+        case 0.3: return fadeDim_0_3
         case 0.6: return fadeDim_0_6
+        case 1.5: return fadeDim_1_5
         case 2.0: return fadeDim_2_0
         case 5.0: return fadeDim_5_0
         default: return nil
@@ -69,6 +76,7 @@ private enum CachedActions {
     static func fadeOut(duration: TimeInterval) -> SKAction? {
         switch duration {
         case 0.5: return fadeOut_0_5
+        case 1.5: return fadeOut_1_5
         case 3.0: return fadeOut_3_0
         case 10.0: return fadeOut_10_0
         case 25.0: return fadeOut_25_0
