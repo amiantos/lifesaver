@@ -45,6 +45,12 @@ enum AnimationSpeed: Int {
     case off = 3
 }
 
+enum StartingPreset: Int {
+    case defaultRandom = 0
+    case sparse = 1
+    case gliders = 2
+}
+
 enum Colors: Int {
     case color1 = 0
     case color2 = 1

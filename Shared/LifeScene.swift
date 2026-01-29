@@ -61,6 +61,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     }
 
     var squareSize: SquareSize = .medium
+    var startingPreset: StartingPreset = .defaultRandom
 
     // MARK: - Manager
 
@@ -163,6 +164,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             aliveColors = [manager.color1, manager.color2, manager.color3]
             deathFade = manager.deathFade
             shiftingColors = manager.shiftingColors
+            startingPreset = manager.startingPreset
         }
 
         if backgroundNode.color != appearanceColor {
@@ -394,6 +396,17 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     }
 
     fileprivate func createRandomShapes(_: inout [LifeNode], _ livingNodes: inout [LifeNode]) {
+        switch startingPreset {
+        case .defaultRandom:
+            createDefaultRandomShapes(&livingNodes)
+        case .sparse:
+            createSparseShapes(&livingNodes)
+        case .gliders:
+            createGliderShapes(&livingNodes)
+        }
+    }
+
+    fileprivate func createDefaultRandomShapes(_ livingNodes: inout [LifeNode]) {
         var totalShapes: Int = 0
         switch squareSize {
         case .ultraSmall:
@@ -416,6 +429,75 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             for neighborNode in node.neighbors where Int.random(in: 0 ... 1) == 1 {
                 neighborNode.aliveColor = color
                 livingNodes.append(neighborNode)
+            }
+        }
+    }
+
+    fileprivate func createSparseShapes(_ livingNodes: inout [LifeNode]) {
+        var totalShapes: Int = 0
+        switch squareSize {
+        case .ultraSmall:
+            totalShapes = 1000
+        case .superSmall:
+            totalShapes = 250
+        case .verySmall:
+            totalShapes = 25
+        case .small:
+            totalShapes = 10
+        case .medium:
+            totalShapes = 5
+        case .large:
+            totalShapes = 2
+        }
+        for _ in 1 ... totalShapes {
+            let nodeNumber = GKRandomSource.sharedRandom().nextInt(upperBound: allNodes.count)
+            let color = aliveColors.randomElement()!
+            let node = allNodes[nodeNumber]
+            for neighborNode in node.neighbors where Int.random(in: 0 ... 1) == 1 {
+                neighborNode.aliveColor = color
+                livingNodes.append(neighborNode)
+            }
+        }
+    }
+
+    fileprivate func createGliderShapes(_ livingNodes: inout [LifeNode]) {
+        var totalGliders: Int = 0
+        switch squareSize {
+        case .ultraSmall:
+            totalGliders = 100
+        case .superSmall:
+            totalGliders = 50
+        case .verySmall:
+            totalGliders = 20
+        case .small:
+            totalGliders = 10
+        case .medium:
+            totalGliders = 4
+        case .large:
+            totalGliders = 2
+        }
+
+        // Glider pattern offsets (relative to center):
+        //   X        (0, 1)
+        //     X      (1, 0)
+        // X X X      (-1,-1), (0,-1), (1,-1)
+        let gliderOffsets = [
+            (0, 1),
+            (1, 0),
+            (-1, -1),
+            (0, -1),
+            (1, -1)
+        ]
+
+        for _ in 1 ... totalGliders {
+            let centerX = Int.random(in: 2 ..< Int(lengthSquares) - 2)
+            let centerY = Int.random(in: 2 ..< Int(heightSquares) - 2)
+            let color = aliveColors.randomElement()!
+
+            for offset in gliderOffsets {
+                let node = matrix[centerX + offset.0, centerY + offset.1]
+                node.aliveColor = color
+                livingNodes.append(node)
             }
         }
     }

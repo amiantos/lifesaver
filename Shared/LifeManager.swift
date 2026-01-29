@@ -28,6 +28,7 @@ final class LifeManager {
     private(set) var deathFade: Bool
     private(set) var selectedPresetTitle: String
     private(set) var hasPressedMenuButton: Bool
+    private(set) var startingPreset: StartingPreset
 
     private var usingPreset: Bool = false
 
@@ -46,6 +47,7 @@ final class LifeManager {
         shiftingColors = LifeDatabase.standard.shiftingColors
         selectedPresetTitle = LifeDatabase.standard.selectedPresetTitle
         hasPressedMenuButton = LifeDatabase.standard.hasPressedMenuButton
+        startingPreset = LifeDatabase.standard.startingPreset
     }
 
     func configure(with preset: LifePreset) {
@@ -111,6 +113,12 @@ final class LifeManager {
     func setHasPressedMenuButton(_ hasPressedMenuButton: Bool) {
         self.hasPressedMenuButton = hasPressedMenuButton
         LifeDatabase.standard.set(hasPressedMenuButton: hasPressedMenuButton)
+    }
+
+    func setStartingPreset(_ startingPreset: StartingPreset) {
+        self.startingPreset = startingPreset
+        LifeDatabase.standard.set(startingPreset: startingPreset)
+        sendUpdateMessage()
     }
 
     func setAppearanceMode(_ appearanceMode: Appearance) {
