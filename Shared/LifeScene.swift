@@ -462,7 +462,15 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             // Check if stasis timer has expired
             if let detectedTime = stasisDetectedTime,
                CACurrentMediaTime() - detectedTime >= stasisResetDelay {
-                // Add new life to the existing stable patterns
+                // For Gosper Gun, kill all existing cells before regenerating
+                // so the gun can fire cleanly without interference
+                if startingPattern == .gosperGun {
+                    livingNodes.removeAll()
+                    for node in allNodes where node.alive {
+                        dyingNodes.append(node)
+                    }
+                }
+                // Add new life (or replace for Gosper Gun)
                 createRandomShapes(&dyingNodes, &livingNodes)
                 // Mark new cells and their neighbors as active
                 for node in livingNodes {
@@ -746,16 +754,35 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             (34, 2), (34, 3), (35, 2), (35, 3)
         ]
 
-        // Center the pattern on the grid
+        // Pattern bounding box dimensions
         let patternWidth = 36
         let patternHeight = 9
+
+        // Randomly flip horizontally and/or vertically for variety
+        let flipHorizontal = Bool.random()
+        let flipVertical = Bool.random()
+
+        // Transform offsets based on flip settings
+        let transformedOffsets = gosperGunOffsets.map { offset -> (Int, Int) in
+            var x = offset.0
+            var y = offset.1
+            if flipHorizontal {
+                x = (patternWidth - 1) - x
+            }
+            if flipVertical {
+                y = (patternHeight - 1) - y
+            }
+            return (x, y)
+        }
+
+        // Center the pattern on the grid
         let startX = (width - patternWidth) / 2
         let startY = (height - patternHeight) / 2
 
         // Use a single color for all cells
         let color = aliveColors.randomElement()!
 
-        for offset in gosperGunOffsets {
+        for offset in transformedOffsets {
             let x = startX + offset.0
             let y = startY + offset.1
             let node = matrix[x, y]
