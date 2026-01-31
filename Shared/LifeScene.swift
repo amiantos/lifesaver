@@ -78,6 +78,10 @@ final class LifeScene: SKScene, LifeManagerDelegate {
 
     var squareSize: SquareSize = .medium
     var startingPattern: StartingPattern = .defaultRandom
+    var gridMode: GridMode = .toroidal
+    private let bufferSize: Int = 20  // cells on each side for infinite mode
+    private var visibleOriginX: Int = 0  // offset into matrix for visible area
+    private var visibleOriginY: Int = 0
 
     // MARK: - Manager
 
@@ -234,6 +238,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             deathFade = manager.deathFade
             shiftingColors = manager.shiftingColors
             startingPattern = manager.startingPattern
+            gridMode = manager.gridMode
         }
 
         if backgroundNode.color != appearanceColor {
@@ -272,9 +277,25 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     }
 
     fileprivate func createLife() {
+        // Calculate total grid dimensions based on grid mode
+        let totalRows: Int
+        let totalColumns: Int
+
+        if gridMode == .infinite {
+            totalRows = Int(lengthSquares) + (bufferSize * 2)
+            totalColumns = Int(heightSquares) + (bufferSize * 2)
+            visibleOriginX = bufferSize
+            visibleOriginY = bufferSize
+        } else {
+            totalRows = Int(lengthSquares)
+            totalColumns = Int(heightSquares)
+            visibleOriginX = 0
+            visibleOriginY = 0
+        }
+
         matrix = ToroidalMatrix(
-            rows: Int(lengthSquares),
-            columns: Int(heightSquares),
+            rows: totalRows,
+            columns: totalColumns,
             defaultValue: LifeNode(
                 relativePosition: .zero,
                 alive: false,
@@ -283,30 +304,30 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             )
         )
 
-        let totalSquares: CGFloat = lengthSquares * heightSquares
         let squareWidth: CGFloat = size.width / lengthSquares
         let squareHeight: CGFloat = size.height / heightSquares
+        let squareSizeValue = CGSize(width: squareWidth, height: squareHeight)
 
-        // Create Nodes
-        var nextXValue: Int = 0
-        var nextYValue: Int = 0
-        var nextXPosition: CGFloat = 0
-        var nextYPosition: CGFloat = 0
-        for _ in 1 ... Int(totalSquares) {
-            let actualPosition = CGPoint(x: nextXPosition, y: nextYPosition)
-            let relativePosition = CGPoint(x: nextXValue, y: nextYValue)
-            let squareSize = CGSize(width: squareWidth, height: squareHeight)
+        // Create all nodes (visible + buffer)
+        for x in 0..<totalRows {
+            for y in 0..<totalColumns {
+                let relativePosition = CGPoint(x: x, y: y)
 
-            createLifeSquare(relativePosition, squareSize, actualPosition)
+                // Calculate if this cell is in the visible area
+                let isVisible = (x >= visibleOriginX && x < visibleOriginX + Int(lengthSquares) &&
+                                y >= visibleOriginY && y < visibleOriginY + Int(heightSquares))
 
-            if nextXValue == Int(lengthSquares) - 1 {
-                nextXValue = 0
-                nextXPosition = 0
-                nextYValue += 1
-                nextYPosition += squareHeight
-            } else {
-                nextXValue += 1
-                nextXPosition += squareWidth
+                // Only calculate screen position for visible cells
+                let actualPosition: CGPoint
+                if isVisible {
+                    let screenX = CGFloat(x - visibleOriginX) * squareWidth
+                    let screenY = CGFloat(y - visibleOriginY) * squareHeight
+                    actualPosition = CGPoint(x: screenX, y: screenY)
+                } else {
+                    actualPosition = .zero  // Doesn't matter, won't be rendered
+                }
+
+                createLifeSquare(relativePosition, squareSizeValue, actualPosition, addToScene: isVisible)
             }
         }
 
@@ -316,16 +337,19 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         }
     }
 
-    fileprivate func createLifeSquare(_ relativePosition: CGPoint, _ squareSize: CGSize, _ actualPosition: CGPoint) {
+    fileprivate func createLifeSquare(_ relativePosition: CGPoint, _ squareSize: CGSize, _ actualPosition: CGPoint, addToScene: Bool = true) {
         let newSquare = LifeNode(
             relativePosition: relativePosition,
             alive: false,
             color: appearanceColor,
             size: squareSize
         )
-        addChild(newSquare)
-        newSquare.position = actualPosition
-        newSquare.alpha = 0
+
+        if addToScene {
+            addChild(newSquare)
+            newSquare.position = actualPosition
+            newSquare.alpha = 0
+        }
 
         if newSquare.alive {
             aliveNodes.append(newSquare)
@@ -337,14 +361,30 @@ final class LifeScene: SKScene, LifeManagerDelegate {
 
     fileprivate func createNeighbors(_ node: LifeNode) {
         var neighbors: [LifeNode] = []
-        neighbors.append(matrix[Int(node.relativePosition.x - 1), Int(node.relativePosition.y)])
-        neighbors.append(matrix[Int(node.relativePosition.x + 1), Int(node.relativePosition.y)])
-        neighbors.append(matrix[Int(node.relativePosition.x), Int(node.relativePosition.y + 1)])
-        neighbors.append(matrix[Int(node.relativePosition.x), Int(node.relativePosition.y - 1)])
-        neighbors.append(matrix[Int(node.relativePosition.x + 1), Int(node.relativePosition.y + 1)])
-        neighbors.append(matrix[Int(node.relativePosition.x - 1), Int(node.relativePosition.y - 1)])
-        neighbors.append(matrix[Int(node.relativePosition.x - 1), Int(node.relativePosition.y + 1)])
-        neighbors.append(matrix[Int(node.relativePosition.x + 1), Int(node.relativePosition.y - 1)])
+        let x = Int(node.relativePosition.x)
+        let y = Int(node.relativePosition.y)
+
+        let neighborOffsets = [
+            (-1, 0), (1, 0), (0, 1), (0, -1),
+            (1, 1), (-1, -1), (-1, 1), (1, -1)
+        ]
+
+        for (dx, dy) in neighborOffsets {
+            let nx = x + dx
+            let ny = y + dy
+
+            if gridMode == .toroidal {
+                // Current behavior - toroidal wrapping via subscript
+                neighbors.append(matrix[nx, ny])
+            } else {
+                // Infinite mode - only add if within bounds (no wrapping)
+                if matrix.indexIsValid(row: nx, column: ny) {
+                    neighbors.append(matrix[nx, ny])
+                }
+                // Cells at absolute edge will have fewer neighbors and die naturally
+            }
+        }
+
         node.neighbors = neighbors
     }
 
@@ -637,8 +677,8 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         ]
 
         for _ in 1 ... totalGliders {
-            let centerX = Int.random(in: 2 ..< Int(lengthSquares) - 2)
-            let centerY = Int.random(in: 2 ..< Int(heightSquares) - 2)
+            let centerX = visibleOriginX + Int.random(in: 2 ..< Int(lengthSquares) - 2)
+            let centerY = visibleOriginY + Int.random(in: 2 ..< Int(heightSquares) - 2)
             let color = aliveColors.randomElement()!
             let gliderOffsets = gliderOrientations.randomElement()!
 
@@ -680,8 +720,8 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         ]
 
         for _ in 1 ... totalGliders {
-            let centerX = Int.random(in: 2 ..< Int(lengthSquares) - 2)
-            let centerY = Int.random(in: 2 ..< Int(heightSquares) - 2)
+            let centerX = visibleOriginX + Int.random(in: 2 ..< Int(lengthSquares) - 2)
+            let centerY = visibleOriginY + Int.random(in: 2 ..< Int(heightSquares) - 2)
             let color = aliveColors.randomElement()!
             let gliderOffsets = gliderOrientations.randomElement()!
 
@@ -720,8 +760,8 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         ]
 
         for (index, placement) in placements.enumerated() {
-            let centerX = Int.random(in: placement.xRange)
-            let centerY = Int.random(in: placement.yRange)
+            let centerX = visibleOriginX + Int.random(in: placement.xRange)
+            let centerY = visibleOriginY + Int.random(in: placement.yRange)
             let color = aliveColors[index % aliveColors.count]
             let gliderOffsets = gliderOrientations[placement.orientation]
 
@@ -789,13 +829,13 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             return (x, y)
         }
 
-        // Center the pattern on the grid with random offset for variety
+        // Center the pattern on the visible grid with random offset for variety
         let maxOffsetX = min(2, (width - patternWidth) / 2)
         let maxOffsetY = min(2, (height - patternHeight) / 2)
         let randomOffsetX = Int.random(in: -maxOffsetX...maxOffsetX)
         let randomOffsetY = Int.random(in: -maxOffsetY...maxOffsetY)
-        let startX = (width - patternWidth) / 2 + randomOffsetX
-        let startY = (height - patternHeight) / 2 + randomOffsetY
+        let startX = visibleOriginX + (width - patternWidth) / 2 + randomOffsetX
+        let startY = visibleOriginY + (height - patternHeight) / 2 + randomOffsetY
 
         // Use a single color for all cells
         let color = aliveColors.randomElement()!
@@ -849,9 +889,9 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             return (x, y)
         }
 
-        // Center the pattern on the grid
-        let startX = (width - patternWidth) / 2
-        let startY = (height - patternHeight) / 2
+        // Center the pattern on the visible grid
+        let startX = visibleOriginX + (width - patternWidth) / 2
+        let startY = visibleOriginY + (height - patternHeight) / 2
 
         let color = aliveColors.randomElement()!
 
@@ -904,9 +944,9 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             return (x, y)
         }
 
-        // Center the pattern on the grid
-        let startX = (width - patternWidth) / 2
-        let startY = (height - patternHeight) / 2
+        // Center the pattern on the visible grid
+        let startX = visibleOriginX + (width - patternWidth) / 2
+        let startY = visibleOriginY + (height - patternHeight) / 2
 
         let color = aliveColors.randomElement()!
 
@@ -992,9 +1032,9 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             return (x, y)
         }
 
-        // Center the pattern on the grid
-        let startX = (width - patternWidth) / 2
-        let startY = (height - patternHeight) / 2
+        // Center the pattern on the visible grid
+        let startX = visibleOriginX + (width - patternWidth) / 2
+        let startY = visibleOriginY + (height - patternHeight) / 2
 
         let color = aliveColors.randomElement()!
 
@@ -1080,9 +1120,9 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             return (x, y)
         }
 
-        // Center the pattern on the grid
-        let startX = (width - patternWidth) / 2
-        let startY = (height - patternHeight) / 2
+        // Center the pattern on the visible grid
+        let startX = visibleOriginX + (width - patternWidth) / 2
+        let startY = visibleOriginY + (height - patternHeight) / 2
 
         let color = aliveColors.randomElement()!
 
@@ -1230,9 +1270,9 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             return (x, y)
         }
 
-        // Center the pattern on the grid
-        let startX = (width - patternWidth) / 2
-        let startY = (height - patternHeight) / 2
+        // Center the pattern on the visible grid
+        let startX = visibleOriginX + (width - patternWidth) / 2
+        let startY = visibleOriginY + (height - patternHeight) / 2
 
         let color = aliveColors.randomElement()!
 

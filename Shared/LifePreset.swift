@@ -67,6 +67,11 @@ enum Colors: Int {
     case color3 = 2
 }
 
+enum GridMode: Int {
+    case toroidal = 0    // Edges wrap around (current behavior)
+    case infinite = 1    // Buffer zone simulation
+}
+
 extension SKColor {
     static let defaultColor1 = SKColor(red: 172 / 255.0, green: 48 / 255.0, blue: 17 / 255.0, alpha: 1.00)
     static let defaultColor2 = SKColor(red: 6 / 255.0, green: 66 / 255.0, blue: 110 / 255.0, alpha: 1.00)

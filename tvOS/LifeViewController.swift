@@ -156,6 +156,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
     private var deathFadeCell: UITableViewCell?
     private var shiftingColorsCell: UITableViewCell?
     private var startingPatternCell: UITableViewCell?
+    private var gridModeCell: UITableViewCell?
 
     // MARK: - View Lifecycle
 
@@ -539,6 +540,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         updateShiftingColorsCellText()
         updateDeathFadeCellText()
         updateStartingPatternCellText()
+        updateGridModeCellText()
     }
 
     // MARK: - Menu Picker Methods (from MenuTableViewController)
@@ -695,6 +697,34 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         present(alert, animated: true, completion: nil)
     }
 
+    fileprivate func showGridModePicker() {
+        let alert = UIAlertController(
+            title: "Grid Mode",
+            message: """
+            Toroidal: Edges wrap around - patterns that exit one side reappear on the opposite side.
+            Infinite: Simulates an unbounded grid - patterns smoothly exit the screen and eventually die off-screen.
+            """,
+            preferredStyle: .actionSheet
+        )
+
+        let toroidalAction = UIAlertAction(title: "Toroidal", style: .default) { _ in
+            self.manager.setGridMode(.toroidal)
+            self.updateGridModeCellText()
+        }
+        alert.addAction(toroidalAction)
+
+        let infiniteAction = UIAlertAction(title: "Infinite", style: .default) { _ in
+            self.manager.setGridMode(.infinite)
+            self.updateGridModeCellText()
+        }
+        alert.addAction(infiniteAction)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true, completion: nil)
+    }
+
     fileprivate func showStartingPatternPicker() {
         let alert = UIAlertController(
             title: "Starting Pattern",
@@ -775,6 +805,7 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
         case deathFade = 2
         case shiftingColors = 3
         case startingPattern = 4
+        case gridMode = 5
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -801,7 +832,7 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView === menuTableView {
             if section == MenuSection.mainContent.rawValue {
-                return isCustomizeMode ? 5 : settingsPresets.count
+                return isCustomizeMode ? 6 : settingsPresets.count
             } else {
                 return 3  // Show Color Presets, Customize/Quick Start, About
             }
@@ -872,6 +903,11 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel?.text = "Starting Pattern"
             startingPatternCell = cell
             updateStartingPatternCellText()
+
+        case SettingsRow.gridMode.rawValue:
+            cell.textLabel?.text = "Grid Mode"
+            gridModeCell = cell
+            updateGridModeCellText()
 
         default:
             break
@@ -987,6 +1023,15 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
+    private func updateGridModeCellText() {
+        switch manager.gridMode {
+        case .toroidal:
+            gridModeCell?.detailTextLabel?.text = "Toroidal"
+        case .infinite:
+            gridModeCell?.detailTextLabel?.text = "Infinite"
+        }
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView === menuTableView {
             tableView.deselectRow(at: indexPath, animated: true)
@@ -1031,6 +1076,8 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             showColorShiftingPicker()
         case SettingsRow.startingPattern.rawValue:
             showStartingPatternPicker()
+        case SettingsRow.gridMode.rawValue:
+            showGridModePicker()
         default:
             break
         }

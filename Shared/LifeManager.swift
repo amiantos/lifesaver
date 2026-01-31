@@ -30,6 +30,7 @@ final class LifeManager {
     private(set) var hasPressedMenuButton: Bool
     private(set) var startingPattern: StartingPattern
     private(set) var isCustomizeMode: Bool
+    private(set) var gridMode: GridMode
 
     private var usingPreset: Bool = false
 
@@ -50,6 +51,7 @@ final class LifeManager {
         hasPressedMenuButton = LifeDatabase.standard.hasPressedMenuButton
         startingPattern = LifeDatabase.standard.startingPattern
         isCustomizeMode = LifeDatabase.standard.isCustomizeMode
+        gridMode = LifeDatabase.standard.gridMode
     }
 
     func configure(with preset: LifePreset) {
@@ -124,6 +126,12 @@ final class LifeManager {
     func setIsCustomizeMode(_ isCustomizeMode: Bool) {
         self.isCustomizeMode = isCustomizeMode
         LifeDatabase.standard.set(isCustomizeMode: isCustomizeMode)
+    }
+
+    func setGridMode(_ gridMode: GridMode) {
+        self.gridMode = gridMode
+        LifeDatabase.standard.set(gridMode: gridMode)
+        sendUpdateMessage()
     }
 
     func setStartingPattern(_ startingPattern: StartingPattern) {
