@@ -51,15 +51,15 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             case .fastest:
                 animationTime = 0
                 updateTime = 0.067
-                fadeDelayTime = 90
+                fadeDelayTime = 300
             case .medium:
                 animationTime = 0.3
                 updateTime = 0.3
-                fadeDelayTime = 135
+                fadeDelayTime = 300
             case .fast:
                 animationTime = 0.6
                 updateTime = 0.6
-                fadeDelayTime = 180
+                fadeDelayTime = 300
             case .normal:
                 animationTime = 2
                 updateTime = 2
@@ -217,7 +217,30 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     // MARK: - Camera Effects
 
     private func updateKenBurnsCamera(_ currentTime: TimeInterval) {
-        let cycleDuration: TimeInterval = 75.0
+        // Scale cycle duration and zoom amount based on square size
+        // Larger squares need slower movement and less zoom
+        let cycleDuration: TimeInterval
+        let minScale: CGFloat
+        switch squareSize {
+        case .ultraSmall:
+            cycleDuration = 75.0
+            minScale = 0.75  // 25% max zoom
+        case .superSmall:
+            cycleDuration = 120.0
+            minScale = 0.80  // 20% max zoom
+        case .verySmall:
+            cycleDuration = 165.0
+            minScale = 0.85  // 15% max zoom
+        case .small:
+            cycleDuration = 210.0
+            minScale = 0.88  // 12% max zoom
+        case .medium:
+            cycleDuration = 255.0
+            minScale = 0.90  // 10% max zoom
+        case .large:
+            cycleDuration = 300.0
+            minScale = 0.92  // 8% max zoom
+        }
         let cycleProgress = currentTime.truncatingRemainder(dividingBy: cycleDuration) / cycleDuration
 
         // Create organic motion with phase-shifted sine waves
@@ -226,7 +249,6 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         let panPhaseY = (cycleProgress * 2 * .pi) + (.pi / 2)
 
         // Only zoom IN (scale < 1.0), never zoom out to avoid showing edges
-        let minScale: CGFloat = 0.75
         let maxScale: CGFloat = 1.0
         let scaleRange = maxScale - minScale
         let currentScale = minScale + (scaleRange / 2) + (scaleRange / 2) * CGFloat(sin(zoomPhase))
@@ -260,7 +282,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     private var snapshotIndex: Int = 0
     private var snapshotsFilled: Bool = false
     private var stasisDetectedTime: TimeInterval?
-    private let stasisResetDelay: TimeInterval = 300.0  // 5 minutes
+    private var stasisResetDelay: TimeInterval { deathFade ? 30.0 : 5.0 }
     private var updatesSinceVisualSync: Int = 0
     private let visualSyncInterval: Int = 100  // Check all nodes every N updates
     private var lengthSquares: CGFloat = 16
