@@ -556,6 +556,13 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         present(alert, animated: true, completion: nil)
     }
 
+    fileprivate func showAboutGameOfLife() {
+        let aboutVC = AboutGameOfLifeViewController()
+        aboutVC.modalPresentationStyle = .overFullScreen
+        aboutVC.modalTransitionStyle = .crossDissolve
+        present(aboutVC, animated: true)
+    }
+
     fileprivate func showSpeedPicker() {
         let alert = UIAlertController(
             title: "Animation Speed",
@@ -871,7 +878,7 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             } else if section == MenuSection.navigation.rawValue {
                 return 2  // Show Color Presets, Customize/Quick Start
             } else {
-                return 1  // About
+                return 2  // About Life Saver + About Game of Life
             }
         } else {
             // Color presets table - only color presets (excluding Custom)
@@ -991,7 +998,11 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = menuTableView.dequeueReusableCell(withIdentifier: "AboutCell")
             ?? UITableViewCell(style: .default, reuseIdentifier: "AboutCell")
 
-        cell.textLabel?.text = "About Life Saver"
+        if indexPath.row == 0 {
+            cell.textLabel?.text = "About Life Saver"
+        } else {
+            cell.textLabel?.text = "About Game of Life"
+        }
         cell.accessoryType = .disclosureIndicator
 
         return cell
@@ -1133,7 +1144,11 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             }
         } else {
             // About section
-            showAboutPage()
+            if indexPath.row == 0 {
+                showAboutPage()
+            } else {
+                showAboutGameOfLife()
+            }
         }
     }
 
