@@ -278,7 +278,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     private var allNodes: [LifeNode] = []
     private var aliveNodes: [LifeNode] = []
     private var activeCells: Set<LifeNode> = []
-    private var boardSnapshots: [Set<CGPoint>] = [[], [], []]
+    private var boardSnapshots: [Set<CGPoint>] = [[], [], [], [], [], []]
     private var snapshotIndex: Int = 0
     private var snapshotsFilled: Bool = false
     private var stasisDetectedTime: TimeInterval?
@@ -475,7 +475,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         allNodes.removeAll()
         aliveNodes.removeAll()
         activeCells.removeAll()
-        boardSnapshots = [[], [], []]
+        boardSnapshots = [[], [], [], [], [], []]
         snapshotIndex = 0
         snapshotsFilled = false
         stasisDetectedTime = nil
@@ -539,6 +539,14 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         let shouldRespawnImmediately = livingNodes.count <= 5
 
         if shouldRespawnImmediately {
+            // In Fresh Start mode, kill remaining cells before regenerating
+            // to prevent color homogenization over time
+            if respawnMode == .freshStart {
+                livingNodes.removeAll()
+                for node in allNodes where node.alive {
+                    dyingNodes.append(node)
+                }
+            }
             createRandomShapes(&dyingNodes, &livingNodes)
             // After regeneration, mark all new living nodes and their neighbors as active
             for node in livingNodes {
@@ -556,22 +564,32 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             currentSnapshot.insert(node.relativePosition)
         }
 
-        // Store in circular buffer of 3 boards
+        // Store in circular buffer of 6 boards to detect oscillators up to period-6
         boardSnapshots[snapshotIndex] = currentSnapshot
-        snapshotIndex = (snapshotIndex + 1) % 3
+        snapshotIndex = (snapshotIndex + 1) % 6
         if !snapshotsFilled && snapshotIndex == 0 {
             snapshotsFilled = true
         }
 
         if snapshotsFilled {
-            // Check if any 2 boards match (period-1 or period-2 oscillator)
-            let match01 = boardSnapshots[0] == boardSnapshots[1]
-            let match02 = boardSnapshots[0] == boardSnapshots[2]
-            let match12 = boardSnapshots[1] == boardSnapshots[2]
+            // Check if any 2 of the 6 snapshots match (detects period 1-6 oscillators)
+            // Period-1 (still life): multiple snapshots match
+            // Period-2: snapshots 0,2,4 match and 1,3,5 match
+            // Period-3: snapshots 0,3 match, 1,4 match, 2,5 match
+            // Period-4 through 6: at least 2 snapshots will match
+            var matchFound = false
+            outerLoop: for i in 0..<6 {
+                for j in (i+1)..<6 {
+                    if boardSnapshots[i] == boardSnapshots[j] {
+                        matchFound = true
+                        break outerLoop
+                    }
+                }
+            }
 
             // Note: Very low population (<=5 cells) now triggers immediate respawn above,
             // so we only need to detect oscillator stasis here
-            if match01 || match02 || match12 {
+            if matchFound {
                 // Stasis detected - start timer if not already running
                 if stasisDetectedTime == nil {
                     stasisDetectedTime = CACurrentMediaTime()
@@ -602,7 +620,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
                     }
                 }
                 // Reset snapshots and timer
-                boardSnapshots = [[], [], []]
+                boardSnapshots = [[], [], [], [], [], []]
                 snapshotIndex = 0
                 snapshotsFilled = false
                 stasisDetectedTime = nil
