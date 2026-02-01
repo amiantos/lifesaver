@@ -92,6 +92,7 @@ final class LifeNode: SKSpriteNode {
     var aliveColor: SKColor
     var deadColor: SKColor
     var neighbors: [LifeNode] = []
+    var isAnimating: Bool = false
 
     // MARK: - Hashable (using object identity)
 
@@ -126,7 +127,7 @@ final class LifeNode: SKSpriteNode {
         if alive {
             timeInState += 1
             // Ensure visual state is correct - fix any desync
-            if alpha < 1 && !hasActions() {
+            if alpha < 1 && !isAnimating {
                 alpha = 1
                 color = aliveColor
             }
@@ -135,7 +136,10 @@ final class LifeNode: SKSpriteNode {
 
         timeInState = 0
         alive = true
-        removeAllActions()  // Always cancel pending animations (especially stale death fades)
+        if isAnimating {
+            removeAllActions()
+            isAnimating = false
+        }
 
         if duration > 0 {
             // Use cached fade action if available, otherwise create new one
@@ -144,7 +148,10 @@ final class LifeNode: SKSpriteNode {
             let colorAction = SKAction.colorize(with: aliveColor, colorBlendFactor: 1, duration: duration)
             let actionGroup = SKAction.group([fadeAction, colorAction])
             actionGroup.timingMode = .easeInEaseOut
-            run(actionGroup)
+            isAnimating = true
+            run(actionGroup) { [weak self] in
+                self?.isAnimating = false
+            }
         } else {
             alpha = 1
             color = aliveColor
@@ -155,7 +162,7 @@ final class LifeNode: SKSpriteNode {
         if !alive {
             timeInState += 1
             // Ensure visual state is correct - fix any desync (only when fade is enabled)
-            if fade, !hasActions(), alpha > 0.2 {
+            if fade, !isAnimating, alpha > 0.2 {
                 alpha = 0.2
             }
             return
@@ -164,7 +171,10 @@ final class LifeNode: SKSpriteNode {
         timeInState = 0
         alive = false
 
-        removeAllActions()
+        if isAnimating {
+            removeAllActions()
+            isAnimating = false
+        }
 
         guard fade else {
             return  // Keep cell visible when fade effect is disabled
@@ -186,7 +196,10 @@ final class LifeNode: SKSpriteNode {
                 return action
             }()
             let sequence = SKAction.sequence([fadeDimAction, waitAction, fadeOutAction])
-            run(sequence)
+            isAnimating = true
+            run(sequence) { [weak self] in
+                self?.isAnimating = false
+            }
         } else {
             // No animation for dim, but still schedule the delayed fade out
             alpha = 0.2
@@ -194,19 +207,27 @@ final class LifeNode: SKSpriteNode {
             let fadeOutAction = SKAction.fadeAlpha(to: 0, duration: 1.0)
             fadeOutAction.timingMode = .easeIn
             let sequence = SKAction.sequence([waitAction, fadeOutAction])
-            run(sequence)
+            isAnimating = true
+            run(sequence) { [weak self] in
+                self?.isAnimating = false
+            }
         }
     }
 
     public func remove(duration: TimeInterval) {
-        removeAllActions()
+        if isAnimating {
+            removeAllActions()
+        }
+        isAnimating = false
         timeInState = 0
         alive = false
 
         let fadeAction = SKAction.fadeAlpha(to: 0, duration: duration)
         fadeAction.timingMode = .easeInEaseOut
-        run(fadeAction) {
-            self.removeFromParent()
+        isAnimating = true
+        run(fadeAction) { [weak self] in
+            self?.isAnimating = false
+            self?.removeFromParent()
         }
     }
 }

@@ -188,7 +188,6 @@ extension UserDefaults {
 private extension UserDefaults {
     func set(_ object: Any?, for key: String) {
         set(object, forKey: key)
-        synchronize()
     }
 }
 

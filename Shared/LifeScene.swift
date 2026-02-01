@@ -166,7 +166,10 @@ final class LifeScene: SKScene, LifeManagerDelegate {
 
     private func syncVisualState() {
         for node in allNodes {
-            node.removeAllActions()
+            if node.isAnimating {
+                node.removeAllActions()
+                node.isAnimating = false
+            }
             if node.alive {
                 node.alpha = 1.0
                 node.color = node.aliveColor
@@ -276,9 +279,8 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     private var backgroundNode: SKSpriteNode = SKSpriteNode()
     private var cameraNode: SKCameraNode = SKCameraNode()
     private var allNodes: [LifeNode] = []
-    private var aliveNodes: [LifeNode] = []
     private var activeCells: Set<LifeNode> = []
-    private var boardSnapshots: [Set<CGPoint>] = [[], [], [], [], [], []]
+    private var boardFingerprints: [Int] = [0, 0, 0, 0, 0, 0]
     private var snapshotIndex: Int = 0
     private var snapshotsFilled: Bool = false
     private var stasisDetectedTime: TimeInterval?
@@ -428,7 +430,6 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         }
 
         if newSquare.alive {
-            aliveNodes.append(newSquare)
             newSquare.color = aliveColors.randomElement()!
         }
         allNodes.append(newSquare)
@@ -473,9 +474,8 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     fileprivate func endLife() {
         allNodes.forEach { $0.remove(duration: 0.5) }
         allNodes.removeAll()
-        aliveNodes.removeAll()
         activeCells.removeAll()
-        boardSnapshots = [[], [], [], [], [], []]
+        boardFingerprints = [0, 0, 0, 0, 0, 0]
         snapshotIndex = 0
         snapshotsFilled = false
         stasisDetectedTime = nil
@@ -557,37 +557,44 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             }
         }
 
-        // Static tank prevention - compare board snapshots
-        // Create snapshot of living cell positions in the VISIBLE area only
+        // Static tank prevention - compare board fingerprints
+        // Compute fingerprint of living cell positions in the VISIBLE area only
         // (Buffer zone activity in infinite mode shouldn't prevent stasis detection)
-        var currentSnapshot = Set<CGPoint>()
-        for node in allNodes where node.alive {
+        // Use XOR which is order-independent (commutative and associative)
+        var fingerprint: Int = 0
+        var visibleAliveCount = 0
+        for node in livingNodes {
             let x = Int(node.relativePosition.x)
             let y = Int(node.relativePosition.y)
             // Only include cells in the visible area
             if x >= visibleOriginX && x < visibleOriginX + Int(lengthSquares) &&
                y >= visibleOriginY && y < visibleOriginY + Int(heightSquares) {
-                currentSnapshot.insert(node.relativePosition)
+                // Encode position as single integer and XOR into fingerprint
+                fingerprint ^= (x << 16) | y
+                visibleAliveCount += 1
             }
         }
+        // Include count in fingerprint to distinguish boards with same positions but different counts
+        // (e.g., a board with cells at (1,1) and (2,2) vs just (3,3) could have same XOR)
+        let currentFingerprint = fingerprint ^ (visibleAliveCount << 24)
 
-        // Store in circular buffer of 6 boards to detect oscillators up to period-6
-        boardSnapshots[snapshotIndex] = currentSnapshot
+        // Store in circular buffer of 6 fingerprints to detect oscillators up to period-6
+        boardFingerprints[snapshotIndex] = currentFingerprint
         snapshotIndex = (snapshotIndex + 1) % 6
         if !snapshotsFilled && snapshotIndex == 0 {
             snapshotsFilled = true
         }
 
         if snapshotsFilled {
-            // Check if any 2 of the 6 snapshots match (detects period 1-6 oscillators)
-            // Period-1 (still life): multiple snapshots match
-            // Period-2: snapshots 0,2,4 match and 1,3,5 match
-            // Period-3: snapshots 0,3 match, 1,4 match, 2,5 match
-            // Period-4 through 6: at least 2 snapshots will match
+            // Check if any 2 of the 6 fingerprints match (detects period 1-6 oscillators)
+            // Period-1 (still life): multiple fingerprints match
+            // Period-2: fingerprints 0,2,4 match and 1,3,5 match
+            // Period-3: fingerprints 0,3 match, 1,4 match, 2,5 match
+            // Period-4 through 6: at least 2 fingerprints will match
             var matchFound = false
             outerLoop: for i in 0..<6 {
                 for j in (i+1)..<6 {
-                    if boardSnapshots[i] == boardSnapshots[j] {
+                    if boardFingerprints[i] == boardFingerprints[j] {
                         matchFound = true
                         break outerLoop
                     }
@@ -626,8 +633,8 @@ final class LifeScene: SKScene, LifeManagerDelegate {
                         nextActiveCells.insert(neighbor)
                     }
                 }
-                // Reset snapshots and timer
-                boardSnapshots = [[], [], [], [], [], []]
+                // Reset fingerprints and timer
+                boardFingerprints = [0, 0, 0, 0, 0, 0]
                 snapshotIndex = 0
                 snapshotsFilled = false
                 stasisDetectedTime = nil
@@ -646,14 +653,12 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             $0.live(duration: animationTime)
         }
 
-        aliveNodes = livingNodes
-
-        // Periodic full-board visual consistency check
-        // This catches any cells that got stuck with wrong alpha and aren't in activeCells
+        // Periodic visual consistency check for active cells
+        // This catches any cells that got stuck with wrong alpha
         updatesSinceVisualSync += 1
         if updatesSinceVisualSync >= visualSyncInterval {
             updatesSinceVisualSync = 0
-            for node in allNodes where !node.hasActions() {
+            for node in activeCells where !node.isAnimating {
                 if node.alive {
                     if node.alpha < 1 {
                         node.alpha = 1
