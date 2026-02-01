@@ -13,7 +13,6 @@
 		4415352222974E220061434F /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415352122974E220061434F /* LifeNode.swift */; };
 		4415352322974E220061434F /* LifeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415352122974E220061434F /* LifeNode.swift */; };
 		4437906022961BA200AC3AFF /* URLType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4437905F22961BA200AC3AFF /* URLType.swift */; };
-		44655C3E232C582A00F12493 /* ColorPresetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44655C3B232C581E00F12493 /* ColorPresetTableViewCell.swift */; };
 		4480C7092294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
 		4480C70A2294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
 		4480C70F2294B4C800CC2EDC /* LifeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */; };
@@ -53,7 +52,6 @@
 		4415351D229733C20061434F /* LifePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifePreset.swift; sourceTree = "<group>"; };
 		4415352122974E220061434F /* LifeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeNode.swift; sourceTree = "<group>"; };
 		4437905F22961BA200AC3AFF /* URLType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLType.swift; sourceTree = "<group>"; };
-		44655C3B232C581E00F12493 /* ColorPresetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorPresetTableViewCell.swift; path = tvOS/Menus/ColorPresetTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		4480C7082294B05200CC2EDC /* FileGrabber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileGrabber.swift; sourceTree = "<group>"; };
 		4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeDatabase.swift; sourceTree = "<group>"; };
 		4480C7152294B60800CC2EDC /* LifeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeManager.swift; sourceTree = "<group>"; };
@@ -140,21 +138,12 @@
 		B49CB72622C3047500A53FB7 /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
-				B4D49C0E22C7B93A000F4E0C /* Menus */,
 				B49CB72722C3047500A53FB7 /* AppDelegate.swift */,
 				B49CB72F22C3047500A53FB7 /* LifeViewController.swift */,
 				B49CB73622C3047800A53FB7 /* Info.plist */,
 				B41C8C4022C81D2400777A09 /* Assets.xcassets */,
 			);
 			path = tvOS;
-			sourceTree = "<group>";
-		};
-		B4D49C0E22C7B93A000F4E0C /* Menus */ = {
-			isa = PBXGroup;
-			children = (
-				44655C3B232C581E00F12493 /* ColorPresetTableViewCell.swift */,
-			);
-			path = Menus;
 			sourceTree = "<group>";
 		};
 		B4FD889B2290553400AE066A = {
@@ -349,7 +338,6 @@
 			files = (
 				B49CB73A22C304F500A53FB7 /* LifeScene.swift in Sources */,
 				B49CB73C22C304FA00A53FB7 /* LifePreset.swift in Sources */,
-				44655C3E232C582A00F12493 /* ColorPresetTableViewCell.swift in Sources */,
 				B49CB73022C3047500A53FB7 /* LifeViewController.swift in Sources */,
 				B49CB72822C3047500A53FB7 /* AppDelegate.swift in Sources */,
 				B49CB73F22C3050B00A53FB7 /* ToroidalMatrix.swift in Sources */,

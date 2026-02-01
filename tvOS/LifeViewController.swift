@@ -24,11 +24,8 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
     // MARK: - UI Components
 
     private lazy var colorPresetsTableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(ColorPresetTableViewCell.self, forCellReuseIdentifier: ColorPresetTableViewCell.reuseIdentifier)
-        tableView.sectionHeaderHeight = 66
-        tableView.sectionFooterHeight = 66
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -213,7 +210,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
             headerView.heightAnchor.constraint(equalToConstant: 225),
 
             menuTableView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -30),
-            menuTableView.leadingAnchor.constraint(equalTo: mainMenuView.contentView.leadingAnchor),
+            menuTableView.leadingAnchor.constraint(equalTo: mainMenuView.contentView.leadingAnchor, constant: 30),
             menuTableView.trailingAnchor.constraint(equalTo: mainMenuView.contentView.trailingAnchor, constant: -100),
             menuTableView.bottomAnchor.constraint(equalTo: mainMenuView.contentView.bottomAnchor),
         ])
@@ -231,8 +228,8 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
 
             colorPresetsTableView.topAnchor.constraint(equalTo: colorPresetsView.contentView.layoutMarginsGuide.topAnchor),
             colorPresetsTableView.bottomAnchor.constraint(equalTo: colorPresetsView.contentView.layoutMarginsGuide.bottomAnchor),
-            colorPresetsTableView.leadingAnchor.constraint(equalTo: colorPresetsView.contentView.layoutMarginsGuide.leadingAnchor, constant: 80),
-            colorPresetsTableView.trailingAnchor.constraint(equalTo: colorPresetsView.contentView.layoutMarginsGuide.trailingAnchor, constant: -60)
+            colorPresetsTableView.leadingAnchor.constraint(equalTo: colorPresetsView.contentView.layoutMarginsGuide.leadingAnchor, constant: 70),
+            colorPresetsTableView.trailingAnchor.constraint(equalTo: colorPresetsView.contentView.layoutMarginsGuide.trailingAnchor, constant: -20)
         ])
     }
 
@@ -1001,13 +998,12 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     private func colorPresetCellForRowAt(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: ColorPresetTableViewCell.reuseIdentifier, for: indexPath) as? ColorPresetTableViewCell {
-            let preset = colorPresets[indexPath.row]
-            cell.titleLabel.text = preset.title
-            return cell
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ColorPresetCell")
+            ?? UITableViewCell(style: .default, reuseIdentifier: "ColorPresetCell")
 
-        return UITableViewCell()
+        let preset = colorPresets[indexPath.row]
+        cell.textLabel?.text = preset.title
+        return cell
     }
 
     private func updateSquareSizeCellText() {
