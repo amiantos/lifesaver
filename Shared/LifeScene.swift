@@ -212,7 +212,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     private var snapshotIndex: Int = 0
     private var snapshotsFilled: Bool = false
     private var stasisDetectedTime: TimeInterval?
-    private var stasisResetDelay: TimeInterval { deathFade ? 30.0 : 5.0 }
+    private let stasisResetDelay: TimeInterval = 300.0  // 5 minutes
     private var updatesSinceVisualSync: Int = 0
     private let visualSyncInterval: Int = 100  // Check all nodes every N updates
     private var lengthSquares: CGFloat = 16
