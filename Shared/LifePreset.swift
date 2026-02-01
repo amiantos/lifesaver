@@ -72,6 +72,11 @@ enum GridMode: Int {
     case infinite = 1    // Buffer zone simulation
 }
 
+enum RespawnMode: Int {
+    case freshStart = 0  // Clear board before spawning new life
+    case addLife = 1     // Add new life to existing cells
+}
+
 extension SKColor {
     static let defaultColor1 = SKColor(red: 172 / 255.0, green: 48 / 255.0, blue: 17 / 255.0, alpha: 1.00)
     static let defaultColor2 = SKColor(red: 6 / 255.0, green: 66 / 255.0, blue: 110 / 255.0, alpha: 1.00)

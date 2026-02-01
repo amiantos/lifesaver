@@ -157,6 +157,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
     private var shiftingColorsCell: UITableViewCell?
     private var startingPatternCell: UITableViewCell?
     private var gridModeCell: UITableViewCell?
+    private var respawnModeCell: UITableViewCell?
 
     // MARK: - View Lifecycle
 
@@ -541,6 +542,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         updateDeathFadeCellText()
         updateStartingPatternCellText()
         updateGridModeCellText()
+        updateRespawnModeCellText()
     }
 
     // MARK: - Menu Picker Methods (from MenuTableViewController)
@@ -725,6 +727,34 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         present(alert, animated: true, completion: nil)
     }
 
+    fileprivate func showRespawnModePicker() {
+        let alert = UIAlertController(
+            title: "Respawn Mode",
+            message: """
+            Fresh Start: Clears the board before spawning new life when stasis is detected.
+            Add Life: Adds new life to existing cells, which can lead to more varied patterns over time.
+            """,
+            preferredStyle: .actionSheet
+        )
+
+        let freshStartAction = UIAlertAction(title: "Fresh Start", style: .default) { _ in
+            self.manager.setRespawnMode(.freshStart)
+            self.updateRespawnModeCellText()
+        }
+        alert.addAction(freshStartAction)
+
+        let addLifeAction = UIAlertAction(title: "Add Life", style: .default) { _ in
+            self.manager.setRespawnMode(.addLife)
+            self.updateRespawnModeCellText()
+        }
+        alert.addAction(addLifeAction)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true, completion: nil)
+    }
+
     fileprivate func showStartingPatternPicker() {
         let alert = UIAlertController(
             title: "Starting Pattern",
@@ -806,6 +836,7 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
         case shiftingColors = 3
         case startingPattern = 4
         case gridMode = 5
+        case respawnMode = 6
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -832,7 +863,7 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView === menuTableView {
             if section == MenuSection.mainContent.rawValue {
-                return isCustomizeMode ? 6 : settingsPresets.count
+                return isCustomizeMode ? 7 : settingsPresets.count
             } else {
                 return 3  // Show Color Presets, Customize/Quick Start, About
             }
@@ -908,6 +939,11 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel?.text = "Grid Mode"
             gridModeCell = cell
             updateGridModeCellText()
+
+        case SettingsRow.respawnMode.rawValue:
+            cell.textLabel?.text = "Respawn Mode"
+            respawnModeCell = cell
+            updateRespawnModeCellText()
 
         default:
             break
@@ -1032,6 +1068,15 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
+    private func updateRespawnModeCellText() {
+        switch manager.respawnMode {
+        case .freshStart:
+            respawnModeCell?.detailTextLabel?.text = "Fresh Start"
+        case .addLife:
+            respawnModeCell?.detailTextLabel?.text = "Add Life"
+        }
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView === menuTableView {
             tableView.deselectRow(at: indexPath, animated: true)
@@ -1078,6 +1123,8 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             showStartingPatternPicker()
         case SettingsRow.gridMode.rawValue:
             showGridModePicker()
+        case SettingsRow.respawnMode.rawValue:
+            showRespawnModePicker()
         default:
             break
         }

@@ -28,6 +28,7 @@ struct LifeDatabase {
         static let startingPattern = "startingPattern"
         static let isCustomizeMode = "isCustomizeMode"
         static let gridMode = "gridMode"
+        static let respawnMode = "respawnMode"
     }
 
     static var standard: UserDefaults {
@@ -47,7 +48,8 @@ struct LifeDatabase {
              Key.hasPressedMenuButton: false,
              Key.startingPattern: StartingPattern.defaultRandom.rawValue,
              Key.isCustomizeMode: false,
-             Key.gridMode: GridMode.toroidal.rawValue])
+             Key.gridMode: GridMode.toroidal.rawValue,
+             Key.respawnMode: RespawnMode.freshStart.rawValue])
 
         return database
     }
@@ -132,6 +134,14 @@ extension UserDefaults {
 
     func set(gridMode: GridMode) {
         set(gridMode.rawValue, for: LifeDatabase.Key.gridMode)
+    }
+
+    var respawnMode: RespawnMode {
+        return RespawnMode(rawValue: integer(forKey: LifeDatabase.Key.respawnMode)) ?? .freshStart
+    }
+
+    func set(respawnMode: RespawnMode) {
+        set(respawnMode.rawValue, for: LifeDatabase.Key.respawnMode)
     }
 
     var selectedPresetTitle: String {

@@ -79,6 +79,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     var squareSize: SquareSize = .medium
     var startingPattern: StartingPattern = .defaultRandom
     var gridMode: GridMode = .toroidal
+    var respawnMode: RespawnMode = .freshStart
     private let bufferSize: Int = 20  // cells on each side for infinite mode
     private var visibleOriginX: Int = 0  // offset into matrix for visible area
     private var visibleOriginY: Int = 0
@@ -239,6 +240,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             shiftingColors = manager.shiftingColors
             startingPattern = manager.startingPattern
             gridMode = manager.gridMode
+            respawnMode = manager.respawnMode
         }
 
         if backgroundNode.color != appearanceColor {
@@ -508,15 +510,15 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             // Check if stasis timer has expired
             if let detectedTime = stasisDetectedTime,
                CACurrentMediaTime() - detectedTime >= stasisResetDelay {
-                // For specific patterns, kill all existing cells before regenerating
-                // so the pattern can restart cleanly without interference
-                if startingPattern == .gosperGun || startingPattern == .pulsar || startingPattern == .pufferTrain || startingPattern == .piFusePuffer {
+                // In Fresh Start mode, kill all existing cells before regenerating
+                // to prevent the board from becoming homogenous over time
+                if respawnMode == .freshStart {
                     livingNodes.removeAll()
                     for node in allNodes where node.alive {
                         dyingNodes.append(node)
                     }
                 }
-                // Add new life (or replace for Gosper Gun)
+                // Spawn new life
                 createRandomShapes(&dyingNodes, &livingNodes)
                 // Mark new cells and their neighbors as active
                 for node in livingNodes {

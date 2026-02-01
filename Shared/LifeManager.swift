@@ -31,6 +31,7 @@ final class LifeManager {
     private(set) var startingPattern: StartingPattern
     private(set) var isCustomizeMode: Bool
     private(set) var gridMode: GridMode
+    private(set) var respawnMode: RespawnMode
 
     private var usingPreset: Bool = false
 
@@ -52,6 +53,7 @@ final class LifeManager {
         startingPattern = LifeDatabase.standard.startingPattern
         isCustomizeMode = LifeDatabase.standard.isCustomizeMode
         gridMode = LifeDatabase.standard.gridMode
+        respawnMode = LifeDatabase.standard.respawnMode
     }
 
     func configure(with preset: LifePreset) {
@@ -131,6 +133,12 @@ final class LifeManager {
     func setGridMode(_ gridMode: GridMode) {
         self.gridMode = gridMode
         LifeDatabase.standard.set(gridMode: gridMode)
+        sendUpdateMessage()
+    }
+
+    func setRespawnMode(_ respawnMode: RespawnMode) {
+        self.respawnMode = respawnMode
+        LifeDatabase.standard.set(respawnMode: respawnMode)
         sendUpdateMessage()
     }
 
