@@ -458,8 +458,11 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             }
         }
 
-        // If entire tank is dead, generate a new tank!
-        if CGFloat(livingNodes.count) == 0 {
+        // If entire tank is dead (or nearly dead), generate a new tank immediately
+        // to avoid making users wait staring at an empty or near-empty screen.
+        let shouldRespawnImmediately = livingNodes.count <= 5
+
+        if shouldRespawnImmediately {
             createRandomShapes(&dyingNodes, &livingNodes)
             // After regeneration, mark all new living nodes and their neighbors as active
             for node in livingNodes {
@@ -490,10 +493,9 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             let match02 = boardSnapshots[0] == boardSnapshots[2]
             let match12 = boardSnapshots[1] == boardSnapshots[2]
 
-            // Also check for very low population (e.g., single glider = 5 cells)
-            let lowPopulation = livingNodes.count <= 5
-
-            if match01 || match02 || match12 || lowPopulation {
+            // Note: Very low population (<=5 cells) now triggers immediate respawn above,
+            // so we only need to detect oscillator stasis here
+            if match01 || match02 || match12 {
                 // Stasis detected - start timer if not already running
                 if stasisDetectedTime == nil {
                     stasisDetectedTime = CACurrentMediaTime()
