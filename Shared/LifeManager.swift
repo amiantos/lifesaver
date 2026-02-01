@@ -32,6 +32,7 @@ final class LifeManager {
     private(set) var isCustomizeMode: Bool
     private(set) var gridMode: GridMode
     private(set) var respawnMode: RespawnMode
+    private(set) var cameraMode: CameraMode
 
     private var usingPreset: Bool = false
 
@@ -54,6 +55,7 @@ final class LifeManager {
         isCustomizeMode = LifeDatabase.standard.isCustomizeMode
         gridMode = LifeDatabase.standard.gridMode
         respawnMode = LifeDatabase.standard.respawnMode
+        cameraMode = LifeDatabase.standard.cameraMode
     }
 
     func configure(with preset: LifePreset) {
@@ -81,6 +83,14 @@ final class LifeManager {
 
         if let startingPattern = preset.startingPattern {
             setStartingPattern(startingPattern)
+        }
+        
+        if let gridMode = preset.gridMode {
+            setGridMode(gridMode)
+        }
+        
+        if let respawnMode = preset.respawnMode {
+            setRespawnMode(respawnMode)
         }
 
         if let color1 = preset.color1 {
@@ -139,6 +149,12 @@ final class LifeManager {
     func setRespawnMode(_ respawnMode: RespawnMode) {
         self.respawnMode = respawnMode
         LifeDatabase.standard.set(respawnMode: respawnMode)
+        sendUpdateMessage()
+    }
+
+    func setCameraMode(_ cameraMode: CameraMode) {
+        self.cameraMode = cameraMode
+        LifeDatabase.standard.set(cameraMode: cameraMode)
         sendUpdateMessage()
     }
 

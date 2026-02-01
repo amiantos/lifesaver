@@ -80,6 +80,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     var startingPattern: StartingPattern = .defaultRandom
     var gridMode: GridMode = .toroidal
     var respawnMode: RespawnMode = .freshStart
+    var cameraMode: CameraMode = .static
     private let bufferSize: Int = 20  // cells on each side for infinite mode
     private var visibleOriginX: Int = 0  // offset into matrix for visible area
     private var visibleOriginY: Int = 0
@@ -115,6 +116,12 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         addChild(backgroundNode)
         backgroundNode.position = CGPoint(x: frame.width / 2, y: frame.height / 2)
         backgroundNode.zPosition = 0
+
+        // Setup camera node
+        cameraNode = SKCameraNode()
+        cameraNode.position = CGPoint(x: frame.midX, y: frame.midY)
+        addChild(cameraNode)
+        camera = cameraNode
 
         let fadeIn = SKAction.fadeIn(withDuration: 0.5)
         backgroundNode.run(fadeIn)
@@ -200,11 +207,52 @@ final class LifeScene: SKScene, LifeManagerDelegate {
                 }
             }
         }
+
+        // Update Ken Burns camera effect
+        if cameraMode == .kenBurns {
+            updateKenBurnsCamera(currentTime)
+        }
+    }
+
+    // MARK: - Camera Effects
+
+    private func updateKenBurnsCamera(_ currentTime: TimeInterval) {
+        let cycleDuration: TimeInterval = 75.0
+        let cycleProgress = currentTime.truncatingRemainder(dividingBy: cycleDuration) / cycleDuration
+
+        // Create organic motion with phase-shifted sine waves
+        let zoomPhase = cycleProgress * 2 * .pi
+        let panPhaseX = (cycleProgress * 2 * .pi) + (.pi / 3)  // Offset for variety
+        let panPhaseY = (cycleProgress * 2 * .pi) + (.pi / 2)
+
+        // Only zoom IN (scale < 1.0), never zoom out to avoid showing edges
+        let minScale: CGFloat = 0.75
+        let maxScale: CGFloat = 1.0
+        let scaleRange = maxScale - minScale
+        let currentScale = minScale + (scaleRange / 2) + (scaleRange / 2) * CGFloat(sin(zoomPhase))
+
+        // Calculate maximum safe pan distance based on current zoom level
+        // When zoomed in more, we can pan further without showing edges
+        let zoomFactor = 1.0 - currentScale  // 0 at scale 1.0, 0.25 at scale 0.75
+        let maxPanX = frame.midX * zoomFactor
+        let maxPanY = frame.midY * zoomFactor
+
+        let panX = frame.midX + maxPanX * CGFloat(sin(panPhaseX))
+        let panY = frame.midY + maxPanY * CGFloat(sin(panPhaseY))
+
+        cameraNode.position = CGPoint(x: panX, y: panY)
+        cameraNode.setScale(currentScale)
+    }
+
+    private func resetCameraToStatic() {
+        cameraNode.position = CGPoint(x: frame.midX, y: frame.midY)
+        cameraNode.setScale(1.0)
     }
 
     // MARK: - Life Parameters
 
     private var backgroundNode: SKSpriteNode = SKSpriteNode()
+    private var cameraNode: SKCameraNode = SKCameraNode()
     private var allNodes: [LifeNode] = []
     private var aliveNodes: [LifeNode] = []
     private var activeCells: Set<LifeNode> = []
@@ -241,7 +289,11 @@ final class LifeScene: SKScene, LifeManagerDelegate {
             startingPattern = manager.startingPattern
             gridMode = manager.gridMode
             respawnMode = manager.respawnMode
+            cameraMode = manager.cameraMode
         }
+
+        // Reset camera when settings change
+        resetCameraToStatic()
 
         if backgroundNode.color != appearanceColor {
             let colorize = SKAction.colorize(with: appearanceColor, colorBlendFactor: 1.0, duration: 0.5)

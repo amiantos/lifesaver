@@ -158,6 +158,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
     private var startingPatternCell: UITableViewCell?
     private var gridModeCell: UITableViewCell?
     private var respawnModeCell: UITableViewCell?
+    private var cameraModeCell: UITableViewCell?
 
     // MARK: - View Lifecycle
 
@@ -543,6 +544,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         updateStartingPatternCellText()
         updateGridModeCellText()
         updateRespawnModeCellText()
+        updateCameraModeCellText()
     }
 
     // MARK: - Menu Picker Methods (from MenuTableViewController)
@@ -755,6 +757,34 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         present(alert, animated: true, completion: nil)
     }
 
+    fileprivate func showCameraModePicker() {
+        let alert = UIAlertController(
+            title: "Camera",
+            message: """
+            Static: Fixed camera view (default behavior).
+            Ken Burns: Slow, smooth zoom and pan effect for visual interest.
+            """,
+            preferredStyle: .actionSheet
+        )
+
+        let staticAction = UIAlertAction(title: "Static", style: .default) { _ in
+            self.manager.setCameraMode(.static)
+            self.updateCameraModeCellText()
+        }
+        alert.addAction(staticAction)
+
+        let kenBurnsAction = UIAlertAction(title: "Ken Burns", style: .default) { _ in
+            self.manager.setCameraMode(.kenBurns)
+            self.updateCameraModeCellText()
+        }
+        alert.addAction(kenBurnsAction)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true, completion: nil)
+    }
+
     fileprivate func showStartingPatternPicker() {
         let alert = UIAlertController(
             title: "Starting Pattern",
@@ -837,6 +867,7 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
         case startingPattern = 4
         case gridMode = 5
         case respawnMode = 6
+        case cameraMode = 7
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -863,7 +894,7 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView === menuTableView {
             if section == MenuSection.mainContent.rawValue {
-                return isCustomizeMode ? 7 : settingsPresets.count
+                return isCustomizeMode ? 8 : settingsPresets.count
             } else {
                 return 3  // Show Color Presets, Customize/Quick Start, About
             }
@@ -944,6 +975,11 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel?.text = "Respawn Mode"
             respawnModeCell = cell
             updateRespawnModeCellText()
+
+        case SettingsRow.cameraMode.rawValue:
+            cell.textLabel?.text = "Camera"
+            cameraModeCell = cell
+            updateCameraModeCellText()
 
         default:
             break
@@ -1077,6 +1113,15 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
+    private func updateCameraModeCellText() {
+        switch manager.cameraMode {
+        case .static:
+            cameraModeCell?.detailTextLabel?.text = "Static"
+        case .kenBurns:
+            cameraModeCell?.detailTextLabel?.text = "Ken Burns"
+        }
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView === menuTableView {
             tableView.deselectRow(at: indexPath, animated: true)
@@ -1125,6 +1170,8 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             showGridModePicker()
         case SettingsRow.respawnMode.rawValue:
             showRespawnModePicker()
+        case SettingsRow.cameraMode.rawValue:
+            showCameraModePicker()
         default:
             break
         }

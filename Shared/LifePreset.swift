@@ -79,6 +79,11 @@ enum RespawnMode: Int {
     case addLife = 1     // Add new life to existing cells
 }
 
+enum CameraMode: Int {
+    case `static` = 0
+    case kenBurns = 1
+}
+
 extension SKColor {
     static let defaultColor1 = SKColor(red: 172 / 255.0, green: 48 / 255.0, blue: 17 / 255.0, alpha: 1.00)
     static let defaultColor2 = SKColor(red: 6 / 255.0, green: 66 / 255.0, blue: 110 / 255.0, alpha: 1.00)
@@ -149,7 +154,7 @@ let settingsPresets = [
         animationSpeed: .fastest,
         deathFade: true,
         shiftingColors: true,
-        startingPattern: .sparse,
+        startingPattern: .defaultRandom,
         gridMode: .infinite,
         respawnMode: .freshStart,
         color1: SKColor(red: 252 / 255.0, green: 98 / 255.0, blue: 101 / 255.0, alpha: 1.00),
@@ -165,7 +170,7 @@ let settingsPresets = [
         shiftingColors: true,
         startingPattern: .lonelyGliders,
         gridMode: .toroidal,
-        respawnMode: .freshStart,
+        respawnMode: .addLife,
         color1: SKColor(red: 252 / 255.0, green: 98 / 255.0, blue: 101 / 255.0, alpha: 1.00),
         color2: SKColor(red: 88 / 255.0, green: 137 / 255.0, blue: 251 / 255.0, alpha: 1.00),
         color3: SKColor(red: 38 / 255.0, green: 205 / 255.0, blue: 105 / 255.0, alpha: 1.00)
