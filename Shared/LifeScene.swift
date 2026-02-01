@@ -476,9 +476,9 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         }
 
         // Static tank prevention - compare board snapshots
-        // Create snapshot of current living cell positions
+        // Create snapshot of ALL living cell positions (not just the ones checked this iteration)
         var currentSnapshot = Set<CGPoint>()
-        for node in livingNodes {
+        for node in allNodes where node.alive {
             currentSnapshot.insert(node.relativePosition)
         }
 
