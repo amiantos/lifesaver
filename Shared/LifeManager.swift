@@ -93,6 +93,10 @@ final class LifeManager {
             setRespawnMode(respawnMode)
         }
 
+        if let cameraMode = preset.cameraMode {
+            setCameraMode(cameraMode)
+        }
+
         if let color1 = preset.color1 {
             setColor(color1, for: .color1)
         }
