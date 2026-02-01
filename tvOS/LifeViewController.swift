@@ -455,7 +455,6 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
             scene!.manager = manager
 
             view.ignoresSiblingOrder = true
-            view.preferredFramesPerSecond = 60
             view.presentScene(scene)
         }
     }
