@@ -823,12 +823,12 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
     private enum MenuSection: Int {
         case mainContent = 0  // Either presets or settings depending on mode
         case navigation = 1
+        case about = 2
     }
 
     private enum NavigationRow: Int {
         case showPresets = 0
         case toggleMode = 1  // "Customize" or "Quick Start" depending on mode
-        case about = 2
     }
 
     private enum SettingsRow: Int {
@@ -844,7 +844,7 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         if tableView === menuTableView {
-            return 2  // Main content + Navigation
+            return 3  // Main content + Navigation + About
         } else {
             // Color presets table
             return 1
@@ -855,6 +855,10 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView === menuTableView {
             if section == MenuSection.mainContent.rawValue {
                 return isCustomizeMode ? "Advanced Settings" : "Quick Start Presets"
+            } else if section == MenuSection.navigation.rawValue {
+                return "Settings"
+            } else if section == MenuSection.about.rawValue {
+                return "More"
             }
             return nil
         } else {
@@ -867,8 +871,10 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView === menuTableView {
             if section == MenuSection.mainContent.rawValue {
                 return isCustomizeMode ? 8 : settingsPresets.count
+            } else if section == MenuSection.navigation.rawValue {
+                return 2  // Show Color Presets, Customize/Quick Start
             } else {
-                return 3  // Show Color Presets, Customize/Quick Start, About
+                return 1  // About
             }
         } else {
             // Color presets table - only color presets (excluding Custom)
@@ -891,8 +897,10 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             } else {
                 return presetCellForRowAt(indexPath)
             }
-        } else {
+        } else if indexPath.section == MenuSection.navigation.rawValue {
             return navigationCellForRowAt(indexPath)
+        } else {
+            return aboutCellForRowAt(indexPath)
         }
     }
 
@@ -975,13 +983,19 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
         case NavigationRow.toggleMode.rawValue:
             cell.textLabel?.text = isCustomizeMode ? "Quick Start Presets" : "Advanced Mode"
 
-        case NavigationRow.about.rawValue:
-            cell.textLabel?.text = "About"
-            cell.accessoryType = .disclosureIndicator
-
         default:
             break
         }
+
+        return cell
+    }
+
+    private func aboutCellForRowAt(_ indexPath: IndexPath) -> UITableViewCell {
+        let cell = menuTableView.dequeueReusableCell(withIdentifier: "AboutCell")
+            ?? UITableViewCell(style: .default, reuseIdentifier: "AboutCell")
+
+        cell.textLabel?.text = "About Life Saver"
+        cell.accessoryType = .disclosureIndicator
 
         return cell
     }
@@ -1111,18 +1125,19 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
                 let preset = settingsPresets[indexPath.row]
                 manager.configure(with: preset)
             }
-        } else {
+        } else if indexPath.section == MenuSection.navigation.rawValue {
             // Navigation section
             switch indexPath.row {
             case NavigationRow.showPresets.rawValue:
                 showColorPresets()
             case NavigationRow.toggleMode.rawValue:
                 toggleCustomizeMode()
-            case NavigationRow.about.rawValue:
-                showAboutPage()
             default:
                 break
             }
+        } else {
+            // About section
+            showAboutPage()
         }
     }
 
