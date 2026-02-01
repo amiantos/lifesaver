@@ -543,7 +543,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
 
     fileprivate func showAboutPage() {
         let alert = UIAlertController(title: "About Life Saver", message: """
-        Life Saver is an artistic implementation of the Game of Life, a cellular automaton created by mathematician John Conway in 1972.
+        Life Saver was created by Brad Root, a software engineer living in Orange County, California.
 
         Life Saver is open source software, which means you can see how it works and use it to make your own versions or modifications.
 
