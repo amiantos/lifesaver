@@ -558,10 +558,17 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         }
 
         // Static tank prevention - compare board snapshots
-        // Create snapshot of ALL living cell positions (not just the ones checked this iteration)
+        // Create snapshot of living cell positions in the VISIBLE area only
+        // (Buffer zone activity in infinite mode shouldn't prevent stasis detection)
         var currentSnapshot = Set<CGPoint>()
         for node in allNodes where node.alive {
-            currentSnapshot.insert(node.relativePosition)
+            let x = Int(node.relativePosition.x)
+            let y = Int(node.relativePosition.y)
+            // Only include cells in the visible area
+            if x >= visibleOriginX && x < visibleOriginX + Int(lengthSquares) &&
+               y >= visibleOriginY && y < visibleOriginY + Int(heightSquares) {
+                currentSnapshot.insert(node.relativePosition)
+            }
         }
 
         // Store in circular buffer of 6 boards to detect oscillators up to period-6
