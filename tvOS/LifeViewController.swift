@@ -158,6 +158,9 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         }
 
         if !manager.hasPressedMenuButton {
+            // Force initial layout before starting animations to prevent
+            // views from animating from wrong positions on first launch
+            view.layoutIfNeeded()
             bounceOrHideMenuHintToast(reverse: false)
         } else {
             menuHintToast.alpha = 0
