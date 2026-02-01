@@ -116,27 +116,6 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         return view
     }()
 
-    // Footer view for main menu
-    private lazy var footerView: UIVisualEffectView = {
-        let vibrancyEffect = UIVibrancyEffect(blurEffect: UIBlurEffect(style: .regular))
-        let view = UIVisualEffectView(effect: vibrancyEffect)
-        view.translatesAutoresizingMaskIntoConstraints = false
-
-        let urlLabel = UILabel()
-        urlLabel.text = "https://github.com/amiantos/lifesaver"
-        urlLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
-        urlLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        view.contentView.addSubview(urlLabel)
-
-        NSLayoutConstraint.activate([
-            urlLabel.centerXAnchor.constraint(equalTo: view.contentView.centerXAnchor),
-            urlLabel.bottomAnchor.constraint(equalTo: view.contentView.bottomAnchor, constant: -40)
-        ])
-
-        return view
-    }()
-
     // MARK: - Constraints
 
     private var mainMenuLeadingConstraint: NSLayoutConstraint!
@@ -222,7 +201,6 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
 
         mainMenuView.contentView.addSubview(headerView)
         mainMenuView.contentView.addSubview(menuTableView)
-        mainMenuView.contentView.addSubview(footerView)
 
         NSLayoutConstraint.activate([
             mainMenuView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -237,13 +215,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
             menuTableView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -30),
             menuTableView.leadingAnchor.constraint(equalTo: mainMenuView.contentView.leadingAnchor),
             menuTableView.trailingAnchor.constraint(equalTo: mainMenuView.contentView.trailingAnchor, constant: -100),
-            // menuTableView.heightAnchor.constraint(equalToConstant: 770),
             menuTableView.bottomAnchor.constraint(equalTo: mainMenuView.contentView.bottomAnchor),
-
-//            footerView.topAnchor.constraint(equalTo: menuTableView.bottomAnchor),
-//            footerView.leadingAnchor.constraint(equalTo: mainMenuView.contentView.leadingAnchor),
-//            footerView.trailingAnchor.constraint(equalTo: mainMenuView.contentView.trailingAnchor),
-//            footerView.bottomAnchor.constraint(equalTo: mainMenuView.contentView.bottomAnchor)
         ])
     }
 
