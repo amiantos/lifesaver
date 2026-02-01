@@ -111,7 +111,7 @@ let settingsPresets = [
         title: "Meditation",
         appearanceMode: .light,
         squareSize: .large,
-        animationSpeed: .normal,
+        animationSpeed: .slow,
         deathFade: false,
         shiftingColors: true,
         startingPattern: .defaultRandom,
@@ -147,7 +147,7 @@ let settingsPresets = [
         startingPattern: .defaultRandom,
         gridMode: .toroidal,
         respawnMode: .freshStart,
-        cameraMode: .static,
+        cameraMode: .kenBurns,
         color1: SKColor(red: 252 / 255.0, green: 98 / 255.0, blue: 101 / 255.0, alpha: 1.00),
         color2: SKColor(red: 88 / 255.0, green: 137 / 255.0, blue: 251 / 255.0, alpha: 1.00),
         color3: SKColor(red: 38 / 255.0, green: 205 / 255.0, blue: 105 / 255.0, alpha: 1.00)
