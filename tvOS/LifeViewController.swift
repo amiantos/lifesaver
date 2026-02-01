@@ -854,7 +854,7 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if tableView === menuTableView {
             if section == MenuSection.mainContent.rawValue {
-                return isCustomizeMode ? "Settings" : "Quick Start"
+                return isCustomizeMode ? "Advanced Settings" : "Quick Start Presets"
             }
             return nil
         } else {
@@ -970,10 +970,10 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
 
         switch indexPath.row {
         case NavigationRow.showPresets.rawValue:
-            cell.textLabel?.text = "Show Color Presets"
+            cell.textLabel?.text = "Color Presets"
 
         case NavigationRow.toggleMode.rawValue:
-            cell.textLabel?.text = isCustomizeMode ? "Quick Start" : "Customize"
+            cell.textLabel?.text = isCustomizeMode ? "Quick Start Presets" : "Advanced Mode"
 
         case NavigationRow.about.rawValue:
             cell.textLabel?.text = "About"
