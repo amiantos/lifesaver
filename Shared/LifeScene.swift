@@ -11,6 +11,9 @@
 
 import GameplayKit
 import SpriteKit
+#if DEBUG
+import os.log
+#endif
 
 #if os(macOS)
 import AppKit
@@ -19,6 +22,10 @@ import UIKit
 #endif
 
 final class LifeScene: SKScene, LifeManagerDelegate {
+    #if DEBUG
+    private static let stasisLogger = Logger(subsystem: "com.amiantos.lifesaver", category: "stasis")
+    #endif
+
     // MARK: - Settings
 
     var aliveColors: [SKColor] = [
@@ -154,6 +161,9 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     }
 
     @objc private func handleDidBecomeActive() {
+        #if DEBUG
+        Self.stasisLogger.info("[Stasis] handleDidBecomeActive - timer reset (stasisDetectedTime was \(self.stasisDetectedTime != nil ? "set" : "nil"))")
+        #endif
         resetTimingState()
         syncVisualState()
     }
@@ -280,10 +290,15 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     private var cameraNode: SKCameraNode = SKCameraNode()
     private var allNodes: [LifeNode] = []
     private var activeCells: Set<LifeNode> = []
-    private var boardFingerprints: [Int] = [0, 0, 0, 0, 0, 0]
+    private let fingerprintBufferSize = 12
+    private var boardFingerprints: [Int] = Array(repeating: 0, count: 12)
     private var snapshotIndex: Int = 0
     private var snapshotsFilled: Bool = false
     private var stasisDetectedTime: TimeInterval?
+    #if DEBUG
+    private var generationCount: Int = 0
+    private var lastMatchState: Bool = false
+    #endif
     private var stasisResetDelay: TimeInterval { deathFade ? 30.0 : 5.0 }
     private var updatesSinceVisualSync: Int = 0
     private let visualSyncInterval: Int = 100  // Check all nodes every N updates
@@ -475,16 +490,23 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         allNodes.forEach { $0.remove(duration: 0.5) }
         allNodes.removeAll()
         activeCells.removeAll()
-        boardFingerprints = [0, 0, 0, 0, 0, 0]
+        boardFingerprints = Array(repeating: 0, count: fingerprintBufferSize)
         snapshotIndex = 0
         snapshotsFilled = false
         stasisDetectedTime = nil
         updatesSinceVisualSync = 0
+        #if DEBUG
+        generationCount = 0
+        lastMatchState = false
+        #endif
     }
 
     // MARK: - Life Updates
 
     fileprivate func updateLife() {
+        #if DEBUG
+        generationCount += 1
+        #endif
         var dyingNodes: [LifeNode] = []
         var livingNodes: [LifeNode] = []
         var nextActiveCells: Set<LifeNode> = []
@@ -539,6 +561,9 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         let shouldRespawnImmediately = livingNodes.count <= 5
 
         if shouldRespawnImmediately {
+            #if DEBUG
+            Self.stasisLogger.info("[Stasis] Gen \(self.generationCount) | IMMEDIATE RESPAWN - livingNodes=\(livingNodes.count)")
+            #endif
             // In Fresh Start mode, kill remaining cells before regenerating
             // to prevent color homogenization over time
             if respawnMode == .freshStart {
@@ -558,12 +583,14 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         }
 
         // Static tank prevention - compare board fingerprints
-        // Compute fingerprint of living cell positions in the VISIBLE area only
-        // (Buffer zone activity in infinite mode shouldn't prevent stasis detection)
+        // Compute fingerprint from ALL alive cells in the visible area, not just
+        // those in livingNodes (which only contains cells found via activeCells).
+        // This ensures stable still-life cells are always included, making the
+        // fingerprint deterministic for a given board state.
         // Use XOR which is order-independent (commutative and associative)
         var fingerprint: Int = 0
         var visibleAliveCount = 0
-        for node in livingNodes {
+        for node in allNodes where node.alive {
             let x = Int(node.relativePosition.x)
             let y = Int(node.relativePosition.y)
             // Only include cells in the visible area
@@ -578,22 +605,19 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         // (e.g., a board with cells at (1,1) and (2,2) vs just (3,3) could have same XOR)
         let currentFingerprint = fingerprint ^ (visibleAliveCount << 24)
 
-        // Store in circular buffer of 6 fingerprints to detect oscillators up to period-6
+        // Store in circular buffer to detect oscillators up to period-(bufferSize-1)
         boardFingerprints[snapshotIndex] = currentFingerprint
-        snapshotIndex = (snapshotIndex + 1) % 6
+        snapshotIndex = (snapshotIndex + 1) % fingerprintBufferSize
         if !snapshotsFilled && snapshotIndex == 0 {
             snapshotsFilled = true
         }
 
         if snapshotsFilled {
-            // Check if any 2 of the 6 fingerprints match (detects period 1-6 oscillators)
-            // Period-1 (still life): multiple fingerprints match
-            // Period-2: fingerprints 0,2,4 match and 1,3,5 match
-            // Period-3: fingerprints 0,3 match, 1,4 match, 2,5 match
-            // Period-4 through 6: at least 2 fingerprints will match
+            // Check if any 2 fingerprints match (detects oscillators up to period bufferSize-1)
+            // A buffer of size N can detect periods 1 through N-1
             var matchFound = false
-            outerLoop: for i in 0..<6 {
-                for j in (i+1)..<6 {
+            outerLoop: for i in 0..<fingerprintBufferSize {
+                for j in (i+1)..<fingerprintBufferSize {
                     if boardFingerprints[i] == boardFingerprints[j] {
                         matchFound = true
                         break outerLoop
@@ -601,21 +625,51 @@ final class LifeScene: SKScene, LifeManagerDelegate {
                 }
             }
 
+            #if DEBUG
+            // Log on match state transitions or every 500 generations
+            let matchStateChanged = matchFound != lastMatchState
+            if matchStateChanged || generationCount % 500 == 0 {
+                let bufferStr = boardFingerprints.map { String(format: "0x%X", $0) }.joined(separator: ", ")
+                let timerStr: String
+                if let t = stasisDetectedTime {
+                    timerStr = String(format: "%.1fs", CACurrentMediaTime() - t)
+                } else {
+                    timerStr = "nil"
+                }
+                Self.stasisLogger.info("[Stasis] Gen \(self.generationCount) | active=\(self.activeCells.count) living=\(livingNodes.count) visible=\(visibleAliveCount) | fp=\(String(format: "0x%X", currentFingerprint)) | buffer=[\(bufferStr)] | match=\(matchFound) | timer=\(timerStr)")
+                if matchStateChanged {
+                    Self.stasisLogger.info("[Stasis] Gen \(self.generationCount) | MATCH STATE CHANGED: \(self.lastMatchState) → \(matchFound)")
+                }
+            }
+            lastMatchState = matchFound
+            #endif
+
             // Note: Very low population (<=5 cells) now triggers immediate respawn above,
             // so we only need to detect oscillator stasis here
             if matchFound {
                 // Stasis detected - start timer if not already running
                 if stasisDetectedTime == nil {
+                    #if DEBUG
+                    Self.stasisLogger.info("[Stasis] Gen \(self.generationCount) | STASIS TIMER STARTED")
+                    #endif
                     stasisDetectedTime = CACurrentMediaTime()
                 }
             } else {
                 // Not in stasis - reset timer
+                #if DEBUG
+                if stasisDetectedTime != nil {
+                    Self.stasisLogger.info("[Stasis] Gen \(self.generationCount) | STASIS TIMER CLEARED")
+                }
+                #endif
                 stasisDetectedTime = nil
             }
 
             // Check if stasis timer has expired
             if let detectedTime = stasisDetectedTime,
                CACurrentMediaTime() - detectedTime >= stasisResetDelay {
+                #if DEBUG
+                Self.stasisLogger.info("[Stasis] Gen \(self.generationCount) | REGENERATION TRIGGERED after \(String(format: "%.1f", CACurrentMediaTime() - detectedTime))s")
+                #endif
                 // In Fresh Start mode, kill all existing cells before regenerating
                 // to prevent the board from becoming homogenous over time
                 if respawnMode == .freshStart {
@@ -634,10 +688,14 @@ final class LifeScene: SKScene, LifeManagerDelegate {
                     }
                 }
                 // Reset fingerprints and timer
-                boardFingerprints = [0, 0, 0, 0, 0, 0]
+                boardFingerprints = Array(repeating: 0, count: fingerprintBufferSize)
                 snapshotIndex = 0
                 snapshotsFilled = false
                 stasisDetectedTime = nil
+                #if DEBUG
+                generationCount = 0
+                lastMatchState = false
+                #endif
             }
         }
 
