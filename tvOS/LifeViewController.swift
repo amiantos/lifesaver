@@ -46,7 +46,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
     }()
 
     private lazy var menuHintToast: UIVisualEffectView = {
-        let view = createToast(text: "Press Menu Button")
+        let view = createToast(text: "Press Back Button")
         return view
     }()
 
