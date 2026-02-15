@@ -565,6 +565,14 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         present(aboutVC, animated: true)
     }
 
+    fileprivate func showColorPicker() {
+        let pickerVC = ColorPickerViewController(manager: manager)
+        pickerVC.delegate = self
+        pickerVC.modalPresentationStyle = .overFullScreen
+        pickerVC.modalTransitionStyle = .crossDissolve
+        present(pickerVC, animated: true)
+    }
+
     fileprivate func showSpeedPicker() {
         let alert = UIAlertController(
             title: "Animation Speed",
@@ -846,6 +854,7 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
         case gridMode = 5
         case respawnMode = 6
         case cameraMode = 7
+        case customColors = 8
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -876,7 +885,7 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView === menuTableView {
             if section == MenuSection.mainContent.rawValue {
-                return isCustomizeMode ? 8 : settingsPresets.count
+                return isCustomizeMode ? 9 : settingsPresets.count
             } else if section == MenuSection.navigation.rawValue {
                 return 2  // Show Color Presets, Customize/Quick Start
             } else {
@@ -966,6 +975,9 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel?.text = "Camera"
             cameraModeCell = cell
             updateCameraModeCellText()
+
+        case SettingsRow.customColors.rawValue:
+            cell.textLabel?.text = "Custom Colors"
 
         default:
             break
@@ -1172,6 +1184,8 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             showRespawnModePicker()
         case SettingsRow.cameraMode.rawValue:
             showCameraModePicker()
+        case SettingsRow.customColors.rawValue:
+            showColorPicker()
         default:
             break
         }
@@ -1195,5 +1209,15 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
 
         setNeedsFocusUpdate()
         updateFocusIfNeeded()
+    }
+}
+
+// MARK: - ColorPickerDelegate
+
+extension LifeViewController: ColorPickerDelegate {
+    func colorPickerDidSave(colors: [(SKColor, Colors)]) {
+        for (color, slot) in colors {
+            manager.setColor(color, for: slot)
+        }
     }
 }
