@@ -17,6 +17,10 @@ Life Saver is an abstract, artistic implementation of [Conway's Game of Life](ht
 
 ### 👉 [Get Life Saver TV on the App Store](https://apps.apple.com/us/app/life-saver-tv/id1470667717)
 
+## Community
+
+For devlogs, discussion, and support, visit the [Life Saver forum](https://discuss.bradroot.me/tags/c/projects/13/life-saver/7).
+
 ## To Install from Source
 
 1. `git clone https://github.com/amiantos/lifesaver.git`
