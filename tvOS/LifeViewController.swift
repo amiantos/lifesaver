@@ -135,6 +135,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
     private var gridModeCell: UITableViewCell?
     private var respawnModeCell: UITableViewCell?
     private var cameraModeCell: UITableViewCell?
+    private var backgroundCell: UITableViewCell?
 
     // MARK: - View Lifecycle
 
@@ -516,6 +517,7 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         updateGridModeCellText()
         updateRespawnModeCellText()
         updateCameraModeCellText()
+        updateBackgroundCellText()
     }
 
     // MARK: - Menu Picker Methods (from MenuTableViewController)
@@ -743,6 +745,34 @@ class LifeViewController: UIViewController, LifeManagerDelegate {
         present(alert, animated: true, completion: nil)
     }
 
+    fileprivate func showBackgroundPicker() {
+        let alert = UIAlertController(
+            title: "Background",
+            message: """
+            Dark: Black background (default).
+            Light: White background for a brighter look.
+            """,
+            preferredStyle: .actionSheet
+        )
+
+        let darkAction = UIAlertAction(title: "Dark", style: .default) { _ in
+            self.manager.setAppearanceMode(.dark)
+            self.updateBackgroundCellText()
+        }
+        alert.addAction(darkAction)
+
+        let lightAction = UIAlertAction(title: "Light", style: .default) { _ in
+            self.manager.setAppearanceMode(.light)
+            self.updateBackgroundCellText()
+        }
+        alert.addAction(lightAction)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true, completion: nil)
+    }
+
     fileprivate func showCameraModePicker() {
         let alert = UIAlertController(
             title: "Camera",
@@ -855,6 +885,7 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
         case respawnMode = 6
         case cameraMode = 7
         case customColors = 8
+        case background = 9
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -885,7 +916,7 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView === menuTableView {
             if section == MenuSection.mainContent.rawValue {
-                return isCustomizeMode ? 9 : settingsPresets.count
+                return isCustomizeMode ? 10 : settingsPresets.count
             } else if section == MenuSection.navigation.rawValue {
                 return 2  // Show Color Presets, Customize/Quick Start
             } else {
@@ -978,6 +1009,12 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
 
         case SettingsRow.customColors.rawValue:
             cell.textLabel?.text = "Custom Colors"
+            cell.detailTextLabel?.text = nil
+
+        case SettingsRow.background.rawValue:
+            cell.textLabel?.text = "Background"
+            backgroundCell = cell
+            updateBackgroundCellText()
 
         default:
             break
@@ -1120,6 +1157,15 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
+    private func updateBackgroundCellText() {
+        switch manager.appearanceMode {
+        case .dark:
+            backgroundCell?.detailTextLabel?.text = "Dark"
+        case .light:
+            backgroundCell?.detailTextLabel?.text = "Light"
+        }
+    }
+
     private func updateCameraModeCellText() {
         switch manager.cameraMode {
         case .static:
@@ -1186,6 +1232,8 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
             showCameraModePicker()
         case SettingsRow.customColors.rawValue:
             showColorPicker()
+        case SettingsRow.background.rawValue:
+            showBackgroundPicker()
         default:
             break
         }
