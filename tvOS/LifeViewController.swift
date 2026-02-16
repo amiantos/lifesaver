@@ -876,16 +876,19 @@ extension LifeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     private enum SettingsRow: Int {
+        // Simulation
         case squareSize = 0
         case animationSpeed = 1
-        case deathFade = 2
-        case shiftingColors = 3
-        case startingPattern = 4
-        case gridMode = 5
-        case respawnMode = 6
-        case cameraMode = 7
-        case customColors = 8
-        case background = 9
+        case startingPattern = 2
+        case gridMode = 3
+        case respawnMode = 4
+        // Colors
+        case customColors = 5
+        case background = 6
+        case shiftingColors = 7
+        case deathFade = 8
+        // Camera
+        case cameraMode = 9
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
