@@ -21,21 +21,21 @@ import AppKit
 import UIKit
 #endif
 
-final class LifeScene: SKScene, LifeManagerDelegate {
+public final class LifeScene: SKScene, LifeManagerDelegate {
     #if DEBUG
     private static let stasisLogger = Logger(subsystem: "com.amiantos.lifesaver", category: "stasis")
     #endif
 
     // MARK: - Settings
 
-    var aliveColors: [SKColor] = [
+    public var aliveColors: [SKColor] = [
         SKColor.defaultColor1,
         SKColor.defaultColor2,
         SKColor.defaultColor3,
     ]
 
     var appearanceColor: SKColor = .black
-    var appearanceMode: Appearance = .dark {
+    public var appearanceMode: Appearance = .dark {
         didSet {
             switch appearanceMode {
             case .dark:
@@ -52,7 +52,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     private var animationTime: TimeInterval = 2
     private var updateTime: TimeInterval = 2
     private var fadeDelayTime: TimeInterval = 540
-    var animationSpeed: AnimationSpeed = .normal {
+    public var animationSpeed: AnimationSpeed = .normal {
         didSet {
             switch animationSpeed {
             case .fastest:
@@ -83,11 +83,11 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         }
     }
 
-    var squareSize: SquareSize = .medium
-    var startingPattern: StartingPattern = .defaultRandom
-    var gridMode: GridMode = .toroidal
-    var respawnMode: RespawnMode = .freshStart
-    var cameraMode: CameraMode = .static
+    public var squareSize: SquareSize = .medium
+    public var startingPattern: StartingPattern = .defaultRandom
+    public var gridMode: GridMode = .toroidal
+    public var respawnMode: RespawnMode = .freshStart
+    public var cameraMode: CameraMode = .static
     private let bufferSize: Int = 20  // cells on each side for infinite mode
     private var visibleOriginX: Int = 0  // offset into matrix for visible area
     private var visibleOriginY: Int = 0
@@ -100,7 +100,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         }
     }
 
-    func updatedSettings() {
+    public func updatedSettings() {
         print("Updated Settings")
         isUpdating = false
         endLife()
@@ -109,13 +109,13 @@ final class LifeScene: SKScene, LifeManagerDelegate {
 
     // MARK: - Scene Lifecycle
 
-    override func sceneDidLoad() {
+    public override func sceneDidLoad() {
         size.width = frame.size.width * 2
         size.height = frame.size.height * 2
         backgroundColor = .black
     }
 
-    override func didMove(to _: SKView) {
+    public override func didMove(to _: SKView) {
         setupNotificationObservers()
 
         backgroundNode = SKSpriteNode(texture: squareTexture, color: appearanceColor, size: frame.size)
@@ -208,7 +208,7 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         updateLife()
     }
 
-    override func update(_ currentTime: TimeInterval) {
+    public override func update(_ currentTime: TimeInterval) {
         if lastUpdate == 0 || currentTime - lastUpdate >= updateTime {
             lastUpdate = currentTime
             if isUpdating {
@@ -1454,14 +1454,14 @@ final class LifeScene: SKScene, LifeManagerDelegate {
     // MARK: - Debug Input Handling
 
     #if os(macOS)
-    override func keyDown(with event: NSEvent) {
+    public override func keyDown(with event: NSEvent) {
         // Spacebar to toggle pause
         if event.keyCode == 49 {
             toggleLifePause()
         }
     }
 
-    override func mouseDown(with event: NSEvent) {
+    public override func mouseDown(with event: NSEvent) {
         toggleLifePause()
     }
     #endif

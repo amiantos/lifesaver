@@ -11,28 +11,58 @@
 
 import SpriteKit
 
-struct LifePreset {
-    let title: String
-    let appearanceMode: Appearance?
-    let squareSize: SquareSize?
-    let animationSpeed: AnimationSpeed?
-    let deathFade: Bool?
-    let shiftingColors: Bool?
-    let startingPattern: StartingPattern?
-    let gridMode: GridMode?
-    let respawnMode: RespawnMode?
-    let cameraMode: CameraMode?
-    let color1: SKColor?
-    let color2: SKColor?
-    let color3: SKColor?
+public struct LifePreset {
+    public let title: String
+    public let appearanceMode: Appearance?
+    public let squareSize: SquareSize?
+    public let animationSpeed: AnimationSpeed?
+    public let deathFade: Bool?
+    public let shiftingColors: Bool?
+    public let startingPattern: StartingPattern?
+    public let gridMode: GridMode?
+    public let respawnMode: RespawnMode?
+    public let cameraMode: CameraMode?
+    public let color1: SKColor?
+    public let color2: SKColor?
+    public let color3: SKColor?
+
+    public init(
+        title: String,
+        appearanceMode: Appearance?,
+        squareSize: SquareSize?,
+        animationSpeed: AnimationSpeed?,
+        deathFade: Bool?,
+        shiftingColors: Bool?,
+        startingPattern: StartingPattern?,
+        gridMode: GridMode?,
+        respawnMode: RespawnMode?,
+        cameraMode: CameraMode?,
+        color1: SKColor?,
+        color2: SKColor?,
+        color3: SKColor?
+    ) {
+        self.title = title
+        self.appearanceMode = appearanceMode
+        self.squareSize = squareSize
+        self.animationSpeed = animationSpeed
+        self.deathFade = deathFade
+        self.shiftingColors = shiftingColors
+        self.startingPattern = startingPattern
+        self.gridMode = gridMode
+        self.respawnMode = respawnMode
+        self.cameraMode = cameraMode
+        self.color1 = color1
+        self.color2 = color2
+        self.color3 = color3
+    }
 }
 
-enum Appearance: Int {
+public enum Appearance: Int {
     case light = 0
     case dark = 1
 }
 
-enum SquareSize: Int {
+public enum SquareSize: Int {
     case ultraSmall = -3
     case superSmall = -2
     case verySmall = -1
@@ -41,7 +71,7 @@ enum SquareSize: Int {
     case large = 2
 }
 
-enum AnimationSpeed: Int {
+public enum AnimationSpeed: Int {
     case fastest = -1
     case fast = 0
     case normal = 1
@@ -50,7 +80,7 @@ enum AnimationSpeed: Int {
     case medium = 4
 }
 
-enum StartingPattern: Int {
+public enum StartingPattern: Int {
     case defaultRandom = 0
     case sparse = 1
     case gliders = 2
@@ -64,34 +94,34 @@ enum StartingPattern: Int {
     case piFusePuffer = 10
 }
 
-enum Colors: Int {
+public enum Colors: Int {
     case color1 = 0
     case color2 = 1
     case color3 = 2
 }
 
-enum GridMode: Int {
-    case toroidal = 0    // Edges wrap around (current behavior)
-    case infinite = 1    // Buffer zone simulation
+public enum GridMode: Int {
+    case toroidal = 0
+    case infinite = 1
 }
 
-enum RespawnMode: Int {
-    case freshStart = 0  // Clear board before spawning new life
-    case addLife = 1     // Add new life to existing cells
+public enum RespawnMode: Int {
+    case freshStart = 0
+    case addLife = 1
 }
 
-enum CameraMode: Int {
+public enum CameraMode: Int {
     case `static` = 0
     case kenBurns = 1
 }
 
-extension SKColor {
+public extension SKColor {
     static let defaultColor1 = SKColor(red: 172 / 255.0, green: 48 / 255.0, blue: 17 / 255.0, alpha: 1.00)
     static let defaultColor2 = SKColor(red: 6 / 255.0, green: 66 / 255.0, blue: 110 / 255.0, alpha: 1.00)
     static let defaultColor3 = SKColor(red: 174 / 255.0, green: 129 / 255.0, blue: 0 / 255.0, alpha: 1.00)
 }
 
-let settingsPresets = [
+public let settingsPresets = [
     LifePreset(
         title: "Santa Fe",
         appearanceMode: .dark,
@@ -184,7 +214,7 @@ let settingsPresets = [
     ),
 ]
 
-let colorPresets = [
+public let colorPresets = [
     LifePreset(
         title: "Santa Fe",
         appearanceMode: .dark,

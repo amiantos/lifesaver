@@ -12,34 +12,34 @@
 import Foundation
 import SpriteKit
 
-protocol LifeManagerDelegate: AnyObject {
+public protocol LifeManagerDelegate: AnyObject {
     func updatedSettings()
 }
 
-final class LifeManager {
-    private(set) var appearanceMode: Appearance
-    private(set) var squareSize: SquareSize
-    private(set) var animationSpeed: AnimationSpeed
-    private(set) var color1: SKColor
-    private(set) var color2: SKColor
-    private(set) var color3: SKColor
-    private(set) var randomColorPreset: Bool
-    private(set) var shiftingColors: Bool
-    private(set) var deathFade: Bool
-    private(set) var selectedPresetTitle: String
-    private(set) var hasPressedMenuButton: Bool
-    private(set) var startingPattern: StartingPattern
-    private(set) var isCustomizeMode: Bool
-    private(set) var gridMode: GridMode
-    private(set) var respawnMode: RespawnMode
-    private(set) var cameraMode: CameraMode
+public final class LifeManager {
+    public private(set) var appearanceMode: Appearance
+    public private(set) var squareSize: SquareSize
+    public private(set) var animationSpeed: AnimationSpeed
+    public private(set) var color1: SKColor
+    public private(set) var color2: SKColor
+    public private(set) var color3: SKColor
+    public private(set) var randomColorPreset: Bool
+    public private(set) var shiftingColors: Bool
+    public private(set) var deathFade: Bool
+    public private(set) var selectedPresetTitle: String
+    public private(set) var hasPressedMenuButton: Bool
+    public private(set) var startingPattern: StartingPattern
+    public private(set) var isCustomizeMode: Bool
+    public private(set) var gridMode: GridMode
+    public private(set) var respawnMode: RespawnMode
+    public private(set) var cameraMode: CameraMode
 
     private var usingPreset: Bool = false
 
     weak var delegate: LifeManagerDelegate?
     weak var settingsDelegate: LifeManagerDelegate?
 
-    init() {
+    public init() {
         appearanceMode = LifeDatabase.standard.appearanceMode
         squareSize = LifeDatabase.standard.squareSize
         animationSpeed = LifeDatabase.standard.animationSpeed
@@ -58,7 +58,7 @@ final class LifeManager {
         cameraMode = LifeDatabase.standard.cameraMode
     }
 
-    func configure(with preset: LifePreset) {
+    public func configure(with preset: LifePreset) {
         usingPreset = true
 
         if let appearanceMode = preset.appearanceMode {
