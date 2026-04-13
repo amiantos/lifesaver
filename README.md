@@ -1,6 +1,6 @@
 # Life Saver
 
-Life Saver is an abstract, artistic implementation of [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) built with SpriteKit. With a variety of settings and color schemes, Life Saver should satisfy designers and geeks alike. Comes in two flavors: a macOS screensaver, and an Apple TV app.
+Life Saver is an abstract, artistic implementation of [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) built with SpriteKit. With a variety of settings and color schemes, Life Saver should satisfy designers and geeks alike. Ships as a macOS Tahoe screensaver (delivered as an app + ExtensionKit screensaver extension) and an Apple TV app.
 
 ## 🖥&nbsp;&nbsp;Screensaver
 
@@ -8,7 +8,7 @@ Life Saver is an abstract, artistic implementation of [Conway's Game of Life](ht
 
 ![Life Saver Screensaver](/Design/screensaver/lifesaver-screenshots-1.1.png?raw=true)
 
-### 👉 [Download Life Saver v1.2 for macOS](https://amiantos.s3.amazonaws.com/lifesaver-1.2.zip)
+Life Saver for macOS Tahoe ships as `Life Saver.app`, which registers an embedded ExtensionKit screensaver extension. Launch the app once, then pick Life Saver in **System Settings → Screen Saver**. Building from source is the current distribution path — see "To Install from Source" below.
 
 ## 📺&nbsp;&nbsp;Apple TV
 

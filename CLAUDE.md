@@ -4,9 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Life Saver is an artistic implementation of Conway's Game of Life built with SpriteKit. It has three targets:
-- **Life Saver macOS** - Companion desktop application
-- **Life Saver Screensaver** - macOS screensaver
+Life Saver is an artistic implementation of Conway's Game of Life built with SpriteKit. Targets:
+- **Life Saver** - macOS host app that registers the screensaver extension (macOS Tahoe)
+- **Life Saver Extension** - ExtensionKit screensaver extension embedded in the host app
+- **LifeSaverCore** - Shared framework consumed by the host app and extension
+- **Life Saver macOS** - Legacy SKView debug companion (kept for inspecting the raw scene)
 - **Life Saver tvOS** - Apple TV app
 
 ## Build Commands
@@ -33,6 +35,8 @@ Open `Life Saver.xcodeproj` in Xcode, select a target, and build/run. No externa
 
 ### Platform-Specific Code
 
-- **macOS/** - AppDelegate and ViewController for the desktop app
-- **macOS Screensaver/** - LifeScreenSaverView (extends ScreenSaverView) and ConfigureSheetController for screensaver preferences
+- **Life Saver/** - Host macOS app that hosts and registers the screensaver extension
+- **Life Saver Extension/** - ExtensionKit-based screensaver: `LifeSaverView`, `LifeScreensaverExtension`, `LifeConfigurationViewController`, `LifeViewController` (uses `ScreenSaverPrivate.h` to bridge to the private `PrivateScreenSaver.framework`)
+- **LifeSaverCore/** - Framework target that builds the `Shared/` sources for consumption by the host app and extension
+- **macOS/** - Legacy AppDelegate and ViewController for the debug companion app
 - **tvOS/** - View controllers and table view cells for Apple TV menu navigation

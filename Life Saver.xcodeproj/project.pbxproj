@@ -29,11 +29,8 @@
 		44549F082F8CA41F001EE4F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
 		4480C7092294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
 		4480C70A2294B05200CC2EDC /* FileGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7082294B05200CC2EDC /* FileGrabber.swift */; };
-		4480C70F2294B4C800CC2EDC /* LifeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */; };
 		4480C7162294B60800CC2EDC /* LifeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7152294B60800CC2EDC /* LifeManager.swift */; };
 		4480C7172294B60800CC2EDC /* LifeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7152294B60800CC2EDC /* LifeManager.swift */; };
-		4480C7412294CFB800CC2EDC /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */; };
-		4480C7432294CFF400CC2EDC /* ConfigureSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */; };
 		44EEEE012F2ABFBB00F1D5C1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */; };
 		44F2C9102F2ABFBB00F1D5C1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */; };
 		44F2C9122F2FFC1C00F1D5C1 /* AboutGameOfLifeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F2C9112F2FFC1C00F1D5C1 /* AboutGameOfLifeViewController.swift */; };
@@ -42,8 +39,6 @@
 		B41C8C4122C81D2400777A09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B41C8C4022C81D2400777A09 /* Assets.xcassets */; };
 		B45BF8BB22AC33E600D77162 /* ToroidalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */; };
 		B45BF8BC22AC33E900D77162 /* ToroidalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45BF8BA22AC33E600D77162 /* ToroidalMatrix.swift */; };
-		B49221752294E5C500D5DEA4 /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */; };
-		B49221762294E71A00D5DEA4 /* ConfigureSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */; };
 		B49CB72822C3047500A53FB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49CB72722C3047500A53FB7 /* AppDelegate.swift */; };
 		B49CB73022C3047500A53FB7 /* LifeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49CB72F22C3047500A53FB7 /* LifeViewController.swift */; };
 		B49CB73A22C304F500A53FB7 /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
@@ -55,14 +50,11 @@
 		B49CB74322C314CD00A53FB7 /* LifeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40CD56622C0520600CC33DC /* LifeDatabase.swift */; };
 		B4D49C0D22C7B5C2000F4E0C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */; };
 		B4D49C0F22C7B976000F4E0C /* LifeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40CD56622C0520600CC33DC /* LifeDatabase.swift */; };
-		B4D49C1122C81C67000F4E0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
 		B4D49C1222C81C67000F4E0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B12290553600AE066A /* Assets.xcassets */; };
 		B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88A72290553400AE066A /* AppDelegate.swift */; };
 		B4FD88B02290553400AE066A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88AF2290553400AE066A /* ViewController.swift */; };
 		B4FD88B52290553600AE066A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4FD88B32290553600AE066A /* Main.storyboard */; };
 		B4FD88BE229055FB00AE066A /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
-		B4FD88D02290BA2400AE066A /* LifeScreenSaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88CF2290BA2400AE066A /* LifeScreenSaverView.swift */; };
-		B4FD88D32290BAB700AE066A /* LifeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FD88BD229055FB00AE066A /* LifeScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,10 +115,7 @@
 		44549ECA2F8C9F28001EE4F7 /* Life Saver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Life Saver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		44549EEF2F8CA295001EE4F7 /* LifeSaverCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LifeSaverCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4480C7082294B05200CC2EDC /* FileGrabber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileGrabber.swift; sourceTree = "<group>"; };
-		4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeDatabase.swift; sourceTree = "<group>"; };
 		4480C7152294B60800CC2EDC /* LifeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeManager.swift; sourceTree = "<group>"; };
-		4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigureSheet.xib; sourceTree = "<group>"; };
-		4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureSheetController.swift; sourceTree = "<group>"; };
 		44F2C9112F2FFC1C00F1D5C1 /* AboutGameOfLifeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutGameOfLifeViewController.swift; sourceTree = "<group>"; };
 		44F2C9132F2FFC1C00F1D5C1 /* ColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
 		B40CD56622C0520600CC33DC /* LifeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeDatabase.swift; sourceTree = "<group>"; };
@@ -145,9 +134,6 @@
 		B4FD88B62290553600AE066A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4FD88B72290553600AE066A /* Life_Saver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Life_Saver.entitlements; sourceTree = "<group>"; };
 		B4FD88BD229055FB00AE066A /* LifeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeScene.swift; sourceTree = "<group>"; };
-		B4FD88C42290B9DB00AE066A /* Life Saver Screensaver.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Life Saver Screensaver.saver"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B4FD88CA2290B9DB00AE066A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B4FD88CF2290BA2400AE066A /* LifeScreenSaverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeScreenSaverView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -215,13 +201,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B4FD88C12290B9DB00AE066A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -234,15 +213,6 @@
 				B4D49C0A22C7B5C2000F4E0C /* Extensions.swift */,
 			);
 			path = Utilities;
-			sourceTree = "<group>";
-		};
-		4437905D2296036A00AC3AFF /* Configuration */ = {
-			isa = PBXGroup;
-			children = (
-				4480C7422294CFF400CC2EDC /* ConfigureSheetController.swift */,
-				4480C7402294CFB800CC2EDC /* ConfigureSheet.xib */,
-			);
-			path = Configuration;
 			sourceTree = "<group>";
 		};
 		44549EC32F8C9D53001EE4F7 /* Frameworks */ = {
@@ -282,7 +252,6 @@
 			isa = PBXGroup;
 			children = (
 				B4FD88A62290553400AE066A /* Shared */,
-				B4FD88C52290B9DB00AE066A /* macOS Screensaver */,
 				4480C70C2294B1B300CC2EDC /* macOS */,
 				B49CB72622C3047500A53FB7 /* tvOS */,
 				44549EAC2F8C9C85001EE4F7 /* Life Saver Extension */,
@@ -297,7 +266,6 @@
 			isa = PBXGroup;
 			children = (
 				B4FD88A42290553400AE066A /* Life Saver macOS.app */,
-				B4FD88C42290B9DB00AE066A /* Life Saver Screensaver.saver */,
 				B49CB72522C3047500A53FB7 /* Life Saver tvOS.app */,
 				44549EAB2F8C9C85001EE4F7 /* Life Saver Extension.appex */,
 				44549ECA2F8C9F28001EE4F7 /* Life Saver.app */,
@@ -320,28 +288,10 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		B4FD88C52290B9DB00AE066A /* macOS Screensaver */ = {
-			isa = PBXGroup;
-			children = (
-				4437905D2296036A00AC3AFF /* Configuration */,
-				B4FD88CF2290BA2400AE066A /* LifeScreenSaverView.swift */,
-				4480C70D2294B4C800CC2EDC /* LifeDatabase.swift */,
-				B4FD88CA2290B9DB00AE066A /* Info.plist */,
-			);
-			path = "macOS Screensaver";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
 		44549EEA2F8CA295001EE4F7 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B4FD88BF2290B9DB00AE066A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -457,24 +407,6 @@
 			productReference = B4FD88A42290553400AE066A /* Life Saver macOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B4FD88C32290B9DB00AE066A /* Life Saver Screensaver */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B4FD88CB2290B9DB00AE066A /* Build configuration list for PBXNativeTarget "Life Saver Screensaver" */;
-			buildPhases = (
-				B4FD88BF2290B9DB00AE066A /* Headers */,
-				B4FD88C02290B9DB00AE066A /* Sources */,
-				B4FD88C12290B9DB00AE066A /* Frameworks */,
-				B4FD88C22290B9DB00AE066A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Life Saver Screensaver";
-			productName = "Life Saver Screensaver";
-			productReference = B4FD88C42290B9DB00AE066A /* Life Saver Screensaver.saver */;
-			productType = "com.apple.product-type.bundle";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -501,10 +433,6 @@
 					B4FD88A32290553400AE066A = {
 						CreatedOnToolsVersion = 10.2.1;
 					};
-					B4FD88C32290B9DB00AE066A = {
-						CreatedOnToolsVersion = 10.2.1;
-						LastSwiftMigration = 1020;
-					};
 				};
 			};
 			buildConfigurationList = B4FD889F2290553400AE066A /* Build configuration list for PBXProject "Life Saver" */;
@@ -521,7 +449,6 @@
 			projectRoot = "";
 			targets = (
 				B4FD88A32290553400AE066A /* Life Saver macOS */,
-				B4FD88C32290B9DB00AE066A /* Life Saver Screensaver */,
 				B49CB72422C3047500A53FB7 /* Life Saver tvOS */,
 				44549EAA2F8C9C85001EE4F7 /* Life Saver Extension */,
 				44549EC92F8C9F28001EE4F7 /* Life Saver */,
@@ -568,16 +495,6 @@
 			files = (
 				B4FD88B52290553600AE066A /* Main.storyboard in Resources */,
 				B4D49C1222C81C67000F4E0C /* Assets.xcassets in Resources */,
-				B49221752294E5C500D5DEA4 /* ConfigureSheet.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B4FD88C22290B9DB00AE066A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B4D49C1122C81C67000F4E0C /* Assets.xcassets in Resources */,
-				4480C7412294CFB800CC2EDC /* ConfigureSheet.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,25 +564,6 @@
 				B4FD88A82290553400AE066A /* AppDelegate.swift in Sources */,
 				4415352022973A530061434F /* URLType.swift in Sources */,
 				4480C7162294B60800CC2EDC /* LifeManager.swift in Sources */,
-				B49221762294E71A00D5DEA4 /* ConfigureSheetController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B4FD88C02290B9DB00AE066A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B4FD88D32290BAB700AE066A /* LifeScene.swift in Sources */,
-				4415352322974E220061434F /* LifeNode.swift in Sources */,
-				B45BF8BC22AC33E900D77162 /* ToroidalMatrix.swift in Sources */,
-				4480C70A2294B05200CC2EDC /* FileGrabber.swift in Sources */,
-				4480C70F2294B4C800CC2EDC /* LifeDatabase.swift in Sources */,
-				4415351E229733C20061434F /* LifePreset.swift in Sources */,
-				4437906022961BA200AC3AFF /* URLType.swift in Sources */,
-				B4FD88D02290BA2400AE066A /* LifeScreenSaverView.swift in Sources */,
-				4480C7172294B60800CC2EDC /* LifeManager.swift in Sources */,
-				44EEEE012F2ABFBB00F1D5C1 /* Extensions.swift in Sources */,
-				4480C7432294CFF400CC2EDC /* ConfigureSheetController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1158,55 +1056,6 @@
 			};
 			name = Release;
 		};
-		B4FD88CC2290B9DB00AE066A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 667;
-				DEAD_CODE_STRIPPING = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/macOS Screensaver/Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "net.amiantos.Life-Saver";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				WRAPPER_EXTENSION = saver;
-			};
-			name = Debug;
-		};
-		B4FD88CD2290B9DB00AE066A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 667;
-				DEAD_CODE_STRIPPING = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/macOS Screensaver/Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "net.amiantos.Life-Saver";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				WRAPPER_EXTENSION = saver;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1260,15 +1109,6 @@
 			buildConfigurations = (
 				B4FD88BB2290553600AE066A /* Debug */,
 				B4FD88BC2290553600AE066A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B4FD88CB2290B9DB00AE066A /* Build configuration list for PBXNativeTarget "Life Saver Screensaver" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B4FD88CC2290B9DB00AE066A /* Debug */,
-				B4FD88CD2290B9DB00AE066A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
