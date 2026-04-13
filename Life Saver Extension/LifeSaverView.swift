@@ -29,23 +29,38 @@ final class LifeSaverView: ScreenSaverView {
         spriteView.preferredFramesPerSecond = 30
         addSubview(spriteView)
         self.spriteView = spriteView
-        log.notice("LifeSaverView init frame=\(String(describing: self.frame), privacy: .public)")
+    }
+
+    override func setFrameSize(_ newSize: NSSize) {
+        super.setFrameSize(newSize)
+        spriteView?.frame = bounds
+        rebuildSceneIfNeeded()
     }
 
     override func startAnimation() {
         super.startAnimation()
-        log.notice("LifeSaverView startAnimation bounds=\(String(describing: self.bounds), privacy: .public)")
+        rebuildSceneIfNeeded()
+    }
 
+    override func stopAnimation() {
+        super.stopAnimation()
+        spriteView?.presentScene(nil)
+        scene = nil
+    }
+
+    private func rebuildSceneIfNeeded() {
+        guard isAnimating else { return }
         guard let spriteView else { return }
-        if spriteView.scene != nil { return }
+        let size = bounds.size
+        guard size.width > 100 && size.height > 100 else { return }
+        if let existing = scene, existing.size == size { return }
 
         let manager = LifeManager()
         if manager.randomColorPreset, let preset = colorPresets.randomElement() {
             manager.configure(with: preset)
         }
 
-        let sceneSize = spriteView.bounds.size == .zero ? bounds.size : spriteView.bounds.size
-        let scene = LifeScene(size: sceneSize)
+        let scene = LifeScene(size: size)
         scene.scaleMode = .resizeFill
         scene.appearanceMode = manager.appearanceMode
         scene.squareSize = manager.squareSize
@@ -54,12 +69,7 @@ final class LifeSaverView: ScreenSaverView {
         scene.isUserInteractionEnabled = false
         spriteView.presentScene(scene)
         self.scene = scene
-    }
 
-    override func stopAnimation() {
-        super.stopAnimation()
-        log.notice("LifeSaverView stopAnimation")
-        spriteView?.presentScene(nil)
-        scene = nil
+        log.notice("LifeSaverView built scene at \(String(describing: size), privacy: .public)")
     }
 }
