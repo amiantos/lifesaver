@@ -34,6 +34,10 @@ final class ConfigureSheetController: NSObject {
                 animationSpeed: .fast,
                 deathFade: nil,
                 shiftingColors: nil,
+                startingPattern: nil,
+                gridMode: nil,
+                respawnMode: nil,
+                cameraMode: nil,
                 color1: nil,
                 color2: nil,
                 color3: nil
@@ -47,6 +51,10 @@ final class ConfigureSheetController: NSObject {
                 animationSpeed: .slow,
                 deathFade: nil,
                 shiftingColors: nil,
+                startingPattern: nil,
+                gridMode: nil,
+                respawnMode: nil,
+                cameraMode: nil,
                 color1: nil,
                 color2: nil,
                 color3: nil
@@ -60,6 +68,10 @@ final class ConfigureSheetController: NSObject {
                 animationSpeed: .normal,
                 deathFade: nil,
                 shiftingColors: nil,
+                startingPattern: nil,
+                gridMode: nil,
+                respawnMode: nil,
+                cameraMode: nil,
                 color1: nil,
                 color2: nil,
                 color3: nil

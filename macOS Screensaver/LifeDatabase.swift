@@ -26,6 +26,11 @@ struct LifeDatabase {
         static let deathFade = "deathFade"
         static let shiftingColors = "shiftingColors"
         static let hasPressedMenuButton = "hasPressedMenuButton"
+        static let startingPattern = "startingPattern"
+        static let isCustomizeMode = "isCustomizeMode"
+        static let gridMode = "gridMode"
+        static let respawnMode = "respawnMode"
+        static let cameraMode = "cameraMode"
     }
 
     static var standard: ScreenSaverDefaults {
@@ -44,7 +49,12 @@ struct LifeDatabase {
              Key.deathFade: true,
              Key.shiftingColors: false,
              Key.selectedPresetTitle: "Santa Fe",
-             Key.hasPressedMenuButton: false])
+             Key.hasPressedMenuButton: false,
+             Key.startingPattern: StartingPattern.defaultRandom.rawValue,
+             Key.isCustomizeMode: false,
+             Key.gridMode: GridMode.toroidal.rawValue,
+             Key.respawnMode: RespawnMode.freshStart.rawValue,
+             Key.cameraMode: CameraMode.static.rawValue])
 
         return database
     }
@@ -105,6 +115,46 @@ extension ScreenSaverDefaults {
 
     func set(hasPressedMenuButton: Bool) {
         set(hasPressedMenuButton, for: LifeDatabase.Key.hasPressedMenuButton)
+    }
+
+    var startingPattern: StartingPattern {
+        return StartingPattern(rawValue: integer(forKey: LifeDatabase.Key.startingPattern)) ?? .defaultRandom
+    }
+
+    func set(startingPattern: StartingPattern) {
+        set(startingPattern.rawValue, for: LifeDatabase.Key.startingPattern)
+    }
+
+    var isCustomizeMode: Bool {
+        return bool(forKey: LifeDatabase.Key.isCustomizeMode)
+    }
+
+    func set(isCustomizeMode: Bool) {
+        set(isCustomizeMode, for: LifeDatabase.Key.isCustomizeMode)
+    }
+
+    var gridMode: GridMode {
+        return GridMode(rawValue: integer(forKey: LifeDatabase.Key.gridMode)) ?? .toroidal
+    }
+
+    func set(gridMode: GridMode) {
+        set(gridMode.rawValue, for: LifeDatabase.Key.gridMode)
+    }
+
+    var respawnMode: RespawnMode {
+        return RespawnMode(rawValue: integer(forKey: LifeDatabase.Key.respawnMode)) ?? .freshStart
+    }
+
+    func set(respawnMode: RespawnMode) {
+        set(respawnMode.rawValue, for: LifeDatabase.Key.respawnMode)
+    }
+
+    var cameraMode: CameraMode {
+        return CameraMode(rawValue: integer(forKey: LifeDatabase.Key.cameraMode)) ?? .static
+    }
+
+    func set(cameraMode: CameraMode) {
+        set(cameraMode.rawValue, for: LifeDatabase.Key.cameraMode)
     }
 
     var selectedPresetTitle: String {
