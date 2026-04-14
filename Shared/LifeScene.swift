@@ -94,7 +94,7 @@ public final class LifeScene: SKScene, LifeManagerDelegate {
 
     // MARK: - Manager
 
-    var manager: LifeManager? {
+    public var manager: LifeManager? {
         didSet {
             manager?.delegate = self
         }

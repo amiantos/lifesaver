@@ -116,77 +116,77 @@ public final class LifeManager {
         sendUpdateMessage()
     }
 
-    func setRandomColorPreset(_ randomColorPreset: Bool) {
+    public func setRandomColorPreset(_ randomColorPreset: Bool) {
         self.randomColorPreset = randomColorPreset
         LifeDatabase.standard.set(randomColorPreset: randomColorPreset)
         sendUpdateMessage()
     }
 
-    func setShiftingColors(_ shiftingColors: Bool) {
+    public func setShiftingColors(_ shiftingColors: Bool) {
         self.shiftingColors = shiftingColors
         LifeDatabase.standard.set(shiftingColors: shiftingColors)
         sendUpdateMessage()
     }
 
-    func setDeathFade(_ deathFade: Bool) {
+    public func setDeathFade(_ deathFade: Bool) {
         self.deathFade = deathFade
         LifeDatabase.standard.set(deathFade: deathFade)
         sendUpdateMessage()
     }
 
-    func setHasPressedMenuButton(_ hasPressedMenuButton: Bool) {
+    public func setHasPressedMenuButton(_ hasPressedMenuButton: Bool) {
         self.hasPressedMenuButton = hasPressedMenuButton
         LifeDatabase.standard.set(hasPressedMenuButton: hasPressedMenuButton)
     }
 
-    func setIsCustomizeMode(_ isCustomizeMode: Bool) {
+    public func setIsCustomizeMode(_ isCustomizeMode: Bool) {
         self.isCustomizeMode = isCustomizeMode
         LifeDatabase.standard.set(isCustomizeMode: isCustomizeMode)
     }
 
-    func setGridMode(_ gridMode: GridMode) {
+    public func setGridMode(_ gridMode: GridMode) {
         self.gridMode = gridMode
         LifeDatabase.standard.set(gridMode: gridMode)
         sendUpdateMessage()
     }
 
-    func setRespawnMode(_ respawnMode: RespawnMode) {
+    public func setRespawnMode(_ respawnMode: RespawnMode) {
         self.respawnMode = respawnMode
         LifeDatabase.standard.set(respawnMode: respawnMode)
         sendUpdateMessage()
     }
 
-    func setCameraMode(_ cameraMode: CameraMode) {
+    public func setCameraMode(_ cameraMode: CameraMode) {
         self.cameraMode = cameraMode
         LifeDatabase.standard.set(cameraMode: cameraMode)
         sendUpdateMessage()
     }
 
-    func setStartingPattern(_ startingPattern: StartingPattern) {
+    public func setStartingPattern(_ startingPattern: StartingPattern) {
         self.startingPattern = startingPattern
         LifeDatabase.standard.set(startingPattern: startingPattern)
         sendUpdateMessage()
     }
 
-    func setAppearanceMode(_ appearanceMode: Appearance) {
+    public func setAppearanceMode(_ appearanceMode: Appearance) {
         self.appearanceMode = appearanceMode
         LifeDatabase.standard.set(appearanceMode: appearanceMode)
         sendUpdateMessage()
     }
 
-    func setSquareSize(_ squareSize: SquareSize) {
+    public func setSquareSize(_ squareSize: SquareSize) {
         self.squareSize = squareSize
         LifeDatabase.standard.set(squareSize: squareSize)
         sendUpdateMessage()
     }
 
-    func setAnimationSpeed(_ animationSpeed: AnimationSpeed) {
+    public func setAnimationSpeed(_ animationSpeed: AnimationSpeed) {
         self.animationSpeed = animationSpeed
         LifeDatabase.standard.set(animationSpeed: animationSpeed)
         sendUpdateMessage()
     }
 
-    func setColor(_ color: SKColor, for colors: Colors) {
+    public func setColor(_ color: SKColor, for colors: Colors) {
         switch colors {
         case .color1:
             color1 = color

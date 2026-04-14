@@ -11,7 +11,9 @@
 
 import SpriteKit
 
-struct LifeDatabase {
+public struct LifeDatabase {
+    public static let appGroupID = "2Y9M69QJKZ.net.amiantos.Life-Saver"
+
     fileprivate enum Key {
         static let appearanceMode = "appearanceMode"
         static let squareSize = "squareSize"
@@ -32,8 +34,8 @@ struct LifeDatabase {
         static let cameraMode = "cameraMode"
     }
 
-    static var standard: UserDefaults {
-        let database = UserDefaults.standard
+    public static var standard: UserDefaults {
+        let database = UserDefaults(suiteName: appGroupID) ?? .standard
 
         database.register(defaults:
             [Key.appearanceMode: Appearance.dark.rawValue,
@@ -57,7 +59,7 @@ struct LifeDatabase {
     }
 }
 
-extension UserDefaults {
+public extension UserDefaults {
     var appearanceMode: Appearance {
         return Appearance(rawValue: integer(forKey: LifeDatabase.Key.appearanceMode))!
     }

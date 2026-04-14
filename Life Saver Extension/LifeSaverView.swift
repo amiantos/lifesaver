@@ -29,6 +29,34 @@ final class LifeSaverView: ScreenSaverView {
         spriteView.preferredFramesPerSecond = 30
         addSubview(spriteView)
         self.spriteView = spriteView
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(defaultsDidChange),
+            name: UserDefaults.didChangeNotification,
+            object: LifeDatabase.standard
+        )
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc private func defaultsDidChange() {
+        DispatchQueue.main.async { [weak self] in
+            self?.applySettingsToRunningScene()
+        }
+    }
+
+    private func applySettingsToRunningScene() {
+        guard let scene else { return }
+        let fresh = LifeManager()
+        scene.appearanceMode = fresh.appearanceMode
+        scene.squareSize = fresh.squareSize
+        scene.animationSpeed = fresh.animationSpeed
+        scene.aliveColors = [fresh.color1, fresh.color2, fresh.color3]
+        scene.updatedSettings()
+        log.notice("LifeSaverView applied updated settings")
     }
 
     override func setFrameSize(_ newSize: NSSize) {

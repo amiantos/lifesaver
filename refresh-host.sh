@@ -28,11 +28,8 @@ rm -rf "$DST"
 cp -R "$SRC" /Applications/
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f -R "$DST" >/dev/null 2>&1 || true
 
-echo "==> Launching host to refresh LS index"
+echo "==> Launching host"
 open "$DST"
-sleep 2
-osascript -e 'tell application "Life Saver" to quit' 2>/dev/null || true
-sleep 1
 
 echo "==> pluginkit state"
 pluginkit -m -v -p com.apple.screensaver | grep -iE "amiantos|life" || echo "  (not registered)"
