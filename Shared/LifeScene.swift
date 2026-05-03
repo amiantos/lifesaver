@@ -345,26 +345,19 @@ public final class LifeScene: SKScene, LifeManagerDelegate {
 
         scaleMode = .aspectFill
 
+        let targetCellCount: CGFloat
         switch squareSize {
-        case .large:
-            lengthSquares = 7
-            heightSquares = 4
-        case .medium:
-            lengthSquares = 16
-            heightSquares = 9
-        case .small:
-            lengthSquares = 32
-            heightSquares = 18
-        case .verySmall:
-            lengthSquares = 64
-            heightSquares = 36
-        case .superSmall:
-            lengthSquares = 128
-            heightSquares = 74
-        case .ultraSmall:
-            lengthSquares = 256
-            heightSquares = 148
+        case .large:       targetCellCount = 28      // 7 × 4
+        case .medium:      targetCellCount = 144     // 16 × 9
+        case .small:       targetCellCount = 576     // 32 × 18
+        case .verySmall:   targetCellCount = 2304    // 64 × 36
+        case .superSmall:  targetCellCount = 9472    // 128 × 74
+        case .ultraSmall:  targetCellCount = 37888   // 256 × 148
         }
+
+        let aspect = size.height > 0 ? size.width / size.height : 16.0 / 9.0
+        lengthSquares = max(2, (sqrt(targetCellCount * aspect)).rounded())
+        heightSquares = max(2, (sqrt(targetCellCount / aspect)).rounded())
 
         createLife()
     }
