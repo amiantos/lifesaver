@@ -7,11 +7,14 @@ struct HostContentView: View {
     var body: some View {
         HSplitView {
             LifeConfigurationView(model: model)
-                .frame(minWidth: 380, idealWidth: 420, maxWidth: 520)
-            LifeScenePreview(manager: model.manager)
-                .frame(minWidth: 400, minHeight: 360)
-                .background(Color.black)
+                .frame(minWidth: 380, idealWidth: 440, maxWidth: 560)
+            ZStack {
+                Color.black
+                LifeScenePreview(manager: model.manager)
+                PreviewOverlay(model: model)
+            }
+            .frame(minWidth: 460, minHeight: 380)
         }
-        .frame(minWidth: 900, minHeight: 620)
+        .frame(minWidth: 960, minHeight: 660)
     }
 }
