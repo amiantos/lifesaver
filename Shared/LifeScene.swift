@@ -101,8 +101,8 @@ public final class LifeScene: SKScene, LifeManagerDelegate {
     }
 
     public func updatedSettings() {
-        print("Updated Settings")
         isUpdating = false
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(createField), object: nil)
         endLife()
         perform(#selector(createField), with: nil, afterDelay: 0.5)
     }
@@ -318,6 +318,14 @@ public final class LifeScene: SKScene, LifeManagerDelegate {
     // MARK: - Life Creation
 
     @objc func createField() {
+        // Defensive: if a prior createField left nodes hanging (re-entry guard),
+        // detach them now so we never accumulate two grids worth of nodes.
+        if !allNodes.isEmpty {
+            for node in allNodes { node.removeFromParent() }
+            allNodes.removeAll()
+            activeCells.removeAll()
+        }
+
         if let manager = manager {
             appearanceMode = manager.appearanceMode
             squareSize = manager.squareSize

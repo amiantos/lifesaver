@@ -10,7 +10,7 @@ struct HostContentView: View {
                 .frame(minWidth: 380, idealWidth: 440, maxWidth: 560)
             ZStack {
                 Color.black
-                LifeScenePreview(manager: model.manager)
+                LifeScenePreview(model: model)
                 PreviewOverlay(model: model)
             }
             .frame(minWidth: 460, minHeight: 380)

@@ -5,6 +5,7 @@ import SwiftUI
 @MainActor
 public final class ConfigurationModel: ObservableObject {
     public let manager: LifeManager
+    public let sceneRebuildPublisher = PassthroughSubject<Void, Never>()
 
     private var isApplyingPreset = false
 
@@ -47,6 +48,7 @@ public final class ConfigurationModel: ObservableObject {
     private func propagate(_ work: () -> Void) {
         guard !isApplyingPreset else { return }
         work()
+        sceneRebuildPublisher.send()
     }
 
     public func applyColorPreset(_ title: String) {
@@ -59,6 +61,7 @@ public final class ConfigurationModel: ObservableObject {
         if let mode = preset.appearanceMode { appearanceMode = mode }
         selectedColorPresetTitle = title
         isApplyingPreset = false
+        sceneRebuildPublisher.send()
     }
 
     public func applySettingsPreset(_ title: String) {
@@ -67,6 +70,7 @@ public final class ConfigurationModel: ObservableObject {
         manager.configure(with: preset)
         syncFromManager()
         isApplyingPreset = false
+        sceneRebuildPublisher.send()
     }
 
     public func cycleSettingsPreset(by step: Int) {

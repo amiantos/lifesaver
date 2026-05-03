@@ -1,16 +1,17 @@
 import AppKit
+import Combine
 import LifeSaverCore
 import SpriteKit
 import SwiftUI
 
 struct LifeScenePreview: NSViewRepresentable {
-    let manager: LifeManager
+    let model: ConfigurationModel
 
     func makeNSView(context: Context) -> SKView {
         let view = SKView(frame: NSRect(x: 0, y: 0, width: 480, height: 360))
         view.ignoresSiblingOrder = true
         view.preferredFramesPerSecond = 30
-        context.coordinator.attach(to: view, manager: manager)
+        context.coordinator.attach(to: view, model: model)
         return view
     }
 
@@ -23,52 +24,87 @@ struct LifeScenePreview: NSViewRepresentable {
     @MainActor
     final class Coordinator {
         private weak var spriteView: SKView?
-        private var scene: LifeScene?
+        private weak var scene: LifeScene?
         private var manager: LifeManager?
         private var sizeObserver: NSObjectProtocol?
+        private var rebuildSubscription: AnyCancellable?
+        private var pendingRebuild: DispatchWorkItem?
 
-        func attach(to view: SKView, manager: LifeManager) {
+        func attach(to view: SKView, model: ConfigurationModel) {
             spriteView = view
-            self.manager = manager
-            rebuild()
+            self.manager = model.manager
+            rebuild(animated: false)
+
             sizeObserver = NotificationCenter.default.addObserver(
                 forName: NSView.frameDidChangeNotification,
                 object: view,
                 queue: .main
             ) { [weak self] _ in
                 MainActor.assumeIsolated {
-                    self?.resizeScene()
+                    self?.handleResize()
                 }
             }
             view.postsFrameChangedNotifications = true
+
+            rebuildSubscription = model.sceneRebuildPublisher
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] in
+                    self?.scheduleRebuild()
+                }
         }
 
         deinit {
             if let sizeObserver { NotificationCenter.default.removeObserver(sizeObserver) }
         }
 
-        private func rebuild() {
+        private func scheduleRebuild() {
+            pendingRebuild?.cancel()
+            let work = DispatchWorkItem { [weak self] in
+                self?.rebuild(animated: true)
+            }
+            pendingRebuild = work
+            // Coalesce bursts of changes (e.g. preset apply touches many properties).
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: work)
+        }
+
+        private func handleResize() {
+            guard let scene, let spriteView else {
+                rebuild(animated: false)
+                return
+            }
+            if spriteView.bounds.size != scene.size {
+                rebuild(animated: false)
+            }
+        }
+
+        private func rebuild(animated: Bool) {
             guard let spriteView, let manager else { return }
             let size = spriteView.bounds.size
             guard size.width > 50, size.height > 50 else { return }
 
-            let scene = LifeScene(size: size)
-            scene.scaleMode = .resizeFill
-            scene.appearanceMode = manager.appearanceMode
-            scene.squareSize = manager.squareSize
-            scene.animationSpeed = manager.animationSpeed
-            scene.aliveColors = [manager.color1, manager.color2, manager.color3]
-            scene.isUserInteractionEnabled = false
-            scene.manager = manager
-            spriteView.presentScene(scene)
-            self.scene = scene
-        }
-
-        private func resizeScene() {
-            guard let scene, let spriteView else { return }
-            if spriteView.bounds.size != scene.size {
-                rebuild()
+            // Detach the old scene so any pending in-place restart can't fire on it.
+            if let oldScene = scene {
+                NSObject.cancelPreviousPerformRequests(withTarget: oldScene)
             }
+
+            let newScene = LifeScene(size: size)
+            newScene.scaleMode = .resizeFill
+            newScene.appearanceMode = manager.appearanceMode
+            newScene.squareSize = manager.squareSize
+            newScene.animationSpeed = manager.animationSpeed
+            newScene.aliveColors = [manager.color1, manager.color2, manager.color3]
+            newScene.isUserInteractionEnabled = false
+            newScene.manager = manager  // claims manager.delegate (weak), old scene drops off
+
+            if animated, spriteView.scene != nil {
+                let transition = SKTransition.fade(withDuration: 0.35)
+                transition.pausesIncomingScene = false
+                transition.pausesOutgoingScene = true
+                spriteView.presentScene(newScene, transition: transition)
+            } else {
+                spriteView.presentScene(newScene)
+            }
+            self.scene = newScene
         }
     }
 }
