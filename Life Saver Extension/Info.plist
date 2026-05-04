@@ -31,10 +31,12 @@
 		<key>NSExtensionPrincipalClass</key>
 		<string>$(PRODUCT_MODULE_NAME).LifeScreensaverExtension</string>
 	</dict>
+	<key>ScreenSaverConfigurationSheetViewControllerClass</key>
+	<string>$(PRODUCT_MODULE_NAME).LifeConfigurationViewController</string>
 	<key>ScreenSaverViewControllerClass</key>
 	<string>$(PRODUCT_MODULE_NAME).LifeViewController</string>
 	<key>SSEHasConfigureSheet</key>
-	<false/>
+	<true/>
 	<key>SSENeedsAnimationTimer</key>
 	<false/>
 </dict>
