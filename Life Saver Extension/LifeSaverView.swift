@@ -50,11 +50,7 @@ final class LifeSaverView: ScreenSaverView {
 
     private func applySettingsToRunningScene() {
         guard let scene else { return }
-        let fresh = LifeManager()
-        scene.appearanceMode = fresh.appearanceMode
-        scene.squareSize = fresh.squareSize
-        scene.animationSpeed = fresh.animationSpeed
-        scene.aliveColors = [fresh.color1, fresh.color2, fresh.color3]
+        scene.manager = LifeManager()
         scene.updatedSettings()
         log.notice("LifeSaverView applied updated settings")
     }
@@ -90,11 +86,8 @@ final class LifeSaverView: ScreenSaverView {
 
         let scene = LifeScene(size: size)
         scene.scaleMode = .resizeFill
-        scene.appearanceMode = manager.appearanceMode
-        scene.squareSize = manager.squareSize
-        scene.animationSpeed = manager.animationSpeed
-        scene.aliveColors = [manager.color1, manager.color2, manager.color3]
         scene.isUserInteractionEnabled = false
+        scene.manager = manager  // createField (called from didMove) reads all settings off this
         spriteView.presentScene(scene)
         self.scene = scene
 
