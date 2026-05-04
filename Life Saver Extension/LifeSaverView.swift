@@ -22,6 +22,7 @@ final class LifeSaverView: ScreenSaverView {
     }
 
     private func commonInit() {
+        log.notice("LifeSaverView commonInit bounds=\(String(describing: self.bounds), privacy: .public)")
         wantsLayer = true
         let spriteView = SKView(frame: bounds)
         spriteView.autoresizingMask = [.width, .height]
@@ -48,36 +49,34 @@ final class LifeSaverView: ScreenSaverView {
         }
     }
 
-    private func applySettingsToRunningScene() {
-        guard let scene else { return }
-        scene.manager = LifeManager()
-        scene.updatedSettings()
-        log.notice("LifeSaverView applied updated settings")
-    }
-
     override func setFrameSize(_ newSize: NSSize) {
         super.setFrameSize(newSize)
+        log.notice("LifeSaverView setFrameSize \(String(describing: newSize), privacy: .public) isAnimating=\(self.isAnimating)")
         spriteView?.frame = bounds
         rebuildSceneIfNeeded()
     }
 
     override func startAnimation() {
+        log.notice("LifeSaverView startAnimation bounds=\(String(describing: self.bounds), privacy: .public)")
         super.startAnimation()
         rebuildSceneIfNeeded()
     }
 
     override func stopAnimation() {
+        log.notice("LifeSaverView stopAnimation")
         super.stopAnimation()
         spriteView?.presentScene(nil)
         scene = nil
     }
 
     private func rebuildSceneIfNeeded() {
-        guard isAnimating else { return }
-        guard let spriteView else { return }
+        log.notice("LifeSaverView rebuildSceneIfNeeded isAnimating=\(self.isAnimating) bounds=\(String(describing: self.bounds), privacy: .public)")
+        // Tahoe's ExtensionKit screensaver lifecycle never seems to flip isAnimating to true,
+        // so we don't gate on it — just build whenever we have a usable size.
+        guard let spriteView else { log.notice("  -> skip: no spriteView"); return }
         let size = bounds.size
-        guard size.width > 100 && size.height > 100 else { return }
-        if let existing = scene, existing.size == size { return }
+        guard size.width > 0 && size.height > 0 else { log.notice("  -> skip: zero size"); return }
+        if let existing = scene, existing.size == size { log.notice("  -> skip: scene already at right size"); return }
 
         let manager = LifeManager()
         if manager.randomColorPreset, let preset = colorPresets.randomElement() {
@@ -92,5 +91,12 @@ final class LifeSaverView: ScreenSaverView {
         self.scene = scene
 
         log.notice("LifeSaverView built scene at \(String(describing: size), privacy: .public)")
+    }
+
+    private func applySettingsToRunningScene() {
+        guard let scene else { return }
+        scene.manager = LifeManager()
+        scene.updatedSettings()
+        log.notice("LifeSaverView applied updated settings")
     }
 }
