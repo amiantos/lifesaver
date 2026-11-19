@@ -915,6 +915,13 @@ final class LifeScene: SKScene, LifeManagerDelegate {
         let width = Int(lengthSquares)
         let height = Int(heightSquares)
 
+        // The three regions need room for separate gliders. Fall back rather
+        // than constructing invalid ClosedRanges in large-square mode (7x4).
+        guard width >= 9 && height >= 9 else {
+            createDefaultRandomShapes(&livingNodes)
+            return
+        }
+
         // Place 3 gliders in different regions with different directions
         let placements: [(xRange: ClosedRange<Int>, yRange: ClosedRange<Int>, orientation: Int)] = [
             // Top-left region, going down-right
